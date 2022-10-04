@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: ${font};
     }
 
-    button {
+    button, a {
         all: unset;
 
         &:hover {
