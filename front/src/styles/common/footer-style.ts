@@ -1,19 +1,19 @@
 import styled from "styled-components";
-import { main } from ".";
+import { fontSize, width } from ".";
 
 export const TeamName = styled.span`
     margin-left: 40px;
 
     font-weight: bold;
 
-    ${main.fontSize}
+    ${fontSize}
 `;
 
 export const Gitlab = styled.a.attrs({
     href: "https://kdt-gitlab.elice.io/ai_track/class05/data_project/team06",
     target: "_blank",
 })`
-    ${main.fontSize}
+    ${fontSize}
 
     & > svg {
         width: 55px;
@@ -38,7 +38,7 @@ export const FooterContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    ${main.width};
+    ${width};
     height: 100%;
 
     margin: auto;
