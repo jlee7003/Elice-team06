@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { Container, Form, Input, Button } from "../styles/login-style";
+import { Container, Form, Input, Button } from "../styles/pages/login-style";
 import token from "../recoil/token";
 import Api from "../api";
 import { useNavigate } from "react-router-dom";

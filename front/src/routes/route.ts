@@ -1,6 +1,8 @@
 import React from "react";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Post from "../pages/challenge/Post";
+import ErrorPage from "../pages/ErrorPage";
 
 interface route {
     path: string;
@@ -14,11 +16,19 @@ interface routeWrap {
 export const ROUTES: routeWrap = {
     Login: {
         path: "/",
-        Component: Login,
+        Component: Home,
     },
     Home: {
-        path: "/home",
-        Component: Home,
+        path: "/login",
+        Component: Login,
+    },
+    Post: {
+        path: "/challenge/posts",
+        Component: Post,
+    },
+    ErrorPage: {
+        path: "*",
+        Component: ErrorPage,
     },
 };
 

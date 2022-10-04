@@ -1,5 +1,7 @@
+import { Main } from "../styles/common";
+
 const Home = () => {
-    return <div>home</div>;
+    return <Main>home</Main>;
 };
 
 export default Home;
