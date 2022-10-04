@@ -1,19 +1,35 @@
 import styled from "styled-components";
-import { width } from "../common";
+import { width, fontSize2 } from "../common";
 
 export const Main = styled.main`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: column;
 
     ${width};
     height: 70vh;
 
-    border: 1px solid black;
+    padding-top: 70px;
 `;
 
 export const Category = styled.div`
     display: flex;
+    flex-wrap: wrap;
 
-    $ > p {
+    width: 80%;
+
+    margin: auto;
+    & > p {
+        grid-area: title;
+        width: 100%;
+        height: 53px;
+
+        ${fontSize2}
+    }
+
+    & > div {
+        display: flex;
+        justify-content: space-between;
+
+        width: 100%;
     }
 `;
