@@ -71,15 +71,17 @@
 
 ## **`문제 정의와 가설 설정`**
 
-### 현 시대의 주요 환경문제 의제는 기후 변화이며 실질적으로 생존을 위협하는 경제적인 문제로 다가오고 있다.  UN 산하 「기후변화에 관한 정부 간 협의체(IPCC)는 이러한 급격한 기후변화를 촉진시키는 원인으로 온실가스 배출량 때문이라고 보고했고(2014년), 금세기 내에 티핑포인트를 넘지 않도록 제한하기 위해선 2030년까지 온실가스 배출량을 절감해야 한다고 주장한다. 온실가스(GreenHouse Gas, GHG)를 정의한 교토의정서에서 규정한 6대 온실가스 중, 이산화탄소(CO2)는 전체 온실가스중 76%에 해당될 만큼 배출량이 가장 많아 기후변화에 영향을 끼치는 가장 큰 요인으로 꼽힌다. 현재 대한민국 국민 1인당 이산화탄소 총배출량은 매년 증가하는 추세에 있으며, 20년 기준으로 1인당 약 11.1톤으로 집계되며, 이는 전 세계에서 16번째 순위이다.(The World Bank,2020) 즉, 개인의 영역에서도 탄소 배출을 절감할 필요성이 있다고 할 수 있다. 본 프로젝트에서는 예의 맥락에서 기후변화의 요인 중 이산화탄소 배출을 가장 큰 요인으로 가정하고, 일상생활에서의 탄소배출을 줄이는 행위가 기후변화 대응에 긍정적으로 작용한다고 가정한다. 현재 개인이 할 수 있는 노력의 일환으로 교통, 냉난방, 전기, 자원 분야에서 다양한 실천방안이 제시되고 있다. 예컨데, 한국 기후환경 네트워크에 따르자면, 가까운 거리는 승용차 대신 도보를 이용한다면 연간 약 25.1Kg의 Co2.를 절감하여 3.8그루의 나무를 심는 것과 같은 효과를 기대할 수 있다.
+현 시대의 주요 환경문제 의제는 기후 변화이며 실질적으로 생존을 위협하는 경제적인 문제로 다가오고 있다.  UN 산하 「기후변화에 관한 정부 간 협의체(IPCC)는 이러한 급격한 기후변화를 촉진시키는 원인으로 온실가스 배출량 때문이라고 보고했고(2014년), 금세기 내에 티핑포인트를 넘지 않도록 제한하기 위해선 2030년까지 온실가스 배출량을 절감해야 한다고 주장한다. 온실가스(GreenHouse Gas, GHG)를 정의한 교토의정서에서 규정한 6대 온실가스 중, 이산화탄소(CO2)는 전체 온실가스중 76%에 해당될 만큼 배출량이 가장 많아 기후변화에 영향을 끼치는 가장 큰 요인으로 꼽힌다. 현재 대한민국 국민 1인당 이산화탄소 총배출량은 매년 증가하는 추세에 있으며, 20년 기준으로 1인당 약 11.1톤으로 집계되며, 이는 전 세계에서 16번째 순위이다.(The World Bank,2020) 즉, 개인의 영역에서도 탄소 배출을 절감할 필요성이 있다고 할 수 있다. 본 프로젝트에서는 예의 맥락에서 기후변화의 요인 중 이산화탄소 배출을 가장 큰 요인으로 가정하고, 일상생활에서의 탄소배출을 줄이는 행위가 기후변화 대응에 긍정적으로 작용한다고 가정한다. 현재 개인이 할 수 있는 노력의 일환으로 교통, 냉난방, 전기, 자원 분야에서 다양한 실천방안이 제시되고 있다. 예컨데, 한국 기후환경 네트워크에 따르자면, 가까운 거리는 승용차 대신 도보를 이용한다면 연간 약 25.1Kg의 Co2.를 절감하여 3.8그루의 나무를 심는 것과 같은 효과를 기대할 수 있다.
 
 > 참고문헌
-> [IPCC 기후변화 2014년 종합보고서]([https://www.ipcc.ch/site/assets/uploads/2018/02/ar5-syr-spm_korean.pdf](https://www.ipcc.ch/site/assets/uploads/2018/02/ar5-syr-spm_korean.pdf "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5-syr-spm_korean.pdf"))
-> [CO2 emissions (metric tons per capita)(2020)]([https://data.worldbank.org/indicator/EN.ATM.CO2E.PC](https://data.worldbank.org/indicator/EN.ATM.CO2E.PC "https://data.worldbank.org/indicator/EN.ATM.CO2E.PC"))
-> [State of the climate]([https://www.unep.org/explore-topics/climate-action/what-we-do/climate-action-note/state-of-climate.html?gclid=Cj0KCQjwkOqZBhDNARIsAACsbfKGX75a6dAMXx8RGR_COa5yDN_qWNqomftipFlrl2XP-CQW-aGvFtEaArtyEALw_wcB](https://www.unep.org/explore-topics/climate-action/what-we-do/climate-action-note/state-of-climate.html?gclid=Cj0KCQjwkOqZBhDNARIsAACsbfKGX75a6dAMXx8RGR_COa5yDN_qWNqomftipFlrl2XP-CQW-aGvFtEaArtyEALw_wcB "https://www.unep.org/explore-topics/climate-action/what-we-do/climate-action-note/state-of-climate.html?gclid=Cj0KCQjwkOqZBhDNARIsAACsbfKGX75a6dAMXx8RGR_COa5yDN_qWNqomftipFlrl2XP-CQW-aGvFtEaArtyEALw_wcB"))
-> [온실가스(GHG)(환경부)]([https://www.me.go.kr/home/web/dictionary/read.do?pagerOffset=0&maxPageItems=10&maxIndexPages=10&searchKey=&searchValue=&menuId=10448&orgCd=&condition.createDeptName=%EC%98%A8%EC%8B%A4%EA%B0%80%EC%8A%A4&boardMasterId=&dicSeq=896&decorator](https://www.me.go.kr/home/web/dictionary/read.do?pagerOffset=0&maxPageItems=10&maxIndexPages=10&searchKey=&searchValue=&menuId=10448&orgCd=&condition.createDeptName=%EC%98%A8%EC%8B%A4%EA%B0%80%EC%8A%A4&boardMasterId=&dicSeq=896&decorator "https://www.me.go.kr/home/web/dictionary/read.do?pagerOffset=0&maxPageItems=10&maxIndexPages=10&searchKey=&searchValue=&menuId=10448&orgCd=&condition.createDeptName=%EC%98%A8%EC%8B%A4%EA%B0%80%EC%8A%A4&boardMasterId=&dicSeq=896&decorator"))
-> [Global Manmade Greenhouse Gas Emissions by Gas, 2015]([https://www.c2es.org/content/international-emissions/](https://www.c2es.org/content/international-emissions/ "https://www.c2es.org/content/international-emissions/"))
-> [탄소중립 생활 실천 방안(한국 기후환경 네트워크)]([https://www.kcen.kr/USR_main2016.jsp??=life/life02](https://www.kcen.kr/USR_main2016.jsp??=life/life02 "https://www.kcen.kr/USR_main2016.jsp??=life/life02"))
+
+(1)[IPCC 기후변화 2014년 종합보고서](https://www.ipcc.ch/site/assets/uploads/2018/02/ar5-syr-spm_korean.pdf)
+(2)[CO2 emissions (metric tons per capita)(2020)](https://data.worldbank.org/indicator/EN.ATM.CO2E.PC)
+(3)[State of the climate](https://www.unep.org/explore-topics/climate-action/what-we-do/climate-action-note/state-of-climate.html?gclid=Cj0KCQjwkOqZBhDNARIsAACsbfKGX75a6dAMXx8RGR_COa5yDN_qWNqomftipFlrl2XP-CQW-aGvFtEaArtyEALw_wcB)
+(4)[온실가스(GHG)(환경부)](https://www.me.go.kr/home/web/dictionary/read.do?pagerOffset=0&maxPageItems=10&maxIndexPages=10&searchKey=&searchValue=&menuId=10448&orgCd=&condition.createDeptName=%EC%98%A8%EC%8B%A4%EA%B0%80%EC%8A%A4&boardMasterId=&dicSeq=896&decorator)
+(5)[Global Manmade Greenhouse Gas Emissions by Gas, 2015](https://www.c2es.org/content/international-emissions/)
+(6)[탄소중립 생활 실천 방안(한국 기후환경 네트워크)](https://www.kcen.kr/USR_main2016.jsp??=life/life02)
+
 
 ## **`서비스 설명`**
 
