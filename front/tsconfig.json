@@ -15,10 +15,10 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "baseUrl": "./src",
+        "baseUrl": ".",
         "paths": {
-            "@components/*": ["./components/*"],
-            "@styles/*": ["./styles/*"]
+            "@components/*": ["src/components/*"],
+            "@styles/*": ["src/styles/*"]
         }
     },
     "include": ["src"],
