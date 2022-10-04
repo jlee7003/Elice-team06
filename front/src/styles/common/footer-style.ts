@@ -1,19 +1,19 @@
 import styled from "styled-components";
-import { fontSize, width } from ".";
+import { fontSize1, width } from ".";
 
 export const TeamName = styled.span`
     margin-left: 40px;
 
     font-weight: bold;
 
-    ${fontSize}
+    ${fontSize1}
 `;
 
 export const Gitlab = styled.a.attrs({
     href: "https://kdt-gitlab.elice.io/ai_track/class05/data_project/team06",
     target: "_blank",
 })`
-    ${fontSize}
+    ${fontSize1}
 
     & > svg {
         width: 55px;

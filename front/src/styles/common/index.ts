@@ -12,8 +12,11 @@ export const width = css`
 /**
  * Font size used in project
  */
-export const fontSize = css`
+export const fontSize1 = css`
     font-size: 36px;
+`;
+export const fontSize2 = css`
+    font-size: 26px;
 `;
 
 /**
