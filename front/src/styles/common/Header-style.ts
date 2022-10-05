@@ -58,3 +58,10 @@ export const HeaderMenuItem = styled.div`
     justify-content: center;
     text-align: center;
 `;
+export const HeaderAdminMenuItem = styled.div`
+    width: 33%;
+    align-items: Center;
+    font-size: 26px;
+    justify-content: center;
+    text-align: center;
+`;

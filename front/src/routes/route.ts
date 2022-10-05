@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 import Post from "../pages/challenge/Post";
 import ErrorPage from "../pages/ErrorPage";
 
@@ -21,6 +22,10 @@ export const ROUTES: routeWrap = {
     Home: {
         path: "/login",
         Component: Login,
+    },
+    Signup: {
+        path: "/signup",
+        Component: Signup,
     },
     Post: {
         path: "/challenge/posts",
