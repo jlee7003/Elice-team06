@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/common/Footer";
 import { ROUTES_LIST } from "./routes/route";
+import styled from "styled-components";
 
 const App = () => {
     return (

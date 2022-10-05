@@ -38,4 +38,12 @@ userRoute.post(
     })
 );
 
+userRoute.post(
+    "/current",
+    authToken,
+    asyncHandler(async (req: Request, res: Response) => {
+        res.send({ ok: true, userID: req.currentUserID });
+    })
+);
+
 export default userRoute;
