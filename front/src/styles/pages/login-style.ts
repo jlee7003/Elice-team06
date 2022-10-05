@@ -5,7 +5,7 @@ export const Container = styled.div`
     place-items: center;
 
     width: 100vw;
-    height: 100vh;
+    height: 100vh !important;
 `;
 
 export const Form = styled.form`
@@ -40,5 +40,17 @@ export const Button = styled.button`
 `;
 
 export const MenuItem = styled.div`
+    margin-bottom: 15px;
+    margin-top: 15px;
+`;
+
+export const LoginContainer = styled.div`
+    text-align: center;
+`;
+export const LogoContainer = styled.div`
+    // text-align: center;
     display: flex;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
 `;

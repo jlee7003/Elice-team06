@@ -42,3 +42,10 @@ export const Button = styled.button`
 export const MenuItem = styled.div`
     display: flex;
 `;
+export const LogoContainer = styled.div`
+    // text-align: center;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+`;
