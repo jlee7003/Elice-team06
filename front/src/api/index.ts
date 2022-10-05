@@ -30,7 +30,7 @@ class Api {
         return axios.post(url, bodyData, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
         });
     }
