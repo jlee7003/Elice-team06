@@ -1,8 +1,9 @@
 import { useRecoilState } from "recoil";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { Container, Form, Input, Button } from "../styles/pages/login-style";
+import { Container, Form, Input, Button, MenuItem } from "../styles/pages/login-style";
 import token from "../recoil/token";
 import Api from "../api";
+import { Logo } from "@styles/common";
 import { useNavigate } from "react-router-dom";
 
 interface FormData {
@@ -49,8 +50,12 @@ const Login = () => {
             });
     };
 
+    const Signup = () => {
+        navigate("/signup");
+    };
     return (
         <Container>
+            <Logo></Logo>
             <Form>
                 <Input
                     type="email"
@@ -68,6 +73,9 @@ const Login = () => {
                 />
                 <Button onClick={onClick}>입력</Button>
             </Form>
+            <MenuItem>비밀번호 찾기</MenuItem>
+            <MenuItem>이메일 찾기</MenuItem>
+            <MenuItem onClick={Signup}>회원가입하기</MenuItem>
         </Container>
     );
 };

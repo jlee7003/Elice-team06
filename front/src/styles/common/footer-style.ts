@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import { fontSize1, width } from ".";
+import { fontSize3, width } from ".";
 
 export const TeamName = styled.span`
     margin-left: 40px;
 
-    font-weight: bold;
+    font-weight: light;
+    font-style: italic;
+    color: gray;
 
-    ${fontSize1}
+    ${fontSize3}
 `;
 
 export const Gitlab = styled.a.attrs({
     href: "https://kdt-gitlab.elice.io/ai_track/class05/data_project/team06",
     target: "_blank",
 })`
-    ${fontSize1}
-
     & > svg {
         width: 55px;
         height: 55px;
@@ -29,6 +29,8 @@ export const LogoContainer = styled.div`
 export const FooterBackground = styled.footer`
     width: 100%;
     height: 100px;
+    position: absolute;
+    z-index: 1;
 
     background-color: #343434;
 `;

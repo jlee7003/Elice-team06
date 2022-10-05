@@ -5,7 +5,7 @@ export const Container = styled.div`
     place-items: center;
 
     width: 100vw;
-    height: 100vh;
+    height: 150vh;
 `;
 
 export const Form = styled.form`
@@ -15,7 +15,7 @@ export const Form = styled.form`
     align-items: center;
     background-color: #d9d9d9;
     width: 500px;
-    height: 300px;
+    height: 500px;
 
     // border: 2px solid #536976;
     // border-radius: 20px;
