@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { mainGreen, mainBlue, mainPurple, mainGray } from "./common";
 import { Props } from "@components/ChallengeCard";
 
-export const Card = styled.div`
+export const Card = styled.article`
     display: flex;
     flex-direction: column;
 

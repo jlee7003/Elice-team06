@@ -29,8 +29,6 @@ export const LogoContainer = styled.div`
 export const FooterBackground = styled.footer`
     width: 100%;
     height: 100px;
-    position: absolute;
-    z-index: 1;
 
     background-color: #343434;
 `;

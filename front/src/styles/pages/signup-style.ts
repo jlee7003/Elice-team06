@@ -5,7 +5,7 @@ export const Container = styled.div`
     place-items: center;
 
     width: 100vw;
-    height: 150vh;
+    height: 100vh;
 `;
 
 export const Form = styled.form`
@@ -13,32 +13,48 @@ export const Form = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #d9d9d9;
+
     width: 500px;
-    height: 500px;
+    height: 600px;
 
     // border: 2px solid #536976;
     // border-radius: 20px;
 `;
 
 export const Input = styled.input`
-    width: 300px;
-    height: 50px;
-    border: 0px solid #293e49;
-
+    width: 411px;
+    height: 62px;
+    border: 1px solid #d9d9d9;
+    background-color: #fbfbfb;
     margin-bottom: 30px;
+    padding: 10px;
 `;
 
 export const Button = styled.button`
     all: unset;
 
     text-align: center;
-    width: 200px;
-
-    border: 1px solid #293e49;
-    // border-radius: 20px;
+    width: 411px;
+    height: 62px;
+    background-color: #75c6a0;
+    border: 0px solid #293e49;
+    border-radius: 10px;
+    color: white;
 `;
 
 export const MenuItem = styled.div`
     display: flex;
+`;
+export const LogoContainer = styled.div`
+    // text-align: center;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+`;
+export const Textleft = styled.span`
+    // text-align: left;
+    display: block;
+    width: 100%;
+    padding: 10px 50px;
 `;

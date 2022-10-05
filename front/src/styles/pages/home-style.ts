@@ -15,7 +15,8 @@ export const Category = styled.div`
     display: flex;
     flex-wrap: wrap;
 
-    width: 80%;
+    // width: 80%;
+    width: 100%;
 
     margin: auto;
     & > p {

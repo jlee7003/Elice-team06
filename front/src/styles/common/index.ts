@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
  * default size unit of project
  */
 export const width = css`
-    max-width: 1875px;
+    max-width: 1275px;
 
     margin: auto;
 `;
