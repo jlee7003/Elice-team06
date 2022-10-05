@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { Container, Form, Input, Button, MenuItem } from "../styles/pages/signup-style";
+import { Container, Form, Input, Button, LogoContainer } from "../styles/pages/signup-style";
 import token from "../recoil/token";
 import Api from "../api";
 import { Logo } from "@styles/common";
@@ -59,41 +59,47 @@ const Signup = () => {
     // };
     return (
         <Container>
-            <Logo></Logo>
-            <Form>
-                <Input
-                    type="id"
-                    placeholder="아이디를 입력하세요."
-                    name="id"
-                    value={formData.id}
-                    onChange={onChangeForm}
-                />
+            <div>
+                <LogoContainer>
+                    <Logo></Logo>
+                </LogoContainer>
+                <div>
+                    <Form>
+                        <Input
+                            type="id"
+                            placeholder="아이디를 입력하세요."
+                            name="id"
+                            value={formData.id}
+                            onChange={onChangeForm}
+                        />
 
-                <Input
-                    type="password"
-                    placeholder="비밀번호를 입력하세요."
-                    name="password"
-                    value={formData.password}
-                    onChange={onChangeForm}
-                />
-                <Input
-                    type="email"
-                    placeholder="이메일을 입력하세요."
-                    name="email"
-                    value={formData.email}
-                    onChange={onChangeForm}
-                />
+                        <Input
+                            type="password"
+                            placeholder="비밀번호를 입력하세요."
+                            name="password"
+                            value={formData.password}
+                            onChange={onChangeForm}
+                        />
+                        <Input
+                            type="email"
+                            placeholder="이메일을 입력하세요."
+                            name="email"
+                            value={formData.email}
+                            onChange={onChangeForm}
+                        />
 
-                <Input
-                    type="etc"
-                    placeholder="기타 등등을 입력하세요."
-                    name="etc"
-                    value={formData.email}
-                    onChange={onChangeForm}
-                />
-                <Button>회원 가입하기</Button>
-            </Form>
-            {/* <MenuItem onclick={Signup}>회원가입하기</MenuItem> */}
+                        <Input
+                            type="etc"
+                            placeholder="기타 등등을 입력하세요."
+                            name="etc"
+                            value={formData.email}
+                            onChange={onChangeForm}
+                        />
+                        <Button>회원 가입하기</Button>
+                    </Form>
+                </div>
+                {/* <MenuItem onclick={Signup}>회원가입하기</MenuItem> */}
+            </div>
         </Container>
     );
 };
