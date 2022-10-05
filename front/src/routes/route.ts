@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Post from "../pages/challenge/Post";
 import ErrorPage from "../pages/ErrorPage";
+import Mypage from "../pages/Mypage";
 
 interface route {
     path: string;
@@ -34,6 +35,10 @@ export const ROUTES: routeWrap = {
     ErrorPage: {
         path: "*",
         Component: ErrorPage,
+    },
+    Mypage: {
+        path: "/mypage",
+        Component: Mypage,
     },
 };
 

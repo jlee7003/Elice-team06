@@ -8,6 +8,7 @@ import {
     Header100,
 } from "@styles/common/Header-style";
 import { useNavigate } from "react-router-dom";
+
 function Header() {
     const navigate = useNavigate();
 
