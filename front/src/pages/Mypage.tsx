@@ -32,7 +32,7 @@ const Mypage = () => {
                 </SideBar>
                 <ChallengeContainter>
                     <MyChallenges>
-                        <p>내가 도전한 챌린지</p>
+                        <p>내가 도전한 챌린지!</p>
                         <div>
                             <ChallengeCard level="beginner" />
                             <ChallengeCard level="intermediate" />
@@ -41,7 +41,7 @@ const Mypage = () => {
                         </div>
                     </MyChallenges>
                     <LikeChallenges>
-                        <p>좋아요 한 챌린지</p>
+                        <p>좋아요 한 챌린지!</p>
                         <Boards />
                     </LikeChallenges>
                 </ChallengeContainter>
