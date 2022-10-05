@@ -1,6 +1,13 @@
 import { useRecoilState } from "recoil";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { Container, Form, Input, Button, LogoContainer } from "../styles/pages/signup-style";
+import {
+    Container,
+    Form,
+    Input,
+    Button,
+    LogoContainer,
+    Textleft,
+} from "../styles/pages/signup-style";
 import token from "../recoil/token";
 import Api from "../api";
 import { Logo } from "@styles/common";
@@ -65,6 +72,7 @@ const Signup = () => {
                 </LogoContainer>
                 <div>
                     <Form>
+                        <Textleft>아이디</Textleft>
                         <Input
                             type="id"
                             placeholder="아이디를 입력하세요."
@@ -72,14 +80,7 @@ const Signup = () => {
                             value={formData.id}
                             onChange={onChangeForm}
                         />
-
-                        <Input
-                            type="password"
-                            placeholder="비밀번호를 입력하세요."
-                            name="password"
-                            value={formData.password}
-                            onChange={onChangeForm}
-                        />
+                        <Textleft>이메일</Textleft>
                         <Input
                             type="email"
                             placeholder="이메일을 입력하세요."
@@ -87,7 +88,16 @@ const Signup = () => {
                             value={formData.email}
                             onChange={onChangeForm}
                         />
+                        <Textleft>비밀번호</Textleft>
+                        <Input
+                            type="password"
+                            placeholder="비밀번호를 입력하세요."
+                            name="password"
+                            value={formData.password}
+                            onChange={onChangeForm}
+                        />
 
+                        <Textleft>비밀번호 확인</Textleft>
                         <Input
                             type="etc"
                             placeholder="기타 등등을 입력하세요."
