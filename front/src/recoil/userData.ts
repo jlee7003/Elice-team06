@@ -1,9 +1,8 @@
-import styled from "styled-components";
+import { atom, selector } from "recoil";
 
-export const Banner = styled.div`
-    width: 100%;
-    height: 100px;
+const userData = atom({
+    key: "userId",
+    default: { name: "홍길동", desc: "안녕하세요" },
+});
 
-    background-color: gray;
-`;
-// 350px
+export default userData;
