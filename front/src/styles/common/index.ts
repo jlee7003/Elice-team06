@@ -10,7 +10,8 @@ export const width = css`
 `;
 
 /**
- * Font size used in project
+ * Default Font size used in project
+ * Size1>Size2>Size3>Size4....
  */
 export const fontSize1 = css`
     font-size: 36px;
@@ -18,23 +19,29 @@ export const fontSize1 = css`
 export const fontSize2 = css`
     font-size: 26px;
 `;
+export const fontSize3 = css`
+    font-size: 16px;
+`;
+export const fontSize4 = css`
+    font-size: 6px;
+`;
 
 /**
  * Background Colors used in project
  */
-export const backgroundColor1 = css`
+export const mainGreen = css`
     background-color: #61be92;
 `;
 
-export const backgroundColor2 = css`
+export const mainBlue = css`
     background-color: #6186be;
 `;
 
-export const backgroundColor3 = css`
+export const mainPurple = css`
     background-color: #8075bf;
 `;
 
-export const backgroundColor4 = css`
+export const mainGray = css`
     background-color: #eeeeee;
 `;
 

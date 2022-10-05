@@ -1,39 +1,11 @@
 import styled from "styled-components";
 import { fontSize1, width } from ".";
 
-export const TeamName = styled.span`
-    margin-left: 40px;
+export const HeaderContainer = styled.header`
+    //add following scrolling (position, top, bc)
+    position: sticky;
+    top: 0;
 
-    font-weight: bold;
-
-    ${fontSize1}
-`;
-
-export const Gitlab = styled.a.attrs({
-    href: "https://kdt-gitlab.elice.io/ai_track/class05/data_project/team06",
-    target: "_blank",
-})`
-    ${fontSize1}
-
-    & > svg {
-        width: 55px;
-        height: 55px;
-    }
-`;
-
-export const LogoContainer = styled.div`
-    display: flex;
-    align-items: center;
-`;
-
-export const FooterBackground = styled.footer`
-    width: 100%;
-    height: 100px;
-
-    background-color: #343434;
-`;
-
-export const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,13 +14,14 @@ export const HeaderContainer = styled.div`
     height: 138px;
 
     margin: auto;
+    background-color: white;
 `;
 
 export const HeaderMenuContainer = styled.div`
     width: 50%;
     display: flex;
-    justifycontent: flex-end;
-    marginright: 10px;
+    justify-content: flex-end;
+    margin-right: 10px;
 `;
 
 export const HeaderMenuItem = styled.div`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { backgroundColor1, backgroundColor2, backgroundColor3, backgroundColor4 } from "./common";
+import { mainGreen, mainBlue, mainPurple, mainGray } from "./common";
 import { Props } from "@components/ChallengeCard";
 
 export const Card = styled.div`
@@ -23,12 +23,12 @@ export const CardUpper = styled.div<Props>`
 
     ${(props) =>
         props.level == "beginner"
-            ? backgroundColor1
+            ? mainGreen
             : props.level == "intermediate"
-            ? backgroundColor2
+            ? mainBlue
             : props.level == "advanced"
-            ? backgroundColor3
-            : backgroundColor4}
+            ? mainPurple
+            : mainGray}
 `;
 
 export const CardLower = styled.div`
