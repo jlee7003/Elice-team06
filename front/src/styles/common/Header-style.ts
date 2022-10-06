@@ -24,16 +24,24 @@ export const Header100 = styled.header`
     background-color: white;
 `;
 export const HeaderMenuContainer = styled.div`
-    width: 50%;
     display: flex;
     justify-content: flex-end;
     margin-right: 10px;
 `;
 
 export const HeaderMenuItem = styled.div`
-    width: 33%;
+    height: 59px;
+    display: flex;
     align-items: Center;
-    font-size: 20px;
+    font-size: 16px;
+    justify-content: center;
+    text-align: center;
+`;
+export const HeaderSpace = styled.div`
+    width: 83px;
+    height: 59px;
+    align-items: Center;
+    font-size: 16px;
     justify-content: center;
     text-align: center;
 `;

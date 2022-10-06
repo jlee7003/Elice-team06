@@ -4,36 +4,27 @@ import asyncHandler from "../../lib/util/asyncHandler";
 const voteRoute = Router();
 
 voteRoute.get(
-    "/comments/:postId",
+    "/votes/:postId",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        res.send(`${postId}의 댓글 목록`);
+        res.send(`${postId}게시글의 투표수`);
     })
 );
 
 voteRoute.post(
-    "/comment/:postId/:user_name",
+    "/vote/:postId/:userEmail",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { user_name } = req.params;
-        res.send(`${postId}게시글에 ${user_name}님 댓글 등록`);
+        const { userEmail } = req.params;
+        res.send(`${postId}게시글에 ${userEmail}님이 투표했습니다.`);
     })
 );
 
 voteRoute.delete(
-    "/comment/delete/:commentId",
+    "/vote/delete/:voteId",
     asyncHandler(async (req, res) => {
-        const { commentId } = req.params;
-        res.send(`${commentId}삭제!`);
-    })
-);
-
-voteRoute.put(
-    "/comment/update/:commentId",
-    asyncHandler(async (req, res) => {
-        const { commentId } = req.params;
-
-        res.send(`${commentId}수정!`);
+        const { voteId } = req.params;
+        res.send(`${voteId}투표 취소!`);
     })
 );
 
