@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 /**
  * default size unit of project
@@ -57,3 +57,24 @@ export const Logo = styled.img.attrs({
 
     background-color: white;
 `;
+
+/**
+ * Loading Icon
+ */
+
+const loadingAni = keyframes`
+    from{
+        transform: rotate(0);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+`;
+
+export const Loading = styled.img.attrs({
+    src:"src/assets/loading.png"
+})` 
+    width: 80px;
+    height:80px;
+    animation:${loadingAni} 1s linear infinite;
+`
