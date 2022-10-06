@@ -1,22 +1,18 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-
-interface UserData {
-    id: string;
-}
 
 dotenv.config();
 
-const secret: string = process.env.JWT_SECRET ?? "";
+const secret = process.env.JWT_SECRET ?? "";
 
-export const sign = (payload: {} | { userID: string }, expiresIn: string = "1h") => {
+export const sign = (payload, expiresIn = "1h") => {
     return jwt.sign(payload, secret, {
         algorithm: "HS256",
         expiresIn,
     });
 };
 
-export const verify = (token: string) => {
+export const verify = (token) => {
     try {
         const decoded = jwt.verify(token, secret);
         return {
