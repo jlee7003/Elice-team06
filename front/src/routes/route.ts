@@ -39,15 +39,13 @@ export const ROUTES: routeWrap = {
         path: "/challenge/posts",
         Component: Post,
     },
-<<<<<<< HEAD
-    Landing:{
-        path:"/landing",
-        Component:Landing,
-=======
+    Landing: {
+        path: "/landing",
+        Component: Landing,
+    },
     ChallengeDetail: {
         path: "/challenge/challengedetail",
         Component: ChallengeDetail,
->>>>>>> 5a33ff7004aa24bddb69196add381b76081314c9
     },
     ErrorPage: {
         path: "*",
