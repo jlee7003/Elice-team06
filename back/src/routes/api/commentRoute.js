@@ -12,11 +12,11 @@ commentRoute.get(
 );
 
 commentRoute.post(
-    "/comment/:postId/:user_name",
+    "/comment/:postId/:userEmail",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { user_name } = req.params;
-        res.send(`${postId}게시글에 ${user_name}님 댓글 등록`);
+        const { userEmail } = req.params;
+        res.send(`${postId}게시글에 ${userEmail}님 댓글 등록`);
     })
 );
 

@@ -12,11 +12,11 @@ reportRoute.get(
 );
 
 reportRoute.post(
-    "/report/:postId/:user_name",
+    "/report/:postId/:userEmail",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { user_name } = req.params;
-        res.send(`${postId}게시글에 ${user_name}님이 신고했습니다.`);
+        const { userEmail } = req.params;
+        res.send(`${postId}게시글에 ${userEmail}님이 신고했습니다.`);
     })
 );
 
