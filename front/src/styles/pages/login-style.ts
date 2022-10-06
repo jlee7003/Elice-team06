@@ -65,8 +65,16 @@ export const LogoContainer = styled.div`
     align-items: center;
 `;
 export const Textleft = styled.span`
-    // text-align: left;
     display: block;
     width: 100%;
+    padding: 10px 50px;
+    font-weight: bold;
+    font-family: Noto Sans;
+`;
+export const TopImage = styled.span`
+    display: block;
+    width: 100%;
+    height: 181px;
+    background-color: gray;
     padding: 10px 50px;
 `;
