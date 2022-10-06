@@ -16,6 +16,13 @@ boardRoute.get(
         const { postId } = req.params;
         res.send(`${postId}게시글 상세`);
     })
+); //투표 했는지 아닌지 여부로 쪼금씩 달라져야함
+boardRoute.get(
+    "/likePost/:userId",
+    asyncHandler(async (req, res) => {
+        const { userId } = req.params;
+        res.send(`${userId}님이 투표한 게시글 목록`);
+    })
 );
 
 boardRoute.post(
