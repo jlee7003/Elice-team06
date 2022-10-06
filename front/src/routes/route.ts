@@ -5,6 +5,7 @@ import Signup from "../pages/Signup";
 import Post from "../pages/challenge/Post";
 import ErrorPage from "../pages/ErrorPage";
 import Mypage from "../pages/Mypage";
+import Landing from "../pages/Landing";
 
 interface route {
     path: string;
@@ -31,6 +32,10 @@ export const ROUTES: routeWrap = {
     Post: {
         path: "/challenge/posts",
         Component: Post,
+    },
+    Landing:{
+        path:"/landing",
+        Component:Landing,
     },
     ErrorPage: {
         path: "*",
