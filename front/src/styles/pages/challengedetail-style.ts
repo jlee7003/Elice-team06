@@ -59,10 +59,10 @@ export const TargetLabel = styled.div`
     }
 `;
 export const Contents = styled.div`
-    font-size: 14px;
+    font-size: 18px;
     margin: 15px 15px 100px 15px;
     white-space: pre-wrap;
-    line-height: 30px;
+    line-height: 35px;
 `;
 export const CommentBox = styled.div`
     display: grid;

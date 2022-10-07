@@ -15,7 +15,7 @@ function Header() {
         navigate(ROUTES.Login.path);
     };
     const RequestBoard = () => {
-        navigate(ROUTES.RequestBoard.path);
+        navigate(ROUTES.Reqpage.path);
     };
     const home = () => {
         navigate("/");

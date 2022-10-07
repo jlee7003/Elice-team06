@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useState, useRef, MouseEvent } from "react";
 import {
     Container,
     Form,
@@ -14,17 +14,17 @@ import {
 } from "../styles/pages/signup-style";
 import { Logo } from "@styles/common";
 
-interface FormData {
-    email: string;
-    password: string;
-    passwordok: string;
-    passwordhint: string;
-    nickname: string;
-    gender?: any;
-    age: any;
-    local: string;
-    [key: string]: string;
-}
+// interface FormData {
+//     email: string;
+//     password: string;
+//     passwordok: string;
+//     passwordhint: string;
+//     nickname: string;
+//     gender?: any;
+//     age: any;
+//     local: string;
+//     [key: string]: string;
+// }
 const Signup = () => {
     const nickname = useRef<HTMLInputElement>(null);
     const email = useRef<HTMLInputElement>(null);
@@ -34,8 +34,23 @@ const Signup = () => {
     const local = useRef<HTMLSelectElement>(null);
     const age = useRef<HTMLSelectElement>(null);
     const gender = useRef<HTMLInputElement>(null);
+    const [ValidationCheck, setValidationCheck] = useState(false);
+    const [inputStatus, setInputStatus] = useState("");
 
-    const [formData, setFormData] = useState<FormData>({
+    const handleClickRadioButton = (radioBtnName) => {
+        setInputStatus(radioBtnName);
+    };
+    // const [formData, setFormData] = useState<FormData>({
+    //     email: "",
+    //     password: "",
+    //     passwordok: "",
+    //     passwordhint: "",
+    //     nickname: "",
+    //     gender: "",
+    //     age: "",
+    //     local: "",
+    // });
+    let formData = {
         email: "",
         password: "",
         passwordok: "",
@@ -44,10 +59,9 @@ const Signup = () => {
         gender: "",
         age: "",
         local: "",
-    });
-
-    const onClick = () => {
-        console.log(formData);
+    };
+    const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         if (
             email.current == null ||
             password.current == null ||
@@ -60,50 +74,71 @@ const Signup = () => {
         ) {
             return;
         }
-        setFormData({
-            email: email.current.value,
-            password: password.current.value,
-            passwordok: passwordok.current.value,
-            passwordhint: passwordhint.current.value,
-            nickname: nickname.current.value,
-            gender: gender.current.value,
-            age: age.current.value,
-            local: local.current.value,
-        });
-    };
-    const onChangeForm = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        // console.log(name, value);
-        setFormData((prev: FormData) => {
-            const newData = {
-                ...prev,
-                [name]: value,
-            };
-            return newData;
-        });
-        // inputRef.current.focus();
-        // console.log(formData);
-    };
-
-    function isEmpty() {
         if (
-            formData.age == "" ||
-            formData.email == "" ||
-            formData.password == "" ||
-            formData.passwordok == "" ||
-            formData.passwordhint == "" ||
-            formData.id == "" ||
-            formData.gender == "" ||
-            formData.local == ""
+            email.current?.value == "" ||
+            password.current?.value == "" ||
+            passwordok.current?.value == "" ||
+            passwordhint.current?.value == "" ||
+            nickname.current?.value == "" ||
+            gender.current?.value == "" ||
+            age.current?.value == "" ||
+            local.current?.value == ""
         ) {
             return false;
         }
-        if (formData.password != formData.passwordok) {
+        setValidationCheck(true);
+    };
+    const onClickPrevent = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+    };
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        if (
+            email.current == null ||
+            password.current == null ||
+            passwordok.current == null ||
+            passwordhint.current == null ||
+            nickname.current == null ||
+            gender.current == null ||
+            age.current == null ||
+            local.current == null
+        ) {
+            return;
+        }
+        if (
+            email.current?.value == "" ||
+            password.current?.value == "" ||
+            passwordok.current?.value == "" ||
+            passwordhint.current?.value == "" ||
+            nickname.current?.value == "" ||
+            gender.current?.value == "" ||
+            age.current?.value == "" ||
+            local.current?.value == ""
+        ) {
+            setValidationCheck(false);
             return false;
         }
-        return true;
-    }
-    const ValidationCheck = isEmpty();
+        formData = {
+            email: email.current?.value,
+            password: password.current?.value,
+            passwordok: passwordok.current?.value,
+            passwordhint: passwordhint.current?.value,
+            nickname: nickname.current?.value,
+            gender: gender.current?.value,
+            age: age.current?.value,
+            local: local.current?.value,
+        };
+        console.log("success");
+    };
+
+    const onChangeForm = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        // radioState({
+        //     selectValue: e.target.value
+        //   });
+        // };
+    };
 
     function selectnum() {
         var num = [];
@@ -128,18 +163,14 @@ const Signup = () => {
                                     type="id"
                                     placeholder="닉네임을 입력하세요."
                                     name="nickname"
-                                    value={formData.id}
                                     ref={nickname}
-                                    // onChange={onChangeForm}
                                 />
                                 <Label>이메일</Label>
                                 <Input
                                     type="email"
                                     placeholder="이메일을 입력하세요."
                                     name="email"
-                                    value={formData.email}
                                     ref={email}
-                                    // onChange={onChangeForm}
                                 />
                                 <Label>성별</Label>
                                 <div>
@@ -148,18 +179,20 @@ const Signup = () => {
                                             name="gender"
                                             type="radio"
                                             value="남"
-                                            checked={formData.gender === "남"}
-                                            // ref={gender}
-                                            onChange={onChangeForm}
+                                            checked={inputStatus === "남"}
+                                            onClick={() => handleClickRadioButton("남")}
+                                            ref={gender}
+                                            // onChange={onChangeForm}
                                         ></input>
                                         <label style={{ marginRight: "40px" }}>남</label>
                                         <input
                                             name="gender"
                                             type="radio"
                                             value="여"
-                                            checked={formData.gender === "여"}
-                                            onChange={onChangeForm}
-                                            // ref={gender}
+                                            checked={inputStatus === "여"}
+                                            onClick={() => handleClickRadioButton("여")}
+                                            // onChange={onChangeForm}
+                                            ref={gender}
                                         ></input>
                                         여
                                     </span>
@@ -169,11 +202,7 @@ const Signup = () => {
                                     {selectnum()}
                                 </Select>
                                 <Label>지역</Label>
-                                <Select
-                                    defaultValue="해당없음"
-                                    onChange={onChangeForm}
-                                    name="local"
-                                >
+                                <Select defaultValue="해당없음" name="local" ref={local}>
                                     <option value="해당없음">해당없음</option>
                                     <option value="서울">서울</option>
                                     <option value="경기도">경기도</option>
@@ -191,35 +220,33 @@ const Signup = () => {
                                     type="password"
                                     placeholder="비밀번호를 입력하세요."
                                     name="password"
-                                    value={formData.password}
-                                    onChange={onChangeForm}
+                                    ref={password}
                                 />
                                 <Label>비밀번호 확인</Label>
                                 <Input
-                                    // type="etc"
+                                    type="password"
                                     placeholder="비밀번호를 입력하세요."
                                     name="passwordok"
-                                    value={formData.passwordok}
-                                    onChange={onChangeForm}
+                                    ref={passwordok}
                                 />
                                 <Label>비밀번호 힌트</Label>
                                 <Input
-                                    // type="password"
                                     placeholder="힌트를 입력하세요."
                                     name="passwordhint"
-                                    value={formData.passwordhint}
                                     ref={passwordhint}
-                                    onChange={onChangeForm}
                                 />
                                 {ValidationCheck ? (
-                                    <OKButton onClick={onClick}>회원 가입하기</OKButton>
+                                    <OKButton onClick={onClick} onMouseEnter={onClick}>
+                                        회원 가입하기
+                                    </OKButton>
                                 ) : (
-                                    <XButton disabled>회원 가입하기</XButton>
+                                    <XButton onClick={onClickPrevent} onMouseEnter={validationTrue}>
+                                        회원 가입하기
+                                    </XButton>
                                 )}
                             </Form>
                         </SecondContainer1>
                     </SecondContainer>
-                    {/* <MenuItem onclick={Signup}>회원가입하기</MenuItem> */}
                 </div>
             </Container>
         </>
