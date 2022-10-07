@@ -15,12 +15,21 @@ import {
 } from "@styles/pages/reqpage-style";
 /*boards*/
 import ReqeustCards from "@components/RequestCard";
+import { request } from "https";
+
+//페이지네이션로직도 셀렉터안에들어가야함 함수는 하나만 유발하는게좋음.....  그려주는 임무만 수행해야..얘는 셀렉터만
 
 const ReqPage = () => {
-    /*state for hover*/
-    /*state for thumbsUp*/
-    /*state for -(test)*/
-    /*state for time*/
+    const [user, setUser] = useRecoilState(userData);
+    //서버줘\
+
+    const;
+
+    //selector에서 값 가져오는순간 atom effect가
+    //안뜨는동안 스켈레톤
+
+    //이 페이지가 새로 그려지는순간 그대로 쓰겠다
+    //
 
     return (
         <div>
