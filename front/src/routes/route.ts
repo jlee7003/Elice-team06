@@ -5,6 +5,7 @@ import Signup from "../pages/Signup";
 import Post from "../pages/challenge/Post";
 import ErrorPage from "../pages/ErrorPage";
 import Mypage from "../pages/Mypage";
+import ReqBoard from "../pages/ReqBoard";
 
 interface route {
     path: string;
@@ -39,6 +40,10 @@ export const ROUTES: routeWrap = {
     Mypage: {
         path: "/mypage",
         Component: Mypage,
+    },
+    Reqpage: {
+        path: "/reqboard",
+        Component: ReqBoard,
     },
 };
 

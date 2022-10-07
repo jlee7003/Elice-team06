@@ -9,6 +9,16 @@ export const width = css`
     margin: auto;
 `;
 
+/* main Container */
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    ${width};
+    height: 70vh;
+    padding-top: 70px;
+`;
+
 /**
  * Default Font size used in project
  * Size1>Size2>Size3>Size4....
@@ -56,4 +66,19 @@ export const Logo = styled.img.attrs({
     height: 60px;
 
     background-color: white;
+`;
+
+/*icons as img*/
+export const Reply = styled.img.attrs({
+    src: "src/assets/icons/reply_icon.png",
+    alt: "reply_icon",
+})`
+    object-fit: cover;
+`;
+
+export const Views = styled.img.attrs({
+    src: "src/assets/icons/views_icon.png",
+    alt: "view_icon",
+})`
+    object-fit: cover;
 `;

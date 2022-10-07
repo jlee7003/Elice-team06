@@ -75,7 +75,7 @@ const Login = () => {
                     <Input
                         type="id"
                         placeholder="아이디를 입력하세요."
-                        name="id"
+                        name="email"
                         value={formData.email}
                         onChange={onChangeForm}
                     />
