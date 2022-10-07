@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 interface Data {
     [key: string]: string;
@@ -7,9 +7,11 @@ interface Data {
 class Api {
     private static instance: Api;
     private path: string;
+    private axiosInstance: AxiosInstance;
 
     constructor() {
         this.path = "http://" + window.location.hostname + ":" + "3001" + "/";
+        this.axiosInstance = axios.create();
     }
 
     public static getInstance() {
@@ -23,45 +25,35 @@ class Api {
     async get(params: string[]) {
         const url = this.path + params.join("/");
 
-        return axios.get(url);
+        return this.axiosInstance.get(url);
     }
 
-    async post(params: string[], data: Data, accessToken: string) {
+    async post(params: string[], data: Data) {
         const url = this.path + params.join("/");
 
         const bodyData = JSON.stringify(data);
-        return axios.post(url, bodyData, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-                refresh: sessionStorage.getItem("refreshToken") ?? "",
-            },
+        return this.axiosInstance.post(url, bodyData, {
         });
     }
 
-    async put(params: string[], data: Data, accessToken: string) {
+    setAccessToken(accessToken: string) {
+        this.axiosInstance.defaults.headers.common['Authorization'] = accessToken
+        this.axiosInstance.defaults.headers.common['refresh'] = sessionStorage.getItem("refreshToken") ?? ""
+    }
+
+    async put(params: string[], data: Data) {
         const url = this.path + params.join("/");
 
         const bodyData = JSON.stringify(data);
 
-        return axios.put(url, bodyData, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-                refresh: sessionStorage.getItem("refreshToken") ?? "",
-            },
+        return this.axiosInstance.put(url, bodyData, {
         });
     }
 
-    async del(params: string[], accessToken: string) {
+    async del(params: string[]) {
         const url = this.path + params.join("/");
 
-        return axios.delete(url, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-                refresh: sessionStorage.getItem("refreshToken") ?? "",
-            },
+        return this.axiosInstance.delete(url, {
         });
     }
 }
