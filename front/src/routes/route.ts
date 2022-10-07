@@ -7,6 +7,7 @@ import Post from "../pages/challenge/Post";
 import ChallengeDetail from "../pages/challenge/ChallengeDetail";
 import ErrorPage from "../pages/ErrorPage";
 import Mypage from "../pages/Mypage";
+import Landing from "../pages/Landing";
 
 interface route {
     path: string;
@@ -18,11 +19,11 @@ interface routeWrap {
 }
 
 export const ROUTES: routeWrap = {
-    Login: {
+    Home: {
         path: "/",
         Component: Home,
     },
-    Home: {
+    Login: {
         path: "/login",
         Component: Login,
     },
@@ -37,6 +38,10 @@ export const ROUTES: routeWrap = {
     Post: {
         path: "/challenge/posts",
         Component: Post,
+    },
+    Landing: {
+        path: "/landing",
+        Component: Landing,
     },
     ChallengeDetail: {
         path: "/challenge/challengedetail",

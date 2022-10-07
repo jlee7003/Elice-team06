@@ -9,6 +9,10 @@ export const width = css`
     margin: auto;
 `;
 
+export const formWidth = css`
+    width: 411px;
+`;
+
 /**
  * Default Font size used in project
  * Size1>Size2>Size3>Size4....

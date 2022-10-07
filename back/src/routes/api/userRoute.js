@@ -22,7 +22,7 @@ userRoute.post(
         const { email, password } = req.body;
 
         const result = await User.login(email, password);
-
+        console.log(result);
         res.send(result);
     })
 );
