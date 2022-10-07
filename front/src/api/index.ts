@@ -22,17 +22,17 @@ class Api {
         return Api.instance;
     }
 
-    async get(params: string[]) {
+    async get<T>(params: string[]) {
         const url = this.path + params.join("/");
 
-        return this.axiosInstance.get(url);
+        return this.axiosInstance.get<T>(url);
     }
 
-    async post(params: string[], data: Data) {
+    async post<T>(params: string[], data: Data) {
         const url = this.path + params.join("/");
 
         const bodyData = JSON.stringify(data);
-        return this.axiosInstance.post(url, bodyData, {
+        return this.axiosInstance.post<T>(url, bodyData, {
         });
     }
 
@@ -41,19 +41,19 @@ class Api {
         this.axiosInstance.defaults.headers.common['refresh'] = sessionStorage.getItem("refreshToken") ?? ""
     }
 
-    async put(params: string[], data: Data) {
+    async put<T>(params: string[], data: Data) {
         const url = this.path + params.join("/");
 
         const bodyData = JSON.stringify(data);
 
-        return this.axiosInstance.put(url, bodyData, {
+        return this.axiosInstance.put<T>(url, bodyData, {
         });
     }
 
-    async del(params: string[]) {
+    async delete<T>(params: string[]) {
         const url = this.path + params.join("/");
 
-        return this.axiosInstance.delete(url, {
+        return this.axiosInstance.delete<T>(url, {
         });
     }
 }
