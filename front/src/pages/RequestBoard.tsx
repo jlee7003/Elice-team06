@@ -3,25 +3,10 @@ import { Container, BoardCard } from "../styles/pages/requestboard-style";
 import { Logo } from "@styles/common";
 import RequestBoardCard from "@components/RequestBoardCard";
 
-// interface FormData {
-//     email: string;
-//     password: string;
-//     id: string;
-//     etc: string;
-//     [key: string]: string;
-// }
-
 const RequestBoard = () => {
-    // const [formData, setFormData] = useState<FormData>({
-    //     email: "",
-    //     password: "",
-    //     id: "",
-    //     etc: "",
-    // });
-
     return (
         <>
-            <Container>{/* <RequestBoardCard></RequestBoardCard> */}</Container>
+            <Container></Container>
         </>
     );
 };

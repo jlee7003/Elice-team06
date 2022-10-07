@@ -7,14 +7,15 @@ import {
     Header100,
 } from "@styles/common/Header-style";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@routes/route";
 function Header() {
     const navigate = useNavigate();
 
     const login = () => {
-        navigate("/login");
+        navigate(ROUTES.Login.path);
     };
     const RequestBoard = () => {
-        navigate("/requestboard");
+        navigate(ROUTES.RequestBoard.path);
     };
     const home = () => {
         navigate("/");

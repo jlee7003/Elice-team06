@@ -7,6 +7,7 @@ import {
     Sub,
 } from "../../styles/pages/challengedetail-style";
 import { Logo } from "@styles/common";
+
 import MainCard from "@components/ChallengeDetailMainCard";
 import SubCard from "@components/ChallengeDetailSubCard";
 
@@ -17,7 +18,7 @@ const ChallengeDetail = () => {
             <Container>
                 <CenterContainer>
                     <MainCard></MainCard>
-                    <SubCard></SubCard>
+                    {/* <SubCard></SubCard> */}
                 </CenterContainer>
             </Container>
         </>
