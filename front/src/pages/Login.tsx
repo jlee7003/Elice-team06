@@ -27,6 +27,7 @@ const Login = () => {
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        // console.log(process.env.ORIGIN);
 
         if (email.current == null || password.current == null) {
             return;

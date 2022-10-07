@@ -45,4 +45,38 @@ userRoute.post(
     })
 );
 
+//토큰 넣어야하나.?
+userRoute.get(
+    "/myInfo/:userEmail",
+    asyncHandler(async (req, res) => {
+        const { userEmail } = req.params;
+        res.send(`${userEmail}님의 이름/설명 회원 정보`);
+    })
+);
+
+userRoute.put(
+    "/myInfo/update/:userEmail",
+    asyncHandler(async (req, res) => {
+        const { userEmail } = req.params;
+        res.send(`${userEmail}님의 이름/설명 수정`);
+    })
+);
+
+//여기서 비밀번호 확인하기
+userRoute.get(
+    "/myInfo/auth/:userEmail",
+    asyncHandler(async (req, res) => {
+        const { userEmail } = req.params;
+        res.send(`${userEmail}님의 비밀번호 인증 확인`);
+    })
+);
+
+userRoute.delete(
+    "/myInfo/withDrawal/:userEmail",
+    asyncHandler(async (req, res) => {
+        const { userEmail } = req.params;
+        res.send(`${userEmail}님 회원 탈퇴!`);
+    })
+);
+
 export default userRoute;

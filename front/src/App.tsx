@@ -6,9 +6,13 @@ import token from "./recoil/token";
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
 import Api from "./api";
+import { useRecoilState } from "recoil";
+import visibleCommonComponent from "./recoil/visibleCommonComponent";
 
 const App = () => {
     const setToken = useSetRecoilState(token);
+    const [visible, setVisible] = useRecoilState(visibleCommonComponent);
+    const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
         const refreshToken = sessionStorage.getItem("refreshToken");
@@ -21,15 +25,24 @@ const App = () => {
         }
     });
 
+    useEffect(() => {
+        setVisible((prev) => {
+            if (isLanding) {
+                return (prev = false);
+            }
+            return (prev = true);
+        });
+    }, [visible]);
+
     return (
         <Router>
-            <Header />
+            {visible && <Header />}
             <Routes>
                 {ROUTES_LIST.map(({ path, Component }, idx) => (
                     <Route key={idx} path={path} element={<Component />} />
                 ))}
             </Routes>
-            <Footer />
+            {visible && <Footer />}
         </Router>
     );
 };
