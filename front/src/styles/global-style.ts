@@ -17,6 +17,11 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
 
         font-family: ${font};
+        #root > div{
+            width:100vw;
+            height:100vh;
+        }
+
     }
 
     button, a {
@@ -25,6 +30,11 @@ const GlobalStyle = createGlobalStyle`
         &:hover {
             cursor: pointer;
         }
+    }
+
+    #root > div {
+        width: 100vw;
+        height: 100vh;
     }
 `;
 

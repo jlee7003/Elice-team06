@@ -67,7 +67,6 @@ class UserService {
             Token.findOneAndDelete({ userID: userData.userID }).exec(() => {
                 Token.create({ userID: userData.userID, token: refreshToken });
             });
-
             return { ok: true, accessToken, refreshToken };
         } catch (err) {
             throw new Error(err);
