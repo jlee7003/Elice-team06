@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 /**
  * default size unit of project
@@ -68,17 +68,23 @@ export const Logo = styled.img.attrs({
     background-color: white;
 `;
 
-/*icons as img*/
-export const Reply = styled.img.attrs({
-    src: "src/assets/icons/reply_icon.png",
-    alt: "reply_icon",
-})`
-    object-fit: cover;
+/**
+ * Loading Icon
+ */
+
+const loadingAni = keyframes`
+    from{
+        transform: rotate(0);
+    }
+    to{
+        transform: rotate(360deg);
+    }
 `;
 
-export const Views = styled.img.attrs({
-    src: "src/assets/icons/views_icon.png",
-    alt: "view_icon",
+export const Loading = styled.img.attrs({
+    src: "src/assets/loading.png",
 })`
-    object-fit: cover;
+    width: 80px;
+    height: 80px;
+    animation: ${loadingAni} 1s linear infinite;
 `;

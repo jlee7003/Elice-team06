@@ -4,16 +4,17 @@ import {
     HeaderContainer,
     HeaderMenuContainer,
     HeaderMenuItem,
-    HeaderAdminMenuItem,
     Header100,
 } from "@styles/common/Header-style";
 import { useNavigate } from "react-router-dom";
-
 function Header() {
     const navigate = useNavigate();
 
     const login = () => {
         navigate("/login");
+    };
+    const RequestBoard = () => {
+        navigate("/requestboard");
     };
     const home = () => {
         navigate("/");
@@ -25,11 +26,15 @@ function Header() {
                 <Logo onClick={home} />
                 <HeaderMenuContainer>
                     {/* 로그인 안했을 경우 */}
-                    <HeaderMenuItem onClick={login}>로그인/회원가입</HeaderMenuItem>
+                    <HeaderMenuItem onClick={login} style={{ marginRight: "54px" }}>
+                        로그인/회원가입
+                    </HeaderMenuItem>
 
                     {/* 로그인 했을 경우 */}
-                    <HeaderMenuItem>요청 게시판</HeaderMenuItem>
-                    <HeaderMenuItem>마이 페이지</HeaderMenuItem>
+                    <HeaderMenuItem onClick={RequestBoard} style={{ marginRight: "54px" }}>
+                        요청 게시판
+                    </HeaderMenuItem>
+                    <HeaderMenuItem style={{ marginRight: "54px" }}>마이 페이지</HeaderMenuItem>
                     <HeaderMenuItem>로그아웃</HeaderMenuItem>
 
                     {/* 관리자일 경우  */}
