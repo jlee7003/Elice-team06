@@ -22,15 +22,15 @@ class Api {
         return axios.get(url);
     }
 
-    async post(params: string[], data: { [key: string]: string }) {
+    async post(params: string[], data: { [key: string]: string }, accessToken: string) {
         const url = this.path + params.join("/");
-        console.log(url);
 
         const bodyData = JSON.stringify(data);
         return axios.post(url, bodyData, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Authorization: `Bearer ${accessToken}`,
+                refresh: sessionStorage.getItem("refreshToken") ?? "",
             },
         });
     }

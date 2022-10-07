@@ -1,108 +1,85 @@
 import { useRecoilState } from "recoil";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import {
-    Container,
+    Main,
     Form,
+    Label,
+    ErrorInfo,
     Input,
-    Button,
-    MenuItem,
-    LoginContainer,
-    LogoContainer,
-    Textleft,
-} from "../styles/pages/login-style";
-import token from "../recoil/token";
+    SubmitButton,
+    Menu,
+    MenuButton,
+} from "@styles/pages/login-style";
+import token from "@recoil/token";
 import Api from "../api";
 import { Logo } from "@styles/common";
-import { useNavigate } from "react-router-dom";
-
-interface FormData {
-    email: string;
-    password: string;
-    id: string;
-    [key: string]: string;
-}
+import { useNavigate, Link } from "react-router-dom";
+import { ROUTES } from "@routes/route";
 
 const Login = () => {
-    const [formData, setFormData] = useState<FormData>({
-        email: "",
-        password: "",
-        id: "",
-    });
+    const email = useRef<HTMLInputElement>(null);
+    const password = useRef<HTMLInputElement>(null);
+
     const [jwt, setJWT] = useRecoilState(token);
     const navigate = useNavigate();
 
-    const onChangeForm = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-
-        setFormData((prev: FormData) => {
-            const newData = {
-                ...prev,
-                [name]: value,
-            };
-
-            return newData;
-        });
-    };
+    const [isError, setIsError] = useState(false);
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
+        if (email.current == null || password.current == null) {
+            return;
+        }
+
+        const formData = {
+            email: email.current.value,
+            password: password.current.value,
+        };
+
         const API = Api.getInstance();
 
-        API.post(["api", "login"], formData)
+        API.post(["api", "login"], formData, "")
             .then((res) => {
-                setJWT(res.data.accessToken);
-                sessionStorage.setItem("refreshToken", res.data.refreshToken);
+                if (res.data.ok) {
+                    setJWT(res.data.accessToken);
+                    sessionStorage.setItem("refreshToken", res.data.refreshToken);
 
-                navigate("/home");
+                    navigate(ROUTES.HOME.path);
+                } else {
+                    setIsError(true);
+                }
             })
             .catch((err: Error) => {
                 console.error(err);
             });
     };
 
-    const Signup = () => {
-        navigate("/signup");
-    };
     return (
-        <Container>
+        <Main>
             <div>
-                <LogoContainer>
-                    <Logo></Logo>
-                </LogoContainer>
+                <Logo />
+                {isError && <ErrorInfo>아이디 또는 비밀번호가 틀렸습니다.</ErrorInfo>}
                 <Form>
-                    <Textleft>아이디</Textleft>
-                    <Input
-                        type="id"
-                        placeholder="아이디를 입력하세요."
-                        name="id"
-                        value={formData.email}
-                        onChange={onChangeForm}
-                    />
-                    <Textleft>비밀번호</Textleft>
-                    <Input
-                        type="password"
-                        placeholder="비밀번호를 입력하세요."
-                        name="password"
-                        value={formData.password}
-                        onChange={onChangeForm}
-                    />
-                    <Button onClick={onClick}>입력</Button>
+                    <Label>아이디</Label>
+                    <Input ref={email} type="email" placeholder="아이디를 입력하세요." />
+                    <Label>비밀번호</Label>
+                    <Input ref={password} type="password" placeholder="비밀번호를 입력하세요." />
+                    <SubmitButton onClick={onClick}>입력</SubmitButton>
                 </Form>
-                <LoginContainer>
-                    <MenuItem>비밀번호 찾기</MenuItem>
-                    <MenuItem>|</MenuItem>
-                    <MenuItem>이메일 찾기</MenuItem>
-                    {/* <MenuItem onClick={Signup}>회원가입하기</MenuItem> */}
-                </LoginContainer>
-                <LoginContainer>
-                    <MenuItem>아직 회원이 아니신가요?</MenuItem>
-                    <MenuItem onClick={Signup} style={{ color: "#75C6A0" }}>
-                        회원가입
-                    </MenuItem>
-                </LoginContainer>
+                <Menu>
+                    <MenuButton>비밀번호 찾기</MenuButton>
+                    <div>|</div>
+                    <MenuButton>이메일 찾기</MenuButton>
+                </Menu>
+                <Menu>
+                    <MenuButton as="div">아직 회원이 아니신가요?</MenuButton>
+                    <MenuButton>
+                        <Link to="/signup">회원가입</Link>
+                    </MenuButton>
+                </Menu>
             </div>
-        </Container>
+        </Main>
     );
 };
 

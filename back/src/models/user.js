@@ -70,8 +70,7 @@ userSchema.statics.login = async function (email, password) {
         return { ok: false };
     }
     try {
-        const userData = await this.findOne({ email });
-
+        const userData = await this.findUser({ email });
         if (userData == null) {
             return { ok: false };
         }
@@ -84,8 +83,8 @@ userSchema.statics.login = async function (email, password) {
 
         const accessToken = sign({ userID: userData.usreID });
         let refreshToken = sign({}, "14d");
-        console.log("refresh", refreshToken);
-        await this.findOneAndDelete({ userID: userData.userID }).exec(() => {
+
+        Token.findOneAndDelete({ userID: userData.userID }).exec(() => {
             Token.create({ userID: userData.userID, token: refreshToken });
         });
 

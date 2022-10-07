@@ -1,18 +1,22 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { ROUTES_LIST } from "./routes/route";
+import token from "./recoil/token";
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
-import { ROUTES_LIST } from "./routes/route";
 import Api from "./api";
 
 const App = () => {
+    const setToken = useSetRecoilState(token);
+
     useEffect(() => {
-        const refreshToken = localStorage.getItem("key");
+        const refreshToken = sessionStorage.getItem("refreshToken");
 
         if (refreshToken != null) {
             const API = Api.getInstance();
-            API.post(["api", "current"], {}).then((res) => {
-                console.log(res);
+            API.post(["api", "current"], {}, "refreshed").then((res) => {
+                setToken(res.data.accessToken);
             });
         }
     });
