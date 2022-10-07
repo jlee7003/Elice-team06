@@ -12,7 +12,7 @@ voteRoute.get(
 );
 
 voteRoute.post(
-    "/vote/:postId/:userEmail",
+    "/votes/:postId/:userEmail",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
         const { userEmail } = req.params;
@@ -21,7 +21,7 @@ voteRoute.post(
 );
 
 voteRoute.delete(
-    "/vote/delete/:voteId",
+    "/votes/:voteId",
     asyncHandler(async (req, res) => {
         const { voteId } = req.params;
         res.send(`${voteId}투표 취소!`);
