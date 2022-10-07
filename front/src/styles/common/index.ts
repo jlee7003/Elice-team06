@@ -9,14 +9,8 @@ export const width = css`
     margin: auto;
 `;
 
-/* main Container */
-
-export const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    ${width};
-    height: 70vh;
-    padding-top: 70px;
+export const formWidth = css`
+    width: 411px;
 `;
 
 /**

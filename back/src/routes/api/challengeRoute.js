@@ -19,7 +19,7 @@ challengeRoute.get(
 );
 
 challengeRoute.get(
-    "/challenge/:challengeId",
+    "/challenges/:challengeId",
     asyncHandler(async (req, res) => {
         const { challengeId } = req.params;
         res.send(`${challengeId}상세 페이지`);
@@ -27,14 +27,14 @@ challengeRoute.get(
 );
 
 challengeRoute.post(
-    "/challenge/create",
+    "/challenges",
     asyncHandler(async (req, res) => {
         res.send("챌린지 등록!");
     })
 );
 
 challengeRoute.put(
-    "/challenge/update/:challengeId",
+    "/challenges/:challengeId",
     asyncHandler(async (req, res) => {
         const { challengeId } = req.params;
 
@@ -43,8 +43,9 @@ challengeRoute.put(
 );
 
 challengeRoute.delete(
-    "/challenge/delete/:challengeId",
+    "/challenges/:challengeId",
     asyncHandler(async (req, res) => {
+        const { challengeId } = req.params;
         res.send(`${challengeId}삭제!`);
     })
 );

@@ -12,7 +12,7 @@ reportRoute.get(
 );
 
 reportRoute.post(
-    "/report/:postId/:userEmail",
+    "/reports/:postId/:userEmail",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
         const { userEmail } = req.params;
@@ -21,7 +21,7 @@ reportRoute.post(
 );
 
 reportRoute.delete(
-    "/report/delete/:reportId",
+    "/reports/:reportId",
     asyncHandler(async (req, res) => {
         const { reportId } = req.params;
         res.send(`${reportId}신고 취소!`);

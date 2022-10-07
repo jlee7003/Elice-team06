@@ -3,7 +3,7 @@ import Api from "../api";
 
 const accessToken = atom({
     key: "accessToken",
-    default: "",
+    default: "null",
 });
 
 const token = selector({

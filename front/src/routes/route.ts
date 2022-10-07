@@ -20,11 +20,11 @@ interface routeWrap {
 }
 
 export const ROUTES: routeWrap = {
-    Login: {
+    Home: {
         path: "/",
         Component: Home,
     },
-    Home: {
+    Login: {
         path: "/login",
         Component: Login,
     },

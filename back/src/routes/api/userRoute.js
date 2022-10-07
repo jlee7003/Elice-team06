@@ -22,7 +22,7 @@ userRoute.post(
         const { email, password } = req.body;
 
         const result = await User.login(email, password);
-
+        console.log(result);
         res.send(result);
     })
 );
@@ -38,14 +38,13 @@ userRoute.post(
 );
 
 userRoute.post(
-    "/current",
+    "/refresh",
     authToken,
     asyncHandler(async (req, res) => {
         res.send({ ok: true, accessToken: req.userID });
     })
 );
 
-//토큰 넣어야하나.?
 userRoute.get(
     "/myInfo/:userEmail",
     asyncHandler(async (req, res) => {
@@ -55,7 +54,7 @@ userRoute.get(
 );
 
 userRoute.put(
-    "/myInfo/update/:userEmail",
+    "/myInfo/:userEmail",
     asyncHandler(async (req, res) => {
         const { userEmail } = req.params;
         res.send(`${userEmail}님의 이름/설명 수정`);

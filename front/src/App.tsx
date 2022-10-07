@@ -1,38 +1,38 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { ROUTES_LIST } from "./routes/route";
+import token from "./recoil/token";
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
-import { ROUTES_LIST } from "./routes/route";
 import Api from "./api";
-import {  useRecoilState } from "recoil";
-import visibleCommonComponent from './recoil/visibleCommonComponent'
-
-
+import { useRecoilState } from "recoil";
+import visibleCommonComponent from "./recoil/visibleCommonComponent";
 
 const App = () => {
-    const [visible, setVisible] = useRecoilState(visibleCommonComponent)
-
-    const isLanding = window.location.href.split('/').includes('landing')
+    const setToken = useSetRecoilState(token);
+    const [visible, setVisible] = useRecoilState(visibleCommonComponent);
+    const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
-        const refreshToken = localStorage.getItem("key");
+        const refreshToken = sessionStorage.getItem("refreshToken");
 
         if (refreshToken != null) {
             const API = Api.getInstance();
-            API.post(["api", "current"], {}).then((res) => {
-                console.log(res);
+            API.post(["api", "current"], {}, "refreshed").then((res) => {
+                setToken(res.data.accessToken);
             });
         }
     });
 
-    useEffect(()=>{
-        setVisible(prev => {
-            if(isLanding){
-                return prev = false
+    useEffect(() => {
+        setVisible((prev) => {
+            if (isLanding) {
+                return (prev = false);
             }
-            return prev = true;
-        })
-    }, [visible])
+            return (prev = true);
+        });
+    }, [visible]);
 
     return (
         <Router>
