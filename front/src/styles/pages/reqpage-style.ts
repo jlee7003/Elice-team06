@@ -1,31 +1,32 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { width, fontSize2 } from "../common";
+import { width } from "../common";
 
 /*
-lv 1 (div, main)
+lv 0 (div, for background container)->main
 */
 export const Container = styled.div`
     display: flex;
     flex-direction: row;
     ${width};
-    height: 90vh;
+    height: 900px;
     padding-top: 70px;
-    border: 2px solid gray;
 `;
 
-/* main */
+/*
+lv 1(main)->section,nav
+*/
+//main
 export const Main = styled.main`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
-    height: 90%;
-    border: 0.6px solid blue;
+    ${width};
+    height: 720px;
 `;
 
 /*
-lv 2 (section, nav)
+lv 2 (section, nav)->[article,container], Links
 */
 
 //section
@@ -33,15 +34,13 @@ export const Section = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 99%;
+    ${width};
     height: 90%;
     margin: auto;
     padding: 5px;
-    border: 0.6px solid red;
 `;
 
 //nav
-
 export const Nav = styled.nav`
     display: flex;
     flex-direction: column;
@@ -50,144 +49,55 @@ export const Nav = styled.nav`
     height: 10%;
     margin: auto;
     padding: 5px;
-    border: 0.6px solid greenyellow;
 
     & > ul {
+        color: #979797;
         text-align: center;
     }
+`;
+
+/*
+lv 3 (articles, containter for bottom button, Links)
+*/
+//article
+//container for bottom button
+export const ButtonContianer = styled.div`
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: 120px;
+
+    & > button {
+        display: flex;
+        float: right;
+        vertical-align: middle;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        height: 100%;
+        margin: 5px;
+        background-color: #61be92;
+        color: white;
+        font-size: 14px;
+        text-align: center;
+    }
+`;
+//nav's Links
+export const NavLink = styled(Link)`
+    display: inline;
+    margin: 15px;
+    font-size: 16px;
+    text-decoration: none;
     & > span {
         display: inline;
         margin: 10px;
+        font-weight: bolder;
     }
 `;
+/*
+lv 4 (divs for container,details,like)
+*/
 
 /*
-lv 3 (article, Links)
+lv 5 content(<h> and <p>) and box(for like), details and time
 */
-export const Article = styled.article`
-    display: absolute;
-    flex-direction: column;
-    width: 100%;
-    height: 20%;
-    margin: 5px auto;
-    padding: 10px;
-    border: 0.6px solid green;
-`;
-
-export const NavLink = styled(Link)`
-    display: inline;
-    font-size: 20px;
-    margin: 5px;
-    text-decoration: none;
-`;
-
-/*
-lv 4 (divs for sapce[h&p],details,like)
-*/
-//content container for content and box
-export const ArtContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 70%;
-`;
-
-//container for detail and time
-export const DetailContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 30%;
-`;
-
-//lv5 ([contents&box],[details&time])
-export const Contents = styled.div`
-    //subejct and content
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: 60%;
-    padding: 2px;
-
-    & > h3 {
-        text-align: left;
-    }
-    & > p {
-        display: flex;
-        text-align: left;
-        margin: 2px;
-    }
-`;
-
-export const Box = styled.div`
-    //like (and dislike) buttons
-    display: flex;
-    width: 20%;
-    height: 100%;
-    padding: 2px;
-    flex-direction: column;
-    justify-content: center;
-    & > button {
-        display: block;
-        width: 50%;
-        height: 70%;
-        margin: auto;
-        background-color: black;
-    }
-    & > span {
-        margin: auto;
-    }
-`;
-
-export const Details = styled.ul`
-    //detail informaitons
-    display: flex;
-    float: left;
-    flex-direction: row;
-    width: 80%;
-    height: 100%;
-    padding: 5px 0 0 5px;
-    list-style: none;
-
-    & > li {
-        display: flex;
-        flex-direction: row;
-        float: left;
-        list-style: none;
-        vertical-align: middle;
-        margin: 0 10px 0 0;
-    }
-    & > li > i {
-        display: flex;
-        width: 10px;
-        height: 10px;
-        vertical-align: middle;
-        margin: 0 20px 0 0;
-    }
-    & > li > span {
-        margin: 0 10px 0 0;
-        display: inline-block;
-        vertical-align: middle;
-    }
-`;
-export const Time = styled.span`
-    display: flex;
-    float: right;
-    height: 100%;
-`;
-//lv 5 button, icon, and texts -> INSIDE?
-export const Title = styled.h2``; //title
-
-export const Summary = styled.p`
-    //summary
-`;
-
-export const Writer = styled.span`
-    //spans for details
-`;
-
-export const Text = styled.span``;
-export const LikeButton = styled.button`
-    //button for (dis)like,
-`;
-export const Numbers = styled.span``;
