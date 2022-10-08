@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { width } from "../common";
+import cssUnit from "@/lib/cssUnit";
 
 /*
 lv 0 (div, for background container)->main
@@ -8,7 +8,7 @@ lv 0 (div, for background container)->main
 export const Container = styled.div`
     display: flex;
     flex-direction: row;
-    ${width};
+    width: ${cssUnit.unit.width};
     height: 900px;
     padding-top: 70px;
 `;
@@ -21,7 +21,7 @@ export const Main = styled.main`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    ${width};
+    width: ${cssUnit.unit.width};
     height: 720px;
 `;
 
@@ -34,7 +34,7 @@ export const Section = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    ${width};
+    width: ${cssUnit.unit.width};
     height: 90%;
     margin: auto;
     padding: 5px;

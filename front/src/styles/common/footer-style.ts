@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fontSize3, width } from ".";
+import cssUnit from "@/lib/cssUnit";
 
 export const TeamName = styled.span`
     margin-left: 40px;
@@ -8,7 +8,7 @@ export const TeamName = styled.span`
     font-style: italic;
     color: gray;
 
-    ${fontSize3}
+    font-size: ${cssUnit.fontSize.small};
 `;
 
 export const Gitlab = styled.a.attrs({
@@ -39,7 +39,7 @@ export const FooterContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    ${width};
+    width: ${cssUnit.unit.width};
     height: 100%;
 
     margin: auto;

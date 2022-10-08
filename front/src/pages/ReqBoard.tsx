@@ -1,7 +1,6 @@
 /*lib*/
-import { useRecoilState } from "recoil";
-/*page*/
-import { Banner } from "@styles/banner";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useState } from "react";
 /*data*/
 import userData from "../recoil/userData";
 /*styles*/
@@ -15,12 +14,30 @@ import {
 } from "@styles/pages/reqpage-style";
 /*boards*/
 import ReqeustCards from "@components/RequestCard";
+import { postsSelector } from "@recoil/requestPosts";
+import { useEffect } from "react";
 
 const ReqPage = () => {
-    /*state for hover*/
-    /*state for thumbsUp*/
-    /*state for -(test)*/
-    /*state for time*/
+    const [page, setPage] = useState(0);
+    const posts = useRecoilValue(postsSelector(page));
+
+    useEffect(() => {
+        console.log("pageATOM : ", page);
+    }, [page]);
+
+    useEffect(() => {
+        setPage(1);
+    }, []);
+
+    useEffect(() => {
+        console.log("posts : ", posts);
+    }, [posts]);
+
+    const handlePageUp = () => {
+        setPage((oldPage) => {
+            return oldPage + 1;
+        });
+    };
 
     return (
         <div>
@@ -58,3 +75,22 @@ const ReqPage = () => {
 };
 
 export default ReqPage;
+
+//공부중...
+// return (
+//     <>
+//         <div>
+//             <h1> currentPage : {page}</h1>
+//             <button onClick={handlePageUp}>page up</button>
+//             <div>
+//                 {posts.map((post) => {
+//                     return (
+//                         <div key={post.id}>
+//                             <h2>{post.title}</h2>
+//                         </div>
+//                     );
+//                 })}
+//             </div>
+//         </div>
+//     </>
+// );

@@ -7,5 +7,39 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("mysql://baabguui:12345678@data-project.cmyckgq38ryf.ap-northeast-2.rds.amazonaws.com:3306/elice6")
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_email    String  @id @unique
+  nickname      String
+  password      String
+  password_hint String
+  age           Int?
+  region        String?
+  gender        String?
+  profile_image String?
+}
+
+model sealevelkorea {
+  year      Int   @id
+  sea_level Float @db.Float
+}
+
+model emissionco2 {
+  year  Int    @id
+  World BigInt @db.UnsignedBigInt
+  USA   BigInt @db.UnsignedBigInt
+  EU    BigInt @db.UnsignedBigInt
+  China BigInt @db.UnsignedBigInt
+  Korea BigInt @db.UnsignedBigInt
+}
+
+model temperture {
+  year  Int   @id
+  World Float @db.Float
+  USA   Float @db.Float
+  EU    Float @db.Float
+  China Float @db.Float
+  Korea Float @db.Float
 }

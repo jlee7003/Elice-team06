@@ -17,14 +17,9 @@
         "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "@components/*": ["src/components/*"],
-            "@pages/*": ["src/pages/*"],
-            "@recoil/*": ["src/recoil/*"],
-            "@routes/*": ["src/routes/*"],
-            "@styles/*": ["src/styles/*"]
+            "@/*": ["src/*"]
         }
     },
-    "include": ["src"],
+    "include": ["src", "src/types/style.d.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

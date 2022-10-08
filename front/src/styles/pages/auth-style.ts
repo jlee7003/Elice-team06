@@ -9,7 +9,7 @@ export const Main = styled.main`
     height: 100vh;
 
     & > section > img {
-        margin-bottom: 30px;
+        margin-bottom: 100px;
     }
 
     & > section {
@@ -26,29 +26,16 @@ export const Form = styled.form`
     align-items: center;
 
     width: 500px;
-    height: 400px;
+    height: fit-content;
 `;
 
 export const Label = styled.label`
     width: ${cssUnit.unit.formWidth};
+
     margin-bottom: 15px;
-`;
 
-export const ErrorInfo = styled.div`
-    width: ${cssUnit.unit.formWidth};
-
-    height: 60px;
-
-    font-size: ${cssUnit.fontSize.medium};
-    text-align: center;
-    line-height: 52px;
-
-    border-radius: 20px;
-
-    background-color: red;
-    color: white;
-
-    opacity: 0.6;
+    font-size: ${cssUnit.fontSize.small};
+    font-weight: bold;
 `;
 
 export const Input = styled.input`
@@ -70,8 +57,8 @@ export const SubmitButton = styled.button`
     border: 0px solid #293e49;
     border-radius: 10px;
 
-    background-color: ${cssUnit.color.green};
     color: white;
+    background-color: ${cssUnit.color.green};
 
     text-align: center;
 `;
@@ -85,10 +72,19 @@ export const Menu = styled.div`
     margin-top: 15px;
 
     color: #7a7a7a;
+
+    & > button {
+        margin-left: 20px;
+
+        color: #293e49;
+    }
 `;
 
 export const MenuButton = styled.button`
-    margin: 15px;
+    /* margin: 15px; */
 
-    font-size: ${cssUnit.fontSize.medium};
+    margin-top: 30px;
+    margin-bottom: 40px;
+
+    font-size: ${cssUnit.fontSize.small};
 `;
