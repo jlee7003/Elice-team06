@@ -84,7 +84,7 @@ export const LogoContainer = styled.div`
     justify-content: center;
     align-items: center;
 `;
-export const Textleft = styled.span`
+export const Label = styled.span`
     display: block;
     width: 100%;
     padding: 10px 50px;

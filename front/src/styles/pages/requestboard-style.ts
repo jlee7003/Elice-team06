@@ -60,7 +60,7 @@ export const BoardCard = styled.div`
 //     justify-content: center;
 //     align-items: center;
 // `;
-// export const Textleft = styled.span`
+// export const Label = styled.span`
 //     // text-align: left;
 //     display: block;
 //     width: 100%;
