@@ -17,13 +17,9 @@ import ReqeustCards from "@components/RequestCard";
 import { postsSelector } from "@recoil/requestPosts";
 import { useEffect } from "react";
 
-//페이지네이션로직도 셀렉터안에들어가야함 함수는 하나만 유발하는게좋음.....  그려주는 임무만 수행해야..얘는 셀렉터만
-
 const ReqPage = () => {
-    // const [user, setUser] = useRecoilState(userData);
     const [page, setPage] = useState(0);
     const posts = useRecoilValue(postsSelector(page));
-    //서버줘\
 
     useEffect(() => {
         console.log("pageATOM : ", page);
@@ -37,35 +33,11 @@ const ReqPage = () => {
         console.log("posts : ", posts);
     }, [posts]);
 
-    //selector에서 값 가져오는순간 atom effect가
-    //안뜨는동안 스켈레톤
-
-    //이 페이지가 새로 그려지는순간 그대로 쓰겠다
-    //
-
     const handlePageUp = () => {
         setPage((oldPage) => {
             return oldPage + 1;
         });
     };
-
-    return (
-        <>
-            <div>
-                <h1> currentPage : {page}</h1>
-                <button onClick={handlePageUp}>page up</button>
-                <div>
-                    {posts.map((post) => {
-                        return (
-                            <div key={post.id}>
-                                <h2>{post.title}</h2>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        </>
-    );
 
     return (
         <div>
@@ -103,3 +75,22 @@ const ReqPage = () => {
 };
 
 export default ReqPage;
+
+//공부중...
+// return (
+//     <>
+//         <div>
+//             <h1> currentPage : {page}</h1>
+//             <button onClick={handlePageUp}>page up</button>
+//             <div>
+//                 {posts.map((post) => {
+//                     return (
+//                         <div key={post.id}>
+//                             <h2>{post.title}</h2>
+//                         </div>
+//                     );
+//                 })}
+//             </div>
+//         </div>
+//     </>
+// );
