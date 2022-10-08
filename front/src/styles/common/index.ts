@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import assets from "@/lib/assets";
 
 /**
  * default size unit of project
@@ -52,8 +53,10 @@ export const mainGray = css`
 /**
  * Project Logo
  */
+const logoImg = assets("logo.png");
+
 export const Logo = styled.img.attrs({
-    src: "src/assets/logo.png",
+    src: logoImg,
     alt: "logo_image",
 })`
     width: 130px;
@@ -75,10 +78,11 @@ const loadingAni = keyframes`
     }
 `;
 
+const loading = assets("loading.png");
 export const Loading = styled.img.attrs({
-    src:"src/assets/loading.png"
-})` 
+    src: loading,
+})`
     width: 80px;
-    height:80px;
-    animation:${loadingAni} 1s linear infinite;
-`
+    height: 80px;
+    animation: ${loadingAni} 1s linear infinite;
+`;
