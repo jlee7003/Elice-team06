@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { formWidth, fontSize2, fontSize3, mainGreen } from "../common";
+import { width, formWidth, mainGreen, fontSize3 } from "@styles/common/.";
 
 export const Main = styled.main`
     display: grid;
@@ -9,7 +9,7 @@ export const Main = styled.main`
     height: 100vh;
 
     & > section > img {
-        margin-bottom: 30px;
+        margin-bottom: 100px;
     }
 
     & > section {
@@ -26,28 +26,15 @@ export const Form = styled.form`
     align-items: center;
 
     width: 500px;
-    height: 400px;
+    height: fit-content;
 `;
 
 export const Label = styled.label`
-    ${formWidth}
-    margin-bottom: 15px;
-`;
-
-export const ErrorInfo = styled.div`
     ${formWidth};
-    height: 60px;
+    margin-bottom: 15px;
 
-    ${fontSize2}
-    text-align: center;
-    line-height: 52px;
-
-    border-radius: 20px;
-
-    background-color: red;
-    color: white;
-
-    opacity: 0.6;
+    ${fontSize3};
+    font-weight: bold;
 `;
 
 export const Input = styled.input`
@@ -84,10 +71,19 @@ export const Menu = styled.div`
     margin-top: 15px;
 
     color: #7a7a7a;
+
+    & > button {
+        margin-left: 20px;
+
+        color: #293e49;
+    }
 `;
 
 export const MenuButton = styled.button`
-    margin: 15px;
+    /* margin: 15px; */
 
-    ${fontSize3};
+    margin-top: 30px;
+    margin-bottom: 40px;
+
+    ${fontSize3}
 `;
