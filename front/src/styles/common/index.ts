@@ -31,6 +31,28 @@ export const fontSize4 = css`
 `;
 
 /**
+ * Heading font size
+ */
+//랜딩 페이지 타이틀
+export const HeadFontSize1 = css`
+    font-size: 50px;
+`;
+//페이지 영역 타이틀
+export const HeadFontSize2 = css`
+    font-size: 26px;
+`;
+
+/**
+ * Button text
+ */
+export const ButtonFontSize = css`
+    font-size: 18px;
+`;
+
+/**
+ * Content font size
+ */
+/**
  * Background Colors used in project
  */
 export const mainGreen = css`
@@ -76,9 +98,26 @@ const loadingAni = keyframes`
 `;
 
 export const Loading = styled.img.attrs({
-    src:"src/assets/loading.png"
-})` 
+    src: "src/assets/loading.png",
+})`
     width: 80px;
-    height:80px;
-    animation:${loadingAni} 1s linear infinite;
-`
+    height: 80px;
+    animation: ${loadingAni} 1s linear infinite;
+`;
+
+/*icons as img*/
+export const Reply = styled.img.attrs({
+    src: "src/assets/icons/reply_icon.png",
+    alt: "reply_icon",
+})`
+    width: 15px;
+    height: 15px;
+`;
+
+export const Views = styled.img.attrs({
+    src: "src/assets/icons/views_icon.png",
+    alt: "view_icon",
+})`
+    width: 20px;
+    height: 15px;
+`;
