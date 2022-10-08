@@ -14,7 +14,7 @@ import token from "@recoil/token";
 import Api from "../api";
 import { Logo } from "@styles/common";
 import { useNavigate, Link } from "react-router-dom";
-import { ROUTES } from "@routes/route";
+import { ROUTES } from "@routes/.";
 
 const Login = () => {
     const email = useRef<HTMLInputElement>(null);
@@ -46,7 +46,7 @@ const Login = () => {
                     setJWT(res.data.accessToken);
                     sessionStorage.setItem("refreshToken", res.data.refreshToken);
 
-                    navigate(ROUTES.HOME.path);
+                    navigate(ROUTES.Home.path);
                 } else {
                     setIsError(true);
                 }
@@ -58,7 +58,7 @@ const Login = () => {
 
     return (
         <Main>
-            <div>
+            <section>
                 <Logo />
                 {isError && <ErrorInfo>아이디 또는 비밀번호가 틀렸습니다.</ErrorInfo>}
                 <Form>
@@ -79,7 +79,7 @@ const Login = () => {
                         <Link to="/signup">회원가입</Link>
                     </MenuButton>
                 </Menu>
-            </div>
+            </section>
         </Main>
     );
 };

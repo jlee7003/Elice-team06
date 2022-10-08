@@ -85,7 +85,7 @@ const Signup = () => {
             <Container>
                 <div>
                     <LogoContainer>
-                        <Logo></Logo>
+                        <Logo />
                     </LogoContainer>
                     <SecondContainer>
                         <SecondContainer1>

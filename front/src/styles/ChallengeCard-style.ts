@@ -6,8 +6,6 @@ export const Card = styled.article`
     display: flex;
     flex-direction: column;
 
-    grid-area: card;
-
     width: 303px;
     height: 274px;
 

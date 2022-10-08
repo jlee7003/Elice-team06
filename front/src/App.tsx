@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { ROUTES_LIST } from "./routes/route";
+import { ROUTES_LIST } from "./routes";
 import token from "./recoil/token";
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
