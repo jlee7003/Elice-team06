@@ -8,7 +8,7 @@ challengeRoute.get(
     asyncHandler(async (req, res) => {
         res.send("챌린지 목록");
     })
-); //여기서 참여중인지 아닌지 여부로 참가 > 참여중 이런식으로 달라야함.
+);
 
 challengeRoute.get(
     "/:userEmail/challenges",

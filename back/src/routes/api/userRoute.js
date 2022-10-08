@@ -2,8 +2,19 @@ import { Router } from "express";
 import { User } from "../../models";
 import asyncHandler from "../../lib/util/asyncHandler";
 import authToken from "../../middlewares/authToken";
+import userService from "../../services/userService.js";
 
 const userRoute = Router();
+
+userRoute.post(
+    "/signup",
+    asyncHandler(async (req, res) => {
+        const userData = req.body;
+        const newUser = await userService.addUser({ userData });
+
+        res.json(newUser);
+    })
+);
 
 userRoute.post(
     "/register",
@@ -61,7 +72,6 @@ userRoute.put(
     })
 );
 
-//여기서 비밀번호 확인하기
 userRoute.get(
     "/myInfo/auth/:userEmail",
     asyncHandler(async (req, res) => {
