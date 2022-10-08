@@ -1,8 +1,16 @@
 import { useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ROUTES } from "@routes/.";
+import { ROUTES } from "@/routes/.";
 import { Logo } from "@/styles/common";
-import { Main, Form, Label, Input, SubmitButton, Menu, MenuButton } from "@styles/pages/auth-style";
+import {
+    Main,
+    Form,
+    Label,
+    Input,
+    SubmitButton,
+    Menu,
+    MenuButton,
+} from "@/styles/pages/auth-style";
 import { Section } from "@/styles/pages/landing-style";
 
 const target = {
@@ -39,7 +47,7 @@ const Auth = () => {
             break;
         default:
             navigate(ROUTES.ErrorPage.path);
-            return;
+            return null;
     }
 
     return (
