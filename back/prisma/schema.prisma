@@ -20,3 +20,26 @@ model User {
   gender        String?
   profile_image String?
 }
+
+model sealevelkorea {
+  year      Int   @id
+  sea_level Float @db.Float
+}
+
+model emissionco2 {
+  year  Int    @id
+  World BigInt @db.UnsignedBigInt
+  USA   BigInt @db.UnsignedBigInt
+  EU    BigInt @db.UnsignedBigInt
+  China BigInt @db.UnsignedBigInt
+  Korea BigInt @db.UnsignedBigInt
+}
+
+model temperture {
+  year  Int   @id
+  World Float @db.Float
+  USA   Float @db.Float
+  EU    Float @db.Float
+  China Float @db.Float
+  Korea Float @db.Float
+}

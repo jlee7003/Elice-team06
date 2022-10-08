@@ -37,7 +37,7 @@ const Signup = () => {
     const [ValidationCheck, setValidationCheck] = useState(false);
     const [inputStatus, setInputStatus] = useState("");
 
-    const handleClickRadioButton = (radioBtnName) => {
+    const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
     };
     // const [formData, setFormData] = useState<FormData>({

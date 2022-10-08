@@ -8,6 +8,7 @@ import boardRoute from "./routes/api/boardRoute";
 import commentRoute from "./routes/api/commentRoute";
 import voteRoute from "./routes/api/voteRoute";
 import reportRoute from "./routes/api/reportRoute";
+import dataRoute from "./routes/api/dataRoute";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api", boardRoute);
 app.use("/api", commentRoute);
 app.use("/api", voteRoute);
 app.use("/api", reportRoute);
+app.use("/api", dataRoute);
 
 app.use(errorMiddleware);
 
