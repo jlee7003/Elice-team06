@@ -1,8 +1,6 @@
 /*lib*/
 import { useRecoilState, useRecoilValue } from "recoil";
-import {useState} from 'react'
-/*page*/
-import { Banner } from "@styles/banner";
+import { useState } from "react";
 /*data*/
 import userData from "../recoil/userData";
 /*styles*/
@@ -16,7 +14,7 @@ import {
 } from "@styles/pages/reqpage-style";
 /*boards*/
 import ReqeustCards from "@components/RequestCard";
-import { postsSelector } from '@recoil/requestPosts'
+import { postsSelector } from "@recoil/requestPosts";
 import { useEffect } from "react";
 
 //페이지네이션로직도 셀렉터안에들어가야함 함수는 하나만 유발하는게좋음.....  그려주는 임무만 수행해야..얘는 셀렉터만
@@ -24,23 +22,20 @@ import { useEffect } from "react";
 const ReqPage = () => {
     // const [user, setUser] = useRecoilState(userData);
     const [page, setPage] = useState(0);
-    const posts = useRecoilValue(postsSelector(page))
+    const posts = useRecoilValue(postsSelector(page));
     //서버줘\
 
+    useEffect(() => {
+        console.log("pageATOM : ", page);
+    }, [page]);
 
     useEffect(() => {
-        console.log('pageATOM : ', page)
-    }, [page])
-
-
-    useEffect(() => {
-        setPage(1)
-    }, [])
+        setPage(1);
+    }, []);
 
     useEffect(() => {
-        console.log('posts : ', posts)
-    }, [posts])
-
+        console.log("posts : ", posts);
+    }, [posts]);
 
     //selector에서 값 가져오는순간 atom effect가
     //안뜨는동안 스켈레톤
@@ -50,10 +45,9 @@ const ReqPage = () => {
 
     const handlePageUp = () => {
         setPage((oldPage) => {
-            return oldPage + 1
-        })
-    }
-
+            return oldPage + 1;
+        });
+    };
 
     return (
         <>
@@ -61,15 +55,17 @@ const ReqPage = () => {
                 <h1> currentPage : {page}</h1>
                 <button onClick={handlePageUp}>page up</button>
                 <div>
-                    {posts.map(post => {
-                        return <div key={post.id}>
-                            <h2>{post.title}</h2>
-                        </div>
+                    {posts.map((post) => {
+                        return (
+                            <div key={post.id}>
+                                <h2>{post.title}</h2>
+                            </div>
+                        );
                     })}
                 </div>
             </div>
         </>
-    )
+    );
 
     return (
         <div>
