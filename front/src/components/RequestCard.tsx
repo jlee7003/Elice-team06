@@ -19,15 +19,18 @@ import { Reply, Views } from "@styles/common";
 
 
 const ReqeustCards = () => {
-    const [user, setUser] = useRecoilState(userData);
-    const [post, setPost]=useState[];
-    // const boards:boradsInfo(user)=()=>{
-    const postList=useMemo(()=>{},)    
+    // const [user, setUser] = useRecoilState(userData);
+    // const [post, setPost]=useState([]);
+    // // const boards:boradsInfo(user)=()=>{
+    // const postList=useMemo(()=>{},)
 
     // }
 
-    
-    
+
+
+    return (
+        <>sadf</>
+    )
     return (
         <div>
             <Article>
@@ -35,7 +38,7 @@ const ReqeustCards = () => {
                     <Contents>
                         <h3>{post.title}</h3>
                         <p>
-                           {post.summary}
+                            {post.summary}
                         </p>
                     </Contents>
                     <Box>

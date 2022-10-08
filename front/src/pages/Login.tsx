@@ -40,11 +40,13 @@ const Login = () => {
 
         const API = Api.getInstance();
 
-        API.post(["api", "login"], formData, "")
+        API.post(["api", "login"], formData)
             .then((res) => {
                 if (res.data.ok) {
                     setJWT(res.data.accessToken);
                     sessionStorage.setItem("refreshToken", res.data.refreshToken);
+
+                    // API.setAccessToken(accessToken)
 
                     navigate(ROUTES.HOME.path);
                 } else {

@@ -1,40 +1,47 @@
 import { atom, selector, selectorFamily } from "recoil";
 import Api from "@/api";
-import { AxiosResponse } from "axios";
+import { Post } from '../types/post'
 
-export interface post {
-    title: string;
-    summary: string;
-    like: number;
-    writer: string;
-    timestamp: string;
-    comment: number;
-    viewcounts: number;
-}
 const API = Api.getInstance();
 
+const fetchPosts = (page: number) => {
+    if (page === 2) {
+        return Promise.resolve([
+            {id:4, title: 'page4 post'},
+            {id:5, title: 'page5 post'},
+            {id:6, title: 'page6 post'},
+        ])
+    }
+
+    return Promise.resolve([
+        {id:1, title: 'page1 post'},
+        {id:2, title: 'page2 post'},
+        {id:3, title: 'page3 post'},
+    ])
+}
+
 //atom for pagination
-//제네릭은 커스터마이징
-const pagesAtom = atom<AxiosResponse<{ [key: number]: post[] }, Error>>({
-    key: "pagesAtom",
-    default: API.get(["a"]),
-});
+// //제네릭은 커스터마이징
+// export const pagesAtom = atom<number>({
+//     key: "pagesAtom",
+//     // default: API.get(["a"]),
+//     default: 0,
+// });
 
 //변수이름<=>key는 리코일 내부에서 사용되는 고유이름
-const pages = selectorFamily({
+export const postsSelector = selectorFamily({
     key: "pages",
-    get:
-        (pageNum: number) =>
-        async ({ get }) => {
-            const pagesatom = get(pagesAtom).catch((err) => {
-                throw new Error(err);
-            });
-            return pagesatom[pageNum]; //구독할거다
-        },
-    set:
-        (startPageNum) =>
-        async ({ set }) => {
-            const pages = await API.get("경로+startPageNum");
-            set(pagesAtom, pages);
-        },
+    get: (page: number) => {
+        return async ({ get }) => {
+            const posts = await fetchPosts(page)
+            return posts
+        }
+    },
+    // set:
+    //     () =>
+    //         async ({ set }) => {
+    //             console.log('setset')
+    //             // const pages = await API.get("경로+startPageNum");
+    //             // set(pagesAtom, pages);
+    //         },
 });
