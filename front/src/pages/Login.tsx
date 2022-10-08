@@ -40,7 +40,7 @@ const Login = () => {
 
         const API = Api.getInstance();
 
-        API.post(["api", "login"], formData, "")
+        API.post(["api", "login"], formData)
             .then((res) => {
                 if (res.data.ok) {
                     setJWT(res.data.accessToken);

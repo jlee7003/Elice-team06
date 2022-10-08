@@ -10,6 +10,7 @@ import Mypage from "@pages/Mypage";
 import Landing from "@pages/Landing";
 import Auth from "@pages/Auth";
 
+import RequestBoard from "../pages/RequestBoard";
 interface route {
     path: string;
     Component: React.FC;
@@ -31,10 +32,6 @@ export const ROUTES: routeWrap = {
     Signup: {
         path: "/signup",
         Component: Signup,
-    },
-    RequestBoard: {
-        path: "/requestboard",
-        Component: RequestBoard,
     },
     Post: {
         path: "/challenge/posts",

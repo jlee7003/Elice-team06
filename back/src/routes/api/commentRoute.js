@@ -7,12 +7,12 @@ commentRoute.get(
     "/comments/:postId",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        res.send(`${postId}의 댓글 목록`);
+        res.send(`${postId}게시글의 댓글 목록`);
     })
 );
 
 commentRoute.post(
-    "/comment/:postId/:userEmail",
+    "/comments/:postId/:userEmail",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
         const { userEmail } = req.params;
@@ -21,19 +21,19 @@ commentRoute.post(
 );
 
 commentRoute.delete(
-    "/comment/delete/:commentId",
+    "/comments/:commentId",
     asyncHandler(async (req, res) => {
         const { commentId } = req.params;
-        res.send(`${commentId}삭제!`);
+        res.send(`${commentId}댓글 삭제!`);
     })
 );
 
 commentRoute.put(
-    "/comment/update/:commentId",
+    "/comments/:commentId",
     asyncHandler(async (req, res) => {
         const { commentId } = req.params;
 
-        res.send(`${commentId}수정!`);
+        res.send(`${commentId}댓글 수정!`);
     })
 );
 

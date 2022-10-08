@@ -2,8 +2,19 @@ import { Router } from "express";
 import { User } from "../../models";
 import asyncHandler from "../../lib/util/asyncHandler";
 import authToken from "../../middlewares/authToken";
+import userService from "../../services/userService.js";
 
 const userRoute = Router();
+
+userRoute.post(
+    "/signup",
+    asyncHandler(async (req, res) => {
+        const userData = req.body;
+        const newUser = await userService.addUser({ userData });
+
+        res.json(newUser);
+    })
+);
 
 userRoute.post(
     "/register",
@@ -38,14 +49,13 @@ userRoute.post(
 );
 
 userRoute.post(
-    "/current",
+    "/refresh",
     authToken,
     asyncHandler(async (req, res) => {
         res.send({ ok: true, accessToken: req.userID });
     })
 );
 
-//토큰 넣어야하나.?
 userRoute.get(
     "/myInfo/:userEmail",
     asyncHandler(async (req, res) => {
@@ -55,14 +65,13 @@ userRoute.get(
 );
 
 userRoute.put(
-    "/myInfo/update/:userEmail",
+    "/myInfo/:userEmail",
     asyncHandler(async (req, res) => {
         const { userEmail } = req.params;
         res.send(`${userEmail}님의 이름/설명 수정`);
     })
 );
 
-//여기서 비밀번호 확인하기
 userRoute.get(
     "/myInfo/auth/:userEmail",
     asyncHandler(async (req, res) => {

@@ -32,6 +32,28 @@ export const fontSize4 = css`
 `;
 
 /**
+ * Heading font size
+ */
+//랜딩 페이지 타이틀
+export const HeadFontSize1 = css`
+    font-size: 50px;
+`;
+//페이지 영역 타이틀
+export const HeadFontSize2 = css`
+    font-size: 26px;
+`;
+
+/**
+ * Button text
+ */
+export const ButtonFontSize = css`
+    font-size: 18px;
+`;
+
+/**
+ * Content font size
+ */
+/**
  * Background Colors used in project
  */
 export const mainGreen = css`

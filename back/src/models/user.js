@@ -41,29 +41,29 @@ userSchema.statics.comparePassword = async function (userID, hashedPassword) {
     return bcrypt.compare(userData.password, hashedPassword);
 };
 
-userSchema.statics.register = async function (userData) {
-    try {
-        if (isInvalidEmail(userData.email)) {
-            return { ok: false };
-        }
+// userSchema.statics.register = async function (userData) {
+//     try {
+//         if (isInvalidEmail(userData.email)) {
+//             return { ok: false };
+//         }
 
-        const result = await this.findUser({ email: userData.email });
-        if (result) {
-            return { ok: false };
-        }
+//         const result = await this.findUser({ email: userData.email });
+//         if (result) {
+//             return { ok: false };
+//         }
 
-        const password = userData.password;
-        const hash = await bcrypt.hash(password, 10);
+//         const password = userData.password;
+//         const hash = await bcrypt.hash(password, 10);
 
-        userData.password = hash;
+//         userData.password = hash;
 
-        this.create(userData);
+//         this.create(userData);
 
-        return { ok: true };
-    } catch (err) {
-        throw new Error(err);
-    }
-};
+//         return { ok: true };
+//     } catch (err) {
+//         throw new Error(err);
+//     }
+// };
 
 userSchema.statics.login = async function (email, password) {
     if (isInvalidEmail(email)) {
@@ -81,7 +81,7 @@ userSchema.statics.login = async function (email, password) {
             return { ok: false };
         }
 
-        const accessToken = sign({ userID: userData.usreID });
+        const accessToken = sign({ userID: userData.usereID });
         let refreshToken = sign({}, "14d");
 
         Token.findOneAndDelete({ userID: userData.userID }).exec(() => {
