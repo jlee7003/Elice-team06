@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fontSize1, width } from ".";
+import cssUnit from "@/lib/cssUnit";
 
 export const HeaderContainer = styled.header`
     //add following scrolling (position, top, bc)
@@ -8,7 +8,7 @@ export const HeaderContainer = styled.header`
     justify-content: space-between;
     align-items: center;
 
-    ${width};
+    width: ${cssUnit.unit.width};
     height: 80px;
 
     margin: auto;

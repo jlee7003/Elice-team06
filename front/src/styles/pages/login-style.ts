@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { formWidth, fontSize2, fontSize3, mainGreen } from "../common";
+import cssUnit from "@/lib/cssUnit";
 
 export const Main = styled.main`
     display: grid;
@@ -30,15 +30,16 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-    ${formWidth}
+    width: ${cssUnit.unit.formWidth};
     margin-bottom: 15px;
 `;
 
 export const ErrorInfo = styled.div`
-    ${formWidth};
+    width: ${cssUnit.unit.formWidth};
+
     height: 60px;
 
-    ${fontSize2}
+    font-size: ${cssUnit.fontSize.medium};
     text-align: center;
     line-height: 52px;
 
@@ -51,7 +52,7 @@ export const ErrorInfo = styled.div`
 `;
 
 export const Input = styled.input`
-    ${formWidth};
+    width: 100%;
     height: 62px;
 
     margin-bottom: 30px;
@@ -63,13 +64,13 @@ export const Input = styled.input`
 export const SubmitButton = styled.button`
     all: unset;
 
-    ${formWidth};
+    width: 100%;
     height: 62px;
 
     border: 0px solid #293e49;
     border-radius: 10px;
 
-    ${mainGreen}
+    background-color: ${cssUnit.color.green};
     color: white;
 
     text-align: center;
@@ -89,5 +90,5 @@ export const Menu = styled.div`
 export const MenuButton = styled.button`
     margin: 15px;
 
-    ${fontSize3};
+    font-size: ${cssUnit.fontSize.medium};
 `;

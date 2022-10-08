@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { mainGreen, mainBlue, mainPurple, mainGray } from "./common";
-import { Props } from "@components/ChallengeCard";
+import { Props } from "@/components/ChallengeCard";
+import cssUnit from "@/lib/cssUnit";
 
 export const Card = styled.article`
     display: flex;
@@ -21,12 +21,12 @@ export const CardUpper = styled.div<Props>`
 
     ${(props) =>
         props.level == "beginner"
-            ? mainGreen
+            ? cssUnit.color.green
             : props.level == "intermediate"
-            ? mainBlue
+            ? cssUnit.color.blue
             : props.level == "advanced"
-            ? mainPurple
-            : mainGray}
+            ? cssUnit.color.purple
+            : cssUnit.color.gray}
 `;
 
 export const CardLower = styled.div`

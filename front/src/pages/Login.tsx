@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import { useState, useRef, MouseEvent } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import {
     Main,
     Form,
@@ -9,12 +10,11 @@ import {
     SubmitButton,
     Menu,
     MenuButton,
-} from "@styles/pages/login-style";
-import token from "@recoil/token";
-import Api from "../api";
-import { Logo } from "@styles/common";
-import { useNavigate, Link } from "react-router-dom";
-import { ROUTES } from "@routes/.";
+} from "@/styles/pages/login-style";
+import token from "@/recoil/token";
+import Api from "@/api/.";
+import { Logo } from "@/styles/common";
+import { ROUTES } from "@/routes/.";
 
 const Login = () => {
     const email = useRef<HTMLInputElement>(null);
@@ -40,7 +40,10 @@ const Login = () => {
 
         const API = Api.getInstance();
 
-        API.post(["api", "login"], formData)
+        API.post<{ ok: boolean; accessToken: string; refreshToken: string }>(
+            ["api", "login"],
+            formData
+        )
             .then((res) => {
                 if (res.data.ok) {
                     setJWT(res.data.accessToken);
