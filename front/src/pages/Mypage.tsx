@@ -1,4 +1,4 @@
-import { Banner } from "@styles/banner";
+import { Banner } from "@/styles/banner";
 import { useRecoilState } from "recoil";
 import userData from "../recoil/userData";
 import {
@@ -11,8 +11,8 @@ import {
     MySec,
     Menus,
     Buttons,
-} from "@styles/pages/mypage-style";
-import ChallengeCard from "@components/ChallengeCard";
+} from "@/styles/pages/mypage-style";
+import ChallengeCard from "@/components/ChallengeCard";
 const Mypage = () => {
     const [user, setUser] = useRecoilState(userData);
 

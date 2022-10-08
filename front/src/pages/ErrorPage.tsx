@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, LoadingBox, LoadingText } from "@styles/pages/error-style";
-import { Loading } from "@styles/common";
+import { Container, LoadingBox, LoadingText } from "@/styles/pages/error-style";
+import { Loading } from "@/styles/common";
 
 const ErrorPage = () => {
     const navigate = useNavigate();

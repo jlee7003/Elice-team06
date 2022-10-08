@@ -12,7 +12,7 @@ import {
     SecondContainer1,
     Select,
 } from "../styles/pages/signup-style";
-import { Logo } from "@styles/common";
+import { Logo } from "@/styles/common";
 
 // interface FormData {
 //     email: string;

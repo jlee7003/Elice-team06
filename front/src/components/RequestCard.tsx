@@ -10,10 +10,10 @@ import {
     Box,
     Time,
     DetailContainer,
-} from "@styles/common/requestCard-style";
+} from "@/styles/common/requestCard-style";
 
 /*icons*/
-import { Reply, Views } from "@styles/common";
+import { Reply, Views } from "@/styles/common";
 
 //인터페이스는 함수밖으로
 

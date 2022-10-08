@@ -1,4 +1,4 @@
-import { Card, CardUpper, CardLower } from "@styles/ChallengeCard-style";
+import { Card, CardUpper, CardLower } from "@/styles/ChallengeCard-style";
 import { useNavigate } from "react-router-dom";
 
 type Level = "beginner" | "intermediate" | "advanced" | "default";

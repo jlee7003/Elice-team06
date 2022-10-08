@@ -11,10 +11,10 @@ import {
     ButtonContianer,
     Nav,
     NavLink,
-} from "@styles/pages/reqpage-style";
+} from "@/styles/pages/reqpage-style";
 /*boards*/
-import ReqeustCards from "@components/RequestCard";
-import { postsSelector } from "@recoil/requestPosts";
+import ReqeustCards from "@/components/RequestCard";
+import { postsSelector } from "@/recoil/requestPosts";
 import { useEffect } from "react";
 
 const ReqPage = () => {

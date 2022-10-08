@@ -9,7 +9,7 @@ import {
     Logo,
     SectionNav,
     CarbonGraph,
-} from "@styles/pages/landing-style";
+} from "@/styles/pages/landing-style";
 import { useRef, useEffect, useState } from "react";
 
 const Landing = () => {

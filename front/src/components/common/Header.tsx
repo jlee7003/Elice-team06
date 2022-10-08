@@ -1,13 +1,13 @@
 import React from "react";
-import { Logo } from "@styles/common";
+import { Logo } from "@/styles/common";
 import {
     HeaderContainer,
     HeaderMenuContainer,
     HeaderMenuItem,
     Header100,
-} from "@styles/common/Header-style";
+} from "@/styles/common/Header-style";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@routes/route";
+import { ROUTES } from "@/routes/.";
 function Header() {
     const navigate = useNavigate();
 
