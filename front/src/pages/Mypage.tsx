@@ -1,6 +1,6 @@
 import { Banner } from "@/styles/banner";
 import { useRecoilState } from "recoil";
-import userData from "../recoil/userData";
+import userData from "../recoil/user";
 import {
     Container,
     ChallengeContainter,

@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useRecoilStateLoadable } from "recoil";
 import { useState, useRef, MouseEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -11,52 +11,36 @@ import {
     Menu,
     MenuButton,
 } from "@/styles/pages/login-style";
-import token from "@/recoil/token";
-import Api from "@/api/.";
 import { Logo } from "@/styles/common";
 import { ROUTES } from "@/routes/.";
+import userSelector from "@/recoil/user";
 
 const Login = () => {
+    const [loginData, setLoginData] = useState({ email: "", password: "" });
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
-    const [jwt, setJWT] = useRecoilState(token);
+    // const [jwt, setJWT] = useRecoilState(token);
+    const [userData, sample] = useRecoilStateLoadable(userSelector(loginData));
     const navigate = useNavigate();
 
     const [isError, setIsError] = useState(false);
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        // console.log(process.env.ORIGIN);
 
         if (email.current == null || password.current == null) {
             return;
         }
 
-        const formData = {
+        setLoginData({
             email: email.current.value,
             password: password.current.value,
-        };
+        });
 
-        const API = Api.getInstance();
-
-        API.post<{ ok: boolean; accessToken: string; refreshToken: string }>(
-            ["api", "login"],
-            formData
-        )
-            .then((res) => {
-                if (res.data.ok) {
-                    setJWT(res.data.accessToken);
-                    sessionStorage.setItem("refreshToken", res.data.refreshToken);
-
-                    navigate(ROUTES.Home.path);
-                } else {
-                    setIsError(true);
-                }
-            })
-            .catch((err: Error) => {
-                console.error(err);
-            });
+        if (userData.state === "hasValue") {
+            console.log(userData);
+        }
     };
 
     return (
