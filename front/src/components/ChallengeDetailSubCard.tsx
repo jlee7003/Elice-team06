@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Sub } from "../styles/pages/challengedetail-style";
-import { Logo } from "@styles/common";
+import { Logo } from "@/styles/common";
 
 // interface FormData {
 //     email: string;

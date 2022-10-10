@@ -1,6 +1,6 @@
-import { Main, Category } from "@styles/pages/home-style";
-import { Banner } from "@styles/banner";
-import ChallengeCard from "@components/ChallengeCard";
+import { Main, Category } from "@/styles/pages/home-style";
+import { Banner } from "@/styles/banner";
+import ChallengeCard from "@/components/ChallengeCard";
 
 const Home = () => {
     return (

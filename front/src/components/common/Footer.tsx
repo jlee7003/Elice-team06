@@ -5,8 +5,8 @@ import {
     Gitlab,
     TeamName,
     LogoContainer,
-} from "@styles/common/footer-style";
-import { Logo } from "@styles/common";
+} from "@/styles/common/footer-style";
+import { Logo } from "@/styles/common";
 import { GoMarkGithub } from "react-icons/go";
 
 const Footer = () => {

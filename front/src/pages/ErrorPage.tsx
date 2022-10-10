@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, LoadingBox, LoadingText } from "@styles/pages/error-style";
-import {Loading} from "@styles/common"
+import { Container, LoadingBox, LoadingText } from "@/styles/pages/error-style";
+import { Loading } from "@/styles/common";
 
 const ErrorPage = () => {
     const navigate = useNavigate();
@@ -16,9 +16,9 @@ const ErrorPage = () => {
     return (
         <Container>
             <LoadingBox>
-                <Loading/>
+                <Loading />
                 <LoadingText>
-                    3초 후 <br/> 홈으로 새로고침 됩니다...
+                    3초 후 <br /> 홈으로 새로고침 됩니다...
                 </LoadingText>
             </LoadingBox>
         </Container>

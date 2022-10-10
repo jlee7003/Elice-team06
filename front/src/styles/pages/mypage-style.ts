@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { width, fontSize2 } from "../common";
+import cssUnit from "@/lib/cssUnit";
 
 export const Container = styled.div`
     display: flex;
     flex-direction: row;
-    ${width};
+
+    width: ${cssUnit.unit.width};
     height: 70vh;
     padding-top: 70px;
 `;

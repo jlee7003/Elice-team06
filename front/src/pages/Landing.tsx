@@ -9,69 +9,122 @@ import {
     Logo,
     SectionNav,
     CarbonGraph,
-} from "@styles/pages/landing-style";
+} from "@/styles/pages/landing-style";
 import { useRef, useEffect, useState } from "react";
 
 const Landing = () => {
     //useState
-    //- 스크롤 속도용 스위치 State
-    const [ani, setAni] = useState(true);
-    //https://db2dev.tistory.com/entry/React-resize-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%8B%A4%EB%A3%A8%EA%B8%B0
-    const [innerHeight, setInnerHeight] = useState(window.innerHeight);
-    const [count, setCount] = useState(0);
+
+    const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
+    const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
+    const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
+    // const [count, setCount] = useState(0);
 
     //useRef
-    const section = useRef<HTMLDivElement>(null);
-    const navRefs = useRef<any>([]);
-
-    //useEffect
-    useEffect(() => {
-        //resize Func
-        const handleResize = () => {
-            setInnerHeight(window.innerHeight);
-        };
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, [innerHeight]);
+    const section = useRef<HTMLDivElement>(null); //section
+    const navRefs = useRef<any>([]); //section navigation
 
     //section nav list
     const nav = Array("탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개");
 
-    /*
-        top = 0 첫번째
-        
-        하나씩 이동되는 거는
-        top(0) + innerHeight
-        top(innerHeight) + innerHeight
-        top(innerHeight*2) + innerHeight
-        top(innerHeight*3) + innerHeight
+    //useEffect
+    useEffect(() => {
+        //화면 리사이즈,스크롤 이외에도 작동되야하는 코드
+        //full screen 일 때도 top 이 height 계산을 하기 위함
+        //왜냐, full screen 되는 건 resize() 함수의 영역이 아니기 때문
+        if (section.current) {
+            const calc = Math.abs(
+                Number(section.current.style.top.replace("px", "")) / innerHeight
+            ); //0,1,2....4 출력
 
-        top = (4 * innerHeight) 마지막꺼 
-    */
+            for (let i = 0; i < 6; i++) {
+                if (calc === i) {
+                    setInnerHeight((prev) => {
+                        return (prev = resizeHeight);
+                        //화면 높이 값을 리사이징 된 값으로 업데이트
+                    });
+                    section.current.style.top = `-${resizeHeight * i}px`;
+                    //top 값을 (리사이징된 값 * 현재 section index) 로 적용
+                }
+            }
+        }
+        //화면 리사이즈 시, handleResize 실행
+        const handleResize = () => {
+            setResizeHeight(window.innerHeight);
 
-    /*
-                리사이징 할 때,
-                스크롤 네비의 인덱스를 보고
-                인덱스 곱하기 화면 높이 해도 괜찮을 듯
-            */
+            if (section.current) {
+                section.current.style.transition = "none";
+                const consoleTop = section.current.style.top;
 
+                const calc = Math.abs(
+                    Number(section.current.style.top.replace("px", "")) / innerHeight
+                );
+
+                for (let i = 0; i < 6; i++) {
+                    if (calc === i) {
+                        setInnerHeight((prev) => {
+                            return (prev = resizeHeight);
+                        });
+                        section.current.style.top = `-${resizeHeight * i}px`;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            //React이 계속 리랜더링하기 때문에, 무한루프에 빠지지 않도록 removeEvent...설정(?)
+        };
+    }, [resizeHeight, innerHeight]);
+
+    //스크롤 하지 않아도 적용되어야 하는 값들
+    if (section.current != null) {
+        let top = Number(section.current.style.top.replace("px", ""));
+
+        const pureTop = Math.abs(top);
+        const navIndex = pureTop / innerHeight;
+
+        console.log("navIndex", navIndex);
+
+        //모든 nav list style 값 초기화
+        for (let i = 0; i < 5; i++) {
+            navRefs.current[i].style.backgroundColor = "#d9d9d9";
+            navRefs.current[i].style.color = "#6C6C6C";
+            navRefs.current[i].style.fontSize = "12px";
+            navRefs.current[i].style.width = "81px";
+            navRefs.current[i].style.padding = "0px 5px";
+        }
+
+        //navRefs.current 의 index 가 4 이상 넘어가지 않도록 설정
+        if (navIndex < 5) {
+            navRefs.current[navIndex].style.backgroundColor = "#393939";
+            navRefs.current[navIndex].style.color = "#fff";
+            navRefs.current[navIndex].style.fontSize = "16px";
+            navRefs.current[navIndex].style.width = "118px";
+            navRefs.current[navIndex].style.padding = "3px 5px";
+        }
+    }
+
+    //스크롤 이벤트
     const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-        //ani 값이 true 일 때만 동작 : ani 가 스위치 역할
+        //ani 값이 true 일 때만 동작 : ani 가 스위치 역할 (?)
         if (ani) {
             if (e.deltaY < 0) {
                 if (section.current != null) {
+                    section.current.style.transition = "all 0.7s";
                     // !== 가 아닌 != 은 null 과 undefined 다 체크해줌
                     let top = Number(section.current.style.top.replace("px", ""));
 
                     const height = Number(-innerHeight * 5);
 
                     if (0 >= top && top >= height) {
-                        setCount((prev) => (prev == 0 ? (prev = 0) : prev - 1));
-                        console.log("count =>", count);
-                        section.current.style.top = `${(top += innerHeight)}px`;
+                        setInnerHeight((prev) => prev++);
+                        section.current.style.top = `${top + innerHeight}px`;
+
+                        console.log("innerHeight", innerHeight);
+                        console.log("section.current.style.top ", section.current.style.top);
 
                         setTimeout(() => {
                             setAni(true);
@@ -81,9 +134,6 @@ const Landing = () => {
                         setAni(false);
 
                         /*-- section Nav 설정 --*/
-
-                        console.log("현재 top 값", top);
-                        console.log("현재 innerHeight 값", innerHeight);
 
                         //-값을 가지는 top 값을 양수화
                         const pureTop = Math.abs(top);
@@ -121,13 +171,14 @@ const Landing = () => {
                     }
 
                     //top 이 0 이면 스크롤 스탑
-                    if (top === innerHeight) {
+                    if (top === 0) {
                         section.current.style.top = 0 + "px";
                     }
                 }
             } else {
                 //스크롤 다운
                 if (section.current != null) {
+                    section.current.style.transition = "all 0.7s";
                     // !== 가 아닌 != 은 null 과 undefined 다 체크해줌
 
                     //top 값 중에 px 을 빼고 Number 로 변환
@@ -135,10 +186,8 @@ const Landing = () => {
 
                     const height = Number(-innerHeight * 5);
                     if (0 >= top || top <= height) {
-                        setCount((prev) => (prev == 4 ? (prev = 4) : prev + 1));
-
-                        console.log("count =>", count);
-                        section.current.style.top = `${(top -= innerHeight)}px`;
+                        setInnerHeight((prev) => prev--);
+                        section.current.style.top = `${top - innerHeight}px`;
 
                         setTimeout(() => {
                             setAni(true);
@@ -150,10 +199,7 @@ const Landing = () => {
                         setAni(false);
 
                         /*-- section Nav 설정 --*/
-
                         const pureTop = Math.abs(top);
-
-                        console.log("top / innerHeight", pureTop / innerHeight);
 
                         const navIndex = pureTop / innerHeight;
 
@@ -174,7 +220,7 @@ const Landing = () => {
                         }
                     }
 
-                    if (top === height) {
+                    if (top === Number(-innerHeight * 4)) {
                         section.current.style.top = `-${innerHeight * 4}px`;
                     }
                 }
@@ -215,7 +261,6 @@ const Landing = () => {
                 </Nav>
             </Header>
             <SectionNav>
-                {/* https://eliaslog.pw/how-to-add-multiple-refs-to-one-useref-hook/ */}
                 {nav.map((item, i) => {
                     return (
                         <li
@@ -230,7 +275,7 @@ const Landing = () => {
                     );
                 })}
             </SectionNav>
-            <Container onWheel={onWheel} ref={section} style={{ top: 0 }}>
+            <Container onWheel={onWheel} ref={section} style={{ top: 0, transition: "all 0.7s" }}>
                 <Section bgColor="#dc322f" bgImg="url('src/assets/landing_bgImage.png')">
                     <Section1Box>
                         <div>

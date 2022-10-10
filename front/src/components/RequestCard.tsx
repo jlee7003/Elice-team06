@@ -10,13 +10,12 @@ import {
     Box,
     Time,
     DetailContainer,
-} from "@styles/common/requestCard-style";
+} from "@/styles/common/requestCard-style";
 
 /*icons*/
-import { Reply, Views } from "@styles/common";
+import { Reply, Views } from "@/styles/common";
 
 //인터페이스는 함수밖으로
-
 
 const ReqeustCards = () => {
     // const [user, setUser] = useRecoilState(userData);
@@ -26,45 +25,38 @@ const ReqeustCards = () => {
 
     // }
 
-
-
-    return (
-        <>sadf</>
-    )
     return (
         <div>
             <Article>
                 <ArtContainer>
                     <Contents>
-                        <h3>{post.title}</h3>
-                        <p>
-                            {post.summary}
-                        </p>
+                        <h3>공부중입니다 post.title</h3>
+                        <p>리코일로 포스트 관리하기...post.summary</p>
                     </Contents>
                     <Box>
-                        <button>{post.like}</button>
-                        <span>{post.vote}</span>
+                        <button>post.like</button>
+                        <span>post.vote</span>
                     </Box>
                 </ArtContainer>
                 <DetailContainer>
                     <Details>
                         <li>
-                            <span>작성자</span>{post.writer}
+                            <span>작성자</span>post.writer
                         </li>
                         <li>
                             <i>
                                 <Reply />
                             </i>
-                            {post.comment}개의 댓글
+                            post.comment개의 댓글
                         </li>
                         <li>
                             <i>
                                 <Views />
                             </i>
-                            {post.viewcounts}views
+                            post.viewcounts views
                         </li>
                     </Details>
-                    <Time>{post.timestamp}</Time>
+                    <Time>post.timestamp</Time>
                 </DetailContainer>
             </Article>
         </div>

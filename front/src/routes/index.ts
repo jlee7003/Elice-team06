@@ -1,15 +1,14 @@
 import React from "react";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import ReqPage from "../pages/ReqBoard";
-import Post from "../pages/challenge/Post";
-import ChallengeDetail from "../pages/challenge/ChallengeDetail";
-import ErrorPage from "../pages/ErrorPage";
-import Mypage from "../pages/Mypage";
-import Landing from "../pages/Landing";
+import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+import Signup from "@/pages/Signup";
+import Post from "@/pages/challenge/Post";
+import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
+import ErrorPage from "@/pages/ErrorPage";
+import Mypage from "@/pages/Mypage";
+import Landing from "@/pages/Landing";
+import Auth from "@/pages/Auth";
 
-import RequestBoard from "../pages/RequestBoard";
 interface route {
     path: string;
     Component: React.FC;
@@ -44,17 +43,17 @@ export const ROUTES: routeWrap = {
         path: "/challenge/challengedetail",
         Component: ChallengeDetail,
     },
-    ErrorPage: {
-        path: "*",
-        Component: ErrorPage,
-    },
     Mypage: {
         path: "/mypage",
         Component: Mypage,
     },
-    Reqpage: {
-        path: "/reqboard",
-        Component: ReqPage,
+    Auth: {
+        path: "/auth/:target",
+        Component: Auth,
+    },
+    ErrorPage: {
+        path: "*",
+        Component: ErrorPage,
     },
 };
 

@@ -11,12 +11,12 @@ import {
     FlexBox,
     Input,
     CommentButton,
-} from "@styles/pages/challengedetail-style";
+} from "@/styles/pages/challengedetail-style";
 import { useRecoilState } from "recoil";
-import challengeBoardWriterData from "@recoil/challengeBoardWriter";
+import challengeBoardWriterData from "@/recoil/challengeBoardWriter";
 import { useRef, useState } from "react";
 import Pagination from "./pagination";
-import commentState from "@recoil/commentState";
+import commentState from "@/recoil/commentState";
 interface User {
     title: string;
     date: string;
