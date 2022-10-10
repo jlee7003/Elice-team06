@@ -12,7 +12,7 @@ dataRoute.get(
         const parameter = req.params.parameter;
 
         const data = await dataService.getdata(parameter);
-        res.send(data);
+        res.status(200).send(data);
     })
 );
 
