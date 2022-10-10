@@ -15,14 +15,15 @@ const App = () => {
     const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
-        const refreshToken = sessionStorage.getItem("refreshToken");
-
-        if (refreshToken != null) {
-            const API = Api.getInstance();
-            API.post(["api", "current"], {}, "refreshed").then((res) => {
-                setToken(res.data.accessToken);
-            });
-        }
+        // const refreshToken = sessionStorage.getItem("refreshToken");
+        // if (refreshToken != null) {
+        //     const API = Api.getInstance();
+        //     API.post<{ accessToken: string; refreshToken: string }>(["api", "current"], {}).then(
+        //         (res) => {
+        //             setToken(res.data.accessToken);
+        //         }
+        //     );
+        // }
     });
 
     useEffect(() => {

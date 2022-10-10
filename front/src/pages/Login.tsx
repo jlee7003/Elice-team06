@@ -1,6 +1,10 @@
-import { useRecoilStateLoadable } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useState, useRef, MouseEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { login, userAtom } from "@/recoil/user";
+import Api from "@/api";
+import User from "@/types/user";
+import { ROUTES } from "@/routes/.";
 import {
     Main,
     Form,
@@ -12,34 +16,51 @@ import {
     MenuButton,
 } from "@/styles/pages/login-style";
 import { Logo } from "@/styles/common";
-import { ROUTES } from "@/routes/.";
-import userSelector from "@/recoil/user";
+
+interface LoginResponse extends User {
+    refreshToken: string;
+}
 
 const Login = () => {
-    const [loginData, setLoginData] = useState({ email: "", password: "" });
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
-    // const [jwt, setJWT] = useRecoilState(token);
-    const [userData, sample] = useRecoilStateLoadable(userSelector(loginData));
+    const setLogin = useSetRecoilState(login);
+    const setUserAtom = useSetRecoilState(userAtom);
+
     const navigate = useNavigate();
 
     const [isError, setIsError] = useState(false);
 
-    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         if (email.current == null || password.current == null) {
             return;
         }
 
-        setLoginData({
-            email: email.current.value,
+        const loginData = {
+            user_email: email.current.value,
             password: password.current.value,
-        });
+        };
 
-        if (userData.state === "hasValue") {
-            console.log(userData);
+        const API = Api.getInstance();
+
+        try {
+            const res = await API.post<LoginResponse>(["api", "login"], loginData);
+            if (res.statusText === "OK") {
+                API.setToken(res.data.accessToken);
+                sessionStorage.setItem("refresh", res.data.refreshToken);
+
+                setLogin(true);
+                setUserAtom(res.data);
+
+                navigate(ROUTES.Home.path);
+            } else {
+                setIsError(true);
+            }
+        } catch (err: any) {
+            console.log(err.message);
         }
     };
 

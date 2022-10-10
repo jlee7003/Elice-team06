@@ -37,16 +37,13 @@ class Api {
     async post<T>(params: string[], data: Data) {
         const url = params.join("/");
 
-        const bodyData = JSON.stringify(data);
-        return this.axiosInstance.post<T>(url, bodyData);
+        return this.axiosInstance.post<T>(url, data);
     }
 
     async put<T>(params: string[], data: Data) {
         const url = params.join("/");
 
-        const bodyData = JSON.stringify(data);
-
-        return this.axiosInstance.put<T>(url, bodyData);
+        return this.axiosInstance.put<T>(url, data);
     }
 
     async delete<T>(params: string[]) {
