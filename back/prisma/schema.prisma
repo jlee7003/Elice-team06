@@ -26,6 +26,7 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   Board         Board[]
+  Challenge Challenge[]
 }
 
 model Board {
@@ -39,17 +40,28 @@ model Board {
   updatedAt   DateTime @updatedAt
 }
 
+model Challenge {
+  id  Int @id @default(autoincrement())
+  title String
+  description String
+  goal String
+  start_date DateTime @db.DateTime(0)
+  due_date DateTime @db.DateTime(0)
+  author User @relation(fields: [proposer], references: [user_email])
+  proposer String 
+}
+
 enum Role {
   USER
   ADMIN
 }
 
-model sealevelkorea {
+model SeaLevelKorea {
   year      Int   @id
   sea_level Float @db.Float
 }
 
-model emissionco2 {
+model EmissionCO2 {
   year  Int    @id
   World BigInt @db.UnsignedBigInt
   USA   BigInt @db.UnsignedBigInt
@@ -58,7 +70,7 @@ model emissionco2 {
   Korea BigInt @db.UnsignedBigInt
 }
 
-model temperture {
+model Temperture {
   year  Int   @id
   World Float @db.Float
   USA   Float @db.Float
