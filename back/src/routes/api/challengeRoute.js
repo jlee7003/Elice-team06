@@ -23,7 +23,7 @@ challengeRoute.get(
     asyncHandler(async (req, res) => {
         try {
             const { user_email } = req.userId;
-            const myChallenges = await challengeService.findchl(user_email);
+            const myChallenges = await challengeService.findchl({ user_email: user_email });
             res.status(200).send(myChallenges);
         } catch (error) {
             res.status(504).send(error);
@@ -36,8 +36,7 @@ challengeRoute.get(
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            const challengeId = req.params.id;
-            const challenge = await challengeService.findchl({ challengeId });
+            const challenge = await challengeService.findchl({ challengeId: req.params.id });
             res.status(200).send(challenge);
         } catch (error) {
             res.status(404).send("잘못된 접근입니다.");
@@ -50,8 +49,8 @@ challengeRoute.post(
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            const input = req.body;
             const { user_email } = req.userId;
+            const input = req.body;
             input.proposer = user_email;
 
             const newChallenge = await challengeService.addchl(input);
@@ -85,7 +84,7 @@ challengeRoute.delete(
         try {
             const challengeId = req.params.id;
 
-            deleteChallenge = await challengeService.deletechl(challengeId);
+            const deleteChallenge = await challengeService.deletechl(challengeId);
             res.status(200).send(deleteChallenge);
         } catch (error) {
             res.status(404).send("잘못된 접근입니다.");

@@ -14,7 +14,7 @@ class challengeService {
         let findChallenge;
 
         if (challengeId) {
-            findChallenge = await prisma.Challenge.findUnique({
+            findChallenge = await prisma.Challenge.findUniqueOrThrow({
                 where: { id: Number(challengeId) },
             });
         } else {
@@ -51,7 +51,7 @@ class challengeService {
     }
 
     static async deletechl(challengeId = null) {
-        deleteChallenge = await prisma.Challenge.delete({
+        const deleteChallenge = await prisma.Challenge.delete({
             where: { id: Number(challengeId) },
         });
 
