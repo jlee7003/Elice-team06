@@ -119,32 +119,28 @@ class userService {
         return userData;
     }
 
-    static async updateUser({
-        user_email,
-        nickname,
-        introduce,
-        age,
-        region,
-        gender,
-        profile_image,
-    }) {
-        const searchNickname = await prisma.User.findUnique({ where: { nickname } });
-        if (searchNickname) {
-            return "이미 존재하는 닉네임입니다.";
+    static async updateUser({ user_email, updateData }) {
+        if (updateData.nickname) {
+            const nickname = updateData.nickname;
+            const searchNickname = await prisma.User.findUnique({
+                where: { nickname },
+                select: { nickname: true },
+            });
+
+            if (searchNickname && searchNickname.nickname === nickname) {
+                return "이미 존재하는 닉네임입니다.";
+            }
         }
-        await prisma.User.update({
+
+        const updateInfo = await prisma.User.update({
             where: {
                 user_email,
             },
             data: {
-                nickname,
-                introduce,
-                age,
-                region,
-                gender,
-                profile_image,
+                ...updateData,
             },
         });
+        return updateInfo;
     }
 
     static async comparePassword({ user_email, password }) {

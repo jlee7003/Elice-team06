@@ -75,17 +75,13 @@ userRoute.get(
 //유저 닉네임,소개글 수정//
 userRoute.put(
     "/myInfo",
-    authToken,
+    // authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.userId;
-        const { nickname, introduce, age, region, gender } = req.body;
+        // const { user_email } = req.userId;
+        const { user_email, updateData } = req.body;
         const result = await userService.updateUser({
             user_email,
-            nickname,
-            introduce,
-            age,
-            region,
-            gender,
+            updateData,
         });
 
         res.status(200).send(result);
