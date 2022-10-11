@@ -16,6 +16,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/ping", (req, res) => {
+	res.send("pong");
+});
+
 app.use("/api", userRoute);
 app.use("/api", challengeRoute);
 app.use("/api", boardRoute);
