@@ -907,6 +907,11 @@
     "is-date-object" "^1.0.1"
     "is-symbol" "^1.0.2"
 
+"esbuild-windows-64@0.15.8":
+  "integrity" "sha512-ag9ptYrsizgsR+PQE8QKeMqnosLvAMonQREpLw4evA4FFgOBMLEat/dY/9txbpozTw9eEOYyD3a4cE9yTu20FA=="
+  "resolved" "https://registry.npmjs.org/esbuild-windows-64/-/esbuild-windows-64-0.15.8.tgz"
+  "version" "0.15.8"
+
 "esbuild@^0.15.6":
   "integrity" "sha512-Remsk2dmr1Ia65sU+QasE6svJbsHe62lzR+CnjpUvbZ+uSYo1SitiOWPRfZQkCu82YWZBBKXiD/j0i//XWMZ+Q=="
   "resolved" "https://registry.npmjs.org/esbuild/-/esbuild-0.15.8.tgz"
