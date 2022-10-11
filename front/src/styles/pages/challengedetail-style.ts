@@ -47,13 +47,17 @@ export const SubTitle = styled.div`
         font-size: 12px;
     }
 `;
-
+export const CommentContainer = styled.div`
+    height: 40%;
+    position: relative;
+`;
 export const TargetLabel = styled.div`
     font-size: 18px;
     margin: 15px 0px;
     color: #888888;
     font-weight: bold;
     white-space: pre-wrap;
+    margin-right: 20px;
     & > span {
         font-size: 12px;
     }

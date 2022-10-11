@@ -2,7 +2,13 @@ import { Main, Category } from "@/styles/pages/home-style";
 import { Banner } from "@/styles/banner";
 import ChallengeCard from "@/components/ChallengeCard";
 
+import { useRecoilState } from "recoil";
+import DarkMode from "@/recoil/darkMode";
+export interface Props {
+    mode?: string;
+}
 const Home = () => {
+    const [darkMode] = useRecoilState(DarkMode);
     return (
         <div>
             <Banner />

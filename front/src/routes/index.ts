@@ -2,6 +2,7 @@ import React from "react";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
+import ReqPage from "@/pages/ReqBoard";
 import Post from "@/pages/challenge/Post";
 import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
 import ErrorPage from "@/pages/ErrorPage";
@@ -34,6 +35,10 @@ export const ROUTES: routeWrap = {
     Post: {
         path: "/challenge/posts",
         Component: Post,
+    },
+    ReqPage: {
+        path: "/reqpage",
+        Component: ReqPage,
     },
     Landing: {
         path: "/landing",
