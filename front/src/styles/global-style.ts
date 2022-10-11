@@ -1,16 +1,7 @@
 import { createGlobalStyle, css } from "styled-components";
 import { Props } from "../App";
 const font = css`
-    /* @font-face {
-        font-family: "Noto Sans KR", sans-serif;
-        font-family: "EliceDigitalBaeum-Bd";
-     
-
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_elice@1.0/EliceDigitalBaeum-Bd.woff2")
-            format("woff2");
-        font-weight: normal;
-        font-style: normal;
-    } */
+    /**/
     @font-face {
         font-family: "Noto Sans KR";
         font-style: normal;
@@ -23,10 +14,10 @@ const font = css`
 
 const GlobalStyle = createGlobalStyle<Props>`
     * {
+        font-family: "Noto Sans KR", sans-serif;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Noto Sans KR", sans-serif;
         /* font-family: ${font}; */
         transition: background-color 0.2s linear;
         #root > div{

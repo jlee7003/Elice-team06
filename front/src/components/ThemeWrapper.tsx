@@ -1,6 +1,5 @@
 import React from "react";
 import { Theme, ThemeContextType } from "@/styles/theme";
-import { ThemeContext } from "@/UI/themeProvider";
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
 import { CheckBox, Label, Sun, Moon } from "@/styles/pages/toggleButton-style";
