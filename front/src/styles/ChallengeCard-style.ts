@@ -18,15 +18,14 @@ export const CardUpper = styled.div<Props>`
     height: 40%;
 
     border-radius: 24px 24px 0 0;
-
-    ${(props) =>
+    background-color: ${(props) =>
         props.level == "beginner"
             ? cssUnit.color.green
             : props.level == "intermediate"
             ? cssUnit.color.blue
             : props.level == "advanced"
             ? cssUnit.color.purple
-            : cssUnit.color.gray}
+            : cssUnit.color.gray};
 `;
 
 export const CardLower = styled.div`
