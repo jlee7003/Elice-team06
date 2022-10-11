@@ -1,5 +1,6 @@
 import { Router } from "express";
 import asyncHandler from "../../lib/util/asyncHandler";
+import postVoteService from "../../services/postVoteService";
 
 const voteRoute = Router();
 
@@ -12,11 +13,12 @@ voteRoute.get(
 );
 
 voteRoute.post(
-    "/votes/:postId/:userEmail",
+    "/votes/:postId",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { userEmail } = req.params;
-        res.send(`${postId}게시글에 ${userEmail}님이 투표했습니다.`);
+        const { user_email } = req.body;
+        const result = await postVoteService.addVote({ postId, user_email });
+        res.send(result);
     })
 );
 

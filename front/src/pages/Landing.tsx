@@ -6,6 +6,7 @@ import {
     Header,
     Nav,
     Logo,
+    LogoImg,
     SectionNav,
     CarbonGraph,
     Section3Box,
@@ -15,6 +16,8 @@ import {
     ChallengeCurrent,
 } from "@/styles/pages/landing-style";
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/routes/.";
 
 const Landing = () => {
     //useState
@@ -238,10 +241,18 @@ const Landing = () => {
         }
     };
 
+    const navigate = useNavigate();
+    const home = () => {
+        navigate(ROUTES.Home.path);
+    };
+
     return (
         <ContainerWrap>
             <Header>
-                <Logo>로고</Logo>
+                <Logo>
+                    <LogoImg onClick={home} />
+                </Logo>
+
                 <Nav>
                     <p>
                         <a href="#" title="소개">
@@ -286,7 +297,7 @@ const Landing = () => {
                 })}
             </SectionNav>
             <Container onWheel={onWheel} ref={section} style={{ top: 0, transition: "all 0.7s" }}>
-                <Section bgColor="#dc322f" bgImg="url('src/assets/landing_bgImage.png')">
+                <Section bgColor="#8FACBD" bgImg="url('src/assets/landing_bgImage.png')">
                     <Section1Box>
                         <div>
                             <h2>탄소 발자국을 줄이자</h2>
@@ -326,7 +337,7 @@ const Landing = () => {
                         </Section3Content>
                     </Section3Box>
                 </Section>
-                <Section bgColor="#fff">
+                <Section bgColor="#d1d1d1">
                     <Section4Box>
                         <h2>우리 챌린지 서비스😍</h2>
                         <div>

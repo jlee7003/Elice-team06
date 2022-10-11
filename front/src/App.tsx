@@ -51,7 +51,11 @@ const App = () => {
 
     return (
         <Router>
-            <GlobalStyle mode={darkMode ?? "Light"} />
+            {themeMode == "Common" ? (
+                <GlobalStyle mode="Common" />
+            ) : (
+                <GlobalStyle mode={darkMode ?? "Light"} />
+            )}
             {visible && <Header />}
             <Routes>
                 {ROUTES_LIST.map(({ path, Component }, idx) => (

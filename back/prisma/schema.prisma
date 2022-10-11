@@ -10,52 +10,81 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//table 분리 예정//
 model User {
-  user_email    String   @id @unique
-  nickname      String
+  user_email    String        @id @unique
+  nickname      String        @unique
   password      String
   password_hint String
-  age           Int?
+  token         String?       @unique
+  age           String?
   region        String?
   gender        String?
   profile_image String?
   introduce     String?
-  ban           Boolean  @default(false)
-  withdrawal    Boolean  @default(false)
-  role          Role     @default(USER)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  ban           Boolean       @default(false)
+  withdrawal    Boolean       @default(false)
+  role          Role          @default(USER)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   Board         Board[]
-  Challenge Challenge[]
-}
-
-model Board {
-  id          String   @id @unique @default(uuid())
-  user        User     @relation(fields: [user_email], references: [user_email])
-  user_email  String
-  title       String
-  description String
-  view        Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Challenge {
-  id  Int @id @default(autoincrement())
-  title String
-  description String
-  goal String
-  start_date DateTime @db.DateTime(0)
-  due_date DateTime @db.DateTime(0)
-  author User @relation(fields: [proposer], references: [user_email])
-  proposer String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  Comment       CommentPost[]
+  VotePost      VotePost[]
+  Challenge     Challenge[]
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+model Challenge {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  goal        String
+  start_date  DateTime @db.DateTime(0)
+  due_date    DateTime @db.DateTime(0)
+  author      User     @relation(fields: [proposer], references: [user_email])
+  proposer    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Board {
+  id           String        @id @unique @default(uuid())
+  author       User          @relation(fields: [author_email], references: [user_email])
+  author_email String
+  title        String
+  description  String
+  view         Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  Comment      CommentPost[]
+  VotePost     VotePost[]
+
+  @@index([id, createdAt(sort: Desc)])
+}
+
+model CommentPost {
+  id           String   @id @unique @default(uuid())
+  author       User     @relation(fields: [author_email], references: [user_email])
+  author_email String
+  post         Board    @relation(fields: [post_id], references: [id])
+  post_id      String
+  description  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model VotePost {
+  id        String   @id @default(uuid())
+  voter     User     @relation(fields: [voter_id], references: [user_email])
+  voter_id  String
+  post      Board    @relation(fields: [post_id], references: [id])
+  post_id   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SeaLevelKorea {
