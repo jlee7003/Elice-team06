@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  user_email    String  @id @unique
+  user_email    String   @id @unique
   nickname      String
   password      String
   password_hint String
@@ -19,14 +19,49 @@ model User {
   region        String?
   gender        String?
   profile_image String?
+  introduce     String?
+  ban           Boolean  @default(false)
+  withdrawal    Boolean  @default(false)
+  role          Role     @default(USER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  Board         Board[]
+  Challenge Challenge[]
 }
 
-model sealevelkorea {
+model Board {
+  id          String   @id @unique @default(uuid())
+  user        User     @relation(fields: [user_email], references: [user_email])
+  user_email  String
+  title       String
+  description String
+  view        Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Challenge {
+  id  Int @id @default(autoincrement())
+  title String
+  description String
+  goal String
+  start_date DateTime @db.DateTime(0)
+  due_date DateTime @db.DateTime(0)
+  author User @relation(fields: [proposer], references: [user_email])
+  proposer String 
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model SeaLevelKorea {
   year      Int   @id
   sea_level Float @db.Float
 }
 
-model emissionco2 {
+model EmissionCO2 {
   year  Int    @id
   World BigInt @db.UnsignedBigInt
   USA   BigInt @db.UnsignedBigInt
@@ -35,7 +70,7 @@ model emissionco2 {
   Korea BigInt @db.UnsignedBigInt
 }
 
-model temperture {
+model Temperture {
   year  Int   @id
   World Float @db.Float
   USA   Float @db.Float

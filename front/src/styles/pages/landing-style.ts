@@ -24,6 +24,10 @@ export const Header = styled.header`
     display: flex;
     z-index: 1;
     justify-content: space-between;
+    background-color: transparent;
+    p {
+        background-color: transparent;
+    }
 `;
 
 export const Logo = styled.p`
@@ -39,6 +43,7 @@ export const Nav = styled.nav`
     width: 50%;
     max-width: 900px;
     display: flex;
+    background-color: transparent;
     justify-content: space-around;
     p {
         a {
@@ -59,10 +64,12 @@ export const SectionNav = styled.ul`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: transparent;
     align-items: flex-end;
     li {
         width: 100%;
         height: 20px;
+
         background-color: #d9d9d9;
         text-align: center;
         line-height: 20px;
@@ -104,6 +111,7 @@ export const Section = styled.div<StyleProps>`
         text-align: center;
         font-size: 30px;
         margin-top: 10%;
+        background-color: transparent;
     }
 `;
 
@@ -125,18 +133,22 @@ export const Section1Box = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    background-color: transparent;
     div {
+        background-color: transparent;
         h2 {
             font-size: 50px;
+            background-color: transparent;
             padding-bottom: 40px;
         }
         p {
             font-size: 20px;
+            background-color: transparent;
         }
     }
 
     & > p {
+        background-color: transparent;
         button {
             background-color: #8075bf;
             width: 330px;
@@ -154,14 +166,18 @@ export const Section3Box = styled.div`
     width: auto;
     height: 40%;
     text-align: center;
+    background-color: transparent;
 
     div {
+        background-color: transparent;
         h2 {
+            background-color: transparent;
             font-size: 50px;
             padding-bottom: 40px;
         }
         p {
             font-size: 20px;
+            background-color: transparent;
         }
     }
 `;

@@ -2,7 +2,7 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useState } from "react";
 /*data*/
-import userData from "../recoil/userData";
+import userData from "../recoil/user";
 /*styles*/
 import {
     Container,

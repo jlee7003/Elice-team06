@@ -41,7 +41,7 @@ export const FooterContainer = styled.div`
 
     width: ${cssUnit.unit.width};
     height: 100%;
-
+    background-color: #343434;
     margin: auto;
 
     color: white;

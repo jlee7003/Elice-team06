@@ -4,13 +4,20 @@ import {
     HeaderContainer,
     HeaderMenuContainer,
     HeaderMenuItem,
-    Header100,
+    HeaderSticky,
 } from "@/styles/common/Header-style";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
-function Header() {
-    const navigate = useNavigate();
+import ThemeWrapper from "@/components/ThemeWrapper";
 
+// import { useRecoilState } from "recoil";
+// import DarkMode from "@/recoil/darkMode";
+// export interface Props {
+//     mode?: string;
+// }
+function Header() {
+    // const [darkMode] = useRecoilState(DarkMode);
+    const navigate = useNavigate();
     const login = () => {
         navigate(ROUTES.Login.path);
     };
@@ -18,25 +25,26 @@ function Header() {
         navigate(ROUTES.Reqpage.path);
     };
     const home = () => {
-        navigate("/");
+        navigate(ROUTES.Home.path);
     };
-
     return (
-        <Header100>
+        <HeaderSticky>
             <HeaderContainer>
                 <Logo onClick={home} />
                 <HeaderMenuContainer>
                     {/* 로그인 안했을 경우 */}
-                    <HeaderMenuItem onClick={login} style={{ marginRight: "54px" }}>
-                        로그인/회원가입
-                    </HeaderMenuItem>
+                    <HeaderMenuItem onClick={login}>로그인/회원가입</HeaderMenuItem>
 
                     {/* 로그인 했을 경우 */}
-                    <HeaderMenuItem onClick={RequestBoard} style={{ marginRight: "54px" }}>
-                        요청 게시판
-                    </HeaderMenuItem>
-                    <HeaderMenuItem style={{ marginRight: "54px" }}>마이 페이지</HeaderMenuItem>
+                    <HeaderMenuItem onClick={RequestBoard}>요청 게시판</HeaderMenuItem>
+                    <HeaderMenuItem>마이 페이지</HeaderMenuItem>
                     <HeaderMenuItem>로그아웃</HeaderMenuItem>
+                    <HeaderMenuItem>
+                        {/* <ThemeToggle toggle={toggleTheme} mode={ThemeMode}>
+                            DarkMode
+                        </ThemeToggle> */}
+                        <ThemeWrapper></ThemeWrapper>
+                    </HeaderMenuItem>
 
                     {/* 관리자일 경우  */}
                     {/* <HeaderMenuItem>요청 게시판</HeaderMenuItem>
@@ -52,7 +60,7 @@ function Header() {
                 <HeaderMenuItem>로그아웃</HeaderMenuItem> */}
                 </HeaderMenuContainer>
             </HeaderContainer>
-        </Header100>
+        </HeaderSticky>
     );
 }
 

@@ -1,5 +1,5 @@
 import { createGlobalStyle, css } from "styled-components";
-
+import { Props } from "../App";
 const font = css`
     @font-face {
         font-family: "EliceDigitalBaeum-Bd";
@@ -10,7 +10,7 @@ const font = css`
     }
 `;
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<Props>`
     * {
         margin: 0;
         padding: 0;
@@ -21,7 +21,16 @@ const GlobalStyle = createGlobalStyle`
             width:100vw;
             height:100vh;
         }
-
+        ${(props) =>
+            props.mode == "Light"
+                ? css`
+                      background-color: white;
+                      color: black;
+                  `
+                : css`
+                      background-color: black;
+                      color: white;
+                  `}
     }
 
     button, a {
@@ -35,6 +44,8 @@ const GlobalStyle = createGlobalStyle`
     #root > div {
         width: 100vw;
         height: 100vh;
+
+        
     }
 `;
 
