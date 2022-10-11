@@ -16,6 +16,13 @@ const cssUnit = {
         blue: "#6186be",
         purple: "#8075bf",
         gray: "#eeeeee",
+        white: "white",
+        black: "black",
+    },
+
+    backgroundColor: {
+        white: "white",
+        black: "black",
     },
 };
 

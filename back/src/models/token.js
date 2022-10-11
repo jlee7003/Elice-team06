@@ -1,13 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 
 const tokenSchema = new Schema({
-    userID: { type: String, required: true, unique: true },
+    userId: { type: String, required: true, unique: true },
     token: { type: String, required: true, unique: true },
 });
 
-tokenSchema.statics.addToken = function (userID, token) {
+tokenSchema.statics.addToken = function (userId, token) {
     try {
-        this.create({ userID, token });
+        this.create({ userId, token });
     } catch (err) {
         throw new Error(err);
     }

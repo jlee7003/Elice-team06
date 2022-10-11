@@ -3,18 +3,21 @@ import {
     Container,
     Section,
     Section1Box,
-    Section3Box,
     Header,
     Nav,
     Logo,
     SectionNav,
     CarbonGraph,
+    Section3Box,
+    Section3Content,
+    Section4Box,
+    ChallengeSlide,
+    ChallengeCurrent,
 } from "@/styles/pages/landing-style";
 import { useRef, useEffect, useState } from "react";
 
 const Landing = () => {
     //useState
-
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
     const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
     const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
@@ -33,6 +36,13 @@ const Landing = () => {
         //full screen 일 때도 top 이 height 계산을 하기 위함
         //왜냐, full screen 되는 건 resize() 함수의 영역이 아니기 때문
         if (section.current) {
+            //-----👉디자인 수정용 잠시 설정해 놓은 것🐱‍🐉-----
+            // setInnerHeight((prev) => {
+            //     return (prev = resizeHeight);
+            // });
+            // section.current.style.top = `-${resizeHeight * 3}px`;
+            //----------디자인 수정용----------
+
             const calc = Math.abs(
                 Number(section.current.style.top.replace("px", "")) / innerHeight
             ); //0,1,2....4 출력
@@ -128,7 +138,7 @@ const Landing = () => {
 
                         setTimeout(() => {
                             setAni(true);
-                            //0.5 초 후에 동작? 아직 이해 안감
+                            //0.8 초 후에 동작
                         }, 800);
 
                         setAni(false);
@@ -306,18 +316,33 @@ const Landing = () => {
                                 우리는 이렇게 등등.....
                             </p>
                         </div>
-                        <div>
+                        <Section3Content>
                             <ul>
                                 <li>스모그 현상</li>
                                 <li>마스크 착용해야 함</li>
                                 <li>병 걸릴 수도 있음</li>
                             </ul>
-                            <p>Graph</p>
-                        </div>
+                            <p>reChart js 적용</p>
+                        </Section3Content>
                     </Section3Box>
                 </Section>
-                <Section bgColor="#6c71c4">
-                    <h2>우리 챌린지 서비스 있음 재밌음</h2>
+                <Section bgColor="#fff">
+                    <Section4Box>
+                        <h2>우리 챌린지 서비스😍</h2>
+                        <div>
+                            <ChallengeSlide>챌린지 이미지 슬라이드</ChallengeSlide>
+                            <ChallengeCurrent>
+                                <div>
+                                    <p>챌린지 참여 현황</p>
+                                    <span>56</span>
+                                </div>
+                                <div>
+                                    <p>챌린저 가입 수</p>
+                                    <span>1,000</span>
+                                </div>
+                            </ChallengeCurrent>
+                        </div>
+                    </Section4Box>
                 </Section>
                 <Section bgColor="#343434">
                     <h2>팀원들 소개 표시하실? 하면 좀 까리할듯?</h2>

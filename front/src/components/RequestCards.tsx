@@ -43,11 +43,19 @@ const ReqeustCards = () => {
                             <span>작성자</span>post.writer
                         </li>
                         <li>
+<<<<<<< HEAD:front/src/components/RequestCards.tsx
                             <i></i>
                             post.comment개의 댓글
                         </li>
                         <li>
                             <i></i>
+=======
+                            <i>{/* <Reply /> */}</i>
+                            post.comment개의 댓글
+                        </li>
+                        <li>
+                            <i>{/* <Views /> */}</i>
+>>>>>>> 519da1c488a1f59e8b33f75bb0c6b48d4b23acbf:front/src/components/RequestCard.tsx
                             post.viewcounts views
                         </li>
                     </Details>
