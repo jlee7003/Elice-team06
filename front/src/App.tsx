@@ -45,7 +45,7 @@ const App = () => {
             if (isLanding) {
                 return (prev = "Common");
             }
-            return (prev = "Light");
+            return (prev = prev);
         });
     }, [visible, themeMode]);
 
