@@ -18,7 +18,6 @@ import { useRef, useEffect, useState } from "react";
 
 const Landing = () => {
     //useState
-
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
     const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
     const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
@@ -139,7 +138,7 @@ const Landing = () => {
 
                         setTimeout(() => {
                             setAni(true);
-                            //0.5 초 후에 동작? 아직 이해 안감
+                            //0.8 초 후에 동작
                         }, 800);
 
                         setAni(false);

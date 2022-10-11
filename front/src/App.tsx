@@ -19,6 +19,7 @@ const App = () => {
     const [darkMode] = useRecoilState(DarkMode);
     const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
+    const [themeMode, setThemeMode] = useRecoilState(DarkMode);
     const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
@@ -40,12 +41,22 @@ const App = () => {
             }
             return (prev = true);
         });
-    }, [visible]);
+        setThemeMode((prev: string) => {
+            if (isLanding) {
+                return (prev = "Common");
+            }
+            return (prev = "Light");
+        });
+    }, [visible, themeMode]);
 
     return (
         <Router>
             <ThemeProvider>
-                <GlobalStyle mode={darkMode ?? "Light"} />
+                {themeMode == "Common" ? (
+                    <GlobalStyle mode="Common" />
+                ) : (
+                    <GlobalStyle mode={darkMode ?? "Light"} />
+                )}
                 {visible && <Header />}
                 <Routes>
                     {ROUTES_LIST.map(({ path, Component }, idx) => (

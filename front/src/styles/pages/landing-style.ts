@@ -143,7 +143,7 @@ export const Section1Box = styled.div`
         }
         p {
             font-size: 20px;
-            background-color: transparent;
+            /* background-color: transparent; */
         }
     }
 
@@ -177,7 +177,7 @@ export const Section3Box = styled.div`
         }
         p {
             font-size: 20px;
-            background-color: transparent;
+            /* background-color: transparent; */
         }
     }
 `;
