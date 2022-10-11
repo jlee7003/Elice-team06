@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import cssUnit from "@/lib/cssUnit";
 
 export const Container = styled.div`
     display: grid;
@@ -9,7 +10,7 @@ export const Container = styled.div`
 export const SecondContainer = styled.div`
     display: flex;
     place-items: center;
-    width: 1275px;
+    width: ${cssUnit.unit.width};
     height: 100vh;
 `;
 export const SecondContainer1 = styled.div`
@@ -41,6 +42,10 @@ export const Input = styled.input`
     background-color: #fbfbfb;
     margin-bottom: 30px;
     padding: 10px;
+
+    &::placeholder {
+        font-size: ${cssUnit.fontSize.normal};
+    }
 `;
 
 export const Select = styled.select`
@@ -58,7 +63,7 @@ export const OKButton = styled.button`
     text-align: center;
     width: 411px;
     height: 62px;
-    background-color: #75c6a0;
+    background-color: ${cssUnit.color.carbongreen};
     border: 0px solid #293e49;
     border-radius: 10px;
     color: white;

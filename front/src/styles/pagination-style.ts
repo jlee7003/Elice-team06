@@ -75,15 +75,9 @@ export const PageBtn = styled.button`
     font-size: 20px;
     opacity: 0.2;
     aria-c &:hover {
-        background-color: #75c6a0;
+        background-color: ${cssUnit.color.carbongreen};
         cursor: pointer;
         border-radius: 30px;
         transform: translateY(-2px);
     }
-    /* &aria-checked=true {
-        background-color: #75c6a0;
-        cursor: pointer;
-        border-radius: 30px;
-        transform: translateY(-2px);
-    } */
 `;

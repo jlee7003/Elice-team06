@@ -9,7 +9,6 @@ import Api from "./api";
 import GlobalStyle from "@/styles/global-style";
 import visibleCommonComponent from "./recoil/visibleCommonComponent";
 
-import ThemeProvider from "@/UI/themeProvider";
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
 export interface Props {
@@ -17,6 +16,7 @@ export interface Props {
 }
 const App = () => {
     const [darkMode] = useRecoilState(DarkMode);
+    console.log(darkMode);
     const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
@@ -51,20 +51,14 @@ const App = () => {
 
     return (
         <Router>
-            <ThemeProvider>
-                {themeMode == "Common" ? (
-                    <GlobalStyle mode="Common" />
-                ) : (
-                    <GlobalStyle mode={darkMode ?? "Light"} />
-                )}
-                {visible && <Header />}
-                <Routes>
-                    {ROUTES_LIST.map(({ path, Component }, idx) => (
-                        <Route key={idx} path={path} element={<Component />} />
-                    ))}
-                </Routes>
-                {visible && <Footer />}
-            </ThemeProvider>
+            <GlobalStyle mode={darkMode ?? "Light"} />
+            {visible && <Header />}
+            <Routes>
+                {ROUTES_LIST.map(({ path, Component }, idx) => (
+                    <Route key={idx} path={path} element={<Component />} />
+                ))}
+            </Routes>
+            {visible && <Footer />}
         </Router>
     );
 };

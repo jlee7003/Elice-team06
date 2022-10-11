@@ -38,7 +38,8 @@ export const HeaderMenuItem = styled.div`
     display: flex;
     cursor: pointer;
     align-items: Center;
-    font-size: 16px;
+    font-size: ${cssUnit.fontSize.tittle};
+    font-weight: bold;
     justify-content: center;
     text-align: center;
     margin-right: 54px;
@@ -48,14 +49,14 @@ export const HeaderSpace = styled.div`
     width: 83px;
     height: 59px;
     align-items: Center;
-    font-size: 16px;
+    font-size: ${cssUnit.fontSize.small};
     justify-content: center;
     text-align: center;
 `;
 export const HeaderAdminMenuItem = styled.div`
     width: 33%;
     align-items: Center;
-    font-size: 20px;
+    font-size: ${cssUnit.fontSize.tittle};
     justify-content: center;
     text-align: center;
 `;
