@@ -30,7 +30,9 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-    width: ${cssUnit.unit.formWidth};
+    width: 100%;
+    font-size: ${cssUnit.fontSize.normal};
+    font-weight: ${cssUnit.fontWeight.bold};
     margin-bottom: 15px;
 `;
 
@@ -59,6 +61,9 @@ export const Input = styled.input`
     padding: 10px;
 
     border: 1px solid #d9d9d9;
+    &::placeholder {
+        font-size: ${cssUnit.fontSize.normal};
+    }
 `;
 
 export const SubmitButton = styled.button`

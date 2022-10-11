@@ -1,10 +1,10 @@
 import styled from "styled-components";
-
+import cssUnit from "@/lib/cssUnit";
 export const Container = styled.div`
     display: grid;
     place-items: start center;
 
-    width: 100vw;
+    width: ${cssUnit.unit.width};
     height: 100vh;
 `;
 export const CenterContainer = styled.div`
@@ -47,19 +47,23 @@ export const SubTitle = styled.div`
         font-size: 12px;
     }
 `;
-
+export const CommentContainer = styled.div`
+    height: 40%;
+    position: relative;
+`;
 export const TargetLabel = styled.div`
-    font-size: 18px;
+    font-size: ${cssUnit.fontSize.normal};
     margin: 15px 0px;
     color: #888888;
     font-weight: bold;
     white-space: pre-wrap;
+    margin-right: 20px;
     & > span {
         font-size: 12px;
     }
 `;
 export const Contents = styled.div`
-    font-size: 18px;
+    font-size: ${cssUnit.fontSize.normal};
     margin: 15px 15px 100px 15px;
     white-space: pre-wrap;
     line-height: 35px;
@@ -67,7 +71,7 @@ export const Contents = styled.div`
 export const CommentBox = styled.div`
     display: grid;
     grid-template-columns: 10% 1fr 4fr;
-    font-size: 14px;
+    font-size: ${cssUnit.fontSize.normal};
     margin: 15px 15px 15px 15px;
     border: 1px solid #e8e8e8;
     border-radius: 10px;
@@ -80,15 +84,13 @@ export const CommentBox = styled.div`
 `;
 
 export const BoardCard = styled.div`
-    width: 1275px;
+    width: ${cssUnit.unit.width};
     height: 171px;
     border: 1px solid #dddddd;
     background-color: #ffffff;
     margin: 10px;
 `;
 export const Graph = styled.div`
-    /* width: 1275px; */
-    /* height: 171px; */
     width: 400px;
     height: 256px;
     border: 1px solid #dddddd;
@@ -106,28 +108,31 @@ export const OKButton = styled.button`
     all: unset;
 
     text-align: center;
-    width: 411px;
+    width: ${cssUnit.unit.formWidth};
     height: 50px;
-    background-color: #75c6a0;
+    background-color: ${cssUnit.color.carbongreen};
     border: 0px solid #293e49;
     border-radius: 10px;
     margin: 20px 0px;
     color: white;
 `;
 export const Input = styled.input`
-    width: 411px;
+    width: ${cssUnit.unit.formWidth};
     height: 62px;
     border: 1px solid #d9d9d9;
     background-color: #fbfbfb;
     /* margin-bottom: 30px; */
     margin: 20px 0px 0px 0px;
     padding: 10px;
+    &::placeholder {
+        font-size: ${cssUnit.fontSize.normal};
+    }
 `;
 export const CommentButton = styled.button`
     all: unset;
     margin-top: 10px;
     text-align: center;
-    width: 411px;
+    width: ${cssUnit.unit.formWidth};
     height: 50px;
     background-color: #fbfbfb;
     border: 1px solid #d9d9d9;

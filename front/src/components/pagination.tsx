@@ -1,4 +1,13 @@
 import "react";
+import {
+    ListPagenationWrapper,
+    MoveToPreviousPage,
+    MoveToFirstPage,
+    MoveToLastPage,
+    Flexbox,
+    MoveToNextPage,
+    PageBtn,
+} from "@/styles/pagination-style";
 
 declare module "react" {
     interface StyleHTMLAttributes<T> extends React.HTMLAttributes<T> {
@@ -6,6 +15,7 @@ declare module "react" {
         global?: boolean;
     }
 }
+type current = "false" | "true";
 const Pagination = ({
     limit,
     page,
@@ -66,17 +76,17 @@ const Pagination = ({
     };
 
     return (
-        <div className="ListPagenationWrapper">
-            <button
+        <ListPagenationWrapper className="ListPagenationWrapper">
+            <MoveToFirstPage
                 className="moveToFirstPage"
                 onClick={() => {
                     firstPage();
                 }}
             >
                 &lt;&lt;
-            </button>
-            <div className="flexbox">
-                <button
+            </MoveToFirstPage>
+            <Flexbox className="flexbox">
+                <MoveToPreviousPage
                     className="moveToPreviousPage"
                     onClick={() => {
                         prevPage();
@@ -84,10 +94,10 @@ const Pagination = ({
                     disabled={page === 1}
                 >
                     &lt;
-                </button>
+                </MoveToPreviousPage>
                 <div className="pageBtnWrapper">
                     {pArr.map((n: number) => (
-                        <button
+                        <PageBtn
                             className="pageBtn"
                             key={n}
                             onClick={() => {
@@ -96,10 +106,10 @@ const Pagination = ({
                             aria-current={page === n ? "page" : undefined}
                         >
                             {n}
-                        </button>
+                        </PageBtn>
                     ))}
                 </div>
-                <button
+                <MoveToNextPage
                     className="moveToNextPage"
                     onClick={() => {
                         nextPage();
@@ -107,68 +117,20 @@ const Pagination = ({
                     disabled={page === totalPage}
                 >
                     &gt;
-                </button>
-            </div>
+                </MoveToNextPage>
+            </Flexbox>
 
-            <button
+            <MoveToLastPage
                 className="moveToLastPage"
                 onClick={() => {
                     lastPage();
                 }}
             >
                 &gt;&gt;
-            </button>
+            </MoveToLastPage>
 
             <style jsx>
                 {`
-                    .ListPagenationWrapper {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        position: absolute;
-                        top: 350px;
-                        width: 100%;
-                        height: 50%;
-                        margin: 0px 0px 38px 0px;
-                    }
-                    .flexbox {
-                        display: flex;
-                    }
-                    .moveToPreviousPage,
-                    .moveToNextPage {
-                        color: #5a5a5a;
-                        background-color: transparent;
-                        border: none;
-                        font-size: 25px;
-                        position: left;
-                        cursor: pointer;
-                    }
-
-                    .moveToFirstPage {
-                        width: 25px;
-                        height: 37px;
-                        margin: 0 0 0 0;
-                        border: none;
-                        color: black;
-                        background-color: transparent;
-                        cursor: pointer;
-                    }
-                    .moveToLastPage {
-                        width: 115px;
-                        height: 37px;
-                        margin: 0 0 0 0;
-                        border: none;
-                        color: black;
-                        background-color: transparent;
-                        cursor: pointer;
-                    }
-
-                    .pageBtn:hover {
-                        background-color: #75c6a0;
-                        cursor: pointer;
-                        border-radius: 30px;
-                        transform: translateY(-2px);
-                    }
                     .pageBtn[aria-current] {
                         background-color: #75c6a0;
                         font-weight: bold;
@@ -177,19 +139,9 @@ const Pagination = ({
                         opacity: 1;
                         border-radius: 30px;
                     }
-                    .pageBtn {
-                        width: 49px;
-                        height: 49px;
-                        margin: 0 10px;
-                        border: none;
-                        color: black;
-                        text-align: center;
-                        font-size: 20px;
-                        opacity: 0.2;
-                    }
                 `}
             </style>
-        </div>
+        </ListPagenationWrapper>
     );
 };
 

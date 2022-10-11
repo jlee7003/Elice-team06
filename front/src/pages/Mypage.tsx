@@ -1,6 +1,6 @@
 import { Banner } from "@/styles/banner";
 import { useRecoilState } from "recoil";
-import userData from "../recoil/userData";
+import userState from "../recoil/user";
 import {
     Container,
     ChallengeContainter,
@@ -14,7 +14,7 @@ import {
 } from "@/styles/pages/mypage-style";
 import ChallengeCard from "@/components/ChallengeCard";
 const Mypage = () => {
-    const [user, setUser] = useRecoilState(userData);
+    const [user, setUser] = useRecoilState(userState);
 
     return (
         <div>
@@ -22,11 +22,11 @@ const Mypage = () => {
             <Container>
                 <SideBar>
                     <MySec>
-                        <p>{user.name}</p>
-                        <p>{user.desc}</p>
+                        <p>user.name</p>
+                        <p>user.desc</p>
                     </MySec>
                     <Menus>
-                        <Buttons>첼린지(현재페이지)</Buttons>
+                        <Buttons>첼린지 현재페이지</Buttons>
                         <Buttons>회원정보 변경</Buttons>
                     </Menus>
                 </SideBar>
