@@ -1,5 +1,7 @@
 import { Router } from "express";
 import asyncHandler from "../../lib/util/asyncHandler";
+import authToken from "../../middlewares/authToken";
+import postCommentService from "../../services/postCommentService";
 
 const commentRoute = Router();
 
@@ -11,15 +13,19 @@ commentRoute.get(
     })
 );
 
+//댓글 등록//
 commentRoute.post(
-    "/comments/:postId/:userEmail",
+    "/comments/:postId",
+    // authToken,
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { userEmail } = req.params;
-        res.send(`${postId}게시글에 ${userEmail}님 댓글 등록`);
+        const { user_email, description } = req.body;
+        const result = await postCommentService.addComment({ postId, user_email, description });
+        res.status(200).send(result);
     })
 );
 
+//댓글 삭제//
 commentRoute.delete(
     "/comments/:commentId",
     asyncHandler(async (req, res) => {
@@ -28,6 +34,7 @@ commentRoute.delete(
     })
 );
 
+//댓글 수정//
 commentRoute.put(
     "/comments/:commentId",
     asyncHandler(async (req, res) => {
