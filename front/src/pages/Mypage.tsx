@@ -1,6 +1,6 @@
 import { Banner } from "@/styles/banner";
 import { useRecoilState } from "recoil";
-import { userAtom } from "../recoil/user";
+import userState from "../recoil/user";
 import {
     Container,
     ChallengeContainter,
@@ -14,7 +14,7 @@ import {
 } from "@/styles/pages/mypage-style";
 import ChallengeCard from "@/components/ChallengeCard";
 const Mypage = () => {
-    const [user, setUser] = useRecoilState(userAtom);
+    const [user, setUser] = useRecoilState(userState);
 
     return (
         <div>

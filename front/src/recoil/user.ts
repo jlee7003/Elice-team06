@@ -3,12 +3,7 @@ import User from "@/types/user";
 import LoginData from "@/types/loginData";
 import Api from "@/api/.";
 
-export const login = atom<boolean>({
-    key: "login",
-    default: false,
-});
-
-export const userAtom = atom<User>({
+const userState = atom<User>({
     key: "userAtom",
     default: {
         accessToken: "",
@@ -16,3 +11,5 @@ export const userAtom = atom<User>({
         introduce: "",
     },
 });
+
+export default userState;

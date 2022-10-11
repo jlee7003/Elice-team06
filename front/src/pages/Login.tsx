@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import { useState, useRef, MouseEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { login, userAtom } from "@/recoil/user";
+import userState from "@/recoil/user";
 import Api from "@/api";
 import User from "@/types/user";
 import { ROUTES } from "@/routes/.";
@@ -25,8 +25,7 @@ const Login = () => {
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
-    const setLogin = useSetRecoilState(login);
-    const setUserAtom = useSetRecoilState(userAtom);
+    const setUserAtom = useSetRecoilState(userState);
 
     const navigate = useNavigate();
 
@@ -52,7 +51,6 @@ const Login = () => {
                 API.setToken(res.data.accessToken);
                 sessionStorage.setItem("refresh", res.data.refreshToken);
 
-                setLogin(true);
                 setUserAtom(res.data);
 
                 navigate(ROUTES.Home.path);
