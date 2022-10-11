@@ -9,7 +9,6 @@ import Api from "./api";
 import GlobalStyle from "@/styles/global-style";
 import visibleCommonComponent from "./recoil/visibleCommonComponent";
 
-import ThemeProvider from "@/UI/themeProvider";
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
 export interface Props {
@@ -20,6 +19,7 @@ const App = () => {
     console.log(darkMode);
     const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
+    const [themeMode, setThemeMode] = useRecoilState(DarkMode);
     const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
@@ -41,7 +41,13 @@ const App = () => {
             }
             return (prev = true);
         });
-    }, [visible]);
+        setThemeMode((prev: string) => {
+            if (isLanding) {
+                return (prev = "Common");
+            }
+            return (prev = prev);
+        });
+    }, [visible, themeMode]);
 
     return (
         <Router>

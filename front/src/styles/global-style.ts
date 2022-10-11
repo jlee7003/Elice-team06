@@ -40,9 +40,19 @@ const GlobalStyle = createGlobalStyle<Props>`
                       background-color: white;
                       color: black;
                   `
-                : css`
+                : props.mode == "Dark"
+                ? css`
                       background-color: black;
                       color: white;
+                  `
+                : props.mode == "Common"
+                ? css`
+                      background-color: transparent;
+                      color: white;
+                  `
+                : css`
+                      background-color: transparent;
+                      color: black;
                   `}
     }
 
