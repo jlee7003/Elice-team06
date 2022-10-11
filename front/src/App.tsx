@@ -17,6 +17,7 @@ export interface Props {
 }
 const App = () => {
     const [darkMode] = useRecoilState(DarkMode);
+    console.log(darkMode);
     const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const isLanding = window.location.href.split("/").includes("landing");
@@ -44,16 +45,16 @@ const App = () => {
 
     return (
         <Router>
-            <ThemeProvider>
-                <GlobalStyle mode={darkMode ?? "Light"} />
-                {visible && <Header />}
-                <Routes>
-                    {ROUTES_LIST.map(({ path, Component }, idx) => (
-                        <Route key={idx} path={path} element={<Component />} />
-                    ))}
-                </Routes>
-                {visible && <Footer />}
-            </ThemeProvider>
+            {/* <ThemeProvider> */}
+            <GlobalStyle mode={darkMode ?? "Light"} />
+            {visible && <Header />}
+            <Routes>
+                {ROUTES_LIST.map(({ path, Component }, idx) => (
+                    <Route key={idx} path={path} element={<Component />} />
+                ))}
+            </Routes>
+            {visible && <Footer />}
+            {/* </ThemeProvider> */}
         </Router>
     );
 };
