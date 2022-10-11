@@ -23,7 +23,7 @@ export const Category = styled.div`
         grid-area: title;
         width: 100%;
         height: 53px;
-
+        font-weight: ${cssUnit.fontWeight.bold};
         font-size: ${cssUnit.fontSize.medium};
     }
 

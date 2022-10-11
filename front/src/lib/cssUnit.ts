@@ -7,8 +7,14 @@ const cssUnit = {
     fontSize: {
         large: "36px",
         medium: "26px",
+        normal: "18px",
         small: "16px",
         xsmall: "6px",
+        tittle: "22px",
+    },
+
+    fontWeight: {
+        bold: "bold",
     },
 
     color: {
@@ -18,6 +24,7 @@ const cssUnit = {
         gray: "#eeeeee",
         white: "white",
         black: "black",
+        carbongreen: "#75c6a0",
     },
 
     backgroundColor: {

@@ -134,10 +134,10 @@ const ChallengeDetailMainCard = () => {
                 </div>
                 <OKButton onClick={addjoiner}>챌린지 참여하기</OKButton>
                 <SubTitle>댓글 남기기</SubTitle>
-                <span style={{ fontSize: "14px", fontWeight: "bold", margin: "0px 10px 0px 0px" }}>
+                <span style={{ fontSize: "16px", fontWeight: "bold", margin: "0px 10px 0px 0px" }}>
                     작성자
                 </span>
-                <span style={{ fontSize: "13px", fontWeight: "bold", color: "#838383" }}>
+                <span style={{ fontSize: "16px", fontWeight: "bold", color: "#838383" }}>
                     내 아이디
                 </span>
                 <Input placeholder="댓글을 작성하세요." name="comment" ref={commentsRef} />
