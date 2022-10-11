@@ -22,11 +22,11 @@ const Mypage = () => {
             <Container>
                 <SideBar>
                     <MySec>
-                        <p>{user.name}</p>
-                        <p>{user.desc}</p>
+                        <p>user.name</p>
+                        <p>user.desc</p>
                     </MySec>
                     <Menus>
-                        <Buttons>첼린지(현재페이지)</Buttons>
+                        <Buttons>첼린지 현재페이지</Buttons>
                         <Buttons>회원정보 변경</Buttons>
                     </Menus>
                 </SideBar>

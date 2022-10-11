@@ -13,7 +13,6 @@ import {
 } from "@/styles/common/requestCard-style";
 
 /*icons*/
-// import { Reply, Views } from "@/styles/common";
 
 //인터페이스는 함수밖으로
 
@@ -44,11 +43,11 @@ const ReqeustCards = () => {
                             <span>작성자</span>post.writer
                         </li>
                         <li>
-                            <i>{/* <Reply /> */}</i>
+                            <i></i>
                             post.comment개의 댓글
                         </li>
                         <li>
-                            <i>{/* <Views /> */}</i>
+                            <i></i>
                             post.viewcounts views
                         </li>
                     </Details>
