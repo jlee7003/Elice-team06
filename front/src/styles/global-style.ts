@@ -27,8 +27,8 @@ const GlobalStyle = createGlobalStyle<Props>`
         padding: 0;
         box-sizing: border-box;
         font-family: "Noto Sans KR", sans-serif;
+        /* font-family: ${font}; */
         transition: background-color 0.2s linear;
-
         #root > div{
             width:100vw;
             height:100vh;
@@ -40,19 +40,9 @@ const GlobalStyle = createGlobalStyle<Props>`
                       background-color: white;
                       color: black;
                   `
-                : props.mode == "Dark"
-                ? css`
+                : css`
                       background-color: black;
                       color: white;
-                  `
-                : props.mode == "Common"
-                ? css`
-                      background-color: transparent;
-                      color: white;
-                  `
-                : css`
-                      background-color: transparent;
-                      color: black;
                   `}
     }
 
