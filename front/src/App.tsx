@@ -45,7 +45,6 @@ const App = () => {
 
     return (
         <Router>
-            {/* <ThemeProvider> */}
             <GlobalStyle mode={darkMode ?? "Light"} />
             {visible && <Header />}
             <Routes>
@@ -54,7 +53,6 @@ const App = () => {
                 ))}
             </Routes>
             {visible && <Footer />}
-            {/* </ThemeProvider> */}
         </Router>
     );
 };
