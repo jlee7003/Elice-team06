@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Container, BoardCard } from "../styles/pages/requestboard-style";
 import { Logo } from "@/styles/common";
-import RequestBoardCard from "@/components/RequestBoardCard";
 
 const RequestBoard = () => {
     return (
