@@ -10,7 +10,7 @@ class Api {
 
     constructor() {
         this.axiosInstance = axios.create({
-            baseURL: "http://" + window.location.hostname + ":" + "3001" + "/",
+            baseURL: "http://" + window.location.hostname + ":" + "5000" + "/",
         });
     }
 

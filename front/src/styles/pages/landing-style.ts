@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import assets from "@/lib/assets";
 
 interface StyleProps {
     bgColor?: string;
@@ -30,11 +31,18 @@ export const Header = styled.header`
     }
 `;
 
+const logoImg = assets("logo.png");
+
+export const LogoImg = styled.img.attrs({
+    src: logoImg,
+    alt: "logo_image",
+})`
+    cursor: pointer;
+    height: 60px;
+`;
+
 export const Logo = styled.p`
-    height: 100%;
-    line-height: 80px;
-    width: 100px;
-    text-align: center;
+    ${LogoImg}
 `;
 
 export const Nav = styled.nav`

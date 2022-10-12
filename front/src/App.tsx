@@ -23,15 +23,15 @@ const App = () => {
     const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
-        // const refreshToken = sessionStorage.getItem("refreshToken");
-        // if (refreshToken != null) {
-        //     const API = Api.getInstance();
-        //     API.post<{ accessToken: string; refreshToken: string }>(["api", "current"], {}).then(
-        //         (res) => {
-        //             setToken(res.data.accessToken);
-        //         }
-        //     );
-        // }
+        const refresh = sessionStorage.getItem("refresh");
+        if (refresh != null) {
+            const API = Api.getInstance();
+            API.post<{ accessToken: string; refreshToken: string }>(["api", "refresh"], {}).then(
+                (res) => {
+                    API.setToken(res.data.accessToken);
+                }
+            );
+        }
     });
 
     useEffect(() => {
@@ -51,7 +51,11 @@ const App = () => {
 
     return (
         <Router>
-            <GlobalStyle mode={darkMode ?? "Light"} />
+            {themeMode == "Common" ? (
+                <GlobalStyle mode="Common" />
+            ) : (
+                <GlobalStyle mode={darkMode ?? "Light"} />
+            )}
             {visible && <Header />}
             <Routes>
                 {ROUTES_LIST.map(({ path, Component }, idx) => (

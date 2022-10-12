@@ -2,12 +2,10 @@ import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
 
 export const Main = styled.main`
-    display: flex;
-    flex-direction: column;
-
     width: ${cssUnit.unit.width};
     height: 70vh;
 
+    margin: auto;
     padding-top: 70px;
 `;
 
