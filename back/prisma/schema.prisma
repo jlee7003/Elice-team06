@@ -31,6 +31,7 @@ model User {
   Comment       CommentPost[]
   VotePost      VotePost[]
   Challenge     Challenge[]
+  Challenger Challenger[]
 }
 
 enum Role {
@@ -45,10 +46,20 @@ model Challenge {
   goal        String
   start_date  DateTime @db.DateTime(0)
   due_date    DateTime @db.DateTime(0)
-  author      User     @relation(fields: [proposer], references: [user_email])
+  author      User     @relation(fields: [proposer], references: [nickname])
   proposer    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  Challenger Challenger[]
+}
+
+model Challenger {
+  challenge_id Int
+  Challenge Challenge @relation(fields: [challenge_id], references: [id])
+  nickname  String
+  User User @relation(fields: [nickname], references: [nickname])
+
+  @@id([challenge_id, nickname])
 }
 
 model Board {
