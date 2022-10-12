@@ -16,19 +16,22 @@ const GlobalStyle = createGlobalStyle<Props>` * {
     margin: 0;
     padding: 0;
     box-sizing: border-box; 
+    transition: background-color 0.2s linear;
    /* font-family: ${font}
    ;
     */
-    transition: background-color 0.2s linear;
     #root > div{
         width:100vw;
         height:100vh;
    }
-    ${(props) =>
+    /* ${(props) =>
         props.mode == "Light"
             ? css`
                   background-color: white;
                   color: black;
+                  input {
+                      background-color: #fbfbfb;
+                  }
               `
             : props.mode == "Dark"
             ? css`
@@ -43,7 +46,7 @@ const GlobalStyle = createGlobalStyle<Props>` * {
             : css`
                   background-color: transparent;
                   color: black;
-              `}
+              `} */
 }
 button, a {
     all: unset;
@@ -51,7 +54,21 @@ button, a {
         cursor: pointer;
    }
 }
-
+body{
+    ${(props) =>
+        props.mode == "Light"
+            ? css`
+                  background-color: white;
+                  color: black;
+                  input {
+                      background-color: #fbfbfb;
+                  }
+              `
+            : css`
+                  background-color: #282828;
+                  color: white;
+              `}
+}
 #root > div {
     width: 100vw;
     height: 100vh;

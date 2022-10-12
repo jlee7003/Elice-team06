@@ -62,6 +62,7 @@ const App = () => {
                     <Route key={idx} path={path} element={<Component />} />
                 ))}
             </Routes>
+
             {visible && <Footer />}
         </Router>
     );

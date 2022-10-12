@@ -37,6 +37,7 @@ export const Input = styled.input`
     border: 1px solid #d9d9d9;
     margin-bottom: 30px;
     padding: 10px;
+    font-size: ${cssUnit.fontSize.normal};
     &::placeholder {
         font-size: ${cssUnit.fontSize.normal};
     }
