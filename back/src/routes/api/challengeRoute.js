@@ -22,8 +22,8 @@ challengeRoute.get(
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            const { user_email } = req.userId;
-            const myChallenges = await challengeService.findchl({ user_email: user_email });
+            const { nickname } = req.userId;
+            const myChallenges = await challengeService.findchl({ nickname });
             res.status(200).send(myChallenges);
         } catch (error) {
             res.status(504).send(error);
@@ -49,9 +49,9 @@ challengeRoute.post(
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            const { user_email } = req.userId;
+            const { nickname } = req.userId;
             const input = req.body;
-            input.proposer = user_email;
+            input.proposer = nickname;
 
             const newChallenge = await challengeService.addchl(input);
             res.status(201).send(newChallenge);
@@ -61,14 +61,30 @@ challengeRoute.post(
     })
 );
 
+challengeRoute.post(
+    "/challenge/:id/join",
+    authToken,
+    asyncHandler(async (req, res) => {
+        try {
+            const { nickname } = req.userId;
+            const joinChallenge = await challengeService.joinchl({
+                nickname,
+                challengeId: req.params.id,
+            });
+            res.status(201).send(joinChallenge);
+        } catch (error) {
+            res.status(404).send("잘못된 접근입니다.");
+        }
+    })
+);
+
 challengeRoute.put(
     "/challenge/:id",
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            const challengeId = req.params.id;
             const input = req.body;
-            const updateChallenge = await challengeService.updatechl(challengeId, input);
+            const updateChallenge = await challengeService.updatechl(req.params.id, input);
 
             res.status(201).send(updateChallenge);
         } catch (error) {
@@ -82,9 +98,7 @@ challengeRoute.delete(
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            const challengeId = req.params.id;
-
-            const deleteChallenge = await challengeService.deletechl(challengeId);
+            const deleteChallenge = await challengeService.deletechl(req.params.id);
             res.status(200).send(deleteChallenge);
         } catch (error) {
             res.status(404).send("잘못된 접근입니다.");
