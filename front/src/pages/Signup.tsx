@@ -40,16 +40,6 @@ const Signup = () => {
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
     };
-    // const [formData, setFormData] = useState<FormData>({
-    //     email: "",
-    //     password: "",
-    //     passwordok: "",
-    //     passwordhint: "",
-    //     nickname: "",
-    //     gender: "",
-    //     age: "",
-    //     local: "",
-    // });
     let formData = {
         email: "",
         password: "",
@@ -132,14 +122,6 @@ const Signup = () => {
         console.log("success");
     };
 
-    const onChangeForm = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        // radioState({
-        //     selectValue: e.target.value
-        //   });
-        // };
-    };
-
     function selectnum() {
         var num = [];
         for (var i = 20; i < 99; i++) {
@@ -149,7 +131,7 @@ const Signup = () => {
     }
     return (
         <>
-            <TopImage></TopImage>
+            <TopImage />
             <Container>
                 <div>
                     <LogoContainer>
@@ -182,7 +164,6 @@ const Signup = () => {
                                             checked={inputStatus === "남"}
                                             onClick={() => handleClickRadioButton("남")}
                                             ref={gender}
-                                            // onChange={onChangeForm}
                                         ></input>
                                         <label style={{ marginRight: "40px" }}>남</label>
                                         <input
@@ -191,7 +172,6 @@ const Signup = () => {
                                             value="여"
                                             checked={inputStatus === "여"}
                                             onClick={() => handleClickRadioButton("여")}
-                                            // onChange={onChangeForm}
                                             ref={gender}
                                         ></input>
                                         여

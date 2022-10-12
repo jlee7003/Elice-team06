@@ -1,11 +1,4 @@
-import { useState } from "react";
-import {
-    Container,
-    TopImage,
-    CenterContainer,
-    Main,
-    Sub,
-} from "../../styles/pages/challengedetail-style";
+import { Container, TopImage, CenterContainer } from "../../styles/pages/challengedetail-style";
 import { Logo } from "@/styles/common";
 
 import MainCard from "@/components/ChallengeDetailMainCard";
@@ -18,7 +11,6 @@ const ChallengeDetail = () => {
             <Container>
                 <CenterContainer>
                     <MainCard></MainCard>
-                    {/* <SubCard></SubCard> */}
                 </CenterContainer>
             </Container>
         </>

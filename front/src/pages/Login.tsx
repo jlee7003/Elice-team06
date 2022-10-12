@@ -24,13 +24,9 @@ interface LoginResponse extends User {
 const Login = () => {
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
-
     const setUserAtom = useSetRecoilState(userState);
-
     const navigate = useNavigate();
-
     const [isError, setIsError] = useState(false);
-
     const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
