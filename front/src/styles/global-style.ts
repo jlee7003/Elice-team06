@@ -44,9 +44,9 @@ const GlobalStyle = createGlobalStyle<Props>`
             cursor: pointer;
         }
     }
-    input,select {
+    /* input,select {
        color: black;
-    }
+    } */
 
     #root > div {
         width: 100vw;

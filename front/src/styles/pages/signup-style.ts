@@ -39,7 +39,6 @@ export const Input = styled.input`
     width: 411px;
     height: 62px;
     border: 1px solid #d9d9d9;
-    background-color: #fbfbfb;
     margin-bottom: 30px;
     padding: 10px;
 
@@ -52,7 +51,6 @@ export const Select = styled.select`
     width: 411px;
     height: 62px;
     border: 1px solid #d9d9d9;
-    background-color: #fbfbfb;
     margin-bottom: 30px;
     padding: 10px;
 `;
