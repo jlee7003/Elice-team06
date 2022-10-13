@@ -1,3 +1,6 @@
+import { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ROUTES } from "@/routes/.";
 import {
     ContainerWrap,
     Container,
@@ -14,95 +17,100 @@ import {
     Section4Box,
     ChallengeSlide,
     ChallengeCurrent,
+    SlideContent,
+    Section5Box,
+    SlideControl,
+    Control,
+    SectionTitle,
 } from "@/styles/pages/landing-style";
-import { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/routes/.";
 
 const Landing = () => {
-    //useState
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
     const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
     const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
-    // const [count, setCount] = useState(0);
 
-    //useRef
     const section = useRef<HTMLDivElement>(null); //section
-    const navRefs = useRef<any>([]); //section navigation
+    const navRefs = useRef<any | null>([]); //section navigation //HTMLLIElement[] | null
+    const carbonList = useRef<any | null>([]);
+    const challengers = useRef<any | null>(null);
+    const challengerJoin = useRef<any | null>(null);
 
     //section nav list
-    const nav = Array("탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개");
+    const nav = ["탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개"];
+    const carbonArray = ["스모그 현상", "마스크 착용해야 함", "병 걸릴 수도 있음"];
 
-    //useEffect
     useEffect(() => {
-        //화면 리사이즈,스크롤 이외에도 작동되야하는 코드
-        //full screen 일 때도 top 이 height 계산을 하기 위함
-        //왜냐, full screen 되는 건 resize() 함수의 영역이 아니기 때문
-        if (section.current) {
-            //-----👉디자인 수정용 잠시 설정해 놓은 것🐱‍🐉-----
-            // setInnerHeight((prev) => {
-            //     return (prev = resizeHeight);
-            // });
-            // section.current.style.top = `-${resizeHeight * 3}px`;
-            //----------디자인 수정용----------
+        //Section 03 - tab default
+        if (carbonList.current) {
+            carbonList.current[0].style.backgroundColor = "teal";
+        }
 
-            const calc = Math.abs(
+        //-----👉디자인 수정용 잠시 설정해 놓은 것🐱‍🐉-----
+        // if (section.current) {
+        //     setInnerHeight((prev) => {
+        //         return (prev = resizeHeight);
+        //     });
+        //     section.current.style.top = `-${resizeHeight * 3}px`;
+        // }
+        //----------디자인 수정용----------
+
+        /**
+         * 윈도우 리사이즈 시, innerHeight 재설정 및 top 에 적용
+         */
+        const resetHeight = () => {
+            if (section.current == null) {
+                return;
+            }
+
+            const scrollPosition = Math.abs(
                 Number(section.current.style.top.replace("px", "")) / innerHeight
-            ); //0,1,2....4 출력
+            );
 
             for (let i = 0; i < 6; i++) {
-                if (calc === i) {
+                if (scrollPosition === i) {
                     setInnerHeight((prev) => {
                         return (prev = resizeHeight);
-                        //화면 높이 값을 리사이징 된 값으로 업데이트
                     });
                     section.current.style.top = `-${resizeHeight * i}px`;
-                    //top 값을 (리사이징된 값 * 현재 section index) 로 적용
                 }
             }
-        }
-        //화면 리사이즈 시, handleResize 실행
+        };
+
+        resetHeight();
+
         const handleResize = () => {
-            setResizeHeight(window.innerHeight);
-
-            if (section.current) {
-                section.current.style.transition = "none";
-                const consoleTop = section.current.style.top;
-
-                const calc = Math.abs(
-                    Number(section.current.style.top.replace("px", "")) / innerHeight
-                );
-
-                for (let i = 0; i < 6; i++) {
-                    if (calc === i) {
-                        setInnerHeight((prev) => {
-                            return (prev = resizeHeight);
-                        });
-                        section.current.style.top = `-${resizeHeight * i}px`;
-                    }
-                }
+            if (section.current == null) {
+                return;
             }
+            setResizeHeight(window.innerHeight);
+            resetHeight();
+            section.current.style.transition = "none";
         };
 
         window.addEventListener("resize", handleResize);
 
         return () => {
             window.removeEventListener("resize", handleResize);
-            //React이 계속 리랜더링하기 때문에, 무한루프에 빠지지 않도록 removeEvent...설정(?)
         };
     }, [resizeHeight, innerHeight]);
 
-    //스크롤 하지 않아도 적용되어야 하는 값들
-    if (section.current != null) {
+    /**
+     * 현재 section 위치에 따른 side Nav 스타일 변경
+     */
+    const changeSideNavStyle = () => {
+        //no scroll function
+        if (section.current == null) {
+            return;
+        }
         let top = Number(section.current.style.top.replace("px", ""));
 
         const pureTop = Math.abs(top);
         const navIndex = pureTop / innerHeight;
 
-        console.log("navIndex", navIndex);
-
-        //모든 nav list style 값 초기화
         for (let i = 0; i < 5; i++) {
+            if (!navRefs.current) {
+                return;
+            }
             navRefs.current[i].style.backgroundColor = "#d9d9d9";
             navRefs.current[i].style.color = "#6C6C6C";
             navRefs.current[i].style.fontSize = "12px";
@@ -110,175 +118,177 @@ const Landing = () => {
             navRefs.current[i].style.padding = "0px 5px";
         }
 
-        //navRefs.current 의 index 가 4 이상 넘어가지 않도록 설정
         if (navIndex < 5) {
+            if (!navRefs.current) {
+                return;
+            }
             navRefs.current[navIndex].style.backgroundColor = "#393939";
             navRefs.current[navIndex].style.color = "#fff";
             navRefs.current[navIndex].style.fontSize = "16px";
             navRefs.current[navIndex].style.width = "118px";
             navRefs.current[navIndex].style.padding = "3px 5px";
         }
-    }
+    };
 
-    //스크롤 이벤트
+    //스크롤/리사이즈 안해도 style 적용되도록 해야함
+    changeSideNavStyle();
+
+    //scroll event
     const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-        //ani 값이 true 일 때만 동작 : ani 가 스위치 역할 (?)
-        if (ani) {
-            if (e.deltaY < 0) {
-                if (section.current != null) {
-                    section.current.style.transition = "all 0.7s";
-                    // !== 가 아닌 != 은 null 과 undefined 다 체크해줌
-                    let top = Number(section.current.style.top.replace("px", ""));
+        if (!ani) {
+            return;
+        }
+        if (e.deltaY < 0) {
+            //scroll up function
 
-                    const height = Number(-innerHeight * 5);
+            if (section.current == null) {
+                return;
+            }
+            section.current.style.transition = "all 0.7s";
+            // !== 가 아닌 != 은 null 과 undefined 다 체크해줌
+            let top = Number(section.current.style.top.replace("px", ""));
 
-                    if (0 >= top && top >= height) {
-                        setInnerHeight((prev) => prev++);
-                        section.current.style.top = `${top + innerHeight}px`;
+            const height = Number(-innerHeight * 5);
 
-                        console.log("innerHeight", innerHeight);
-                        console.log("section.current.style.top ", section.current.style.top);
+            if (0 >= top && top >= height) {
+                setInnerHeight((prev) => prev++);
+                section.current.style.top = `${top + innerHeight}px`;
 
-                        setTimeout(() => {
-                            setAni(true);
-                            //0.8 초 후에 동작
-                        }, 800);
+                setTimeout(() => {
+                    setAni(true);
+                }, 800);
 
-                        setAni(false);
+                setAni(false);
 
-                        /*-- section Nav 설정 --*/
+                changeSideNavStyle();
 
-                        //-값을 가지는 top 값을 양수화
-                        const pureTop = Math.abs(top);
+                if (!navRefs.current) {
+                    return;
+                }
+            }
 
-                        //section 의 개수(5)만큼 커지는 top 값 나누기 화면 높이
-                        //0,1,2,3...을 출력하기 위함
-                        const navIndex = pureTop / innerHeight;
+            if (top === 0) {
+                section.current.style.top = 0 + "px";
+            }
+        } else {
+            //scroll down function
+            if (section.current == null) {
+                return;
+            }
+            section.current.style.transition = "all 0.7s";
 
-                        //모든 nav list style 값 초기화
-                        for (let i = 0; i < 5; i++) {
-                            navRefs.current[i].style.backgroundColor = "#d9d9d9";
-                            navRefs.current[i].style.color = "#6C6C6C";
-                            navRefs.current[i].style.fontSize = "12px";
-                            navRefs.current[i].style.width = "81px";
-                            navRefs.current[i].style.padding = "0px 5px";
-                        }
+            let top = Number(section.current.style.top.replace("px", ""));
 
-                        //navRefs.current 의 index 가 4 이상 넘어가지 않도록 설정
-                        if (navIndex < 5) {
-                            navRefs.current[navIndex].style.backgroundColor = "#393939";
-                            navRefs.current[navIndex].style.color = "#fff";
-                            navRefs.current[navIndex].style.fontSize = "16px";
-                            navRefs.current[navIndex].style.width = "118px";
-                            navRefs.current[navIndex].style.padding = "3px 5px";
-                        }
+            const height = Number(-innerHeight * 5);
+            if (0 >= top || top <= height) {
+                setInnerHeight((prev) => prev--);
+                section.current.style.top = `${top - innerHeight}px`;
 
-                        //이거는 아직 실험중
-                        if (navIndex === 0) {
-                            navRefs.current[navIndex].style.backgroundColor = "#393939";
-                            navRefs.current[navIndex].style.color = "#fff";
-                            navRefs.current[navIndex].style.fontSize = "16px";
-                            navRefs.current[navIndex].style.width = "118px";
-                            navRefs.current[navIndex].style.padding = "3px 5px";
-                        }
+                setTimeout(() => {
+                    setAni(true);
+                }, 800);
+                setAni(false);
+
+                changeSideNavStyle();
+
+                const scrollPosition = Math.abs(
+                    Number(section.current.style.top.replace("px", "")) / innerHeight
+                );
+
+                if (scrollPosition == 3) {
+                    if (
+                        challengers.current.innerText == 56 ||
+                        challengerJoin.current.innerText == 1000
+                    ) {
+                        return;
                     }
+                    if (challengers.current != null) {
+                        let countReset = 0;
+                        setInterval(() => {
+                            challengers.current.innerText = String(countReset);
 
-                    //top 이 0 이면 스크롤 스탑
-                    if (top === 0) {
-                        section.current.style.top = 0 + "px";
+                            if (countReset >= 56) {
+                                return;
+                            }
+                            countReset += 1;
+                        }, 20);
+                    }
+                    if (challengerJoin.current != null) {
+                        let countReset = 0;
+                        setInterval(() => {
+                            challengerJoin.current.innerText = String(countReset);
+                            //3자리 수마다 점찍기 해야함
+                            if (countReset >= 1000) {
+                                return;
+                            }
+                            countReset += 10;
+                        }, 20);
                     }
                 }
-            } else {
-                //스크롤 다운
-                if (section.current != null) {
-                    section.current.style.transition = "all 0.7s";
-                    // !== 가 아닌 != 은 null 과 undefined 다 체크해줌
+            }
 
-                    //top 값 중에 px 을 빼고 Number 로 변환
-                    let top = Number(section.current.style.top.replace("px", ""));
+            if (top === Number(-innerHeight * 4)) {
+                section.current.style.top = `-${innerHeight * 4}px`;
+            }
+        }
+    };
 
-                    const height = Number(-innerHeight * 5);
-                    if (0 >= top || top <= height) {
-                        setInnerHeight((prev) => prev--);
-                        section.current.style.top = `${top - innerHeight}px`;
-
-                        setTimeout(() => {
-                            setAni(true);
-                        }, 800);
-                        /*
-                            상단에 하나로 setTimeout 관리하던거를
-                            각 if 문안에서 설정
-                        */
-                        setAni(false);
-
-                        /*-- section Nav 설정 --*/
-                        const pureTop = Math.abs(top);
-
-                        const navIndex = pureTop / innerHeight;
-
-                        for (let i = 0; i < 5; i++) {
-                            navRefs.current[i].style.backgroundColor = "#d9d9d9";
-                            navRefs.current[i].style.color = "#6C6C6C";
-                            navRefs.current[i].style.fontSize = "12px";
-                            navRefs.current[i].style.width = "81px";
-                            navRefs.current[i].style.padding = "0px 5px";
-                        }
-
-                        if (navIndex < 5) {
-                            navRefs.current[navIndex].style.backgroundColor = "#393939";
-                            navRefs.current[navIndex].style.color = "#fff";
-                            navRefs.current[navIndex].style.fontSize = "16px";
-                            navRefs.current[navIndex].style.width = "118px";
-                            navRefs.current[navIndex].style.padding = "3px 5px";
-                        }
-                    }
-
-                    if (top === Number(-innerHeight * 4)) {
-                        section.current.style.top = `-${innerHeight * 4}px`;
-                    }
+    /**
+     * 각 List 클릭 시, 각 List CSS 적용
+     * @param e list index 값
+     */
+    const onTabClick = (e: number) => {
+        for (let i = 0; i < 3; i++) {
+            if (carbonList.current != null) {
+                carbonList.current[i].style.backgroundColor = "#cbcbcb";
+            }
+            if (e == i) {
+                if (carbonList.current != null) {
+                    carbonList.current[i].style.backgroundColor = "teal";
                 }
             }
         }
     };
 
-    const navigate = useNavigate();
-    const home = () => {
-        navigate(ROUTES.Home.path);
+    const onClickScrollDown = () => {
+        if (section.current == null) {
+            return;
+        }
+        let top = Number(section.current.style.top.replace("px", ""));
+        section.current.style.top = `${top - innerHeight}px`;
+
+        for (let i = 0; i < 5; i++) {
+            if (!navRefs.current) {
+                return;
+            }
+            navRefs.current[i].style.backgroundColor = "#d9d9d9";
+            navRefs.current[i].style.color = "#6C6C6C";
+            navRefs.current[i].style.fontSize = "12px";
+            navRefs.current[i].style.width = "81px";
+            navRefs.current[i].style.padding = "0px 5px";
+        }
+
+        if (!navRefs.current) {
+            return;
+        }
+        navRefs.current[1].style.backgroundColor = "#393939";
+        navRefs.current[1].style.color = "#fff";
+        navRefs.current[1].style.fontSize = "16px";
+        navRefs.current[1].style.width = "118px";
+        navRefs.current[1].style.padding = "3px 5px";
     };
 
     return (
         <ContainerWrap>
             <Header>
                 <Logo>
-                    <LogoImg onClick={home} />
+                    <LogoImg />
                 </Logo>
 
                 <Nav>
-                    <p>
-                        <a href="#" title="소개">
-                            소개
-                        </a>
-                    </p>
-                    <p>
-                        <a href="#" title="소개">
-                            챌린지
-                        </a>
-                    </p>
-                    <p>
-                        <a href="#" title="소개">
-                            커뮤니티
-                        </a>
-                    </p>
-                    <p>
-                        <a href="#" title="소개">
-                            로그인
-                        </a>
-                    </p>
-                    <p>
-                        <a href="#" title="소개">
-                            회원가입
-                        </a>
-                    </p>
+                    <Link to="/">챌린지</Link>
+                    <Link to="/reqpage">커뮤니티</Link>
+                    <Link to="/login">로그인</Link>
                 </Nav>
             </Header>
             <SectionNav>
@@ -310,7 +320,9 @@ const Landing = () => {
                             </p>
                         </div>
                         <p>
-                            <button type="button">자세히 보기(또는 스크롤 표시)</button>
+                            <button type="button" onClick={onClickScrollDown}>
+                                자세히 보기(또는 스크롤 표시)
+                            </button>
                         </p>
                     </Section1Box>
                 </Section>
@@ -329,11 +341,21 @@ const Landing = () => {
                         </div>
                         <Section3Content>
                             <ul>
-                                <li>스모그 현상</li>
-                                <li>마스크 착용해야 함</li>
-                                <li>병 걸릴 수도 있음</li>
+                                {carbonArray.map((item, index) => {
+                                    return (
+                                        <li
+                                            key={index}
+                                            ref={(el) => {
+                                                carbonList.current[index] = el;
+                                            }}
+                                            onClick={() => onTabClick(index)}
+                                        >
+                                            {item}
+                                        </li>
+                                    );
+                                })}
                             </ul>
-                            <p>reChart js 적용</p>
+                            <p>reChart js 적용(?) 또는 관련 이미지</p>
                         </Section3Content>
                     </Section3Box>
                 </Section>
@@ -341,22 +363,79 @@ const Landing = () => {
                     <Section4Box>
                         <h2>우리 챌린지 서비스😍</h2>
                         <div>
-                            <ChallengeSlide>챌린지 이미지 슬라이드</ChallengeSlide>
+                            <ChallengeSlide>
+                                <input type="radio" name="slide" id="slide01" defaultChecked />
+                                <input type="radio" name="slide" id="slide02" />
+                                <input type="radio" name="slide" id="slide03" />
+                                <SlideContent>
+                                    <ul>
+                                        <li>
+                                            <a>
+                                                <span>section01</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span>section02</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span>section03</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <SlideControl>
+                                        <Control className="control01">
+                                            <label htmlFor="slide03" className="left"></label>
+                                            <label htmlFor="slide02" className="right"></label>
+                                        </Control>
+                                        <Control className="control02">
+                                            <label htmlFor="slide01" className="left"></label>
+                                            <label htmlFor="slide03" className="right"></label>
+                                        </Control>
+                                        <Control className="control03">
+                                            <label htmlFor="slide02" className="left"></label>
+                                            <label htmlFor="slide01" className="right"></label>
+                                        </Control>
+                                    </SlideControl>
+                                </SlideContent>
+                            </ChallengeSlide>
                             <ChallengeCurrent>
                                 <div>
                                     <p>챌린지 참여 현황</p>
-                                    <span>56</span>
+                                    <span ref={challengers}>0</span>
                                 </div>
                                 <div>
                                     <p>챌린저 가입 수</p>
-                                    <span>1,000</span>
+                                    <span ref={challengerJoin}>0</span>
                                 </div>
                             </ChallengeCurrent>
                         </div>
                     </Section4Box>
                 </Section>
                 <Section bgColor="#343434">
-                    <h2>팀원들 소개 표시하실? 하면 좀 까리할듯?</h2>
+                    <SectionTitle>함께한 팀원들</SectionTitle>
+                    <Section5Box>
+                        <li>
+                            <p>김영준</p>
+                        </li>
+                        <li>
+                            <p>이지원</p>
+                        </li>
+                        <li>
+                            <p>이안토니의호</p>
+                        </li>
+                        <li>
+                            <p>류지윤</p>
+                        </li>
+                        <li>
+                            <p>임지원</p>
+                        </li>
+                        <li>
+                            <p>홍지민</p>
+                        </li>
+                    </Section5Box>
                 </Section>
             </Container>
         </ContainerWrap>

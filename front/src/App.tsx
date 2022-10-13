@@ -16,7 +16,6 @@ export interface Props {
 }
 const App = () => {
     const [darkMode] = useRecoilState(DarkMode);
-    console.log(darkMode);
     const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
