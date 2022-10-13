@@ -30,10 +30,9 @@ userRoute.post(
 //로그아웃//---->헤더에서 토큰 정보 빼오기
 userRoute.post(
     "/logout",
-    authToken,
     asyncHandler(async (req, res) => {
-        const token = req.header;
-        await userService.logoutUser(token);
+        const { refreshtoken } = req.headers;
+        await userService.logoutUser(refreshtoken);
         res.status(200).send("로그아웃");
     })
 );
@@ -55,7 +54,10 @@ userRoute.post(
     "/refresh",
     authToken,
     asyncHandler(async (req, res) => {
-        res.status(200).send({ accessToken: req.userId });
+        const { refreshtoken } = req.headers;
+
+        const userData = await userService.getUser({ refreshtoken });
+        res.status(200).send({ accessToken: req.userId, ...userData });
     })
 );
 

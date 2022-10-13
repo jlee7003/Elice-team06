@@ -119,6 +119,19 @@ class userService {
         return userData;
     }
 
+    static async getUser({ refreshtoken }) {
+        const userData = await prisma.User.findUnique({
+            where: {
+                token: refreshtoken,
+            },
+            select: {
+                nickname: true,
+                introduce: true,
+            },
+        });
+        return userData;
+    }
+
     static async updateUser({ user_email, updateData }) {
         if (updateData.nickname) {
             const nickname = updateData.nickname;

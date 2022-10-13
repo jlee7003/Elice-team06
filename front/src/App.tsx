@@ -1,24 +1,25 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { ROUTES_LIST } from "./routes";
-import token from "./recoil/token";
-import Footer from "./components/common/Footer";
-import Header from "./components/common/Header";
-import Api from "./api";
-import GlobalStyle from "@/styles/global-style";
-import visibleCommonComponent from "./recoil/visibleCommonComponent";
+import { useSetRecoilState, useRecoilState } from "recoil";
 
-import { useRecoilState } from "recoil";
+import Api from "./api";
+import { ROUTES_LIST } from "./routes";
+import userState from "@/recoil/user";
+import visibleCommonComponent from "./recoil/visibleCommonComponent";
 import DarkMode from "@/recoil/darkMode";
+
+import Footer from "@/components/common/Footer";
+import Header from "@/components/common/Header";
+import GlobalStyle from "@/styles/global-style";
 
 export interface Props {
     mode?: string;
 }
 
 const App = () => {
+    const setUser = useSetRecoilState(userState);
+
     const [darkMode] = useRecoilState(DarkMode);
-    const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
     // const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
@@ -26,13 +27,15 @@ const App = () => {
 
     useEffect(() => {
         const refresh = sessionStorage.getItem("refresh");
-
-        if (refresh === undefined) {
+        if (refresh === null) {
             return;
         }
 
         const API = Api.getInstance();
-        API.getToken();
+
+        API.getToken().then((user) => {
+            setUser(user);
+        });
     }, []);
 
     // useEffect(() => {

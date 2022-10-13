@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, MouseEvent } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import { useNavigate, Link } from "react-router-dom";
 import userState from "@/recoil/user";
 import { ROUTES } from "@/routes/.";

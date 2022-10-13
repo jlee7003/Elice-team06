@@ -1,3 +1,8 @@
+import { useNavigate, Link } from "react-router-dom";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import userState from "@/recoil/user";
+import { ROUTES } from "@/routes/.";
+import Api from "@/api/.";
 import { Logo } from "@/styles/common";
 import {
     HeaderContainer,
@@ -6,33 +11,48 @@ import {
     HeaderSticky,
     FlexBox,
 } from "@/styles/common/Header-style";
-import { useNavigate, Link } from "react-router-dom";
-import { ROUTES } from "@/routes/.";
 import ThemeWrapper from "@/components/ThemeWrapper";
 
 function Header() {
     const navigate = useNavigate();
-    const home = () => {
+    const user = useRecoilValue(userState);
+    const resetUser = useResetRecoilState(userState);
+
+    const onClickLogo = () => {
         navigate(ROUTES.Home.path);
     };
+
+    const onClickLogout = () => {
+        const API = Api.getInstance();
+
+        API.resetToken();
+        resetUser();
+    };
+
     return (
         <HeaderSticky>
             <HeaderContainer>
-                <Logo onClick={home} />
+                <Logo onClick={onClickLogo} />
                 <HeaderMenuContainer>
                     {/* 로그인 안했을 경우 */}
-                    <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
 
-                    {/* 로그인 했을 경우 */}
+                    {user === null ? (
+                        <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
+                    ) : (
+                        <>
+                            <HeaderMenuItem to="">요청 게시판</HeaderMenuItem>
+                            <HeaderMenuItem to="">마이 페이지</HeaderMenuItem>
+                            <HeaderMenuItem as="button" onClick={onClickLogout}>
+                                로그아웃
+                            </HeaderMenuItem>
+                        </>
+                    )}
                     {/* <HeaderMenuItem to={ROUTES.Login.path}>요청 게시판</HeaderMenuItem> */}
-                    <HeaderMenuItem to="">요청 게시판</HeaderMenuItem>
-                    <HeaderMenuItem to="">마이 페이지</HeaderMenuItem>
-                    <HeaderMenuItem to="">로그아웃</HeaderMenuItem>
                     {/* <ThemeToggle toggle={toggleTheme} mode={ThemeMode}>
                             DarkMode
                         </ThemeToggle> */}
                     <FlexBox>
-                        <ThemeWrapper></ThemeWrapper>
+                        <ThemeWrapper />
                     </FlexBox>
 
                     {/* 관리자일 경우  */}
