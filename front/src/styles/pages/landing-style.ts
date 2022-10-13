@@ -2,12 +2,14 @@ import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 // import cssUnit from "@/cssUnit";
 import assets from "@/lib/assets";
-// import icons from "@lib/assets/icons";
+import icons from "@/lib/icons";
 
 interface StyleProps {
     bgColor?: string;
     bottom?: string;
     bgImg?: string;
+    rotate?: string;
+    slideBgImg?: string;
 }
 
 export const ContainerWrap = styled.div`
@@ -246,7 +248,20 @@ export const Section4Box = styled.div`
     }
 `;
 
-// const arrow = icons("arrow_side_icon.png");
+const arrow = icons("arrow_side_icon.png");
+
+export const ArrowIcon = styled.img.attrs({
+    src: arrow,
+    alt: "arro_icon",
+})<{ rotate?: string }>`
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    top: 10px;
+    left: 15px;
+    transform: ${(props) => props.rotate};
+`;
 
 export const Control = styled.div`
     width: 100%;
@@ -258,9 +273,10 @@ export const Control = styled.div`
     label {
         width: 50px;
         height: 50px;
-        background-color: #fff;
         cursor: pointer;
         border-radius: 100px;
+        position: relative;
+        ${ArrowIcon}
     }
 `;
 
@@ -272,6 +288,15 @@ export const SlideControl = styled.div`
     top: 0;
 `;
 
+const slideImg01 = assets("bus_img.png");
+
+export const SlideImg = styled.img.attrs({ src: slideImg01, alt: "bus img" })``;
+
+export const SlideList = styled.li<{ slideBgImg?: string }>`
+    background-image: url(${(props) => props.slideBgImg});
+    background-size: cover;
+`;
+
 // https://m.blog.naver.com/co-nam/222084570760
 export const SlideContent = styled.div`
     width: 100%;
@@ -281,15 +306,20 @@ export const SlideContent = styled.div`
     ul {
         white-space: nowrap;
 
-        li {
+        ${SlideList} {
             display: inline-block;
-            vertical-align: middle;
+            /* vertical-align: middle; */
             width: 100%;
             transition: all 0.5s;
 
             a {
                 display: block;
                 position: relative;
+                width: 100%;
+                height: 400px;
+                span {
+                    color: transparent;
+                }
             }
         }
     }

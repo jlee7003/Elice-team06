@@ -22,7 +22,10 @@ import {
     SlideControl,
     Control,
     SectionTitle,
+    ArrowIcon,
+    SlideList,
 } from "@/styles/pages/landing-style";
+import assets from "@/lib/assets";
 
 const Landing = () => {
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
@@ -286,9 +289,9 @@ const Landing = () => {
                 </Logo>
 
                 <Nav>
-                    <Link to="/">챌린지</Link>
-                    <Link to="/reqpage">커뮤니티</Link>
-                    <Link to="/login">로그인</Link>
+                    <Link to={ROUTES.Home.path}>챌린지</Link>
+                    <Link to={ROUTES.ReqPage.path}>커뮤니티</Link>
+                    <Link to={ROUTES.Login.path}>로그인</Link>
                 </Nav>
             </Header>
             <SectionNav>
@@ -369,34 +372,46 @@ const Landing = () => {
                                 <input type="radio" name="slide" id="slide03" />
                                 <SlideContent>
                                     <ul>
-                                        <li>
+                                        <SlideList slideBgImg={assets("bus_img.png")}>
                                             <a>
-                                                <span>section01</span>
+                                                <span>대중교통 타기</span>
                                             </a>
-                                        </li>
-                                        <li>
+                                        </SlideList>
+                                        <SlideList slideBgImg={assets("plant_tree_img.png")}>
                                             <a>
-                                                <span>section02</span>
+                                                <span>한달에 한번 식물 심기</span>
                                             </a>
-                                        </li>
-                                        <li>
+                                        </SlideList>
+                                        <SlideList slideBgImg={assets("recycle_img.png")}>
                                             <a>
-                                                <span>section03</span>
+                                                <span>재활용 잘하기</span>
                                             </a>
-                                        </li>
+                                        </SlideList>
                                     </ul>
                                     <SlideControl>
                                         <Control className="control01">
-                                            <label htmlFor="slide03" className="left"></label>
-                                            <label htmlFor="slide02" className="right"></label>
+                                            <label htmlFor="slide03" className="left">
+                                                <ArrowIcon />
+                                            </label>
+                                            <label htmlFor="slide02" className="right">
+                                                <ArrowIcon rotate="rotate(180deg)" />
+                                            </label>
                                         </Control>
                                         <Control className="control02">
-                                            <label htmlFor="slide01" className="left"></label>
-                                            <label htmlFor="slide03" className="right"></label>
+                                            <label htmlFor="slide01" className="left">
+                                                <ArrowIcon />
+                                            </label>
+                                            <label htmlFor="slide03" className="right">
+                                                <ArrowIcon rotate="rotate(180deg)" />
+                                            </label>
                                         </Control>
                                         <Control className="control03">
-                                            <label htmlFor="slide02" className="left"></label>
-                                            <label htmlFor="slide01" className="right"></label>
+                                            <label htmlFor="slide02" className="left">
+                                                <ArrowIcon />
+                                            </label>
+                                            <label htmlFor="slide01" className="right">
+                                                <ArrowIcon rotate="rotate(180deg)" />
+                                            </label>
                                         </Control>
                                     </SlideControl>
                                 </SlideContent>
