@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import Token from "../services/tokenService";
-import { sign } from "../authentication/jwt-util";
+import { generateToken } from "../authentication/jwt-util";
 
 const prisma = new PrismaClient();
 
@@ -66,8 +66,8 @@ class userService {
             return "비밀번호가 일치하지 않습니다.";
         }
 
-        const accessToken = sign({ userId: userData.user_email });
-        let refreshToken = sign({}, "14d");
+        const accessToken = generateToken({ userId: userData.user_email }, "accessToken");
+        let refreshToken = generateToken({}, "refreshToken");
 
         await prisma.User.update({ where: { user_email }, data: { token: refreshToken } });
 

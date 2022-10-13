@@ -21,7 +21,7 @@ const App = () => {
     const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
-    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    // const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     // const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
@@ -35,23 +35,23 @@ const App = () => {
         API.getToken();
     }, []);
 
-    useEffect(() => {
-        setVisible((prev) => {
-            if (currentUrl.split("/").includes("landing")) {
-                return (prev = false);
-            }
-            return (prev = true);
-        });
-        // setThemeMode((prev: string) => {
-        //     if (currentUrl.split("/").includes("landing")) {
-        //         console.log("prev 뭐 담고 있니?", prev);
-        //         return (prev = "Light");
-        //     }
-        //     console.log("prev 뭐 담고 있니?", prev);
+    // useEffect(() => {
+    //     setVisible((prev) => {
+    //         if (currentUrl.split("/").includes("landing")) {
+    //             return (prev = false);
+    //         }
+    //         return (prev = true);
+    //     });
+    //     // setThemeMode((prev: string) => {
+    //     //     if (currentUrl.split("/").includes("landing")) {
+    //     //         console.log("prev 뭐 담고 있니?", prev);
+    //     //         return (prev = "Light");
+    //     //     }
+    //     //     console.log("prev 뭐 담고 있니?", prev);
 
-        //     return (prev = prev);
-        // });
-    }, [visible, themeMode, currentUrl]);
+    //     //     return (prev = prev);
+    //     // });
+    // }, [visible, themeMode, currentUrl]);
 
     return (
         <Router>

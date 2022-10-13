@@ -1,4 +1,4 @@
-import { sign, verify } from "../authentication/jwt-util";
+import { generateToken, verify } from "../authentication/jwt-util";
 import Token from "../services/tokenService";
 
 const authToken = async (req, res, next) => {
@@ -13,7 +13,7 @@ const authToken = async (req, res, next) => {
         if (accessToken === "refreshed") {
             const result = await Token.checkToken(refreshToken);
             if (result) {
-                accessToken = sign({ userId: result.user_email });
+                accessToken = generateToken({ userId: result.user_email }, "accessToken");
 
                 req.userId = accessToken;
                 next();
@@ -34,13 +34,13 @@ const authToken = async (req, res, next) => {
             const token = await Token.checkToken(refreshToken);
 
             if (token != null) {
-                accessToken = sign({ userId: token.userId });
+                accessToken = generateToken({ userId: token.userId }, "accessToken");
             }
         }
 
         // accessToken 가 유효하고, refreshToken이 무효한 경우
         if (accessPayload !== null && refreshPayload === null) {
-            refreshToken = sign({}, "14d");
+            refreshToken = generateToken({}, "refreshToken");
 
             Token.addToken(accessPayload.userId, refreshToken);
         }
