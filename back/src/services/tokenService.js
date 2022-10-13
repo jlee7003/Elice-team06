@@ -7,7 +7,7 @@ class Token {
         return newToken;
     }
     static async removeToken(token) {
-        const removed = await prisma.User.update({ where: { token }, token: null });
+        const removed = await prisma.User.update({ where: { token }, data: { token: null } });
         return removed;
     }
     static async checkToken(token) {

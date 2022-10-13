@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { User } from "@/types/user";
 
 class Api {
     private static instance: Api;
@@ -20,16 +21,16 @@ class Api {
 
     setToken(accessToken: string) {
         this.axiosInstance.defaults.headers.common["Authorization"] = accessToken;
-        this.axiosInstance.defaults.headers.common["refresh"] =
+        this.axiosInstance.defaults.headers.common["refreshToken"] =
             sessionStorage.getItem("refresh") ?? "";
     }
 
     async getToken() {
         const API = Api.getInstance();
-        console.log(this.axiosInstance.defaults);
-        this.setToken("bearer refreshed");
 
-        const result = await this.post<string, { accessToken: string }>(
+        this.setToken("Bearer refreshed");
+
+        const result = await this.post<string, { accessToken: string } & User>(
             ["api", "refresh"],
             "refresh"
         );
@@ -37,8 +38,22 @@ class Api {
         if (result.status !== 200) {
             return null;
         }
-        console.log(result.data.accessToken);
+
         this.setToken(result.data.accessToken);
+
+        return {
+            nickname: result.data.nickname,
+            introduce: result.data.introduce,
+        };
+    }
+
+    async resetToken() {
+        sessionStorage.clear();
+
+        this.axiosInstance.defaults.headers.common["Authorization"] = "";
+        this.axiosInstance.defaults.headers.common["refresh"] = "";
+
+        const res = await this.post<string, string>(["api", "logout"], "");
     }
 
     async get<T>(params: string[]) {

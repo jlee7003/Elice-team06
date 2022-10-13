@@ -1,10 +1,10 @@
-import { sign, verify } from "../authentication/jwt-util";
+import { generateToken, verifyToken } from "../authentication/jwt-util";
 import Token from "../services/tokenService";
 
 const authToken = async (req, res, next) => {
     try {
         let accessToken = req.headers.authorization?.split(" ")[1] ?? null;
-        let refreshToken = req.headers.refresh;
+        let refreshToken = req.headers.refreshtoken;
 
         if (accessToken === null || refreshToken === null || typeof refreshToken !== "string") {
             throw new Error("no accessToken or refreshToken in header");
@@ -13,7 +13,7 @@ const authToken = async (req, res, next) => {
         if (accessToken === "refreshed") {
             const result = await Token.checkToken(refreshToken);
             if (result) {
-                accessToken = sign({ userId: result.user_email });
+                accessToken = generateToken({ userId: result.user_email }, "accessToken");
 
                 req.userId = accessToken;
                 next();
@@ -21,8 +21,8 @@ const authToken = async (req, res, next) => {
             }
         }
 
-        let accessPayload = verify(accessToken);
-        const refreshPayload = verify(refreshToken);
+        let accessPayload = verifyToken(accessToken);
+        const refreshPayload = verifyToken(refreshToken);
 
         // accessToken 하고 refreshToken 둘다 만료된 경우
         if (accessPayload === null && refreshPayload === null) {
@@ -34,13 +34,13 @@ const authToken = async (req, res, next) => {
             const token = await Token.checkToken(refreshToken);
 
             if (token != null) {
-                accessToken = sign({ userId: token.userId });
+                accessToken = generateToken({ userId: token.userId }, "accessToken");
             }
         }
 
         // accessToken 가 유효하고, refreshToken이 무효한 경우
         if (accessPayload !== null && refreshPayload === null) {
-            refreshToken = sign({}, "14d");
+            refreshToken = generateToken({}, "refreshToken");
 
             Token.addToken(accessPayload.userId, refreshToken);
         }

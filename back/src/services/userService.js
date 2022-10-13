@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import Token from "../services/tokenService";
-import { sign } from "../authentication/jwt-util";
+import { generateToken } from "../authentication/jwt-util";
 
 const prisma = new PrismaClient();
 
@@ -69,8 +69,8 @@ class userService {
             return null;
         }
 
-        const accessToken = sign({ userId: userData.user_email });
-        let refreshToken = sign({}, "14d");
+        const accessToken = generateToken({ userId: userData.user_email }, "accessToken");
+        let refreshToken = generateToken({}, "refreshToken");
 
         await prisma.User.update({ where: { user_email }, data: { token: refreshToken } });
 
@@ -117,6 +117,19 @@ class userService {
                 region: true,
                 gender: true,
                 profile_image: true,
+            },
+        });
+        return userData;
+    }
+
+    static async getUser({ refreshtoken }) {
+        const userData = await prisma.User.findUnique({
+            where: {
+                token: refreshtoken,
+            },
+            select: {
+                nickname: true,
+                introduce: true,
             },
         });
         return userData;

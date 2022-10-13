@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import cssUnit from "@/lib/cssUnit";
 import { Link } from "react-router-dom";
+
 export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
@@ -9,6 +10,7 @@ export const HeaderContainer = styled.header`
     height: 80px;
     margin: auto;
 `;
+
 export const HeaderSticky = styled.header`
     position: sticky;
     top: 0;
@@ -16,6 +18,7 @@ export const HeaderSticky = styled.header`
     height: 80px;
     margin: auto;
 `;
+
 export const HeaderMenuContainer = styled.div`
     display: flex;
     justify-content: flex-end;
@@ -24,6 +27,7 @@ export const HeaderMenuContainer = styled.div`
         margin-right: 0px;
     }
 `;
+
 export const HeaderMenuItem = styled(Link)`
     display: flex;
     cursor: pointer;
@@ -35,6 +39,7 @@ export const HeaderMenuItem = styled(Link)`
     text-align: center;
     margin-right: 54px;
 `;
+
 export const FlexBox = styled.div`
     display: flex;
     align-items: Center;
@@ -42,6 +47,7 @@ export const FlexBox = styled.div`
     justify-content: center;
     margin-right: 54px;
 `;
+
 export const HeaderSpace = styled.div`
     width: 83px;
     height: 59px;
@@ -50,6 +56,7 @@ export const HeaderSpace = styled.div`
     justify-content: center;
     text-align: center;
 `;
+
 export const HeaderAdminMenuItem = styled.div`
     width: 33%;
     align-items: Center;

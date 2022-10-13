@@ -6,6 +6,8 @@ import { RecoilRoot } from "recoil";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <RecoilRoot>
         <GlobalStyle />
-        <App />
+        <React.Suspense fallback={<h1>loading...</h1>}>
+            <App />
+        </React.Suspense>
     </RecoilRoot>
 );

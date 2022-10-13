@@ -1,5 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import cssUnit from "@/lib/cssUnit";
+
 export const Main = styled.main`
     display: grid;
     place-items: center;
@@ -14,6 +16,7 @@ export const Main = styled.main`
         align-items: center;
     }
 `;
+
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -22,12 +25,14 @@ export const Form = styled.form`
     width: 500px;
     height: 400px;
 `;
+
 export const Label = styled.label`
     width: 100%;
     font-size: ${cssUnit.fontSize.normal};
     font-weight: ${cssUnit.fontWeight.bold};
     margin-bottom: 15px;
 `;
+
 export const ErrorInfo = styled.div`
     width: ${cssUnit.unit.formWidth};
     height: 60px;
@@ -39,6 +44,7 @@ export const ErrorInfo = styled.div`
     color: white;
     opacity: 0.6;
 `;
+
 export const Input = styled.input`
     width: 100%;
     height: 62px;
@@ -51,6 +57,7 @@ export const Input = styled.input`
         font-size: ${cssUnit.fontSize.normal};
     }
 `;
+
 export const SubmitButton = styled.button`
     all: unset;
     width: 100%;
@@ -61,6 +68,7 @@ export const SubmitButton = styled.button`
     color: white;
     text-align: center;
 `;
+
 export const Menu = styled.div`
     display: flex;
     justify-content: center;
@@ -69,7 +77,13 @@ export const Menu = styled.div`
     margin-top: 15px;
     color: #7a7a7a;
 `;
+
 export const MenuButton = styled.button`
+    margin: 15px;
+    font-size: ${cssUnit.fontSize.medium};
+`;
+
+export const MenuLink = styled(Link)`
     margin: 15px;
     font-size: ${cssUnit.fontSize.medium};
 `;
