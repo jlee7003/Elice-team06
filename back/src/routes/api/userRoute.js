@@ -50,7 +50,7 @@ userRoute.put(
     })
 );
 
-//엑세스 토큰 발급//
+// 엑세스 토큰 발급// ==>오류
 userRoute.post(
     "/refresh",
     authToken,

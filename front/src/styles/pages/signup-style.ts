@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
-
 export const Container = styled.div`
     display: grid;
     place-items: center;
@@ -21,11 +20,9 @@ export const SecondContainer1 = styled.div`
 `;
 export const SecondContainer2 = styled.div`
     display: grid;
-    /* place-items: center; */
     width: 50%;
     height: 100vh;
 `;
-
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -34,32 +31,26 @@ export const Form = styled.form`
     width: 500px;
     height: 700px;
 `;
-
 export const Input = styled.input`
     width: 411px;
     height: 62px;
     border: 1px solid #d9d9d9;
-    background-color: #fbfbfb;
     margin-bottom: 30px;
     padding: 10px;
-
+    font-size: ${cssUnit.fontSize.normal};
     &::placeholder {
         font-size: ${cssUnit.fontSize.normal};
     }
 `;
-
 export const Select = styled.select`
     width: 411px;
     height: 62px;
     border: 1px solid #d9d9d9;
-    background-color: #fbfbfb;
     margin-bottom: 30px;
     padding: 10px;
 `;
-
 export const OKButton = styled.button`
     all: unset;
-
     text-align: center;
     width: 411px;
     height: 62px;
@@ -70,7 +61,6 @@ export const OKButton = styled.button`
 `;
 export const XButton = styled.button`
     all: unset;
-
     text-align: center;
     width: 411px;
     height: 62px;
@@ -79,7 +69,6 @@ export const XButton = styled.button`
     border-radius: 10px;
     color: white;
 `;
-
 export const MenuItem = styled.div`
     display: flex;
 `;

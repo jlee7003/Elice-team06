@@ -76,15 +76,16 @@ import assets from "@/lib/assets";
  * Project Logo
  */
 const logoImg = assets("logo.png");
+// const logoImg = assets("logo-removebg-preview.png");
 
 export const Logo = styled.img.attrs({
     src: logoImg,
-    alt: "logo_image",
+    alt: "logo_image1",
 })`
     width: 130px;
     cursor: pointer;
     height: 60px;
-    background-color: white;
+    /* background-color: white; */
 `;
 
 /**

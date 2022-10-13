@@ -10,7 +10,7 @@ class commentPostService {
                     connect: { user_email },
                 },
                 post: {
-                    connect: { id: postId },
+                    connect: { id: Number(postId) },
                 },
             },
         });

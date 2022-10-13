@@ -16,7 +16,7 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
     }
     return (
         <>
-            <div>
+            <div style={{ display: "flex" }}>
                 <CheckBox type="checkbox" id="chk" onChange={handleChange} />
                 <Label>
                     <Sun>☀️</Sun>

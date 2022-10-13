@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class boardService {
-    static async addPost({ postData, user_email }) {
+    static async addPost({ postData }) {
         try {
-            const { title, description } = postData;
+            const { title, description, nickname } = postData;
 
             const result = await prisma.Board.create({
                 data: {
@@ -12,7 +12,7 @@ class boardService {
                     description,
                     author: {
                         connect: {
-                            user_email,
+                            nickname,
                         },
                     },
                 },

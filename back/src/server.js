@@ -6,8 +6,8 @@ import userRoute from "./routes/api/userRoute";
 import challengeRoute from "./routes/api/challengeRoute";
 import boardRoute from "./routes/api/boardRoute";
 import commentPostRoute from "./routes/api/commentPostRoute";
-import voteRoute from "./routes/api/voteRoute";
-import reportRoute from "./routes/api/reportRoute";
+import votePostRoute from "./routes/api/votePostRoute";
+import reportPostRoute from "./routes/api/reportPostRoute";
 import dataRoute from "./routes/api/dataRoute";
 
 const app = express();
@@ -24,8 +24,8 @@ app.use("/api", userRoute);
 app.use("/api", challengeRoute);
 app.use("/api", boardRoute);
 app.use("/api", commentPostRoute);
-app.use("/api", voteRoute);
-app.use("/api", reportRoute);
+app.use("/api", votePostRoute);
+app.use("/api", reportPostRoute);
 app.use("/api", dataRoute);
 
 app.use(errorMiddleware);

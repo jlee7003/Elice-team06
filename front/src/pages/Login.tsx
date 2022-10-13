@@ -15,16 +15,22 @@ import {
     MenuButton,
 } from "@/styles/pages/login-style";
 import { Logo } from "@/styles/common";
+import { useRecoilState } from "recoil";
+import urlCheck from "@/recoil/urlCheck";
 
 const Login = () => {
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
     const setUser = useSetRecoilState(userState);
 
     const navigate = useNavigate();
-
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
 
     const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();

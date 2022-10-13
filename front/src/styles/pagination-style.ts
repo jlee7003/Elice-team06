@@ -73,8 +73,8 @@ export const PageBtn = styled.button`
     color: black;
     text-align: center;
     font-size: 20px;
-    opacity: 0.2;
-    aria-c &:hover {
+    opacity: 0.65;
+    &:hover {
         background-color: ${cssUnit.color.carbongreen};
         cursor: pointer;
         border-radius: 30px;
