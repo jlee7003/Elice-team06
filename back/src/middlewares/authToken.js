@@ -1,5 +1,5 @@
 import { sign, verify } from "../authentication/jwt-util";
-import { Token } from "../services/tokenService";
+import Token from "../services/tokenService";
 
 const authToken = async (req, res, next) => {
     try {

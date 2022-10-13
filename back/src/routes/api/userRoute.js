@@ -22,7 +22,9 @@ userRoute.post(
     asyncHandler(async (req, res) => {
         const { user_email, password } = req.body;
         const result = await userService.loginUser({ user_email, password });
-
+        if (result === null) {
+            return res.status(409).send("이메일/비밀번호 오류");
+        }
         res.status(200).send(result);
     })
 );
@@ -50,10 +52,9 @@ userRoute.put(
     })
 );
 
-// 엑세스 토큰 발급// ==>오류
+// 엑세스 토큰 발급//
 userRoute.post(
     "/refresh",
-    authToken,
     asyncHandler(async (req, res) => {
         res.status(200).send({ accessToken: req.userId });
     })

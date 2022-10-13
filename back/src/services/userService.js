@@ -43,27 +43,30 @@ class userService {
     }
 
     static async loginUser({ user_email, password }) {
+        //이메일 형식이 맞는지 검사
         if (isInvalidEmail(user_email)) {
-            return "적합한 이메일이 아닙니다";
+            return null;
         }
-
+        //이메일 중복 검사
         const userData = await prisma.User.findUnique({
             where: {
                 user_email,
             },
         });
         if (userData === null) {
-            return "user가 존재하지 않습니다.";
+            return null;
         }
+        //유저 밴, 탈퇴 확인
         if (userData.ban === true || userData.withdrawal === true) {
-            return "유효하지 않은 유저입니다.";
+            return null;
         }
         const { nickname, introduce } = userData;
 
+        //비밀번호 일치 확인
         const result = await bcrypt.compare(password, userData.password);
 
         if (!result) {
-            return "비밀번호가 일치하지 않습니다.";
+            return null;
         }
 
         const accessToken = sign({ userId: userData.user_email });
