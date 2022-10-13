@@ -8,7 +8,7 @@ class dataService {
 
         switch (parameter) {
             case "sealevel":
-                result = await prisma.sealevelkorea.findMany();
+                result = await prisma.SeaLevelKorea.findMany();
                 break;
 
             case "emission":
@@ -16,11 +16,11 @@ class dataService {
                     const int = Number.parseInt(this.toString());
                     return int ?? this.toString();
                 };
-                result = await prisma.emissionco2.findMany();
+                result = await prisma.EmissionCO2.findMany();
                 break;
 
             case "temperture":
-                result = await prisma.temperture.findMany();
+                result = await prisma.Temperture.findMany();
                 break;
 
             default:

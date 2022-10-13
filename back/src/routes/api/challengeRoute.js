@@ -5,6 +5,7 @@ import { challengeService } from "../../services/challengeService";
 
 const challengeRoute = Router();
 
+// Challenge API
 challengeRoute.get(
     "/challenges",
     asyncHandler(async (req, res) => {
@@ -61,6 +62,34 @@ challengeRoute.post(
     })
 );
 
+challengeRoute.put(
+    "/challenge/:id",
+    authToken,
+    asyncHandler(async (req, res) => {
+        try {
+            const input = req.body;
+            const updateChallenge = await challengeService.updatechl(req.params.id, input);
+            res.status(201).send(updateChallenge);
+        } catch (error) {
+            res.status(404).send("잘못된 접근입니다.");
+        }
+    })
+);
+
+challengeRoute.delete(
+    "/challenge/:id",
+    authToken,
+    asyncHandler(async (req, res) => {
+        try {
+            const deleteChallenge = await challengeService.deletechl(req.params.id);
+            res.status(200).send(deleteChallenge);
+        } catch (error) {
+            res.status(404).send("잘못된 접근입니다.");
+        }
+    })
+);
+
+// Challenge Join API
 challengeRoute.post(
     "/challenge/:id/join",
     authToken,
@@ -78,15 +107,64 @@ challengeRoute.post(
     })
 );
 
+// Challenge Comment API
+challengeRoute.get(
+    "/mycomments",
+    authToken,
+    asyncHandler(async (req, res) => {
+        try {
+            const { nickname } = req.userId;
+            const mycomments = await challengeService.findcomments({ nickname });
+            res.status(200).send(mycomments);
+        } catch (error) {
+            res.status(504).send(error);
+        }
+    })
+);
+
+challengeRoute.get(
+    "/challenge/:id/comment",
+    authToken,
+    asyncHandler(async (req, res) => {
+        try {
+            const pagination = req.query;
+            const comments = await challengeService.findcomments({
+                challengeId: req.params.id,
+                pagination,
+            });
+            res.status(200).send(comments);
+        } catch (error) {
+            res.status(504).send(error);
+        }
+    })
+);
+
+challengeRoute.post(
+    "/challenge/:id/comment",
+    authToken,
+    asyncHandler(async (req, res) => {
+        try {
+            const { nickname } = req.userId;
+            const input = req.body;
+            input.author = nickname;
+            input.challenge_id = Number(req.params.id);
+
+            const newComment = await challengeService.postcomment(input);
+            res.status(201).send(newComment);
+        } catch (error) {
+            res.status(404).send("잘못된 접근입니다.");
+        }
+    })
+);
+
 challengeRoute.put(
-    "/challenge/:id",
+    "/challenge/:id/comment",
     authToken,
     asyncHandler(async (req, res) => {
         try {
             const input = req.body;
-            const updateChallenge = await challengeService.updatechl(req.params.id, input);
-
-            res.status(201).send(updateChallenge);
+            const updateComment = await challengeService.updatecomment(req.query.id, input);
+            res.status(201).send(updateComment);
         } catch (error) {
             res.status(404).send("잘못된 접근입니다.");
         }
@@ -94,12 +172,12 @@ challengeRoute.put(
 );
 
 challengeRoute.delete(
-    "/challenge/:id",
+    "/challenge/:id/comment",
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            const deleteChallenge = await challengeService.deletechl(req.params.id);
-            res.status(200).send(deleteChallenge);
+            const deleteComment = await challengeService.deletecomment(req.query.id);
+            res.status(201).send(deleteComment);
         } catch (error) {
             res.status(404).send("잘못된 접근입니다.");
         }

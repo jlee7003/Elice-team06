@@ -26,8 +26,15 @@ import {
     SlideList,
 } from "@/styles/pages/landing-style";
 import assets from "@/lib/assets";
+import { useRecoilState } from "recoil";
+import urlCheck from "@/recoil/urlCheck";
 
 const Landing = () => {
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    // const isLanding = window.location.href.split("/").includes("landing");
+
+    console.log("Landing URL", window.location.href);
+
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
     const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
     const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
@@ -41,6 +48,10 @@ const Landing = () => {
     //section nav list
     const nav = ["탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개"];
     const carbonArray = ["스모그 현상", "마스크 착용해야 함", "병 걸릴 수도 있음"];
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
 
     useEffect(() => {
         //Section 03 - tab default
@@ -96,6 +107,21 @@ const Landing = () => {
             window.removeEventListener("resize", handleResize);
         };
     }, [resizeHeight, innerHeight]);
+
+    // useEffect(() => {
+    //     setVisible((prev) => {
+    //         if (isLanding) {
+    //             return (prev = false);
+    //         }
+    //         return (prev = true);
+    //     });
+    //     setThemeMode((prev: string) => {
+    //         if (isLanding) {
+    //             return (prev = "Common");
+    //         }
+    //         return (prev = prev);
+    //     });
+    // }, [visible, themeMode]);
 
     /**
      * 현재 section 위치에 따른 side Nav 스타일 변경
