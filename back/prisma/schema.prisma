@@ -31,7 +31,8 @@ model User {
   Comment       CommentPost[]
   VotePost      VotePost[]
   Challenge     Challenge[]
-  Challenger Challenger[]
+  Challenger    Challenger[]
+  ReportPost    ReportPost[]
 }
 
 enum Role {
@@ -40,30 +41,30 @@ enum Role {
 }
 
 model Challenge {
-  id          Int      @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String
   description String
   goal        String
-  start_date  DateTime @db.DateTime(0)
-  due_date    DateTime @db.DateTime(0)
-  author      User     @relation(fields: [proposer], references: [nickname])
+  start_date  DateTime     @db.DateTime(0)
+  due_date    DateTime     @db.DateTime(0)
+  author      User         @relation(fields: [proposer], references: [nickname])
   proposer    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Challenger Challenger[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  Challenger  Challenger[]
 }
 
 model Challenger {
   challenge_id Int
-  Challenge Challenge @relation(fields: [challenge_id], references: [id])
-  nickname  String
-  User User @relation(fields: [nickname], references: [nickname])
+  Challenge    Challenge @relation(fields: [challenge_id], references: [id])
+  nickname     String
+  User         User      @relation(fields: [nickname], references: [nickname])
 
   @@id([challenge_id, nickname])
 }
 
 model Board {
-  id           String        @id @unique @default(uuid())
+  id           Int           @id @unique @default(autoincrement())
   author       User          @relation(fields: [author_email], references: [user_email])
   author_email String
   title        String
@@ -73,29 +74,41 @@ model Board {
   updatedAt    DateTime      @updatedAt
   Comment      CommentPost[]
   VotePost     VotePost[]
+  ReportPost   ReportPost[]
 
   @@index([id, createdAt(sort: Desc)])
 }
 
 model CommentPost {
-  id           String   @id @unique @default(uuid())
+  id           Int      @id @unique @default(autoincrement())
   author       User     @relation(fields: [author_email], references: [user_email])
   author_email String
   post         Board    @relation(fields: [post_id], references: [id])
-  post_id      String
+  post_id      Int
   description  String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
 
 model VotePost {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   voter     User     @relation(fields: [voter_id], references: [user_email])
   voter_id  String
   post      Board    @relation(fields: [post_id], references: [id])
-  post_id   String
+  post_id   Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ReportPost {
+  id          Int      @id @default(autoincrement())
+  reporter    User     @relation(fields: [reporter_id], references: [user_email])
+  reporter_id String
+  post        Board    @relation(fields: [post_id], references: [id])
+  post_id     Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model SeaLevelKorea {

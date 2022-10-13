@@ -67,8 +67,8 @@ boardRoute.post(
     // authToken,
     asyncHandler(async (req, res) => {
         const postData = req.body;
-        const { user_email } = req.userId;
-        const result = await boardService.addPost({ postData, user_email });
+        // const { nickname } = req.userId;
+        const result = await boardService.addPost({ postData });
         res.status(200).send(result);
     })
 );
