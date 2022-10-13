@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { useState, useRef, MouseEvent } from "react";
+import { useState, useRef, MouseEvent, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import userState from "@/recoil/user";
 import Api from "@/api";
@@ -16,17 +16,25 @@ import {
     MenuButton,
 } from "@/styles/pages/login-style";
 import { Logo } from "@/styles/common";
+import { useRecoilState } from "recoil";
+import urlCheck from "@/recoil/urlCheck";
 
 interface LoginResponse extends User {
     refreshToken: string;
 }
 
 const Login = () => {
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
     const setUserAtom = useSetRecoilState(userState);
     const navigate = useNavigate();
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
+
     const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
