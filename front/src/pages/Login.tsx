@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, MouseEvent } from "react";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useNavigate, Link } from "react-router-dom";
 import userState from "@/recoil/user";
 import { ROUTES } from "@/routes/.";
@@ -13,6 +13,7 @@ import {
     SubmitButton,
     Menu,
     MenuButton,
+    MenuLink,
 } from "@/styles/pages/login-style";
 import { Logo } from "@/styles/common";
 import { useRecoilState } from "recoil";
@@ -85,14 +86,14 @@ const Login = () => {
                     <SubmitButton onClick={onClick}>입력</SubmitButton>
                 </Form>
                 <Menu>
-                    <MenuButton>비밀번호 찾기</MenuButton>
+                    <MenuLink to="/auth/email">비밀번호 찾기</MenuLink>
                     <div>|</div>
-                    <MenuButton>이메일 찾기</MenuButton>
+                    <MenuLink to="/auth/password">이메일 찾기</MenuLink>
                 </Menu>
                 <Menu>
                     <MenuButton as="div">아직 회원이 아니신가요?</MenuButton>
                     <MenuButton>
-                        <Link to="/signup">회원가입</Link>
+                        <Link to={ROUTES.Signup.path}>회원가입</Link>
                     </MenuButton>
                 </Menu>
             </section>
