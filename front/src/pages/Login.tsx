@@ -1,13 +1,9 @@
 import { useRef, useState, useEffect, MouseEvent } from "react";
-import {
-    useSetRecoilState,
-    useRecoilValueLoadable,
-    ResetRecoilState,
-    useResetRecoilState,
-} from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useNavigate, Link } from "react-router-dom";
-import { loginState, userState } from "@/recoil/user";
+import userState from "@/recoil/user";
 import { ROUTES } from "@/routes/.";
+import login from "@/api/login";
 import {
     Main,
     Form,
@@ -24,15 +20,13 @@ const Login = () => {
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
-    const setLogin = useSetRecoilState(loginState);
-    const user = useRecoilValueLoadable(userState);
-    const a = useResetRecoilState(userState);
+    const setUser = useSetRecoilState(userState);
 
     const navigate = useNavigate();
 
     const [isError, setIsError] = useState(false);
 
-    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         if (email.current == null || password.current == null) {
@@ -43,19 +37,16 @@ const Login = () => {
             user_email: email.current.value,
             password: password.current.value,
         };
-        setLogin(loginData);
-        a();
 
-        if (user.state === "loading") {
-            return null;
-        }
-        if (user.contents === null) {
-            console.log(user);
+        const result = await login(loginData);
+
+        if (result === null) {
             setIsError(true);
             return;
         }
-        navigate(ROUTES.Home.path);
 
+        setUser(result);
+        navigate(ROUTES.Home.path);
         // const API = Api.getInstance();
 
         // try {

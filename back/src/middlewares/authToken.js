@@ -1,5 +1,5 @@
 import { sign, verify } from "../authentication/jwt-util";
-import { Token } from "../services/tokenService";
+import Token from "../services/tokenService";
 
 const authToken = async (req, res, next) => {
     try {
@@ -12,9 +12,10 @@ const authToken = async (req, res, next) => {
 
         if (accessToken === "refreshed") {
             const result = await Token.checkToken(refreshToken);
-
             if (result) {
-                req.userId = result.userId;
+                accessToken = sign({ userId: result.user_email });
+
+                req.userId = accessToken;
                 next();
                 return;
             }

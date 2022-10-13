@@ -21,7 +21,24 @@ class Api {
     setToken(accessToken: string) {
         this.axiosInstance.defaults.headers.common["Authorization"] = accessToken;
         this.axiosInstance.defaults.headers.common["refresh"] =
-            sessionStorage.getItem("refreshToken") ?? "";
+            sessionStorage.getItem("refresh") ?? "";
+    }
+
+    async getToken() {
+        const API = Api.getInstance();
+        console.log(this.axiosInstance.defaults);
+        this.setToken("bearer refreshed");
+
+        const result = await this.post<string, { accessToken: string }>(
+            ["api", "refresh"],
+            "refresh"
+        );
+
+        if (result.status !== 200) {
+            return null;
+        }
+        console.log(result.data.accessToken);
+        this.setToken(result.data.accessToken);
     }
 
     async get<T>(params: string[]) {
