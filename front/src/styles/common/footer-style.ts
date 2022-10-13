@@ -28,7 +28,6 @@ export const LogoContainer = styled.div`
 `;
 
 export const FooterBackground = styled.footer`
-    position: sticky;
     width: 100%;
     height: 100px;
     z-index: 1;

@@ -18,8 +18,14 @@ import { postsSelector } from "@/recoil/requestPosts";
 import { useEffect } from "react";
 //pagination
 import Pagination from "@/components/pagination";
+import urlCheck from "@/recoil/urlCheck";
 
 const ReqPage = () => {
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
     //     //page setting
     //    //object[] 의 key가 page값이 된다. { 1: [{...}, {...}, {...}] }
     //    //post... 로 받아온다고 치고...

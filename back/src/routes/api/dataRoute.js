@@ -9,10 +9,14 @@ const dataRoute = Router();
 dataRoute.get(
     "/getdata/:parameter",
     asyncHandler(async (req, res) => {
-        const parameter = req.params.parameter;
+        try {
+            const parameter = req.params.parameter;
 
-        const data = await dataService.getdata(parameter);
-        res.status(200).send(data);
+            const data = await dataService.getdata(parameter);
+            res.status(200).send(data);
+        } catch (error) {
+            res.status(404).send(error.message);
+        }
     })
 );
 
