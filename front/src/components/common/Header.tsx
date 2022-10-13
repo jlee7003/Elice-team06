@@ -6,13 +6,22 @@ import {
     HeaderSticky,
     FlexBox,
 } from "@/styles/common/Header-style";
+import TestModal from "@/modal/TestModal";
 import { useNavigate, Link } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
+import { useState } from "react";
 import ThemeWrapper from "@/components/ThemeWrapper";
 
 function Header() {
     const navigate = useNavigate();
+    const [onModal, setOnModal] = useState(false);
     const home = () => {
+        navigate(ROUTES.Home.path);
+    };
+    const logout = () => {
+        sessionStorage.removeItem("refresh");
+        //user Data 비우는 로직
+        console.log("logout");
         navigate(ROUTES.Home.path);
     };
     return (
@@ -27,7 +36,18 @@ function Header() {
                     {/* <HeaderMenuItem to={ROUTES.Login.path}>요청 게시판</HeaderMenuItem> */}
                     <HeaderMenuItem to="">요청 게시판</HeaderMenuItem>
                     <HeaderMenuItem to="">마이 페이지</HeaderMenuItem>
-                    <HeaderMenuItem to="">로그아웃</HeaderMenuItem>
+
+                    <HeaderMenuItem to="">
+                        {/* 로그아웃 */}
+                        <button onClick={() => setOnModal(true)}>로그아웃</button>
+                        {onModal && (
+                            <TestModal
+                                setOnModal={(bool) => setOnModal(bool)}
+                                logout={() => logout()}
+                            />
+                        )}
+                    </HeaderMenuItem>
+
                     {/* <ThemeToggle toggle={toggleTheme} mode={ThemeMode}>
                             DarkMode
                         </ThemeToggle> */}
