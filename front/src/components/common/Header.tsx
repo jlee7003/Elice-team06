@@ -40,8 +40,8 @@ function Header() {
                         <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
                     ) : (
                         <>
-                            <HeaderMenuItem to="">요청 게시판</HeaderMenuItem>
-                            <HeaderMenuItem to="">마이 페이지</HeaderMenuItem>
+                            <HeaderMenuItem to={ROUTES.ReqPage.path}>요청 게시판</HeaderMenuItem>
+                            <HeaderMenuItem to={ROUTES.Mypage.path}>마이 페이지</HeaderMenuItem>
                             <HeaderMenuItem as="button" onClick={onClickLogout}>
                                 로그아웃
                             </HeaderMenuItem>
