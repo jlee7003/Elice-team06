@@ -11,6 +11,7 @@ import visibleCommonComponent from "./recoil/visibleCommonComponent";
 
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
+import { userState } from "./recoil/user";
 export interface Props {
     mode?: string;
 }
@@ -21,18 +22,6 @@ const App = () => {
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
     const isLanding = window.location.href.split("/").includes("landing");
-
-    useEffect(() => {
-        const refresh = sessionStorage.getItem("refresh");
-        if (refresh != null) {
-            const API = Api.getInstance();
-            API.post<{ accessToken: string; refreshToken: string }>(["api", "refresh"], {}).then(
-                (res) => {
-                    API.setToken(res.data.accessToken);
-                }
-            );
-        }
-    });
 
     useEffect(() => {
         setVisible((prev) => {

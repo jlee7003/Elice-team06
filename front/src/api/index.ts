@@ -1,14 +1,10 @@
 import axios, { AxiosInstance } from "axios";
 
-interface Data {
-    [key: string]: string;
-}
-
 class Api {
     private static instance: Api;
     private axiosInstance: AxiosInstance;
 
-    constructor() {
+    private constructor() {
         this.axiosInstance = axios.create({
             baseURL: "http://" + window.location.hostname + ":" + "5000" + "/",
         });
@@ -34,13 +30,13 @@ class Api {
         return this.axiosInstance.get<T>(url);
     }
 
-    async post<T>(params: string[], data: Data) {
+    async post<P, T>(params: string[], data: P) {
         const url = params.join("/");
 
         return this.axiosInstance.post<T>(url, data);
     }
 
-    async put<T>(params: string[], data: Data) {
+    async put<P, T>(params: string[], data: P) {
         const url = params.join("/");
 
         return this.axiosInstance.put<T>(url, data);

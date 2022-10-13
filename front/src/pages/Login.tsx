@@ -1,9 +1,12 @@
-import { useSetRecoilState } from "recoil";
-import { useState, useRef, MouseEvent } from "react";
+import { useRef, useState, useEffect, MouseEvent } from "react";
+import {
+    useSetRecoilState,
+    useRecoilValueLoadable,
+    ResetRecoilState,
+    useResetRecoilState,
+} from "recoil";
 import { useNavigate, Link } from "react-router-dom";
-import userState from "@/recoil/user";
-import Api from "@/api";
-import User from "@/types/user";
+import { loginState, userState } from "@/recoil/user";
 import { ROUTES } from "@/routes/.";
 import {
     Main,
@@ -17,21 +20,19 @@ import {
 } from "@/styles/pages/login-style";
 import { Logo } from "@/styles/common";
 
-interface LoginResponse extends User {
-    refreshToken: string;
-}
-
 const Login = () => {
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
-    const setUserAtom = useSetRecoilState(userState);
+    const setLogin = useSetRecoilState(loginState);
+    const user = useRecoilValueLoadable(userState);
+    const a = useResetRecoilState(userState);
 
     const navigate = useNavigate();
 
     const [isError, setIsError] = useState(false);
 
-    const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         if (email.current == null || password.current == null) {
@@ -42,24 +43,36 @@ const Login = () => {
             user_email: email.current.value,
             password: password.current.value,
         };
+        setLogin(loginData);
+        a();
 
-        const API = Api.getInstance();
-
-        try {
-            const res = await API.post<LoginResponse>(["api", "login"], loginData);
-            if (res.statusText === "OK") {
-                API.setToken(res.data.accessToken);
-                sessionStorage.setItem("refresh", res.data.refreshToken);
-
-                setUserAtom(res.data);
-
-                navigate(ROUTES.Home.path);
-            } else {
-                setIsError(true);
-            }
-        } catch (err: any) {
-            console.log(err.message);
+        if (user.state === "loading") {
+            return null;
         }
+        if (user.contents === null) {
+            console.log(user);
+            setIsError(true);
+            return;
+        }
+        navigate(ROUTES.Home.path);
+
+        // const API = Api.getInstance();
+
+        // try {
+        //     const res = await API.post<LoginResponse>(["api", "login"], loginData);
+        //     if (res.statusText === "OK") {
+        //         API.setToken(res.data.accessToken);
+        //         sessionStorage.setItem("refresh", res.data.refreshToken);
+
+        //         setUserAtom(res.data);
+
+        //         navigate(ROUTES.Home.path);
+        //     } else {
+        //         setIsError(true);
+        //     }
+        // } catch (err: any) {
+        //     console.log(err.message);
+        // }
     };
 
     return (
