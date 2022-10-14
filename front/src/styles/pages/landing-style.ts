@@ -10,6 +10,9 @@ interface StyleProps {
     bgImg?: string;
     rotate?: string;
     slideBgImg?: string;
+    width?: string;
+    height?: string;
+    margin?: string;
 }
 
 export const ContainerWrap = styled.div`
@@ -124,11 +127,15 @@ export const Section = styled.div<StyleProps>`
         background-color: transparent;
     }
 `;
-
-export const CarbonGraph = styled.div`
-    width: 60%;
-    height: 50%;
-    margin: 100px auto 0;
+/*
+        width: 90%;
+    height: 90%;
+    margin: 20px auto;
+*/
+export const CarbonGraph = styled.div<StyleProps>`
+    width: ${(props) => props.width};
+    height: ${(props) => props.height};
+    margin: ${(props) => props.margin};
     background-color: #e8e8e8;
     opacity: 0.5;
     border-radius: 20px;
@@ -253,7 +260,7 @@ const arrow = icons("arrow_side_icon.png");
 export const ArrowIcon = styled.img.attrs({
     src: arrow,
     alt: "arro_icon",
-})<{ rotate?: string }>`
+})<StyleProps>`
     cursor: pointer;
     position: absolute;
     width: 20px;
@@ -292,7 +299,7 @@ const slideImg01 = assets("bus_img.png");
 
 export const SlideImg = styled.img.attrs({ src: slideImg01, alt: "bus img" })``;
 
-export const SlideList = styled.li<{ slideBgImg?: string }>`
+export const SlideList = styled.li<StyleProps>`
     background-image: url(${(props) => props.slideBgImg});
     background-size: cover;
 `;
@@ -432,6 +439,20 @@ export const Section5Box = styled.ul`
             text-align: center;
             line-height: 235px;
             box-sizing: border-box;
+            cursor: pointer;
+            border: 8px solid transparent;
+            transition: all 0.4s ease-in-out;
+            &:hover {
+                margin-top: -15px;
+                /* box-shadow: 15px 15px 0px rgba(97, 190, 146, 50); */
+                border-color: #61be92;
+            }
         }
     }
+`;
+
+export const Tooltips = styled.div`
+    width: 100px;
+    height: 100px;
+    border: 1px solid teal;
 `;

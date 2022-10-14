@@ -12,28 +12,28 @@ datasource db {
 
 //table 분리 예정//
 model User {
-  user_email    String        @id @unique
-  nickname      String        @unique
-  password      String
-  password_hint String
-  token         String?       @unique
-  age           String?
-  region        String?
-  gender        String?
-  profile_image String?
-  introduce     String?
-  ban           Boolean       @default(false)
-  withdrawal    Boolean       @default(false)
-  role          Role          @default(USER)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  Board         Board[]
-  Comment       CommentPost[]
-  VotePost      VotePost[]
-  Challenge     Challenge[]
-  Challenger    Challenger[]
+  user_email       String             @id @unique
+  nickname         String             @unique
+  password         String
+  password_hint    String
+  token            String?            @unique
+  age              String?
+  region           String?
+  gender           String?
+  profile_image    String?
+  introduce        String?
+  ban              Boolean            @default(false)
+  withdrawal       Boolean            @default(false)
+  role             Role               @default(USER)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  Board            Board[]
+  Comment          CommentPost[]
+  VotePost         VotePost[]
+  Challenge        Challenge[]
+  Challenger       Challenger[]
   ChallengeComment ChallengeComment[]
-  ReportPost    ReportPost[]
+  ReportPost       ReportPost[]
 }
 
 enum Role {
@@ -42,17 +42,17 @@ enum Role {
 }
 
 model Challenge {
-  id          Int          @id @default(autoincrement())
-  title       String
-  description String
-  goal        String
-  start_date  DateTime     @db.DateTime(0)
-  due_date    DateTime     @db.DateTime(0)
-  author      User         @relation(fields: [proposer], references: [nickname])
-  proposer    String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  Challenger  Challenger[]
+  id               Int                @id @default(autoincrement())
+  title            String
+  description      String
+  goal             String
+  start_date       DateTime           @db.DateTime(0)
+  due_date         DateTime           @db.DateTime(0)
+  author           User               @relation(fields: [proposer], references: [nickname])
+  proposer         String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  Challenger       Challenger[]
   ChallengeComment ChallengeComment[]
 }
 
@@ -66,14 +66,14 @@ model Challenger {
 }
 
 model ChallengeComment {
-  id Int @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   challenge_id Int
-  Challenge Challenge @relation(fields: [challenge_id], references: [id])
-  author String
-  User       User     @relation(fields: [author], references: [nickname])
+  Challenge    Challenge @relation(fields: [challenge_id], references: [id])
+  author       String
+  User         User      @relation(fields: [author], references: [nickname])
   description  String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 model Board {

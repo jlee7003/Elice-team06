@@ -5,7 +5,7 @@ import boardService from "../../services/boardService";
 
 const boardRoute = Router();
 
-//전체 게시글 목록// -->페이지네이션 ==> 갯수로 출력하는건 가능
+//전체 게시글 목록//
 boardRoute.get(
     "/posts",
     asyncHandler(async (req, res) => {
