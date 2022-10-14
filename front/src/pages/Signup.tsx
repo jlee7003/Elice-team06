@@ -12,26 +12,16 @@ import {
     SecondContainer1,
     Select,
 } from "../styles/pages/signup-style";
+import signup from "@/api/signup";
 import { Logo } from "@/styles/common";
 
-// interface FormData {
-//     email: string;
-//     password: string;
-//     passwordok: string;
-//     passwordhint: string;
-//     nickname: string;
-//     gender?: any;
-//     age: any;
-//     local: string;
-//     [key: string]: string;
-// }
 const Signup = () => {
     const nickname = useRef<HTMLInputElement>(null);
-    const email = useRef<HTMLInputElement>(null);
+    const user_email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
     const passwordok = useRef<HTMLInputElement>(null);
-    const passwordhint = useRef<HTMLInputElement>(null);
-    const local = useRef<HTMLSelectElement>(null);
+    const password_hint = useRef<HTMLInputElement>(null);
+    const region = useRef<HTMLSelectElement>(null);
     const age = useRef<HTMLSelectElement>(null);
     const gender = useRef<HTMLInputElement>(null);
     const [ValidationCheck, setValidationCheck] = useState(false);
@@ -39,87 +29,97 @@ const Signup = () => {
 
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
+        console.log(radioBtnName);
+        console.log(inputStatus);
     };
-    let formData = {
-        email: "",
-        password: "",
-        passwordok: "",
-        passwordhint: "",
-        nickname: "",
-        gender: "",
-        age: "",
-        local: "",
-    };
-    const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    function isvalidationtrue() {
         if (
-            email.current == null ||
+            user_email.current == null ||
             password.current == null ||
             passwordok.current == null ||
-            passwordhint.current == null ||
+            password_hint.current == null ||
             nickname.current == null ||
             gender.current == null ||
             age.current == null ||
-            local.current == null
+            region.current == null
         ) {
             return;
         }
         if (
-            email.current?.value == "" ||
+            user_email.current?.value == "" ||
             password.current?.value == "" ||
             passwordok.current?.value == "" ||
-            passwordhint.current?.value == "" ||
+            password_hint.current?.value == "" ||
             nickname.current?.value == "" ||
             gender.current?.value == "" ||
             age.current?.value == "" ||
-            local.current?.value == ""
+            region.current?.value == ""
         ) {
             return false;
         }
         setValidationCheck(true);
+    }
+    let formData = {
+        user_email: "",
+        nickname: "",
+        password: "",
+        password_hint: "",
+        age: "",
+        region: "",
+        gender: "",
+        // token: "",
+        // profile_image: "",
+        // introduce: "",
+        // ban: false,
+        // withdrawal: false,
+        // role: "",
+        // createdAt: "",
+        // updatedAt: "",
+        // [key: string]: any;
+    };
+    const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        isvalidationtrue();
     };
     const onClickPrevent = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
     };
-    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         if (
-            email.current == null ||
+            user_email.current == null ||
             password.current == null ||
             passwordok.current == null ||
-            passwordhint.current == null ||
+            password_hint.current == null ||
             nickname.current == null ||
             gender.current == null ||
             age.current == null ||
-            local.current == null
+            region.current == null
         ) {
             return;
         }
-        if (
-            email.current?.value == "" ||
-            password.current?.value == "" ||
-            passwordok.current?.value == "" ||
-            passwordhint.current?.value == "" ||
-            nickname.current?.value == "" ||
-            gender.current?.value == "" ||
-            age.current?.value == "" ||
-            local.current?.value == ""
-        ) {
-            setValidationCheck(false);
-            return false;
-        }
+
         formData = {
-            email: email.current?.value,
+            user_email: user_email.current?.value,
             password: password.current?.value,
-            passwordok: passwordok.current?.value,
-            passwordhint: passwordhint.current?.value,
+            password_hint: password_hint.current?.value,
             nickname: nickname.current?.value,
-            gender: gender.current?.value,
+            gender: inputStatus,
             age: age.current?.value,
-            local: local.current?.value,
+            region: region.current?.value,
+            // token: "",
+            // profile_image: "",
+            // introduce: "",
+            // ban: false,
+            // withdrawal: false,
+            // role: "",
+            // createdAt: "",
+            // updatedAt: "",
         };
-        console.log("success");
+        const result = await signup(formData);
+        // console.log("success", formData);
+        alert("회원가입성공");
     };
 
     function selectnum() {
@@ -152,7 +152,7 @@ const Signup = () => {
                                     type="email"
                                     placeholder="이메일을 입력하세요."
                                     name="email"
-                                    ref={email}
+                                    ref={user_email}
                                 />
                                 <Label>성별</Label>
                                 <div>
@@ -161,7 +161,7 @@ const Signup = () => {
                                             name="gender"
                                             type="radio"
                                             value="남"
-                                            checked={inputStatus === "남"}
+                                            defaultChecked={inputStatus === "남"}
                                             onClick={() => handleClickRadioButton("남")}
                                             ref={gender}
                                         ></input>
@@ -170,7 +170,7 @@ const Signup = () => {
                                             name="gender"
                                             type="radio"
                                             value="여"
-                                            checked={inputStatus === "여"}
+                                            defaultChecked={inputStatus === "여"}
                                             onClick={() => handleClickRadioButton("여")}
                                             ref={gender}
                                         ></input>
@@ -182,7 +182,7 @@ const Signup = () => {
                                     {selectnum()}
                                 </Select>
                                 <Label>지역</Label>
-                                <Select defaultValue="해당없음" name="local" ref={local}>
+                                <Select defaultValue="해당없음" name="local" ref={region}>
                                     <option value="해당없음">해당없음</option>
                                     <option value="서울">서울</option>
                                     <option value="경기도">경기도</option>
@@ -213,10 +213,10 @@ const Signup = () => {
                                 <Input
                                     placeholder="힌트를 입력하세요."
                                     name="passwordhint"
-                                    ref={passwordhint}
+                                    ref={password_hint}
                                 />
                                 {ValidationCheck ? (
-                                    <OKButton onClick={onClick} onMouseEnter={onClick}>
+                                    <OKButton onClick={onClick} onMouseEnter={validationTrue}>
                                         회원 가입하기
                                     </OKButton>
                                 ) : (

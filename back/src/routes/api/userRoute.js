@@ -34,8 +34,15 @@ userRoute.post(
     "/logout",
     asyncHandler(async (req, res) => {
         const { refreshtoken } = req.headers;
-        await userService.logoutUser(refreshtoken);
-        res.status(200).send("로그아웃");
+        console.log(refreshtoken);
+
+        const value = await userService.logoutUser(refreshtoken);
+        if (value === "500") {
+            console.log("중복 로그인 중");
+            res.status(500).send("중복 로그인 중"); //1번 : 구 로그인 / token 만료된 상태나 마찬가지
+        } else {
+            res.status(200).send("로그아웃"); //2번 : 최근 로그인
+        }
     })
 );
 

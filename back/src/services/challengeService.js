@@ -116,10 +116,10 @@ class challengeService {
     static async findcomments({
         nickname,
         challengeId = null,
-        pagination = { start: 1, end: 5, page: 4 },
+        pagination = { start: 1, end: 5, count: 4 },
     }) {
         let comments;
-        const { start, end, page } = pagination;
+        const { start, end, count } = pagination;
         function chunk(data = [], start = 1, size = 1) {
             const items = [...data];
             let i = Number(start);
@@ -139,12 +139,13 @@ class challengeService {
             });
         } else {
             comments = await prisma.ChallengeComment.findMany({
-                skip: Number((start - 1) * page),
-                take: Number((end - start + 1) * page),
+                where: { challengeId },
+                skip: Number((start - 1) * count),
+                take: Number((end - start + 1) * count),
                 select: { id: true, author: true, description: true },
             });
 
-            comments = chunk(comments, start, Number(page));
+            comments = chunk(comments, start, Number(count));
         }
 
         await prisma.$disconnect();

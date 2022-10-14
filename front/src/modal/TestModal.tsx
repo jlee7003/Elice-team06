@@ -3,11 +3,14 @@ import ModalFrame from "./ModalFrame";
 
 type Props = {
     setOnModal: (state: boolean) => void;
-    // logout: () => void;
+    logout: (state: void) => void;
 };
 
-const TestModal: React.FC<Props> = ({ setOnModal }) => {
-    // console.log(logout(), 11);
-    return <ModalFrame setOnModal={setOnModal}>로그아웃 하시겠습니까?</ModalFrame>;
+const TestModal: React.FC<Props> = ({ setOnModal, logout }) => {
+    return (
+        <ModalFrame setOnModal={setOnModal} logout={logout}>
+            로그아웃 하시겠습니까?
+        </ModalFrame>
+    );
 };
 export default TestModal;

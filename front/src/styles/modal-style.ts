@@ -3,15 +3,15 @@ import cssUnit from "@/lib/cssUnit";
 
 export const ModalContainer = styled.div`
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 40%;
+    left: 40%;
 
-    width: 100%;
-    height: 127.6vh;
+    width: 400px;
+    height: 300px;
 
     /* display: none; */
 
-    background-color: rgba(0, 0, 0, 0.4);
+    /* background-color: rgba(0, 0, 0, 0.4); */
     z-index: 2;
 `;
 
@@ -30,14 +30,14 @@ export const ModalBody = styled.div`
     left: 50%;
 
     width: 400px;
-    height: 200px;
+    height: 300px;
 
     padding: 15px;
 
     text-align: center;
 
     background-color: rgb(255, 255, 255);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
     transform: translateX(-50%) translateY(-50%);
@@ -58,13 +58,15 @@ export const ModalBody = styled.div`
 //             : cssUnit.color.gray}
 // `;
 
-export const MoveToPreviousPage = styled.button`
-    color: #5a5a5a;
-    background-color: transparent;
-    border: none;
-    font-size: 25px;
-    position: left;
-    cursor: pointer;
+export const Button = styled.button`
+    all: unset;
+    height: 55px;
+    margin: 0px 10px;
+    border: 0px solid #293e49;
+    border-radius: 10px;
+    background-color: #61be92;
+    color: white;
+    text-align: center;
 `;
 export const MoveToNextPage = styled.button`
     color: #5a5a5a;

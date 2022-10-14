@@ -1,9 +1,3 @@
-import { useNavigate, Link } from "react-router-dom";
-import { useRecoilValue, useResetRecoilState } from "recoil";
-import userState from "@/recoil/user";
-import { ROUTES } from "@/routes/.";
-import Api from "@/api/.";
-import { Logo } from "@/styles/common";
 import {
     HeaderContainer,
     HeaderMenuContainer,
@@ -11,12 +5,22 @@ import {
     HeaderSticky,
     FlexBox,
 } from "@/styles/common/Header-style";
+import { useNavigate, Link } from "react-router-dom";
+import { useRecoilValue, useResetRecoilState, useRecoilState } from "recoil";
+import userState from "@/recoil/user";
+import { ROUTES } from "@/routes/.";
+import Api from "@/api/.";
+import { Logo } from "@/styles/common";
 import ThemeWrapper from "@/components/ThemeWrapper";
-
+import { useState } from "react";
+import ModalState from "@/recoil/modalState";
+import TestModal from "@/modal/TestModal";
 function Header() {
+    // const [onModal, setOnModal] = useState(false);
+    const [onModal, setOnModal] = useRecoilState(ModalState);
+    const resetUser = useResetRecoilState(userState);
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
-    const resetUser = useResetRecoilState(userState);
 
     const onClickLogo = () => {
         navigate(ROUTES.Home.path);
@@ -33,6 +37,14 @@ function Header() {
         <HeaderSticky>
             <HeaderContainer>
                 <Logo onClick={onClickLogo} />
+                {user ? (
+                    <div>
+                        <span style={{ fontSize: "20px", color: "green" }}>{user?.nickname}</span>{" "}
+                        님 환영합니다!
+                    </div>
+                ) : (
+                    <></>
+                )}
                 <HeaderMenuContainer>
                     {/* 로그인 안했을 경우 */}
 
@@ -42,8 +54,16 @@ function Header() {
                         <>
                             <HeaderMenuItem to={ROUTES.ReqPage.path}>요청 게시판</HeaderMenuItem>
                             <HeaderMenuItem to={ROUTES.Mypage.path}>마이 페이지</HeaderMenuItem>
-                            <HeaderMenuItem as="button" onClick={onClickLogout}>
-                                로그아웃
+                            <HeaderMenuItem as="div">
+                                <button onClick={() => setOnModal(true)}>로그아웃</button>
+                                {onModal && (
+                                    // <Draggable>
+                                    <TestModal
+                                        setOnModal={(bool) => setOnModal(bool)}
+                                        logout={() => onClickLogout()}
+                                    />
+                                    // </Draggable>
+                                )}
                             </HeaderMenuItem>
                         </>
                     )}
