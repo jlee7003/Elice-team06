@@ -16,7 +16,6 @@ import modalState from "./recoil/modalState";
 
 export interface Props {
     mode?: string;
-    modalState: boolean;
 }
 
 const App = () => {
@@ -67,7 +66,7 @@ const App = () => {
             ) : (
                 <GlobalStyle mode={darkMode ?? "Light"} />
             )} */}
-            <GlobalStyle mode={darkMode ?? "Light"} modalState={modalState ?? true} />
+            <GlobalStyle mode={darkMode ?? "Light"} />
             {visible && <Header />}
             <Routes>
                 {ROUTES_LIST.map(({ path, Component }, idx) => (

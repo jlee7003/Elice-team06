@@ -3,12 +3,11 @@ import ModalPortal from "./ModalPortal";
 import Draggable from "react-draggable";
 import { ModalContainer, ModalBody, FlexBox, Button } from "@/styles/modal-style";
 type Props = {
-    children: string;
-    setOnModal: (state: boolean) => void;
+    setOnModal: (state: string) => void;
     logout: (state: void) => void;
 };
 
-const ModalFrame: React.FC<Props> = ({ children, setOnModal, logout }: Props) => {
+const LoginModal: React.FC<Props> = ({ setOnModal, logout }: Props) => {
     return (
         <ModalPortal>
             <ModalContainer>
@@ -25,6 +24,7 @@ const ModalFrame: React.FC<Props> = ({ children, setOnModal, logout }: Props) =>
                                     style={{
                                         fontWeight: "bold",
                                         fontSize: "26px",
+                                        color: "black",
                                     }}
                                 >
                                     로그아웃
@@ -34,24 +34,26 @@ const ModalFrame: React.FC<Props> = ({ children, setOnModal, logout }: Props) =>
                                         fontSize: "28px",
                                     }}
                                     className="close"
-                                    onClick={() => setOnModal(false)}
+                                    onClick={() => setOnModal("false")}
                                 >
                                     ❌
                                 </button>
                             </div>
-                            <FlexBox style={{ height: "100%" }}>{children}</FlexBox>
+                            <FlexBox style={{ height: "100%", color: "black", fontSize: "20px" }}>
+                                로그아웃 하시겠습니까?
+                            </FlexBox>
                             <FlexBox style={{ height: "50%" }}>
                                 <Button
                                     className="close"
                                     onClick={() => {
-                                        setOnModal(false);
+                                        setOnModal("false");
                                         logout();
                                     }}
                                 >
                                     O
                                 </Button>
 
-                                <Button className="close" onClick={() => setOnModal(false)}>
+                                <Button className="close" onClick={() => setOnModal("false")}>
                                     X
                                 </Button>
                             </FlexBox>
@@ -63,4 +65,4 @@ const ModalFrame: React.FC<Props> = ({ children, setOnModal, logout }: Props) =>
     );
 };
 
-export default ModalFrame;
+export default LoginModal;

@@ -23,10 +23,13 @@ import Pagination from "@/components/pagination";
 import urlCheck from "@/recoil/urlCheck";
 //dummies
 import post from "@/lib/dummyPosts";
+//Modal
+import ModalState from "@/recoil/modalState";
+import ChallengeRequestModal from "@/modal/ChallengeRequestModal";
 
 const ReqPage = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
-
+    const [onModal, setOnModal] = useRecoilState(ModalState);
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
@@ -59,13 +62,26 @@ const ReqPage = () => {
         navigate(`start=${startNum}&end=${startNum + NavNum - 1}&page=${currentPage.current}`);
     };
 
+    function alert() {
+        console.log("챌린지를 요청합니다.");
+    }
     return (
         <Container>
             <Main>
                 <Section>
                     <ReqeustCards value={post} />
                     <ButtonContianer>
-                        <button>글쓰기</button>
+                        <button onClick={() => setOnModal("challenge")}>글쓰기</button>
+                        {onModal == "challenge" && (
+                            // <ModalFrame
+                            //     setOnModal={(bool) => setOnModal(bool)}
+                            //     logout={() => onClickLogout()}
+                            // />
+                            <ChallengeRequestModal
+                                setOnModal={setOnModal}
+                                addfunction={alert}
+                            ></ChallengeRequestModal>
+                        )}
                         <button onClick={CheckingButtonClick}>console checking</button>
                         <a onClick={navtesting}>TEST</a>
                     </ButtonContianer>

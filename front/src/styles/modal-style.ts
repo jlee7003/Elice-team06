@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
-
+// ---------------------------login-----------------------------------
 export const ModalContainer = styled.div`
     position: absolute;
     top: 0;
@@ -50,48 +50,9 @@ export const Button = styled.button`
     color: white;
     text-align: center;
 `;
-export const MoveToNextPage = styled.button`
-    color: #5a5a5a;
-    background-color: transparent;
-    border: none;
-    font-size: 25px;
-    position: left;
-    cursor: pointer;
-`;
-export const MoveToFirstPage = styled.button`
-    width: 25px;
-    height: 37px;
-    margin: 0 0 0 0;
-    border: none;
-    color: black;
-    background-color: transparent;
-    cursor: pointer;
-`;
-export const MoveToLastPage = styled.button`
-    width: 115px;
-    height: 37px;
-    margin: 0 0 0 0;
-    border: none;
-    color: black;
-    background-color: transparent;
-    cursor: pointer;
-`;
+
 export const Flexbox = styled.div`
     display: flex;
 `;
-export const PageBtn = styled.button`
-    width: 49px;
-    height: 49px;
-    margin: 0 10px;
-    border: none;
-    color: black;
-    text-align: center;
-    font-size: 20px;
-    opacity: 0.65;
-    &:hover {
-        background-color: ${cssUnit.color.carbongreen};
-        cursor: pointer;
-        border-radius: 30px;
-        transform: translateY(-2px);
-    }
-`;
+
+// ---------------------------chalangeRequest-----------------------------------
