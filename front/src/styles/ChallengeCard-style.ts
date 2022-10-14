@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { backgroundColor1, backgroundColor2, backgroundColor3, backgroundColor4 } from "./common";
-import { Props } from "@components/ChallengeCard";
+import { Props } from "@/components/ChallengeCard";
+import cssUnit from "@/lib/cssUnit";
 
-export const Card = styled.div`
+export const Card = styled.article`
     display: flex;
     flex-direction: column;
-
-    grid-area: card;
 
     width: 303px;
     height: 274px;
@@ -20,15 +18,14 @@ export const CardUpper = styled.div<Props>`
     height: 40%;
 
     border-radius: 24px 24px 0 0;
-
-    ${(props) =>
+    background-color: ${(props) =>
         props.level == "beginner"
-            ? backgroundColor1
+            ? cssUnit.color.green
             : props.level == "intermediate"
-            ? backgroundColor2
+            ? cssUnit.color.blue
             : props.level == "advanced"
-            ? backgroundColor3
-            : backgroundColor4}
+            ? cssUnit.color.purple
+            : cssUnit.color.gray};
 `;
 
 export const CardLower = styled.div`
