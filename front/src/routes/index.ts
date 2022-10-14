@@ -9,6 +9,7 @@ import ErrorPage from "@/pages/ErrorPage";
 import Mypage from "@/pages/Mypage";
 import Landing from "@/pages/Landing";
 import Auth from "@/pages/Auth";
+import Challenges from "@/pages/Challenges";
 
 interface route {
     path: string;
@@ -56,6 +57,11 @@ export const ROUTES: routeWrap = {
         path: "/auth/:target",
         Component: Auth,
     },
+    Challenges: {
+        path: "/challenges/:target",
+        Component: Challenges,
+    },
+
     ErrorPage: {
         path: "*",
         Component: ErrorPage,
