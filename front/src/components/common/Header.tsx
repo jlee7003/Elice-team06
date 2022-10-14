@@ -22,7 +22,7 @@ function Header() {
         navigate(ROUTES.Login.path);
     };
     const RequestBoard = () => {
-        navigate(ROUTES.Reqpage.path);
+        navigate(ROUTES.ReqPage.path);
     };
     const home = () => {
         navigate(ROUTES.Home.path);

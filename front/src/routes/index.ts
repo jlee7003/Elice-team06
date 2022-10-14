@@ -2,7 +2,7 @@ import React from "react";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import ReqPage from "@/pages/ReqBoard";
+import ReqPage from "@/pages/ReqPage";
 import Post from "@/pages/challenge/Post";
 import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
 import ErrorPage from "@/pages/ErrorPage";
@@ -63,3 +63,18 @@ export const ROUTES: routeWrap = {
 };
 
 export const ROUTES_LIST: route[] = Object.values(ROUTES);
+
+//test
+
+// import TestPageReq from "@/pages/testPageReq";
+// import TestPageReal from "@/pages/TestPageReal";
+// import TestPage from "@/pages/testPageReq";
+
+// RqeTestPage: {
+//     path: "/reqpage/start=1&end=5&page=2",
+//     Component: Signup,
+// },
+// TestPage: {
+//     path: "/testpage",
+//     Component: TestPage,
+// },
