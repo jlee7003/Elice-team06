@@ -11,7 +11,9 @@ userRoute.post(
     asyncHandler(async (req, res) => {
         const userData = req.body;
         const newUser = await userService.addUser({ userData });
-
+        if (newUser === null) {
+            return res.status(409).send("이미 존재하는 유저입니다.");
+        }
         res.status(200).send(newUser);
     })
 );
@@ -20,8 +22,8 @@ userRoute.post(
 userRoute.post(
     "/login",
     asyncHandler(async (req, res) => {
-        const { user_email, password } = req.body;
-        const result = await userService.loginUser({ user_email, password });
+        const { email, password } = req.body;
+        const result = await userService.loginUser({ email, password });
         if (result === null) {
             return res.status(409).send("이메일/비밀번호 오류");
         }
@@ -51,9 +53,9 @@ userRoute.put(
     "/changePassword",
     authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.userId;
+        const { nickname } = req.nickname;
         const { password, password_hint } = req.body;
-        const result = await userService.changePassword({ user_email, password, password_hint });
+        const result = await userService.changePassword({ nickname, password, password_hint });
         res.status(200).send(result);
     })
 );
@@ -65,7 +67,7 @@ userRoute.post(
         const { refreshtoken } = req.headers;
 
         const userData = await userService.getUser({ refreshtoken });
-        res.status(200).send({ accessToken: req.userId, ...userData });
+        res.status(200).send({ accessToken: req.nickname, ...userData });
     })
 );
 
@@ -75,8 +77,8 @@ userRoute.get(
     "/myInfo",
     authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.userId;
-        const userData = await userService.getUser({ user_email });
+        const { nickname } = req.nickname;
+        const userData = await userService.getInfo({ nickname });
 
         res.status(200).send(userData);
     })
@@ -87,10 +89,10 @@ userRoute.put(
     "/myInfo",
     // authToken,
     asyncHandler(async (req, res) => {
-        // const { user_email } = req.userId;
-        const { user_email, updateData } = req.body;
+        // const { nickname } = req.nickname;
+        const { nickname, updateData } = req.body;
         const result = await userService.updateUser({
-            user_email,
+            nickname,
             updateData,
         });
 
@@ -103,9 +105,9 @@ userRoute.get(
     "/myInfo/auth",
     authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.userId;
+        const { nickname } = req.nickname;
         const { password } = req.body;
-        const result = await userService.comparePassword({ user_email, password });
+        const result = await userService.comparePassword({ nickname, password });
         res.status(200).send(result);
     })
 );
@@ -115,8 +117,8 @@ userRoute.put(
     "/myInfo/withdrawal",
     authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.userId;
-        const result = await userService.withdrawal({ user_email });
+        const { nickname } = req.nickname;
+        const result = await userService.withdrawal({ nickname });
         res.status(200).send(result);
     })
 );

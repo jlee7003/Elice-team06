@@ -21,8 +21,8 @@ voteRoute.post(
     // authToken,
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { user_email } = req.body;
-        const result = await votePostService.vote({ postId, user_email });
+        const { nickname } = req.body;
+        const result = await votePostService.vote({ postId, nickname });
         res.status(200).send(result);
     })
 );

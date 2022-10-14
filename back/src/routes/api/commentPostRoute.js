@@ -20,8 +20,8 @@ commentPostRoute.get(
     "/comments",
     // authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.body;
-        const result = await commentPostService.getMyComments({ user_email });
+        const { nickname } = req.body;
+        const result = await commentPostService.getMyComments({ nickname });
         res.status(200).send(result);
     })
 );
@@ -32,8 +32,8 @@ commentPostRoute.post(
     // authToken,
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { user_email, description } = req.body;
-        const result = await commentPostService.addComment({ postId, user_email, description });
+        const { nickname, description } = req.body;
+        const result = await commentPostService.addComment({ postId, nickname, description });
         res.status(200).send(result);
     })
 );

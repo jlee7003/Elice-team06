@@ -2,12 +2,12 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class commentPostService {
-    static async addComment({ postId, user_email, description }) {
+    static async addComment({ postId, nickname, description }) {
         const result = await prisma.CommentPost.create({
             data: {
                 description,
-                author: {
-                    connect: { user_email },
+                user: {
+                    connect: { nickname },
                 },
                 post: {
                     connect: { id: Number(postId) },
@@ -18,21 +18,21 @@ class commentPostService {
     }
     static async getComments({ postId }) {
         const result = await prisma.CommentPost.findMany({
-            where: { post_id: postId },
-            select: { author_email: true, description: true },
+            where: { post_id: Number(postId) },
+            select: { author: true, description: true },
         });
         return result;
     }
-    static async getMyComments({ user_email }) {
+    static async getMyComments({ nickname }) {
         const result = await prisma.CommentPost.findMany({
-            where: { author_email: user_email },
+            where: { author: nickname },
         });
         return result;
     }
     static async updateComment({ commentId, updateData }) {
         const result = await prisma.CommentPost.update({
             where: {
-                id: commentId,
+                id: Number(commentId),
             },
             data: { ...updateData },
         });
@@ -40,7 +40,7 @@ class commentPostService {
     }
     static async removeComment({ commentId }) {
         const result = await prisma.CommentPost.delete({
-            where: { id: commentId },
+            where: { id: Number(commentId) },
         });
         return result;
     }
