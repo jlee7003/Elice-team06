@@ -46,6 +46,7 @@ model Challenge {
   title            String
   description      String
   goal             String
+  level            String?            @default("default) // beginner | intermediate | advanced | default
   start_date       DateTime           @db.DateTime(0)
   due_date         DateTime           @db.DateTime(0)
   author           User               @relation(fields: [proposer], references: [nickname])
