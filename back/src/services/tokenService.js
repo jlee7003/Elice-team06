@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class Token {
-    static async addToken(user_email, token) {
-        const newToken = await prisma.User.create({ where: { user_email }, data: { token } });
+    static async addToken(nickname, token) {
+        const newToken = await prisma.User.create({ where: { nickname }, data: { token } });
         return newToken;
     }
     static async removeToken(token) {

@@ -9,14 +9,14 @@ class reportPostService {
         });
         return reportData;
     }
-    static async report({ postId, user_email, description }) {
+    static async report({ postId, nickname, description }) {
         const reportData = await prisma.ReportPost.findMany({
-            where: { AND: [{ reporter_id: user_email }, { post_id: Number(postId) }] },
+            where: { AND: [{ reporter: nickname }, { post_id: Number(postId) }] },
         });
 
         if (reportData.length !== 0) {
             await prisma.ReportPost.deleteMany({
-                where: { reporter_id: user_email, post_id: Number(postId) },
+                where: { reporter: nickname, post_id: Number(postId) },
             });
             return "신고 취소";
         }
@@ -24,8 +24,8 @@ class reportPostService {
         const result = await prisma.ReportPost.create({
             data: {
                 description,
-                reporter: {
-                    connect: { user_email },
+                user: {
+                    connect: { nickname },
                 },
                 post: {
                     connect: { id: Number(postId) },

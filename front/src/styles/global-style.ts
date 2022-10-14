@@ -24,17 +24,7 @@ const GlobalStyle = createGlobalStyle<Props>` * {
         width:100vw;
         height:100vh;
    }
-   ${(props) =>
-       props.modalState == true
-           ? css`
-                 body {
-                     background-color: rgba(0, 0, 0, 0.4);
-                 } /* color: white; */
-             `
-           : css`
-                 background-color: transparent;
-                 color: black;
-             `}
+
     /* ${(props) =>
         props.mode == "Light"
             ? css`

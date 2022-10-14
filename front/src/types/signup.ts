@@ -5,17 +5,18 @@ export interface SignupForm {
     nickname: string;
     password: string;
     password_hint: string;
-    token: string;
+    // token: string;
     age: string;
     region: string;
     gender: string;
-    profile_image: string;
-    introduce: string;
-    ban: Boolean;
-    withdrawal: Boolean;
-    role: string;
-    createdAt: string;
-    updatedAt: string;
+
+    // profile_image?: string;
+    // introduce?: string;
+    // ban?: boolean;
+    // withdrawal?: boolean;
+    // role?: string;
+    // createdAt?: string;
+    // updatedAt?: string;
     [key: string]: any;
 }
 

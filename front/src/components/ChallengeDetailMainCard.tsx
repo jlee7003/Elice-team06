@@ -40,12 +40,17 @@ const ChallengeDetailMainCard = () => {
     ]);
     function addjoiner() {
         setJoiner((prev: { writer: any }[]) => {
-            const joiners = [
-                ...prev,
-                {
-                    writer: user?.nickname,
-                },
-            ];
+            let joiners = [];
+            if (prev.some((v) => v.writer === user?.nickname)) {
+                joiners = [...prev];
+            } else {
+                joiners = [
+                    ...prev,
+                    {
+                        writer: user?.nickname,
+                    },
+                ];
+            }
             return joiners;
         });
     }
