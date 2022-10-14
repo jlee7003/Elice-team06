@@ -6,11 +6,13 @@ import cssUnit from "@/lib/cssUnit";
 lv 0 (div, for background container)->main
 */
 export const Container = styled.div`
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    place-items: center;
+    /* display: flex;
+    flex-direction: row; */
     width: ${cssUnit.unit.width};
     height: 900px;
-    padding-top: 70px;
+    //padding-top: 70px;
 `;
 
 /*
@@ -64,8 +66,9 @@ lv 3 (articles, containter for bottom button, Links)
 export const ButtonContianer = styled.div`
     display: flex;
     flex-direction: row-reverse;
-    width: 100%;
-    height: 120px;
+    width: 1200px;
+    height: 250px;
+    margin-left: 30px;
 
     & > button {
         display: flex;
@@ -92,6 +95,19 @@ export const NavLink = styled(Link)`
         display: inline;
         margin: 10px;
         font-weight: bolder;
+    }
+`;
+export const NaviLink = styled.a`
+    display: inline;
+    margin: 15px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    & > span {
+        display: inline;
+        margin: 10px;
+        font-weight: bolder;
+        cursor: pointer;
     }
 `;
 /*

@@ -1,8 +1,8 @@
-/*lib*/
-import { useRecoilState } from "recoil";
-import { useState } from "react";
-import { Posts } from "@/lib/dummyPosts";
-/*styles*/
+//reqeust card practice codes
+import { Posts } from "./dummyPosts";
+import { Nav, NavLink } from "@/styles/pages/reqpage-style";
+//import post from "@/lib/dummyPosts";//obejct not type
+//get interface to props
 import {
     ArtContainer,
     Article,
@@ -13,30 +13,20 @@ import {
     DetailContainer,
 } from "@/styles/common/requestCard-style";
 
-/*icons*/
-
-//인터페이스는 함수밖으로
-
-const ReqeustCards = (prop: { value: Posts }) => {
-    // const [user, setUser] = useRecoilState(userData);
-    // const [post, setPost]=useState([]);
-    // // const boards:boradsInfo(user)=()=>{
-    // const postList=useMemo(()=>{},)
-
-    // }
+const Testcompos = (prop: { value: Posts }) => {
+    //post의 뭉치(배열?)
     const posts = prop.value[1];
-    //value가 nav 페이지에 따라 바뀌어야 함
-    //prop: { value: Posts }?
-    //map의 키를 무엇으로? 인덱스?
+    console.log(typeof posts);
+    console.log(posts);
 
     return (
-        <div>
-            {posts.map((post, idx) => (
-                <Article key={idx}>
+        <>
+            {posts.map((post) => (
+                <Article>
                     <ArtContainer>
-                        <Contents>
-                            <h3>{post.title}</h3>
-                            <p>{post.summary}</p>
+                        <Contents key={post.title}>
+                            <h3>공부중입니다 {post.title}</h3>
+                            <p>포스트 관리하기...post.summary{post.summary}</p>
                         </Contents>
                         <Box>
                             <button>{post.like}</button>
@@ -62,8 +52,25 @@ const ReqeustCards = (prop: { value: Posts }) => {
                     </DetailContainer>
                 </Article>
             ))}
-        </div>
+        </>
     );
 };
 
-export default ReqeustCards;
+//prop[1][0].title
+//key, arrayindex
+
+export default Testcompos;
+//filename=component name(function name)
+
+// console.log("페이지 5개 뭉치", prop.value);
+// console.log("페이지에서 게시글 5개 prop.value[1]", prop.value[1]);
+// console.log("게시글 1개 prop.value[1][0]", prop.value[1][0]);
+
+{
+    /* <h2>글제목: {prop.value[1][0].title}</h2>
+<p>글내용: {prop.value[1][0].summary}</p>
+<p>글쓴이: {prop.value[1][0].writer}</p>
+<p>like:{prop.value[1][0].like}</p>
+<p>view:{prop.value[1][0].views}</p>
+<p>vote:{prop.value[1][0].vote}</p> */
+}
