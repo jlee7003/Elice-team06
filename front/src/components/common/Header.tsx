@@ -30,6 +30,7 @@ function Header() {
 
         API.resetToken();
         resetUser();
+        navigate(ROUTES.Home.path);
     };
 
     return (
@@ -49,11 +50,11 @@ function Header() {
                 <HeaderMenuContainer>
                     {/* 로그인 안했을 경우 */}
 
+                    <HeaderMenuItem to={ROUTES.ReqPage.path}>요청 게시판</HeaderMenuItem>
                     {user === null ? (
                         <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
                     ) : (
                         <>
-                            <HeaderMenuItem to={ROUTES.ReqPage.path}>요청 게시판</HeaderMenuItem>
                             <HeaderMenuItem to={ROUTES.Mypage.path}>마이 페이지</HeaderMenuItem>
                             <HeaderMenuItem as="div">
                                 <button onClick={() => setOnModal("login")}>로그아웃</button>

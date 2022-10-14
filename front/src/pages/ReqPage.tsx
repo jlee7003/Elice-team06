@@ -33,6 +33,7 @@ const ReqPage = () => {
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
+
     const currentPage = useRef<number>(1); //default page : 1
     const [page, setPage] = useState("");
     //Setting Default
