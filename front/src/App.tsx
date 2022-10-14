@@ -7,6 +7,7 @@ import { ROUTES_LIST } from "./routes";
 import userState from "@/recoil/user";
 import visibleCommonComponent from "./recoil/visibleCommonComponent";
 import DarkMode from "@/recoil/darkMode";
+import urlCheck from "./recoil/urlCheck";
 
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
@@ -22,7 +23,7 @@ const App = () => {
     const [darkMode] = useRecoilState(DarkMode);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
-    // const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     // const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
@@ -38,23 +39,23 @@ const App = () => {
         });
     }, []);
 
-    // useEffect(() => {
-    //     setVisible((prev) => {
-    //         if (currentUrl.split("/").includes("landing")) {
-    //             return (prev = false);
-    //         }
-    //         return (prev = true);
-    //     });
-    //     // setThemeMode((prev: string) => {
-    //     //     if (currentUrl.split("/").includes("landing")) {
-    //     //         console.log("prev 뭐 담고 있니?", prev);
-    //     //         return (prev = "Light");
-    //     //     }
-    //     //     console.log("prev 뭐 담고 있니?", prev);
+    useEffect(() => {
+        setVisible((prev) => {
+            if (currentUrl.split("/").includes("landing")) {
+                return (prev = false);
+            }
+            return (prev = true);
+        });
+        // setThemeMode((prev: string) => {
+        //     if (currentUrl.split("/").includes("landing")) {
+        //         console.log("prev 뭐 담고 있니?", prev);
+        //         return (prev = "Light");
+        //     }
+        //     console.log("prev 뭐 담고 있니?", prev);
 
-    //     //     return (prev = prev);
-    //     // });
-    // }, [visible, themeMode, currentUrl]);
+        //     return (prev = prev);
+        // });
+    }, [currentUrl]);
 
     return (
         <Router>
