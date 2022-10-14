@@ -71,14 +71,14 @@ class userService {
 
         const accessToken = generateToken({ userId: userData.user_email }, "accessToken");
         let refreshToken = generateToken({}, "refreshToken");
-
+        await prisma.User.update({ where: { user_email }, data: { token: null } });
         await prisma.User.update({ where: { user_email }, data: { token: refreshToken } });
 
         return { nickname, introduce, accessToken, refreshToken };
     }
     static async logoutUser(token) {
-        Token.removeToken(token);
-        return "로그아웃";
+        const value = Token.removeToken(token);
+        return value;
     }
 
     static async changePassword({ user_email, password, password_hint }) {

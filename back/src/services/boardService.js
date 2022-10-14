@@ -38,7 +38,12 @@ class boardService {
             take: post * (end - start + 1),
             skip: (start - 1) * post,
         });
-        return allPosts; //==>(보완 예정) 되긴되는데 post가 많아지면 아주 비효율적인 방법. skip하는 과정에서 앞에꺼 다 읽음
+        const result = {};
+        for (var i = start; i < end - start + 2; i++) {
+            result[`${i}`] = allPosts.slice(0, post);
+            allPosts.splice(0, post);
+        }
+        return result;
     }
     static async getPost({ postId }) {
         const postData = await prisma.Board.findUnique({

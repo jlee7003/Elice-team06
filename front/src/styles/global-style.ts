@@ -24,6 +24,7 @@ const GlobalStyle = createGlobalStyle<Props>` * {
         width:100vw;
         height:100vh;
    }
+
     /* ${(props) =>
         props.mode == "Light"
             ? css`

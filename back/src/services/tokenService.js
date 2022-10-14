@@ -7,8 +7,15 @@ class Token {
         return newToken;
     }
     static async removeToken(token) {
-        const removed = await prisma.User.update({ where: { token }, data: { token: null } });
-        return removed;
+        const checkloging = await prisma.User.findUnique({ where: { token } });
+        console.log(checkloging);
+
+        if (checkloging) {
+            const removed = await prisma.User.update({ where: { token }, data: { token: null } });
+            return removed;
+        }
+
+        return "500";
     }
     static async checkToken(token) {
         const checked = await prisma.User.findUnique({ where: { token } });

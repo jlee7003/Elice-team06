@@ -2,19 +2,37 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+function chunk(data = [], start = 1, size = 1) {
+    const items = [...data];
+    let i = Number(start);
+    const arr = {};
+
+    while (items.length) {
+        arr[i] = items.splice(0, size);
+        i += 1;
+    }
+    return arr;
+}
+
 // the abbreviation for challenge: chl
 class challengeService {
     // Challenge API
-    static async getchls() {
-        const challenges = await prisma.Challenge.findMany({
+    static async getchls(pagination = { start: 1, end: 5, count: 8 }) {
+        const { start, end, count } = pagination;
+        let challenges = await prisma.Challenge.findMany({
+            where: { due_date: { gte: new Date() } },
+            skip: Number((start - 1) * count),
+            take: Number((end - start + 1) * count),
             select: {
                 id: true,
                 title: true,
                 start_date: true,
                 due_date: true,
+                level: true,
                 _count: { select: { Challenger: true } },
             },
         });
+        challenges = chunk(challenges, start, Number(count));
         await prisma.$disconnect();
         return challenges;
     }
@@ -39,6 +57,7 @@ class challengeService {
                             title: true,
                             start_date: true,
                             due_date: true,
+                            level: true,
                             _count: { select: { Challenger: true } },
                         },
                     },
@@ -116,35 +135,25 @@ class challengeService {
     static async findcomments({
         nickname,
         challengeId = null,
-        pagination = { start: 1, end: 5, page: 4 },
+        pagination = { start: 1, end: 5, count: 4 },
     }) {
         let comments;
-        const { start, end, page } = pagination;
-        function chunk(data = [], start = 1, size = 1) {
-            const items = [...data];
-            let i = Number(start);
-            const arr = {};
-
-            while (items.length) {
-                arr[i] = items.splice(0, size);
-                i += 1;
-            }
-            return arr;
-        }
+        const { start, end, count } = pagination;
 
         if (nickname && !challengeId) {
             comments = await prisma.ChallengeComment.findMany({
                 where: { author: nickname },
-                select: { challenge_id: true, description: true },
+                select: { id: true, challenge_id: true, description: true },
             });
         } else {
             comments = await prisma.ChallengeComment.findMany({
-                skip: Number((start - 1) * page),
-                take: Number((end - start + 1) * page),
+                where: { challenge_id: Number(challengeId) },
+                skip: Number((start - 1) * count),
+                take: Number((end - start + 1) * count),
                 select: { id: true, author: true, description: true },
             });
 
-            comments = chunk(comments, start, Number(page));
+            comments = chunk(comments, start, Number(count));
         }
 
         await prisma.$disconnect();

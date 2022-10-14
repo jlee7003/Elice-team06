@@ -7,10 +7,12 @@ import { ROUTES_LIST } from "./routes";
 import userState from "@/recoil/user";
 import visibleCommonComponent from "./recoil/visibleCommonComponent";
 import DarkMode from "@/recoil/darkMode";
+import ModalState from "@/recoil/modalState";
 
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 import GlobalStyle from "@/styles/global-style";
+import modalState from "./recoil/modalState";
 
 export interface Props {
     mode?: string;
@@ -20,6 +22,7 @@ const App = () => {
     const setUser = useSetRecoilState(userState);
 
     const [darkMode] = useRecoilState(DarkMode);
+    const [modalState] = useRecoilState(ModalState);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
     // const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);

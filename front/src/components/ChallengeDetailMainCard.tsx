@@ -17,7 +17,8 @@ import challengeBoardWriterData from "@/recoil/challengeBoardWriter";
 import { useRef, useState } from "react";
 import Pagination from "./pagination";
 import commentState from "@/recoil/commentState";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
+import userState from "@/recoil/user";
 
 const ChallengeDetailMainCard = () => {
     // const [lists, setLists] = useState([] as any | undefined); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
@@ -28,6 +29,8 @@ const ChallengeDetailMainCard = () => {
     const [comments, setComments] = useRecoilState(commentState);
     const [counts, setCounts] = useState(0); // 데이터의 총 개수를 setCounts 에 저장해서 사용
 
+    const user = useRecoilValue(userState);
+
     const [userData, setUserData] = useRecoilState(challengeBoardWriterData);
     const commentsRef = useRef<HTMLInputElement>(null);
     const [joiner, setJoiner] = useState([
@@ -36,13 +39,18 @@ const ChallengeDetailMainCard = () => {
         },
     ]);
     function addjoiner() {
-        setJoiner((prev: { writer: string }[]) => {
-            const joiners = [
-                ...prev,
-                {
-                    writer: "작성자",
-                },
-            ];
+        setJoiner((prev: { writer: any }[]) => {
+            let joiners = [];
+            if (prev.some((v) => v.writer === user?.nickname)) {
+                joiners = [...prev];
+            } else {
+                joiners = [
+                    ...prev,
+                    {
+                        writer: user?.nickname,
+                    },
+                ];
+            }
             return joiners;
         });
     }
@@ -84,7 +92,7 @@ const ChallengeDetailMainCard = () => {
                     {comments.slice(offset, offset + limit).map((comment) => (
                         <CommentBox key={comment.comment}>
                             <div>작성자</div>
-                            <div>{comment.writer}</div>
+                            <div>{user?.nickname}</div>
                             <div>{comment.comment}</div>
                         </CommentBox>
                     ))}
@@ -128,7 +136,7 @@ const ChallengeDetailMainCard = () => {
                     작성자
                 </span>
                 <span style={{ fontSize: "16px", fontWeight: "bold", color: "#838383" }}>
-                    내 아이디
+                    {user?.nickname}
                 </span>
                 <Input placeholder="댓글을 작성하세요." name="comment" ref={commentsRef} />
                 <CommentButton onClick={addComments}>댓글 등록</CommentButton>
