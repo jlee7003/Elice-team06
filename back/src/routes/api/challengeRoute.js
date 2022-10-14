@@ -10,7 +10,8 @@ challengeRoute.get(
     "/challenges",
     asyncHandler(async (req, res) => {
         try {
-            const challenges = await challengeService.getchls();
+            const pagination = req.query;
+            const challenges = await challengeService.getchls(pagination);
             res.status(200).send(challenges);
         } catch (error) {
             res.status(504).send(error);
@@ -20,10 +21,11 @@ challengeRoute.get(
 
 challengeRoute.get(
     "/mychallenges",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
-            const { nickname } = req.userId;
+            //const { nickname } = req.userId;
+            const nickname = "test";
             const myChallenges = await challengeService.findchl({ nickname });
             res.status(200).send(myChallenges);
         } catch (error) {
@@ -34,7 +36,7 @@ challengeRoute.get(
 
 challengeRoute.get(
     "/challenge/:id",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
             const challenge = await challengeService.findchl({ challengeId: req.params.id });
@@ -47,10 +49,11 @@ challengeRoute.get(
 
 challengeRoute.post(
     "/challenge",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
-            const { nickname } = req.userId;
+            //const { nickname } = req.userId;
+            const nickname = "test";
             const input = req.body;
             input.proposer = nickname;
 
@@ -64,7 +67,7 @@ challengeRoute.post(
 
 challengeRoute.put(
     "/challenge/:id",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
             const input = req.body;
@@ -78,7 +81,7 @@ challengeRoute.put(
 
 challengeRoute.delete(
     "/challenge/:id",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
             const deleteChallenge = await challengeService.deletechl(req.params.id);
@@ -92,10 +95,11 @@ challengeRoute.delete(
 // Challenge Join API
 challengeRoute.post(
     "/challenge/:id/join",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
-            const { nickname } = req.userId;
+            //const { nickname } = req.userId;
+            const nickname = "test";
             const joinChallenge = await challengeService.joinchl({
                 nickname,
                 challengeId: req.params.id,
@@ -110,10 +114,11 @@ challengeRoute.post(
 // Challenge Comment API
 challengeRoute.get(
     "/mycomments",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
-            const { nickname } = req.userId;
+            //const { nickname } = req.userId;
+            const nickname = "test";
             const mycomments = await challengeService.findcomments({ nickname });
             res.status(200).send(mycomments);
         } catch (error) {
@@ -124,7 +129,7 @@ challengeRoute.get(
 
 challengeRoute.get(
     "/challenge/:id/comment",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
             const pagination = req.query;
@@ -141,10 +146,11 @@ challengeRoute.get(
 
 challengeRoute.post(
     "/challenge/:id/comment",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
-            const { nickname } = req.userId;
+            //const { nickname } = req.userId;
+            const nickname = "test";
             const input = req.body;
             input.author = nickname;
             input.challenge_id = Number(req.params.id);
@@ -159,7 +165,7 @@ challengeRoute.post(
 
 challengeRoute.put(
     "/challenge/:id/comment",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
             const input = req.body;
@@ -173,7 +179,7 @@ challengeRoute.put(
 
 challengeRoute.delete(
     "/challenge/:id/comment",
-    authToken,
+    //authToken,
     asyncHandler(async (req, res) => {
         try {
             const deleteComment = await challengeService.deletecomment(req.query.id);
