@@ -1,6 +1,5 @@
 import { Banner } from "@/styles/banner";
 import { useRecoilState } from "recoil";
-import userState from "../recoil/user";
 import {
     Container,
     ChallengeContainter,
@@ -17,7 +16,7 @@ import ReqeustCards from "@/components/RequestCards";
 import post from "@/lib/dummyPosts";
 //현재 post는 전체 게시글 데이터를 받아오는 더미데이터로 향후 특정유저의 포스트만 모아놓는 더미데이터와 유저 더미데이터를 만들어서 사용할 예정
 const Mypage = () => {
-    const [user, setUser] = useRecoilState(userState);
+    // const [user, setUser] = useRecoilState(userState);
 
     return (
         <div>
@@ -25,8 +24,8 @@ const Mypage = () => {
             <Container>
                 <SideBar>
                     <MySec>
-                        <p>user.name</p>
-                        <p>user.desc</p>
+                        {/* <p>user.name</p>
+                        <p>user.desc</p> */}
                     </MySec>
                     <Menus>
                         <Buttons>첼린지 현재페이지</Buttons>

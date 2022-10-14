@@ -3,14 +3,12 @@ import cssUnit from "@/lib/cssUnit";
 export const Container = styled.div`
     display: grid;
     place-items: start center;
-
     width: ${cssUnit.unit.width};
     height: 100vh;
 `;
 export const CenterContainer = styled.div`
     display: flex;
     place-items: start center;
-
     width: 1275px;
     height: 100vh;
 `;
@@ -19,12 +17,7 @@ export const Main = styled.div`
     border: 0px solid black;
     width: 65%;
     height: 50vh;
-
-    & > div {
-        /* font-size: 12px; */
-    }
 `;
-
 export const Sub = styled.div`
     border: 0px solid black;
     width: 35%;
@@ -78,11 +71,7 @@ export const CommentBox = styled.div`
     padding: 10px;
     width: 782px;
     height: 44px;
-    & > div {
-        /* font-size: 12px; */
-    }
 `;
-
 export const BoardCard = styled.div`
     width: ${cssUnit.unit.width};
     height: 171px;
@@ -106,7 +95,6 @@ export const TopImage = styled.span`
 `;
 export const OKButton = styled.button`
     all: unset;
-
     text-align: center;
     width: ${cssUnit.unit.formWidth};
     height: 50px;
@@ -121,7 +109,6 @@ export const Input = styled.input`
     height: 62px;
     border: 1px solid #d9d9d9;
     background-color: #fbfbfb;
-    /* margin-bottom: 30px; */
     margin: 20px 0px 0px 0px;
     padding: 10px;
     &::placeholder {

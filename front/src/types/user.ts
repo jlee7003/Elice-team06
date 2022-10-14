@@ -1,7 +1,10 @@
-interface User {
-    accessToken: string;
-    nickname: string;
-    introduce: string;
+export interface User {
+    nickname: string | null;
+    introduce: string | null;
 }
 
-export default User;
+export interface Admin extends User {
+    admin: boolean;
+}
+
+export default Admin;

@@ -19,10 +19,16 @@ import { postsSelector } from "@/recoil/requestPosts";
 import { useEffect } from "react";
 //pagination
 import Pagination from "@/components/pagination";
+import urlCheck from "@/recoil/urlCheck";
 //dummies
 import post from "@/lib/dummyPosts";
 
 const ReqPage = () => {
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
     const currentPage = useRef<number>(1); //default page : 1
     const [page, setPage] = useState("");
     //Setting Default

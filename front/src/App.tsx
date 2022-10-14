@@ -1,56 +1,68 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { ROUTES_LIST } from "./routes";
-import token from "./recoil/token";
-import Footer from "./components/common/Footer";
-import Header from "./components/common/Header";
-import Api from "./api";
-import GlobalStyle from "@/styles/global-style";
-import visibleCommonComponent from "./recoil/visibleCommonComponent";
+import { useSetRecoilState, useRecoilState } from "recoil";
 
-import { useRecoilState } from "recoil";
+import Api from "./api";
+import { ROUTES_LIST } from "./routes";
+import userState from "@/recoil/user";
+import visibleCommonComponent from "./recoil/visibleCommonComponent";
 import DarkMode from "@/recoil/darkMode";
+
+import Footer from "@/components/common/Footer";
+import Header from "@/components/common/Header";
+import GlobalStyle from "@/styles/global-style";
+
 export interface Props {
     mode?: string;
 }
+
 const App = () => {
+    const setUser = useSetRecoilState(userState);
+
     const [darkMode] = useRecoilState(DarkMode);
-    console.log(darkMode);
-    const setToken = useSetRecoilState(token);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [themeMode, setThemeMode] = useRecoilState(DarkMode);
-    const isLanding = window.location.href.split("/").includes("landing");
+    // const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    // const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
-        // const refreshToken = sessionStorage.getItem("refreshToken");
-        // if (refreshToken != null) {
-        //     const API = Api.getInstance();
-        //     API.post<{ accessToken: string; refreshToken: string }>(["api", "current"], {}).then(
-        //         (res) => {
-        //             setToken(res.data.accessToken);
-        //         }
-        //     );
-        // }
-    });
+        const refresh = sessionStorage.getItem("refresh");
+        if (refresh === null) {
+            return;
+        }
 
-    useEffect(() => {
-        setVisible((prev) => {
-            if (isLanding) {
-                return (prev = false);
-            }
-            return (prev = true);
+        const API = Api.getInstance();
+
+        API.getToken().then((user) => {
+            setUser(user);
         });
-        setThemeMode((prev: string) => {
-            if (isLanding) {
-                return (prev = "Common");
-            }
-            return (prev = prev);
-        });
-    }, [visible, themeMode]);
+    }, []);
+
+    // useEffect(() => {
+    //     setVisible((prev) => {
+    //         if (currentUrl.split("/").includes("landing")) {
+    //             return (prev = false);
+    //         }
+    //         return (prev = true);
+    //     });
+    //     // setThemeMode((prev: string) => {
+    //     //     if (currentUrl.split("/").includes("landing")) {
+    //     //         console.log("prev 뭐 담고 있니?", prev);
+    //     //         return (prev = "Light");
+    //     //     }
+    //     //     console.log("prev 뭐 담고 있니?", prev);
+
+    //     //     return (prev = prev);
+    //     // });
+    // }, [visible, themeMode, currentUrl]);
 
     return (
         <Router>
+            {/* {themeMode == "Common" ? (
+                <GlobalStyle mode="Common" />
+            ) : (
+                <GlobalStyle mode={darkMode ?? "Light"} />
+            )} */}
             <GlobalStyle mode={darkMode ?? "Light"} />
             {visible && <Header />}
             <Routes>
@@ -58,6 +70,7 @@ const App = () => {
                     <Route key={idx} path={path} element={<Component />} />
                 ))}
             </Routes>
+
             {visible && <Footer />}
         </Router>
     );

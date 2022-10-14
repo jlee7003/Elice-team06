@@ -10,52 +10,118 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//table 분리 예정//
 model User {
-  user_email    String   @id @unique
-  nickname      String
+  user_email    String        @id @unique
+  nickname      String        @unique
   password      String
   password_hint String
-  age           Int?
+  token         String?       @unique
+  age           String?
   region        String?
   gender        String?
   profile_image String?
   introduce     String?
-  ban           Boolean  @default(false)
-  withdrawal    Boolean  @default(false)
-  role          Role     @default(USER)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  ban           Boolean       @default(false)
+  withdrawal    Boolean       @default(false)
+  role          Role          @default(USER)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   Board         Board[]
-  Challenge Challenge[]
-}
-
-model Board {
-  id          String   @id @unique @default(uuid())
-  user        User     @relation(fields: [user_email], references: [user_email])
-  user_email  String
-  title       String
-  description String
-  view        Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Challenge {
-  id  Int @id @default(autoincrement())
-  title String
-  description String
-  goal String
-  start_date DateTime @db.DateTime(0)
-  due_date DateTime @db.DateTime(0)
-  author User @relation(fields: [proposer], references: [user_email])
-  proposer String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  Comment       CommentPost[]
+  VotePost      VotePost[]
+  Challenge     Challenge[]
+  Challenger    Challenger[]
+  ChallengeComment ChallengeComment[]
+  ReportPost    ReportPost[]
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+model Challenge {
+  id          Int          @id @default(autoincrement())
+  title       String
+  description String
+  goal        String
+  start_date  DateTime     @db.DateTime(0)
+  due_date    DateTime     @db.DateTime(0)
+  author      User         @relation(fields: [proposer], references: [nickname])
+  proposer    String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  Challenger  Challenger[]
+  ChallengeComment ChallengeComment[]
+}
+
+model Challenger {
+  challenge_id Int
+  Challenge    Challenge @relation(fields: [challenge_id], references: [id])
+  nickname     String
+  User         User      @relation(fields: [nickname], references: [nickname])
+
+  @@id([challenge_id, nickname])
+}
+
+model ChallengeComment {
+  id Int @id @default(autoincrement())
+  challenge_id Int
+  Challenge Challenge @relation(fields: [challenge_id], references: [id])
+  author String
+  User       User     @relation(fields: [author], references: [nickname])
+  description  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Board {
+  id           Int           @id @unique @default(autoincrement())
+  author       User          @relation(fields: [author_email], references: [user_email])
+  author_email String
+  title        String
+  description  String
+  view         Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  Comment      CommentPost[]
+  VotePost     VotePost[]
+  ReportPost   ReportPost[]
+
+  @@index([id, createdAt(sort: Desc)])
+}
+
+model CommentPost {
+  id           Int      @id @unique @default(autoincrement())
+  author       User     @relation(fields: [author_email], references: [user_email])
+  author_email String
+  post         Board    @relation(fields: [post_id], references: [id])
+  post_id      Int
+  description  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model VotePost {
+  id        Int      @id @default(autoincrement())
+  voter     User     @relation(fields: [voter_id], references: [user_email])
+  voter_id  String
+  post      Board    @relation(fields: [post_id], references: [id])
+  post_id   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ReportPost {
+  id          Int      @id @default(autoincrement())
+  reporter    User     @relation(fields: [reporter_id], references: [user_email])
+  reporter_id String
+  post        Board    @relation(fields: [post_id], references: [id])
+  post_id     Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model SeaLevelKorea {

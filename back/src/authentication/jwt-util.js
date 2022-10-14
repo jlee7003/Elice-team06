@@ -3,16 +3,21 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const TokenSetting = {
+    accessToken: "1h",
+    refreshToken: "14d",
+};
+
 const secret = process.env.JWT_SECRET ?? "";
 
-export const sign = (payload, expiresIn = "1h") => {
+export const generateToken = (payload, tokenType) => {
     return jwt.sign(payload, secret, {
         algorithm: "HS256",
-        expiresIn,
+        expiresIn: TokenSetting[tokenType],
     });
 };
 
-export const verify = (token) => {
+export const verifyToken = (token) => {
     try {
         const decoded = jwt.verify(token, secret);
         return {

@@ -1,6 +1,5 @@
 import React from "react";
 import { Theme, ThemeContextType } from "@/styles/theme";
-import { ThemeContext } from "@/UI/themeProvider";
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
 import { CheckBox, Label, Sun, Moon } from "@/styles/pages/toggleButton-style";
@@ -17,7 +16,7 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
     }
     return (
         <>
-            <div>
+            <div style={{ display: "flex" }}>
                 <CheckBox type="checkbox" id="chk" onChange={handleChange} />
                 <Label>
                     <Sun>☀️</Sun>

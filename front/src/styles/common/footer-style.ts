@@ -7,7 +7,7 @@ export const TeamName = styled.span`
     font-weight: light;
     font-style: italic;
     color: gray;
-
+    background-color: #343434;
     font-size: ${cssUnit.fontSize.small};
 `;
 
@@ -24,10 +24,10 @@ export const Gitlab = styled.a.attrs({
 export const LogoContainer = styled.div`
     display: flex;
     align-items: center;
+    background-color: #343434;
 `;
 
 export const FooterBackground = styled.footer`
-    position: sticky;
     width: 100%;
     height: 100px;
     z-index: 1;

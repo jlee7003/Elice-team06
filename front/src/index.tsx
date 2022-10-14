@@ -4,12 +4,10 @@ import GlobalStyle from "./styles/global-style";
 import App from "./App";
 import { RecoilRoot } from "recoil";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <React.StrictMode>
+    <RecoilRoot>
         <GlobalStyle />
-        <RecoilRoot>
-            <React.Suspense fallback={<div>Loading...</div>}>
-                <App />
-            </React.Suspense>
-        </RecoilRoot>
-    </React.StrictMode>
+        <React.Suspense fallback={<h1>loading...</h1>}>
+            <App />
+        </React.Suspense>
+    </RecoilRoot>
 );

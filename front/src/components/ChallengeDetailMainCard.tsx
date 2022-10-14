@@ -17,13 +17,6 @@ import challengeBoardWriterData from "@/recoil/challengeBoardWriter";
 import { useRef, useState } from "react";
 import Pagination from "./pagination";
 import commentState from "@/recoil/commentState";
-interface User {
-    title: string;
-    date: string;
-    participants: string;
-    contents: string;
-    [key: string]: string;
-}
 import { useRecoilState } from "recoil";
 
 const ChallengeDetailMainCard = () => {
@@ -43,20 +36,16 @@ const ChallengeDetailMainCard = () => {
         },
     ]);
     function addjoiner() {
-        setJoiner([
-            ...joiner,
-            {
-                writer: "작성자",
-            },
-        ]);
+        setJoiner((prev: { writer: string }[]) => {
+            const joiners = [
+                ...prev,
+                {
+                    writer: "작성자",
+                },
+            ];
+            return joiners;
+        });
     }
-    let value: any;
-    const [text, setText] = useState("");
-    // const onChangeForm = (e: ChangeEvent<HTMLInputElement>) => {
-    //     value = e.target.value;
-    //     setText(value);
-    //     // console.log(value);
-    // };
     const addComments = () => {
         if (commentsRef.current == null) {
             return;
@@ -69,7 +58,9 @@ const ChallengeDetailMainCard = () => {
             },
             ...comments,
         ]);
-        setCounts(comments.length);
+        setCounts((prev: number) => {
+            return (prev = comments.length);
+        });
         commentsRef.current.value = "";
         setPage(1);
     };
@@ -91,7 +82,6 @@ const ChallengeDetailMainCard = () => {
                 <CommentContainer>
                     <SubTitle>챌린저스의 한마디</SubTitle>
                     {comments.slice(offset, offset + limit).map((comment) => (
-                        // <CommentBox key={comment.id} >
                         <CommentBox key={comment.comment}>
                             <div>작성자</div>
                             <div>{comment.writer}</div>

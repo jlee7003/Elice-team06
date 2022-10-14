@@ -1,10 +1,9 @@
+import { useRef, useState, useEffect, MouseEvent } from "react";
 import { useSetRecoilState } from "recoil";
-import { useState, useRef, MouseEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import userState from "@/recoil/user";
-import Api from "@/api";
-import User from "@/types/user";
 import { ROUTES } from "@/routes/.";
+import login from "@/api/login";
 import {
     Main,
     Form,
@@ -14,22 +13,25 @@ import {
     SubmitButton,
     Menu,
     MenuButton,
+    MenuLink,
 } from "@/styles/pages/login-style";
 import { Logo } from "@/styles/common";
-
-interface LoginResponse extends User {
-    refreshToken: string;
-}
+import { useRecoilState } from "recoil";
+import urlCheck from "@/recoil/urlCheck";
 
 const Login = () => {
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
-    const setUserAtom = useSetRecoilState(userState);
+    const setUser = useSetRecoilState(userState);
 
     const navigate = useNavigate();
-
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
 
     const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -43,23 +45,32 @@ const Login = () => {
             password: password.current.value,
         };
 
-        const API = Api.getInstance();
+        const result = await login(loginData);
 
-        try {
-            const res = await API.post<LoginResponse>(["api", "login"], loginData);
-            if (res.statusText === "OK") {
-                API.setToken(res.data.accessToken);
-                sessionStorage.setItem("refresh", res.data.refreshToken);
-
-                setUserAtom(res.data);
-
-                navigate(ROUTES.Home.path);
-            } else {
-                setIsError(true);
-            }
-        } catch (err: any) {
-            console.log(err.message);
+        if (result === null) {
+            setIsError(true);
+            return;
         }
+
+        setUser(result);
+        navigate(ROUTES.Home.path);
+        // const API = Api.getInstance();
+
+        // try {
+        //     const res = await API.post<LoginResponse>(["api", "login"], loginData);
+        //     if (res.statusText === "OK") {
+        //         API.setToken(res.data.accessToken);
+        //         sessionStorage.setItem("refresh", res.data.refreshToken);
+
+        //         setUserAtom(res.data);
+
+        //         navigate(ROUTES.Home.path);
+        //     } else {
+        //         setIsError(true);
+        //     }
+        // } catch (err: any) {
+        //     console.log(err.message);
+        // }
     };
 
     return (
@@ -75,14 +86,14 @@ const Login = () => {
                     <SubmitButton onClick={onClick}>입력</SubmitButton>
                 </Form>
                 <Menu>
-                    <MenuButton>비밀번호 찾기</MenuButton>
+                    <MenuLink to="/auth/email">비밀번호 찾기</MenuLink>
                     <div>|</div>
-                    <MenuButton>이메일 찾기</MenuButton>
+                    <MenuLink to="/auth/password">이메일 찾기</MenuLink>
                 </Menu>
                 <Menu>
                     <MenuButton as="div">아직 회원이 아니신가요?</MenuButton>
                     <MenuButton>
-                        <Link to="/signup">회원가입</Link>
+                        <Link to={ROUTES.Signup.path}>회원가입</Link>
                     </MenuButton>
                 </Menu>
             </section>

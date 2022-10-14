@@ -1,9 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
+// import cssUnit from "@/cssUnit";
+import assets from "@/lib/assets";
+import icons from "@/lib/icons";
 
 interface StyleProps {
     bgColor?: string;
     bottom?: string;
     bgImg?: string;
+    rotate?: string;
+    slideBgImg?: string;
 }
 
 export const ContainerWrap = styled.div`
@@ -30,26 +36,30 @@ export const Header = styled.header`
     }
 `;
 
-export const Logo = styled.p`
-    height: 100%;
-    line-height: 80px;
-    width: 100px;
-    text-align: center;
+const logoImg = assets("logo.png");
+
+export const LogoImg = styled.img.attrs({
+    src: logoImg,
+    alt: "logo_image",
+})`
+    cursor: pointer;
+    height: 60px;
 `;
+
+export const Logo = styled.p`
+    ${LogoImg}
+`;
+
+// export const Link = styled(Link)``;
 
 export const Nav = styled.nav`
     height: 100%;
     line-height: 80px;
-    width: 50%;
+    width: 40%;
     max-width: 900px;
     display: flex;
     background-color: transparent;
     justify-content: space-around;
-    p {
-        a {
-            white-space: nowrap;
-        }
-    }
 `;
 
 //--------------Slides Nav--------------
@@ -143,7 +153,6 @@ export const Section1Box = styled.div`
         }
         p {
             font-size: 20px;
-            /* background-color: transparent; */
         }
     }
 
@@ -177,7 +186,6 @@ export const Section3Box = styled.div`
         }
         p {
             font-size: 20px;
-            /* background-color: transparent; */
         }
     }
 `;
@@ -240,6 +248,83 @@ export const Section4Box = styled.div`
     }
 `;
 
+const arrow = icons("arrow_side_icon.png");
+
+export const ArrowIcon = styled.img.attrs({
+    src: arrow,
+    alt: "arro_icon",
+})<{ rotate?: string }>`
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    top: 10px;
+    left: 15px;
+    transform: ${(props) => props.rotate};
+`;
+
+export const Control = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: none;
+    label {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        border-radius: 100px;
+        position: relative;
+        ${ArrowIcon}
+    }
+`;
+
+export const SlideControl = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+`;
+
+const slideImg01 = assets("bus_img.png");
+
+export const SlideImg = styled.img.attrs({ src: slideImg01, alt: "bus img" })``;
+
+export const SlideList = styled.li<{ slideBgImg?: string }>`
+    background-image: url(${(props) => props.slideBgImg});
+    background-size: cover;
+`;
+
+// https://m.blog.naver.com/co-nam/222084570760
+export const SlideContent = styled.div`
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    ul {
+        white-space: nowrap;
+
+        ${SlideList} {
+            display: inline-block;
+            /* vertical-align: middle; */
+            width: 100%;
+            transition: all 0.5s;
+
+            a {
+                display: block;
+                position: relative;
+                width: 100%;
+                height: 400px;
+                span {
+                    color: transparent;
+                }
+            }
+        }
+    }
+`;
+
 export const ChallengeSlide = styled.div`
     height: 400px;
     width: 100%;
@@ -247,6 +332,34 @@ export const ChallengeSlide = styled.div`
     color: #fff;
     text-align: center;
     line-height: 400px;
+
+    input {
+        display: none;
+
+        //각 input checked 될 때 li 위치 이동
+        &[id="slide01"]:checked ~ ${SlideContent} ul li {
+            transform: translateX(0%);
+        }
+        &[id="slide02"]:checked ~ ${SlideContent} ul li {
+            transform: translateX(-100%);
+        }
+        &[id="slide03"]:checked ~ ${SlideContent} ul li {
+            transform: translateX(-200%);
+        }
+
+        //각 section 이동 시, 각 nav 만 보이도록 설정
+        &[id="slide01"]:checked ~ ${SlideContent} ${SlideControl} .control01 {
+            display: flex;
+        }
+
+        &[id="slide02"]:checked ~ ${SlideContent} ${SlideControl} .control02 {
+            display: flex;
+        }
+
+        &[id="slide03"]:checked ~ ${SlideContent} ${SlideControl} .control03 {
+            display: flex;
+        }
+    }
 `;
 
 export const ChallengeCurrent = styled.div`
@@ -255,4 +368,70 @@ export const ChallengeCurrent = styled.div`
     height: 180px;
     background-color: #fbfbfb;
     box-shadow: 0 0 1px rgba(0, 0, 0, 15);
+    display: flex;
+    align-items: center;
+
+    div {
+        width: 50%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        position: relative;
+
+        p {
+            color: #000;
+        }
+        span {
+            color: #000;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        &:first-child {
+            &::after {
+                content: "";
+                display: block;
+                width: 4px;
+                height: 40px;
+                background-color: #c5c5c5;
+                position: absolute;
+                right: 0;
+            }
+        }
+    }
+`;
+
+export const SectionTitle = styled.h2`
+    color: #fff;
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+`;
+
+export const Section5Box = styled.ul`
+    height: 70vh;
+    max-width: 1093px;
+    width: 60%;
+    margin: 70px auto 0;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: 50% 50%;
+    li {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            background-color: #fff;
+            color: #000;
+            width: 200px;
+            height: 200px;
+            border-radius: 200px;
+            text-align: center;
+            line-height: 235px;
+            box-sizing: border-box;
+        }
+    }
 `;

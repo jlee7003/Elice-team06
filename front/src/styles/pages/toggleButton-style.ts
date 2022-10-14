@@ -36,12 +36,13 @@ export const Label = styled.label`
     background-color: #111;
     border-radius: 50px;
     /* cursor: pointer; */
-
+    /* position: absolute; */
+    /* margin-left: 40px; */
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
-    height: 26px;
+    height: 29px;
     width: 50px;
     transform: scale(1.5);
 
@@ -51,8 +52,8 @@ export const Label = styled.label`
         position: absolute;
         top: 2px;
         left: 2px;
-        height: 22px;
-        width: 22px;
+        height: 25px;
+        width: 24px;
         transform: translateX(0px);
         transition: transform 0.2s linear;
     }
@@ -74,8 +75,7 @@ export const CheckBox = styled.input`
     position: absolute;
     height: 30px;
     width: 60px;
-    top: 25px;
-    right: 270px;
+
     z-index: 1;
     /* transform: translateX(24px); */
     &:checked + Label div {

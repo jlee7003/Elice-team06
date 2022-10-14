@@ -16,6 +16,9 @@
         ],
         "exec": "./node_modules/.bin/babel-node src/"
     },
+    "engines": {
+        "node": ">=8.10.0"
+    },
     "dependencies": {
         "@prisma/client": "^4.4.0",
         "bcrypt": "^5.0.1",

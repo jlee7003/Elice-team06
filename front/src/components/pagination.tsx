@@ -9,13 +9,6 @@ import {
     PageBtn,
 } from "@/styles/pagination-style";
 
-declare module "react" {
-    interface StyleHTMLAttributes<T> extends React.HTMLAttributes<T> {
-        jsx?: boolean;
-        global?: boolean;
-    }
-}
-type current = "false" | "true";
 const Pagination = ({
     limit,
     page,
@@ -39,12 +32,10 @@ const Pagination = ({
 
     const pageLimit = 5; // 보여줄 페이지네이션 개수
 
-    const totalPage: number = Math.ceil(counts / limit); //총 데이터의 개수(counts)를 한 페이지의 보여줄 데이터(limit)로 나눠 올림을 하면 전체 페이지의 개수가 나온다.
-
+    const totalPage: number = Math.ceil(counts / limit + 1 / pageLimit); //총 데이터의 개수(counts)를 한 페이지의 보여줄 데이터(limit)로 나눠 올림을 하면 전체 페이지의 개수가 나온다.
     const blockArea: number = Number(blockNum * pageLimit); // 화면 전환 할 때 보여줄 페이지네이션 개수를 구역으로 지정한다.
     const nArr = createArr(Number(totalPage)); // nArr 함수에 전체 페이지의 개수를 배열로 담는다.
     let pArr = nArr?.slice(blockArea, Number(pageLimit) + blockArea); // 페이지네이션 구역을 nArr 함수에 slice하여 원하는 페이지네이션 block 만 보여 줄 수 있게 설정
-
     const firstPage = () => {
         setPage(1);
         setBlockNum(0);
