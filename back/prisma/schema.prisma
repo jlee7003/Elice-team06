@@ -12,16 +12,11 @@ datasource db {
 
 //table 분리 예정//
 model User {
-  user_email       String             @id @unique
+  email            String             @id @unique
   nickname         String             @unique
   password         String
   password_hint    String
   token            String?            @unique
-  age              String?
-  region           String?
-  gender           String?
-  profile_image    String?
-  introduce        String?
   ban              Boolean            @default(false)
   withdrawal       Boolean            @default(false)
   role             Role               @default(USER)
@@ -34,6 +29,17 @@ model User {
   Challenger       Challenger[]
   ChallengeComment ChallengeComment[]
   ReportPost       ReportPost[]
+  Profile          Profile[]
+}
+
+model Profile {
+  user          User    @relation(fields: [nickname], references: [nickname])
+  nickname      String  @id
+  age           String?
+  region        String?
+  gender        String?
+  profile_image String?
+  introduce     String?
 }
 
 enum Role {
@@ -77,36 +83,34 @@ model ChallengeComment {
 }
 
 model Board {
-  id           Int           @id @unique @default(autoincrement())
-  author       User          @relation(fields: [author_email], references: [user_email])
-  author_email String
-  title        String
-  description  String
-  view         Int           @default(0)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  Comment      CommentPost[]
-  VotePost     VotePost[]
-  ReportPost   ReportPost[]
-
-  @@index([id, createdAt(sort: Desc)])
+  id          Int           @id @unique @default(autoincrement())
+  user        User          @relation(fields: [author], references: [nickname])
+  author      String
+  title       String
+  description String
+  view        Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Comment     CommentPost[]
+  VotePost    VotePost[]
+  ReportPost  ReportPost[]
 }
 
 model CommentPost {
-  id           Int      @id @unique @default(autoincrement())
-  author       User     @relation(fields: [author_email], references: [user_email])
-  author_email String
-  post         Board    @relation(fields: [post_id], references: [id])
-  post_id      Int
-  description  String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id          Int      @id @unique @default(autoincrement())
+  user        User     @relation(fields: [author], references: [nickname])
+  author      String
+  post        Board    @relation(fields: [post_id], references: [id])
+  post_id     Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model VotePost {
   id        Int      @id @default(autoincrement())
-  voter     User     @relation(fields: [voter_id], references: [user_email])
-  voter_id  String
+  user      User     @relation(fields: [voter], references: [nickname])
+  voter     String
   post      Board    @relation(fields: [post_id], references: [id])
   post_id   Int
   createdAt DateTime @default(now())
@@ -115,8 +119,8 @@ model VotePost {
 
 model ReportPost {
   id          Int      @id @default(autoincrement())
-  reporter    User     @relation(fields: [reporter_id], references: [user_email])
-  reporter_id String
+  user        User     @relation(fields: [reporter], references: [nickname])
+  reporter    String
   post        Board    @relation(fields: [post_id], references: [id])
   post_id     Int
   description String

@@ -9,9 +9,7 @@ const boardRoute = Router();
 boardRoute.get(
     "/posts",
     asyncHandler(async (req, res) => {
-        const start = req.query.start;
-        const end = req.query.end;
-        const post = req.query.post;
+        const { start, end, post } = req.query;
         const result = await boardService.getPosts({ start, end, post });
 
         res.status(200).send(result);
@@ -33,19 +31,19 @@ boardRoute.get(
     "/myPosts",
     // authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.body;
-        const postData = await boardService.getPost({ author_email: user_email });
+        const { nickname } = req.body;
+        const postData = await boardService.getMyPost({ nickname });
         res.status(200).send(postData);
     })
 );
 
-//자신이 투표한 게시글 목록//---> VotePost 제작해야함.
+//자신이 투표한 게시글 목록//
 boardRoute.get(
     "/likePosts",
     // authToken,
     asyncHandler(async (req, res) => {
-        const { user_email } = req.body;
-        const result = await boardService.getLikePost({ user_email });
+        const { nickname } = req.body;
+        const result = await boardService.getLikePost({ nickname });
 
         res.status(200).send(result);
     })

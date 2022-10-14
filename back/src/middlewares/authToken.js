@@ -13,9 +13,9 @@ const authToken = async (req, res, next) => {
         if (accessToken === "refreshed") {
             const result = await Token.checkToken(refreshToken);
             if (result) {
-                accessToken = generateToken({ userId: result.user_email }, "accessToken");
+                accessToken = generateToken({ nickname: result.nickname }, "accessToken");
 
-                req.userId = accessToken;
+                req.nickname = accessToken;
                 next();
                 return;
             }
@@ -34,7 +34,7 @@ const authToken = async (req, res, next) => {
             const token = await Token.checkToken(refreshToken);
 
             if (token != null) {
-                accessToken = generateToken({ userId: token.userId }, "accessToken");
+                accessToken = generateToken({ nickname: token.nickname }, "accessToken");
             }
         }
 
@@ -42,11 +42,11 @@ const authToken = async (req, res, next) => {
         if (accessPayload !== null && refreshPayload === null) {
             refreshToken = generateToken({}, "refreshToken");
 
-            Token.addToken(accessPayload.userId, refreshToken);
+            Token.addToken(accessPayload.nickname, refreshToken);
         }
 
         if (accessPayload !== null) {
-            req.userId = accessPayload.userId;
+            req.nickname = accessPayload.nickname;
         }
         next();
     } catch (err) {

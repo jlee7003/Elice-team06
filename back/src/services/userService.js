@@ -17,42 +17,62 @@ const isInvalidEmail = (email) => {
 
 class userService {
     static async addUser({ userData }) {
-        if (isInvalidEmail(userData.user_email)) {
+        //이메일 형식 확인
+        if (isInvalidEmail(userData.email)) {
             return "적합한 이메일이 아닙니다";
         }
-        const user_email = userData.user_email;
-        const searchUser = await prisma.User.findUnique({ where: { user_email } });
+
+        //이메일 중복 확인
+        const email = userData.email;
+        const searchUser = await prisma.User.findUnique({ where: { email } });
 
         if (searchUser) {
-            return "이미 존재하는 이메일입니다.";
+            return null;
         }
+
+        //닉네임 중복 확인
         const nickname = userData.nickname;
         const searchNickname = await prisma.User.findUnique({ where: { nickname } });
         if (searchNickname) {
-            return "이미 존재하는 닉네임입니다.";
+            return null;
         }
+
+        //비밀번호 hash 처리
         const password = userData.password;
         const hash = await bcrypt.hash(password, 10);
         userData.password = hash;
 
+        const { age, region, gender, profile_image } = userData;
+        const { password_hint, introduce } = userData;
+
         const newUser = await prisma.User.create({
-            data: { ...userData },
+            data: {
+                email,
+                nickname,
+                password: hash,
+                password_hint,
+                Profile: { create: { age, region, gender, profile_image, introduce } },
+            },
         });
 
         return newUser;
     }
 
-    static async loginUser({ user_email, password }) {
+    static async loginUser({ email, password }) {
         //이메일 형식이 맞는지 검사
-        if (isInvalidEmail(user_email)) {
+        if (isInvalidEmail(email)) {
             return null;
         }
-        //이메일 중복 검사
+        //유저 존재 확인
         const userData = await prisma.User.findUnique({
             where: {
-                user_email,
+                email,
+            },
+            include: {
+                Profile: { select: { introduce: true, nickname: true } },
             },
         });
+
         if (userData === null) {
             return null;
         }
@@ -60,7 +80,6 @@ class userService {
         if (userData.ban === true || userData.withdrawal === true) {
             return null;
         }
-        const { nickname, introduce } = userData;
 
         //비밀번호 일치 확인
         const result = await bcrypt.compare(password, userData.password);
@@ -68,11 +87,12 @@ class userService {
         if (!result) {
             return null;
         }
+        const { introduce, nickname } = userData.Profile[0];
 
-        const accessToken = generateToken({ userId: userData.user_email }, "accessToken");
+        const accessToken = generateToken({ nickname: userData.nickname }, "accessToken");
         let refreshToken = generateToken({}, "refreshToken");
-        await prisma.User.update({ where: { user_email }, data: { token: null } });
-        await prisma.User.update({ where: { user_email }, data: { token: refreshToken } });
+        await prisma.User.update({ where: { nickname }, data: { token: null } });
+        await prisma.User.update({ where: { nickname }, data: { token: refreshToken } });
 
         return { nickname, introduce, accessToken, refreshToken };
     }
@@ -81,10 +101,10 @@ class userService {
         return value;
     }
 
-    static async changePassword({ user_email, password, password_hint }) {
+    static async changePassword({ nickname, password, password_hint }) {
         const userData = await prisma.User.findUnique({
             where: {
-                user_email,
+                nickname,
             },
         });
 
@@ -96,7 +116,7 @@ class userService {
 
         await prisma.user.update({
             where: {
-                user_email,
+                nickname,
             },
             data: {
                 password: hashedPassword,
@@ -104,11 +124,22 @@ class userService {
             },
         });
     }
-
-    static async getUser({ user_email }) {
+    static async getUser({ refreshtoken }) {
         const userData = await prisma.User.findUnique({
             where: {
-                user_email,
+                token: refreshtoken,
+            },
+            select: {
+                nickname: true,
+                introduce: true,
+            },
+        });
+        return userData;
+    }
+    static async getInfo({ nickname }) {
+        const userData = await prisma.Profile.findUnique({
+            where: {
+                nickname,
             },
             select: {
                 nickname: true,
@@ -122,47 +153,46 @@ class userService {
         return userData;
     }
 
-    static async getUser({ refreshtoken }) {
-        const userData = await prisma.User.findUnique({
-            where: {
-                token: refreshtoken,
-            },
-            select: {
-                nickname: true,
-                introduce: true,
-            },
-        });
-        return userData;
-    }
-
-    static async updateUser({ user_email, updateData }) {
+    static async updateUser({ nickname, updateData }) {
         if (updateData.nickname) {
-            const nickname = updateData.nickname;
-            const searchNickname = await prisma.User.findUnique({
-                where: { nickname },
+            const newNickname = updateData.nickname;
+            const searchNickname = await prisma.Profile.findUnique({
+                where: { nickname: newNickname },
                 select: { nickname: true },
             });
-
-            if (searchNickname && searchNickname.nickname === nickname) {
+            //닉네임 중복 확인
+            if (searchNickname && searchNickname.nickname !== nickname) {
                 return "이미 존재하는 닉네임입니다.";
             }
-        }
+            const { age, region, gender, profile_image, introduce } = updateData;
 
-        const updateInfo = await prisma.User.update({
+            await prisma.User.update({
+                where: { nickname },
+                data: { nickname: updateData.nickname },
+            });
+            const updateInfo = await prisma.Profile.update({
+                where: {
+                    nickname: updateData.nickname,
+                },
+                data: { age, region, gender, profile_image, introduce },
+            });
+
+            return [updateInfo, { accessToken: null }];
+        }
+        const { age, region, gender, profile_image, introduce } = updateData;
+        const updateInfo = await prisma.Profile.update({
             where: {
-                user_email,
+                nickname,
             },
-            data: {
-                ...updateData,
-            },
+            data: { age, region, gender, profile_image, introduce },
         });
         return updateInfo;
     }
 
-    static async comparePassword({ user_email, password }) {
+    static async comparePassword({ nickname, password }) {
         const userData = await prisma.User.findUnique({
             where: {
-                user_email,
+                nickname,
             },
         });
         const result = await bcrypt.compare(password, userData.password);
@@ -173,9 +203,9 @@ class userService {
         return "인증 성공!";
     }
 
-    static async withdrawal({ user_email }) {
+    static async withdrawal({ nickname }) {
         await prisma.User.update({
-            where: { user_email },
+            where: { nickname },
             data: { withdrawal: true },
         });
     }

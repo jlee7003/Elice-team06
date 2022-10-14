@@ -22,8 +22,8 @@ reportPostRoute.post(
     // authToken,
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
-        const { user_email, description } = req.body;
-        const result = await reportPostService.report({ postId, user_email, description });
+        const { nickname, description } = req.body;
+        const result = await reportPostService.report({ postId, nickname, description });
         res.status(200).send(result);
     })
 );
