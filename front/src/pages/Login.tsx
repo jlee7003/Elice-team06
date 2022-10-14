@@ -1,74 +1,103 @@
+import { useRef, useState, useEffect, MouseEvent } from "react";
+import { useSetRecoilState } from "recoil";
+import { useNavigate, Link } from "react-router-dom";
+import userState from "@/recoil/user";
+import { ROUTES } from "@/routes/.";
+import login from "@/api/login";
+import {
+    Main,
+    Form,
+    Label,
+    ErrorInfo,
+    Input,
+    SubmitButton,
+    Menu,
+    MenuButton,
+    MenuLink,
+} from "@/styles/pages/login-style";
+import { Logo } from "@/styles/common";
 import { useRecoilState } from "recoil";
-import { ChangeEvent, MouseEvent, useState } from "react";
-import { Container, Form, Input, Button } from "../styles/pages/login-style";
-import token from "../recoil/token";
-import Api from "../api";
-import { useNavigate } from "react-router-dom";
-
-interface FormData {
-    email: string;
-    password: string;
-    [key: string]: string;
-}
+import urlCheck from "@/recoil/urlCheck";
 
 const Login = () => {
-    const [formData, setFormData] = useState<FormData>({
-        email: "",
-        password: "",
-    });
-    const [jwt, setJWT] = useRecoilState(token);
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    const email = useRef<HTMLInputElement>(null);
+    const password = useRef<HTMLInputElement>(null);
+
+    const setUser = useSetRecoilState(userState);
+
     const navigate = useNavigate();
+    const [isError, setIsError] = useState(false);
 
-    const onChangeForm = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
 
-        setFormData((prev: FormData) => {
-            const newData = {
-                ...prev,
-                [name]: value,
-            };
-
-            return newData;
-        });
-    };
-
-    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        const API = Api.getInstance();
+        if (email.current == null || password.current == null) {
+            return;
+        }
 
-        API.post(["api", "login"], formData)
-            .then((res) => {
-                setJWT(res.data.accessToken);
-                sessionStorage.setItem("refreshToken", res.data.refreshToken);
+        const loginData = {
+            user_email: email.current.value,
+            password: password.current.value,
+        };
 
-                navigate("/home");
-            })
-            .catch((err: Error) => {
-                console.error(err);
-            });
+        const result = await login(loginData);
+
+        if (result === null) {
+            setIsError(true);
+            return;
+        }
+
+        setUser(result);
+        navigate(ROUTES.Home.path);
+        // const API = Api.getInstance();
+
+        // try {
+        //     const res = await API.post<LoginResponse>(["api", "login"], loginData);
+        //     if (res.statusText === "OK") {
+        //         API.setToken(res.data.accessToken);
+        //         sessionStorage.setItem("refresh", res.data.refreshToken);
+
+        //         setUserAtom(res.data);
+
+        //         navigate(ROUTES.Home.path);
+        //     } else {
+        //         setIsError(true);
+        //     }
+        // } catch (err: any) {
+        //     console.log(err.message);
+        // }
     };
 
     return (
-        <Container>
-            <Form>
-                <Input
-                    type="email"
-                    placeholder="이메일을 입력하세요."
-                    name="email"
-                    value={formData.email}
-                    onChange={onChangeForm}
-                />
-                <Input
-                    type="password"
-                    placeholder="비밀번호를 입력하세요."
-                    name="password"
-                    value={formData.password}
-                    onChange={onChangeForm}
-                />
-                <Button onClick={onClick}>입력</Button>
-            </Form>
-        </Container>
+        <Main>
+            <section>
+                <Logo />
+                {isError && <ErrorInfo>아이디 또는 비밀번호가 틀렸습니다.</ErrorInfo>}
+                <Form>
+                    <Label>아이디</Label>
+                    <Input ref={email} type="email" placeholder="아이디를 입력하세요." />
+                    <Label>비밀번호</Label>
+                    <Input ref={password} type="password" placeholder="비밀번호를 입력하세요." />
+                    <SubmitButton onClick={onClick}>입력</SubmitButton>
+                </Form>
+                <Menu>
+                    <MenuLink to="/auth/email">비밀번호 찾기</MenuLink>
+                    <div>|</div>
+                    <MenuLink to="/auth/password">이메일 찾기</MenuLink>
+                </Menu>
+                <Menu>
+                    <MenuButton as="div">아직 회원이 아니신가요?</MenuButton>
+                    <MenuButton>
+                        <Link to={ROUTES.Signup.path}>회원가입</Link>
+                    </MenuButton>
+                </Menu>
+            </section>
+        </Main>
     );
 };
 

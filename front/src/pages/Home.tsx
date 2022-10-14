@@ -1,8 +1,25 @@
-import { Main, Category } from "@styles/pages/home-style";
-import { Banner } from "@styles/banner";
-import ChallengeCard from "@components/ChallengeCard";
+import { useEffect } from "react";
+import { Main, Category } from "@/styles/pages/home-style";
+import { Banner } from "@/styles/banner";
+import ChallengeCard from "@/components/ChallengeCard";
+
+import { useRecoilState } from "recoil";
+import DarkMode from "@/recoil/darkMode";
+import urlCheck from "@/recoil/urlCheck";
+export interface Props {
+    mode?: string;
+}
 
 const Home = () => {
+    const [darkMode] = useRecoilState(DarkMode);
+
+    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    // setCurrentUrl(window.location.href);
+    console.log("Home URL", window.location.href);
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, [currentUrl]);
     return (
         <div>
             <Banner />

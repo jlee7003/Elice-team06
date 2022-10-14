@@ -1,1 +1,14 @@
 node_modules
+back2
+.pm2
+.bash_history
+.bash_logout
+.bashrc
+.cache/
+.config/
+.npm
+.profile
+.ssh/
+.sudo_as_admin_successful
+.viminfo
+.yarnrc
