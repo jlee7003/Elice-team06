@@ -3,15 +3,13 @@ import cssUnit from "@/lib/cssUnit";
 
 export const ModalContainer = styled.div`
     position: absolute;
-    top: 40%;
-    left: 40%;
+    top: 0;
+    left: 0;
 
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    height: 115%;
 
-    /* display: none; */
-
-    /* background-color: rgba(0, 0, 0, 0.4); */
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 2;
 `;
 
@@ -26,8 +24,8 @@ export const FlexBox = styled.div`
 
 export const ModalBody = styled.div`
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 40%;
+    left: 45%;
 
     width: 400px;
     height: 300px;
@@ -37,26 +35,10 @@ export const ModalBody = styled.div`
     text-align: center;
 
     background-color: rgb(255, 255, 255);
-    /* border-radius: 10px; */
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
     transform: translateX(-50%) translateY(-50%);
 `;
-// export const flexbox = styled.div<Props>`
-//     width: 100%;
-//     height: 40%;
-
-//     border-radius: 24px 24px 0 0;
-
-//     ${(props) =>
-//         props.level == "beginner"
-//             ? cssUnit.color.green
-//             : props.level == "intermediate"
-//             ? cssUnit.color.blue
-//             : props.level == "advanced"
-//             ? cssUnit.color.purple
-//             : cssUnit.color.gray}
-// `;
 
 export const Button = styled.button`
     all: unset;

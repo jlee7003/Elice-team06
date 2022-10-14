@@ -11,8 +11,8 @@ type Props = {
 const ModalFrame: React.FC<Props> = ({ children, setOnModal, logout }: Props) => {
     return (
         <ModalPortal>
-            <Draggable>
-                <ModalContainer>
+            <ModalContainer>
+                <Draggable>
                     <ModalBody>
                         <div
                             style={{
@@ -57,8 +57,8 @@ const ModalFrame: React.FC<Props> = ({ children, setOnModal, logout }: Props) =>
                             </FlexBox>
                         </div>
                     </ModalBody>
-                </ModalContainer>
-            </Draggable>
+                </Draggable>
+            </ModalContainer>
         </ModalPortal>
     );
 };
