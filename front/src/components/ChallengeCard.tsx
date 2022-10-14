@@ -1,4 +1,5 @@
-import { Card, CardUpper, CardLower } from "@styles/ChallengeCard-style";
+import { Card, CardUpper, CardLower } from "@/styles/ChallengeCard-style";
+import { useNavigate } from "react-router-dom";
 
 type Level = "beginner" | "intermediate" | "advanced" | "default";
 
@@ -7,8 +8,10 @@ export interface Props {
 }
 
 const ChallengeCard = (props: Props) => {
+    const navigate = useNavigate();
+
     return (
-        <Card>
+        <Card onClick={() => navigate("/challenge/challengedetail")}>
             <CardUpper level={props.level ?? "default"} />
             <CardLower />
         </Card>
