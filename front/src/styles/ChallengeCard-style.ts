@@ -16,7 +16,7 @@ export const Card = styled.article`
     flex-direction: column;
 
     width: 303px;
-    height: 274px;
+    height: 285px;
 
     border: 1px solid #eeeeee;
     border-radius: 24px;
@@ -27,14 +27,15 @@ export const CardUpper = styled.div<Props>`
     height: 40%;
 
     border-radius: 24px 24px 0 0;
-    background-color: ${(props) =>
+    /* background-color: ${(props) =>
         props.level == "beginner"
             ? cssUnit.color.green
             : props.level == "intermediate"
             ? cssUnit.color.blue
             : props.level == "advanced"
             ? cssUnit.color.purple
-            : cssUnit.color.gray};
+            : cssUnit.color.gray}; */
+    background-color: #eee;
     background-image: url(${ChallengeCardBgImg});
     background-position: center 10px;
     background-size: 150px;
@@ -97,12 +98,12 @@ export const ChallengeGrade = styled.div``;
 export const ChallengeGradeLabel = styled.p<Props>`
     background-color: ${(props) =>
         props.level == "beginner"
-            ? cssUnit.color.green
+            ? "#34c759"
             : props.level == "intermediate"
-            ? cssUnit.color.blue
+            ? "#007aff"
             : props.level == "advanced"
-            ? cssUnit.color.purple
-            : cssUnit.color.gray};
+            ? "#5856d6"
+            : "#000000"};
     width: 86px;
     text-align: center;
     border-radius: 50px;
@@ -110,4 +111,25 @@ export const ChallengeGradeLabel = styled.p<Props>`
     font-weight: ${cssUnit.fontWeight.bold};
     font-size: 12px;
     padding: 2px 0;
+`;
+
+export const ChallengeButtonBox = styled.div`
+    padding: 15px 0 0;
+`;
+export const ChallengeButton = styled.div`
+    width: 100%;
+    background-color: #fff;
+    color: #000;
+    font-weight: ${cssUnit.fontWeight.bold};
+    text-align: center;
+    border-radius: 50px;
+    line-height: 36px;
+    cursor: pointer;
+    border: 1px solid #000;
+    /* box-shadow: 0 0 12px rgba(0, 0, 0, 0.2); */
+
+    &:hover {
+        background-color: #000;
+        color: #fff;
+    }
 `;

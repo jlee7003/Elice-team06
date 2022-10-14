@@ -9,6 +9,8 @@ import {
     ChallengeGradeLabel,
     CalendarIcon,
     PeopleIcon,
+    ChallengeButtonBox,
+    ChallengeButton,
 } from "@/styles/ChallengeCard-style";
 import { useNavigate } from "react-router-dom";
 
@@ -43,9 +45,9 @@ const ChallengeCard = (props: Props) => {
                         </ChallengeGradeLabel>
                     </ChallengeGrade>
                 </CardInfo>
-                <div>
-                    <button type="button">도전하기</button>
-                </div>
+                <ChallengeButtonBox>
+                    <ChallengeButton type="button">도전하기</ChallengeButton>
+                </ChallengeButtonBox>
             </CardLower>
         </Card>
     );

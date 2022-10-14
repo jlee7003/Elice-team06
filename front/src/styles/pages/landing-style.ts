@@ -53,16 +53,22 @@ export const Logo = styled.p`
     ${LogoImg}
 `;
 
-// export const Link = styled(Link)``;
+// export const Link = styled(Link)`
+//     color: #000;
+// `;
 
 export const Nav = styled.nav`
     height: 100%;
     line-height: 80px;
-    width: 40%;
+    /* width: 30%; */
+    width: 400px;
     max-width: 900px;
     display: flex;
     background-color: transparent;
     justify-content: space-around;
+    color: #000;
+    font-weight: bold;
+    font-size: 18px;
 `;
 
 //--------------Slides Nav--------------
@@ -72,7 +78,7 @@ export const SectionNav = styled.ul`
     right: 50px;
     top: calc(50% - 90px);
     z-index: 2;
-    height: 180px;
+    height: 240px;
     width: auto;
     display: flex;
     flex-direction: column;
@@ -125,6 +131,7 @@ export const Section = styled.div<StyleProps>`
         font-size: 30px;
         margin-top: 10%;
         background-color: transparent;
+        color: #000;
     }
 `;
 /*
@@ -154,25 +161,30 @@ export const Section1Box = styled.div`
     div {
         background-color: transparent;
         h2 {
-            font-size: 50px;
+            font-size: 60px;
             background-color: transparent;
             padding-bottom: 40px;
+            color: #000;
         }
         p {
             font-size: 20px;
+            color: #000;
         }
     }
 
     & > p {
         background-color: transparent;
         button {
-            background-color: #8075bf;
+            background-color: #fff;
+            color: #000;
             width: 330px;
             height: 60px;
             border: none;
             border-radius: 100px;
             cursor: pointer;
             font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgb(0 0 0 / 80%);
         }
     }
 `;

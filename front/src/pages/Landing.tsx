@@ -131,22 +131,24 @@ const Landing = () => {
             if (!navRefs.current) {
                 return;
             }
-            navRefs.current[i].style.backgroundColor = "#d9d9d9";
-            navRefs.current[i].style.color = "#6C6C6C";
-            navRefs.current[i].style.fontSize = "12px";
-            navRefs.current[i].style.width = "81px";
-            navRefs.current[i].style.padding = "0px 5px";
+            navRefs.current[i].style.backgroundColor = "#fff";
+            navRefs.current[i].style.color = "#000";
+            navRefs.current[i].style.fontSize = "14px";
+            navRefs.current[i].style.width = "95px";
+            navRefs.current[i].style.padding = "5px";
+            navRefs.current[i].style.border = "1px solid #868686";
         }
 
         if (navIndex < 5) {
             if (!navRefs.current) {
                 return;
             }
-            navRefs.current[navIndex].style.backgroundColor = "#393939";
+            navRefs.current[navIndex].style.backgroundColor = "#000";
             navRefs.current[navIndex].style.color = "#fff";
-            navRefs.current[navIndex].style.fontSize = "16px";
-            navRefs.current[navIndex].style.width = "118px";
-            navRefs.current[navIndex].style.padding = "3px 5px";
+            navRefs.current[navIndex].style.fontSize = "18px";
+            navRefs.current[navIndex].style.width = "125px";
+            navRefs.current[navIndex].style.padding = "5px";
+            navRefs.current[navIndex].style.border = "1px solid #000";
         }
     };
 
@@ -355,21 +357,23 @@ const Landing = () => {
             if (!navRefs.current) {
                 return;
             }
-            navRefs.current[i].style.backgroundColor = "#d9d9d9";
-            navRefs.current[i].style.color = "#6C6C6C";
-            navRefs.current[i].style.fontSize = "12px";
-            navRefs.current[i].style.width = "81px";
-            navRefs.current[i].style.padding = "0px 5px";
+            navRefs.current[i].style.backgroundColor = "#fff";
+            navRefs.current[i].style.color = "#000";
+            navRefs.current[i].style.fontSize = "14px";
+            navRefs.current[i].style.width = "95px";
+            navRefs.current[i].style.padding = "5px";
+            navRefs.current[i].style.border = "1px solid #868686";
         }
 
         if (!navRefs.current) {
             return;
         }
-        navRefs.current[1].style.backgroundColor = "#393939";
+        navRefs.current[1].style.backgroundColor = "#000";
         navRefs.current[1].style.color = "#fff";
-        navRefs.current[1].style.fontSize = "16px";
-        navRefs.current[1].style.width = "118px";
-        navRefs.current[1].style.padding = "3px 5px";
+        navRefs.current[1].style.fontSize = "18px";
+        navRefs.current[1].style.width = "125px";
+        navRefs.current[1].style.padding = "5px";
+        navRefs.current[1].style.border = "1px solid #000";
     };
 
     return (
@@ -393,7 +397,11 @@ const Landing = () => {
                             ref={(el) => {
                                 navRefs.current[i] = el;
                             }}
-                            style={{ backgroundColor: "#d9d9d9", fontSize: "12px" }}
+                            style={{
+                                backgroundColor: "#fff",
+                                fontSize: "14px",
+                                border: "1px solid #868686",
+                            }}
                         >
                             {item}
                         </li>
@@ -420,7 +428,7 @@ const Landing = () => {
                         </p>
                     </Section1Box>
                 </Section>
-                <Section bgColor="#61BE92" bgImg="url('src/assets/curve_bgImage.png')">
+                <Section bgColor="#fff" bgImg="url('src/assets/curve_bgImage.png')">
                     <h3>탄소 배출 현황</h3>
                     <CarbonGraph width="60%" height="50%" margin="100px auto 0">
                         <ResponsiveContainer width="100%" height="100%">
@@ -449,7 +457,7 @@ const Landing = () => {
                         </ResponsiveContainer>
                     </CarbonGraph>
                 </Section>
-                <Section bgColor="#8075BF">
+                <Section bgImg="url('src/assets/pollution_bgImage.jpg')">
                     <Section3Box>
                         <div>
                             <h2>지금 탄소문제 심각함 ㅇㅇ</h2>
@@ -505,7 +513,7 @@ const Landing = () => {
                         </Section3Content>
                     </Section3Box>
                 </Section>
-                <Section bgColor="#d1d1d1">
+                <Section bgColor="#fff">
                     <Section4Box>
                         <h2>우리 챌린지 서비스😍</h2>
                         <div>

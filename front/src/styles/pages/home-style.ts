@@ -17,6 +17,11 @@ export const Category = styled.div`
     width: 100%;
 
     margin: auto;
+
+    & + div {
+        margin-top: 100px;
+    }
+
     & > p {
         grid-area: title;
         width: 100%;

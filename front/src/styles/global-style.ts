@@ -1,5 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
 import { Props } from "../App";
+
 const font = css`
     /**/
     @font-face {
