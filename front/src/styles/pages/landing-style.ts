@@ -237,7 +237,7 @@ export const Section3Content = styled.div`
             }
         }
     }
-    p {
+    .graphWrap {
         background-color: #fff;
         border-radius: 20px;
         width: 65%;

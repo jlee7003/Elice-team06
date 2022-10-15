@@ -224,28 +224,28 @@ const Landing = () => {
                     ) {
                         return;
                     }
-                    if (challengers.current != null) {
-                        let countReset = 0;
-                        setInterval(() => {
-                            challengers.current.innerText = String(countReset);
+                    // if (challengers.current != null) {
+                    //     let countReset = 0;
+                    //     setInterval(() => {
+                    //         challengers.current.innerText = String(countReset);
 
-                            if (countReset >= 56) {
-                                return;
-                            }
-                            countReset += 1;
-                        }, 20);
-                    }
-                    if (challengerJoin.current != null) {
-                        let countReset = 0;
-                        setInterval(() => {
-                            challengerJoin.current.innerText = String(countReset);
-                            //3자리 수마다 점찍기 해야함
-                            if (countReset >= 1000) {
-                                return;
-                            }
-                            countReset += 10;
-                        }, 20);
-                    }
+                    //         if (countReset >= 56) {
+                    //             return;
+                    //         }
+                    //         countReset += 1;
+                    //     }, 20);
+                    // }
+                    // if (challengerJoin.current != null) {
+                    //     let countReset = 0;
+                    //     setInterval(() => {
+                    //         challengerJoin.current.innerText = String(countReset);
+                    //         //3자리 수마다 점찍기 해야함
+                    //         if (countReset >= 1000) {
+                    //             return;
+                    //         }
+                    //         countReset += 10;
+                    //     }, 20);
+                    // }
                 }
             }
 
@@ -482,7 +482,7 @@ const Landing = () => {
                                     );
                                 })}
                             </ul>
-                            <p>
+                            <div className="graphWrap">
                                 <CarbonGraph width="90%" height="90%" margin="20px auto">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <AreaChart
@@ -509,7 +509,7 @@ const Landing = () => {
                                         </AreaChart>
                                     </ResponsiveContainer>
                                 </CarbonGraph>
-                            </p>
+                            </div>
                         </Section3Content>
                     </Section3Box>
                 </Section>
@@ -570,11 +570,11 @@ const Landing = () => {
                             <ChallengeCurrent>
                                 <div>
                                     <p>챌린지 참여 현황</p>
-                                    <span ref={challengers}>0</span>
+                                    <span ref={challengers}>56</span>
                                 </div>
                                 <div>
                                     <p>챌린저 가입 수</p>
-                                    <span ref={challengerJoin}>0</span>
+                                    <span ref={challengerJoin}>1,000</span>
                                 </div>
                             </ChallengeCurrent>
                         </div>
