@@ -18,9 +18,11 @@ import {
 import { Logo } from "@/styles/common";
 import { useRecoilState } from "recoil";
 import urlCheck from "@/recoil/urlCheck";
+import errorRecoil from "@/recoil/errorRecoil";
 
 const Login = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    const [error, setError] = useRecoilState(errorRecoil);
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
 
@@ -41,19 +43,28 @@ const Login = () => {
         }
 
         const loginData = {
-            user_email: email.current.value,
+            email: email.current.value,
+            // user_email: email.current.value,
             password: password.current.value,
         };
 
-        const result = await login(loginData);
+        try {
+            const result = await login(loginData);
 
-        if (result === null) {
+            setUser(result);
+            navigate(ROUTES.Home.path);
+        } catch (err: any) {
             setIsError(true);
-            return;
-        }
 
-        setUser(result);
-        navigate(ROUTES.Home.path);
+            setError({
+                isError: true,
+                message: err.response.data,
+            });
+            console.log("error1", err.response.data, 4424);
+            return null;
+        }
+        // const result = await login(loginData);
+
         // const API = Api.getInstance();
 
         // try {

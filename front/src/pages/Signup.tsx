@@ -17,7 +17,9 @@ import { Logo } from "@/styles/common";
 
 const Signup = () => {
     const nickname = useRef<HTMLInputElement>(null);
-    const user_email = useRef<HTMLInputElement>(null);
+    // const user_email = useRef<HTMLInputElement>(null);
+    const introduce = useRef<HTMLInputElement>(null);
+    const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
     const passwordok = useRef<HTMLInputElement>(null);
     const password_hint = useRef<HTMLInputElement>(null);
@@ -34,7 +36,9 @@ const Signup = () => {
     };
     function isvalidationtrue() {
         if (
-            user_email.current == null ||
+            // user_email.current == null ||
+            email.current == null ||
+            introduce.current == null ||
             password.current == null ||
             passwordok.current == null ||
             password_hint.current == null ||
@@ -46,7 +50,10 @@ const Signup = () => {
             return;
         }
         if (
-            user_email.current?.value == "" ||
+            email.current?.value == "" ||
+            // user_email.current?.value == "" ||
+
+            introduce.current?.value == "" ||
             password.current?.value == "" ||
             passwordok.current?.value == "" ||
             password_hint.current?.value == "" ||
@@ -60,7 +67,9 @@ const Signup = () => {
         setValidationCheck(true);
     }
     let formData = {
-        user_email: "",
+        email: "",
+        // user_email: "",
+        introduce: "",
         nickname: "",
         password: "",
         password_hint: "",
@@ -88,7 +97,9 @@ const Signup = () => {
         e.preventDefault();
 
         if (
-            user_email.current == null ||
+            email.current == null ||
+            // user_email.current == null ||
+            introduce.current == null ||
             password.current == null ||
             passwordok.current == null ||
             password_hint.current == null ||
@@ -101,7 +112,9 @@ const Signup = () => {
         }
 
         formData = {
-            user_email: user_email.current?.value,
+            email: email.current?.value,
+            // user_email: user_email.current?.value,
+            introduce: introduce.current?.value,
             password: password.current?.value,
             password_hint: password_hint.current?.value,
             nickname: nickname.current?.value,
@@ -152,7 +165,16 @@ const Signup = () => {
                                     type="email"
                                     placeholder="이메일을 입력하세요."
                                     name="email"
-                                    ref={user_email}
+                                    ref={email}
+                                    // ref={user_email}
+                                />
+                                <Label>인사말</Label>
+                                <Input
+                                    // type="email"
+                                    placeholder="인사말을 입력하세요."
+                                    name="introduce"
+                                    ref={introduce}
+                                    // ref={user_email}
                                 />
                                 <Label>성별</Label>
                                 <div>
@@ -178,11 +200,13 @@ const Signup = () => {
                                     </span>
                                 </div>
                                 <Label>나이</Label>
+                                {/* <Select defaultValue="1" name="age"> */}
                                 <Select defaultValue="1" ref={age} name="age">
                                     {selectnum()}
                                 </Select>
                                 <Label>지역</Label>
                                 <Select defaultValue="해당없음" name="local" ref={region}>
+                                    {/* <Select defaultValue="해당없음" name="local"> */}
                                     <option value="해당없음">해당없음</option>
                                     <option value="서울">서울</option>
                                     <option value="경기도">경기도</option>

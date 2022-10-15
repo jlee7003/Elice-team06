@@ -9,24 +9,23 @@ import visibleCommonComponent from "./recoil/visibleCommonComponent";
 import DarkMode from "@/recoil/darkMode";
 
 import urlCheck from "./recoil/urlCheck";
-import ModalState from "@/recoil/modalState";
 
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 import GlobalStyle from "@/styles/global-style";
-import modalState from "./recoil/modalState";
-
+import errorRecoil from "@/recoil/errorRecoil";
+import ModalState from "@/recoil/modalState";
+import ErrorModal from "@/modal/ErrorModal";
 export interface Props {
     mode?: string;
 }
 
 const App = () => {
     const setUser = useSetRecoilState(userState);
-
+    const [onModal, setOnModal] = useRecoilState(ModalState);
+    const [error] = useRecoilState(errorRecoil);
     const [darkMode] = useRecoilState(DarkMode);
-    const [modalState] = useRecoilState(ModalState);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
-    const [themeMode, setThemeMode] = useRecoilState(DarkMode);
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     // const isLanding = window.location.href.split("/").includes("landing");
 
@@ -60,7 +59,10 @@ const App = () => {
         //     return (prev = prev);
         // });
     }, [currentUrl]);
-
+    console.log(error);
+    function onClickLogout() {
+        console.log(444);
+    }
     return (
         <Router>
             {/* {themeMode == "Common" ? (
@@ -69,6 +71,13 @@ const App = () => {
                 <GlobalStyle mode={darkMode ?? "Light"} />
             )} */}
             <GlobalStyle mode={darkMode ?? "Light"} />
+            {error?.isError ? (
+                <ErrorModal setOnModal={setOnModal} logout={onClickLogout}>
+                    {error?.message as string}
+                </ErrorModal>
+            ) : (
+                ""
+            )}
             {visible && <Header />}
             <Routes>
                 {ROUTES_LIST.map(({ path, Component }, idx) => (

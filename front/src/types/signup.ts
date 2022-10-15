@@ -1,8 +1,9 @@
 import { User } from "@/types/user";
 
 export interface SignupForm {
-    user_email: string;
+    email: string;
     nickname: string;
+    introduce: string;
     password: string;
     password_hint: string;
     // token: string;

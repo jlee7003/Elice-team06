@@ -27,6 +27,7 @@ userRoute.post(
         if (result === null) {
             return res.status(409).send("이메일/비밀번호 오류");
         }
+
         res.status(200).send(result);
     })
 );

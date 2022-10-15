@@ -72,7 +72,6 @@ class userService {
                 Profile: { select: { introduce: true, nickname: true } },
             },
         });
-
         if (userData === null) {
             return null;
         }
@@ -80,20 +79,18 @@ class userService {
         if (userData.ban === true || userData.withdrawal === true) {
             return null;
         }
-
         //비밀번호 일치 확인
         const result = await bcrypt.compare(password, userData.password);
-
         if (!result) {
             return null;
         }
-        const { introduce, nickname } = userData.Profile[0];
-
+        // const { introduce, nickname } = userData.Profile[0];
+        const introduce = userData.Profile.introduce;
+        const nickname = userData.nickname;
         const accessToken = generateToken({ nickname: userData.nickname }, "accessToken");
         let refreshToken = generateToken({}, "refreshToken");
         await prisma.User.update({ where: { nickname }, data: { token: null } });
         await prisma.User.update({ where: { nickname }, data: { token: refreshToken } });
-
         return { nickname, introduce, accessToken, refreshToken };
     }
     static async logoutUser(token) {
