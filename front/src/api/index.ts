@@ -30,7 +30,7 @@ class Api {
 
         this.setToken("Bearer refreshed");
 
-        const result = await this.post<string, { accessToken: string } & User>(
+        const result = await this.post<{ accessToken: string } & User>(
             ["api", "refresh"],
             "refresh"
         );
@@ -53,7 +53,7 @@ class Api {
         this.axiosInstance.defaults.headers.common["Authorization"] = "";
         this.axiosInstance.defaults.headers.common["refresh"] = "";
 
-        const res = await this.post<string, string>(["api", "logout"], "");
+        const res = await this.post<string>(["api", "logout"], "");
     }
 
     async get<T>(params: string[]) {
@@ -62,13 +62,13 @@ class Api {
         return this.axiosInstance.get<T>(url);
     }
 
-    async post<P, T>(params: string[], data: P) {
+    async post<T>(params: string[], data: any) {
         const url = params.join("/");
 
         return this.axiosInstance.post<T>(url, data);
     }
 
-    async put<P, T>(params: string[], data: P) {
+    async put<T>(params: string[], data: any) {
         const url = params.join("/");
 
         return this.axiosInstance.put<T>(url, data);
@@ -81,4 +81,14 @@ class Api {
     }
 }
 
-export default Api;
+// export default Api;
+
+const API = () => {
+    const instance = axios.create({
+        baseURL: "http://" + window.location.hostname + ":" + "3001" + "/",
+    });
+
+    return instance;
+};
+
+export default API();

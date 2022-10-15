@@ -1,6 +1,17 @@
-import { User } from "@/types/user";
+import { User } from "./user";
 
-export interface SignupForm {
+export interface LoginFormData {
+    email: string;
+    password: string;
+    [key: string]: any;
+}
+
+export interface LoginResult extends User {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface SignupFormData {
     user_email: string;
     nickname: string;
     password: string;

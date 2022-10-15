@@ -31,16 +31,14 @@ const App = () => {
     // const isLanding = window.location.href.split("/").includes("landing");
 
     useEffect(() => {
-        const refresh = sessionStorage.getItem("refresh");
-        if (refresh === null) {
-            return;
-        }
-
-        const API = Api.getInstance();
-
-        API.getToken().then((user) => {
-            setUser(user);
-        });
+        // const refresh = sessionStorage.getItem("refresh");
+        // if (refresh === null) {
+        //     return;
+        // }
+        // const API = Api.getInstance();
+        // API.getToken().then((user) => {
+        //     setUser(user);
+        // });
     }, []);
 
     useEffect(() => {

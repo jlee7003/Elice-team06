@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,130 +7,79 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  email            String             @id @unique
-  nickname         String             @unique
-  password         String
-  password_hint    String
-  token            String?            @unique
-  ban              Boolean            @default(false)
-  withdrawal       Boolean            @default(false)
-  role             Role               @default(USER)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  Board            Board[]
-  Comment          CommentPost[]
-  VotePost         VotePost[]
-  Challenge        Challenge[]
-  Challenger       Challenger[]
-  ChallengeComment ChallengeComment[]
-  ReportPost       ReportPost[]
-  Profile          Profile[]
+model board {
+  id           Int           @id @unique(map: "Board_id_key") @default(autoincrement())
+  title        String
+  description  String
+  view         Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime
+  author_email String
+  user         user          @relation(fields: [author_email], references: [user_email], map: "Board_author_email_fkey")
+  commentpost  commentpost[]
+  reportpost   reportpost[]
+  votepost     votepost[]
+
+  @@index([author_email], map: "Board_author_email_fkey")
+  @@index([id, createdAt(sort: Desc)], map: "Board_id_createdAt_idx")
 }
 
-model Profile {
-  user          User    @relation(fields: [nickname], references: [nickname])
-  nickname      String  @id
-  age           String?
-  region        String?
-  gender        String?
-  profile_image String?
-  introduce     String?
-}
-
-enum Role {
-  USER
-  ADMIN
-}
-
-model Challenge {
+model challenge {
   id               Int                @id @default(autoincrement())
   title            String
   description      String
   goal             String
-  level            String?            @default("default") // beginner | intermediate | advanced | default
   start_date       DateTime           @db.DateTime(0)
   due_date         DateTime           @db.DateTime(0)
-  author           User               @relation(fields: [proposer], references: [nickname])
   proposer         String
   createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  Challenger       Challenger[]
-  ChallengeComment ChallengeComment[]
+  updatedAt        DateTime
+  user             user               @relation(fields: [proposer], references: [nickname], map: "Challenge_proposer_fkey")
+  challengecomment challengecomment[]
+  challenger       challenger[]
+
+  @@index([proposer], map: "Challenge_proposer_fkey")
 }
 
-model Challenger {
-  challenge_id Int
-  Challenge    Challenge @relation(fields: [challenge_id], references: [id])
-  nickname     String
-  User         User      @relation(fields: [nickname], references: [nickname])
-
-  @@id([challenge_id, nickname])
-}
-
-model ChallengeComment {
+model challengecomment {
   id           Int       @id @default(autoincrement())
   challenge_id Int
-  Challenge    Challenge @relation(fields: [challenge_id], references: [id])
   author       String
-  User         User      @relation(fields: [author], references: [nickname])
   description  String
   createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  updatedAt    DateTime
+  user         user      @relation(fields: [author], references: [nickname], map: "ChallengeComment_author_fkey")
+  challenge    challenge @relation(fields: [challenge_id], references: [id], map: "ChallengeComment_challenge_id_fkey")
+
+  @@index([author], map: "ChallengeComment_author_fkey")
+  @@index([challenge_id], map: "ChallengeComment_challenge_id_fkey")
 }
 
-model Board {
-  id          Int           @id @unique @default(autoincrement())
-  user        User          @relation(fields: [author], references: [nickname])
-  author      String
-  title       String
-  description String
-  view        Int           @default(0)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Comment     CommentPost[]
-  VotePost    VotePost[]
-  ReportPost  ReportPost[]
+model challenger {
+  challenge_id Int
+  nickname     String
+  challenge    challenge @relation(fields: [challenge_id], references: [id], map: "Challenger_challenge_id_fkey")
+  user         user      @relation(fields: [nickname], references: [nickname], map: "Challenger_nickname_fkey")
+
+  @@id([challenge_id, nickname])
+  @@index([nickname], map: "Challenger_nickname_fkey")
 }
 
-model CommentPost {
-  id          Int      @id @unique @default(autoincrement())
-  user        User     @relation(fields: [author], references: [nickname])
-  author      String
-  post        Board    @relation(fields: [post_id], references: [id])
-  post_id     Int
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model commentpost {
+  id           Int      @id @unique(map: "CommentPost_id_key") @default(autoincrement())
+  author_email String
+  post_id      Int
+  description  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  user         user     @relation(fields: [author_email], references: [user_email], map: "CommentPost_author_email_fkey")
+  board        board    @relation(fields: [post_id], references: [id], map: "CommentPost_post_id_fkey")
+
+  @@index([author_email], map: "CommentPost_author_email_fkey")
+  @@index([post_id], map: "CommentPost_post_id_fkey")
 }
 
-model VotePost {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [voter], references: [nickname])
-  voter     String
-  post      Board    @relation(fields: [post_id], references: [id])
-  post_id   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model ReportPost {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [reporter], references: [nickname])
-  reporter    String
-  post        Board    @relation(fields: [post_id], references: [id])
-  post_id     Int
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model SeaLevelKorea {
-  year      Int   @id
-  sea_level Float @db.Float
-}
-
-model EmissionCO2 {
+model emissionco2 {
   year  Int    @id
   World BigInt @db.UnsignedBigInt
   USA   BigInt @db.UnsignedBigInt
@@ -142,11 +88,73 @@ model EmissionCO2 {
   Korea BigInt @db.UnsignedBigInt
 }
 
-model Temperture {
+model reportpost {
+  id          Int      @id @default(autoincrement())
+  reporter_id String
+  post_id     Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  board       board    @relation(fields: [post_id], references: [id], map: "ReportPost_post_id_fkey")
+  user        user     @relation(fields: [reporter_id], references: [user_email], map: "ReportPost_reporter_id_fkey")
+
+  @@index([post_id], map: "ReportPost_post_id_fkey")
+  @@index([reporter_id], map: "ReportPost_reporter_id_fkey")
+}
+
+model sealevelkorea {
+  year      Int   @id
+  sea_level Float @db.Float
+}
+
+model temperture {
   year  Int   @id
   World Float @db.Float
   USA   Float @db.Float
   EU    Float @db.Float
   China Float @db.Float
   Korea Float @db.Float
+}
+
+model user {
+  user_email       String             @id @unique(map: "User_user_email_key")
+  nickname         String             @unique(map: "User_nickname_key")
+  password         String
+  password_hint    String
+  age              String?
+  region           String?
+  gender           String?
+  profile_image    String?
+  ban              Boolean            @default(false)
+  createdAt        DateTime           @default(now())
+  introduce        String?
+  role             user_role          @default(USER)
+  updatedAt        DateTime
+  withdrawal       Boolean            @default(false)
+  token            String?            @unique(map: "User_token_key")
+  board            board[]
+  challenge        challenge[]
+  challengecomment challengecomment[]
+  challenger       challenger[]
+  commentpost      commentpost[]
+  reportpost       reportpost[]
+  votepost         votepost[]
+}
+
+model votepost {
+  id        Int      @id @default(autoincrement())
+  voter_id  String
+  post_id   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  board     board    @relation(fields: [post_id], references: [id], map: "VotePost_post_id_fkey")
+  user      user     @relation(fields: [voter_id], references: [user_email], map: "VotePost_voter_id_fkey")
+
+  @@index([post_id], map: "VotePost_post_id_fkey")
+  @@index([voter_id], map: "VotePost_voter_id_fkey")
+}
+
+enum user_role {
+  USER
+  ADMIN
 }
