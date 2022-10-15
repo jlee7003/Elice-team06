@@ -82,7 +82,7 @@ export const Logo = styled.img.attrs({
     src: logoImg,
     alt: "logo_image1",
 })`
-    width: 130px;
+    /* width: 130px; */
     cursor: pointer;
     height: 60px;
     /* background-color: white; */

@@ -80,10 +80,14 @@ export const Menu = styled.div`
 
 export const MenuButton = styled.button`
     margin: 15px;
-    font-size: ${cssUnit.fontSize.medium};
+    font-size: ${cssUnit.fontSize.normal};
+
+    &:last-child {
+        color: #3dbe81;
+    }
 `;
 
 export const MenuLink = styled(Link)`
     margin: 15px;
-    font-size: ${cssUnit.fontSize.medium};
+    font-size: ${cssUnit.fontSize.normal};
 `;

@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Main, Category, CategoryTitle, CategoryContent } from "@/styles/pages/home-style";
+import {
+    HomeContainer,
+    Main,
+    Category,
+    CategoryTitle,
+    CategoryContent,
+} from "@/styles/pages/home-style";
 import { Banner } from "@/styles/banner";
 import ChallengeCard from "@/components/ChallengeCard";
 
@@ -21,7 +27,7 @@ const Home = () => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
     return (
-        <div>
+        <HomeContainer>
             <Banner />
             <Main>
                 <Category>
@@ -30,10 +36,10 @@ const Home = () => {
                     </CategoryTitle>
 
                     <CategoryContent>
-                        <ChallengeCard level="beginner" />
-                        <ChallengeCard level="intermediate" />
-                        <ChallengeCard level="advanced" />
-                        <ChallengeCard />
+                        <ChallengeCard level="beginner" grade={true} />
+                        <ChallengeCard level="intermediate" grade={true} />
+                        <ChallengeCard level="advanced" grade={true} />
+                        <ChallengeCard grade={true} />
                     </CategoryContent>
                 </Category>
                 <Category>
@@ -44,14 +50,14 @@ const Home = () => {
                         </p>
                     </CategoryTitle>
                     <CategoryContent>
-                        <ChallengeCard level="beginner" />
-                        <ChallengeCard level="intermediate" />
-                        <ChallengeCard level="advanced" />
+                        <ChallengeCard />
+                        <ChallengeCard />
+                        <ChallengeCard />
                         <ChallengeCard />
                     </CategoryContent>
                 </Category>
             </Main>
-        </div>
+        </HomeContainer>
     );
 };
 

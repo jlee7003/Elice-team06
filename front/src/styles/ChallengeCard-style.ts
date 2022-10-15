@@ -20,6 +20,8 @@ export const Card = styled.article`
 
     border: 1px solid #eeeeee;
     border-radius: 24px;
+    overflow: hidden;
+    background-color: #fff;
 `;
 
 export const CardUpper = styled.div<Props>`
@@ -64,6 +66,7 @@ export const CardInfo = styled.div`
 export const ChallengeDetail = styled.div`
     p {
         display: flex;
+        color: #686868;
         span {
             height: 24px;
             background-repeat: no-repeat;

@@ -37,7 +37,11 @@ export const SubTitle = styled.div`
     margin: 15px 0px;
     font-weight: bold;
     & > span {
-        font-size: 12px;
+        /* font-size: 12px; */
+        display: inline-block;
+        font-size: 18px;
+        padding-left: 20px;
+        color: #5a5a5a;
     }
 `;
 export const CommentContainer = styled.div`
@@ -57,9 +61,10 @@ export const TargetLabel = styled.div`
 `;
 export const Contents = styled.div`
     font-size: ${cssUnit.fontSize.normal};
-    margin: 15px 15px 100px 15px;
+    margin: 15px 15px 100px 0;
     white-space: pre-wrap;
     line-height: 35px;
+    width: 90%;
 `;
 export const CommentBox = styled.div`
     display: grid;

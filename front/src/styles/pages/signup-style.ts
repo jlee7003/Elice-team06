@@ -1,22 +1,27 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
+import assets from "@/lib/assets";
+
+const bannerImg = assets("banner_img.jpg");
 export const Container = styled.div`
     display: grid;
     place-items: center;
-    width: 100vw;
-    height: 100vh;
+    width: auto !important;
+    /* height: 100vh; */
+    height: 80vh;
 `;
 export const SecondContainer = styled.div`
     display: flex;
     place-items: center;
     width: ${cssUnit.unit.width};
-    height: 100vh;
+    /* height: 100vh; */
+    align-items: baseline;
 `;
 export const SecondContainer1 = styled.div`
     display: flex;
     justify-content: center;
     width: 50%;
-    height: 100vh;
+    /* height: 100vh; */
 `;
 export const SecondContainer2 = styled.div`
     display: grid;
@@ -74,7 +79,7 @@ export const MenuItem = styled.div`
 `;
 export const LogoContainer = styled.div`
     display: flex;
-    height: 200px;
+    /* height: 200px; */
     justify-content: center;
     align-items: center;
 `;
@@ -87,6 +92,11 @@ export const TopImage = styled.span`
     display: block;
     width: 100%;
     height: 181px;
-    background-color: gray;
+    /* background-color: gray; */
     padding: 10px 50px;
+    background-color: #eee;
+    background-image: url(${bannerImg});
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
 `;

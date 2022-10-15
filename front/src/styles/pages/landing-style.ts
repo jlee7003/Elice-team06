@@ -33,9 +33,11 @@ export const Header = styled.header`
     display: flex;
     z-index: 1;
     justify-content: space-between;
+    align-items: center;
     background-color: transparent;
     p {
         background-color: transparent;
+        padding-left: 10px;
     }
 `;
 

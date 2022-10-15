@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
 
+export const HomeContainer = styled.div`
+    width: auto !important;
+`;
+
 export const Main = styled.main`
     width: ${cssUnit.unit.width};
     height: 70vh;

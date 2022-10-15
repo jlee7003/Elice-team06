@@ -18,6 +18,7 @@ type Level = "beginner" | "intermediate" | "advanced" | "default";
 
 export interface Props {
     level?: Level;
+    grade?: true;
 }
 
 const ChallengeCard = (props: Props) => {
@@ -40,13 +41,15 @@ const ChallengeCard = (props: Props) => {
                         </p>
                     </ChallengeDetail>
                     <ChallengeGrade>
-                        <ChallengeGradeLabel level={props.level ?? "default"}>
-                            초급 도전
-                        </ChallengeGradeLabel>
+                        {props.grade && (
+                            <ChallengeGradeLabel level={props.level ?? "default"}>
+                                초급 도전
+                            </ChallengeGradeLabel>
+                        )}
                     </ChallengeGrade>
                 </CardInfo>
                 <ChallengeButtonBox>
-                    <ChallengeButton type="button">도전하기</ChallengeButton>
+                    <ChallengeButton>도전하기</ChallengeButton>
                 </ChallengeButtonBox>
             </CardLower>
         </Card>

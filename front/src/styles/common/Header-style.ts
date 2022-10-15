@@ -17,6 +17,8 @@ export const HeaderSticky = styled.header`
     width: 100%;
     height: 80px;
     margin: auto;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
 `;
 
 export const HeaderMenuContainer = styled.div`
@@ -34,10 +36,11 @@ export const HeaderMenuItem = styled(Link)`
     align-items: Center;
     height: 59px;
     font-size: ${cssUnit.fontSize.tittle};
-    font-weight: bold;
+    font-weight: normal;
     justify-content: center;
     text-align: center;
     margin-right: 54px;
+    font-size: 18px;
 `;
 
 export const FlexBox = styled.div`
