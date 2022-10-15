@@ -14,6 +14,7 @@ export interface LoginResult extends User {
 export interface SignupFormData {
     user_email: string;
     nickname: string;
+    introduce: string;
     password: string;
     password_hint: string;
     // token: string;

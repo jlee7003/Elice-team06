@@ -30,8 +30,8 @@ export const NonFlexBox = styled.div`
 
 export const ModalBody = styled.div`
     position: absolute;
-    top: 40%;
-    left: 45%;
+    top: 30%;
+    left: 30%;
 
     width: 1250px;
     height: 660px;

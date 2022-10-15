@@ -16,6 +16,7 @@ import {
 import { Logo } from "@/styles/common";
 import { useRecoilState } from "recoil";
 import urlCheck from "@/recoil/urlCheck";
+import errorRecoil from "@/recoil/errorRecoil";
 
 const Login = () => {
     const emailRef = useRef<HTMLInputElement>(null);

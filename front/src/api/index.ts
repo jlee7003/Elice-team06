@@ -34,13 +34,12 @@ class Api {
             ["api", "refresh"],
             "refresh"
         );
-
+        console.log(result);
         if (result.status !== 200) {
             return null;
         }
 
         this.setToken(result.data.accessToken);
-
         return {
             nickname: result.data.nickname,
             introduce: result.data.introduce,

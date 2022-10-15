@@ -20,7 +20,6 @@ function Header() {
     const resetUser = useResetRecoilState(userState);
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
-
     const onClickLogo = () => {
         navigate(ROUTES.Home.path);
     };
@@ -38,12 +37,17 @@ function Header() {
             <HeaderContainer>
                 <Logo onClick={onClickLogo} />
                 {user ? (
-                    <div>
-                        <span style={{ fontSize: "20px", color: "#61be92", fontWeight: "bold" }}>
-                            {user?.nickname}
-                        </span>{" "}
-                        님 환영합니다!
-                    </div>
+                    <>
+                        <div>
+                            <span
+                                style={{ fontSize: "20px", color: "#61be92", fontWeight: "bold" }}
+                            >
+                                {user?.nickname}
+                            </span>{" "}
+                            님 환영합니다!
+                        </div>
+                        <div>{user?.introduce}</div>
+                    </>
                 ) : (
                     <></>
                 )}
