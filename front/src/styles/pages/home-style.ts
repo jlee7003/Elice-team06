@@ -22,18 +22,38 @@ export const Category = styled.div`
         margin-top: 100px;
     }
 
-    & > p {
+    /* & > p {
         grid-area: title;
         width: 100%;
         height: 53px;
-        font-weight: ${cssUnit.fontWeight.bold};
-        font-size: ${cssUnit.fontSize.medium};
-    }
+    } */
 
     & > div {
-        display: flex;
-        justify-content: space-between;
-
-        width: 100%;
     }
+`;
+
+export const CategoryTitle = styled.h2`
+    width: 100%;
+    height: 53px;
+    padding-bottom: 28px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: ${cssUnit.fontWeight.bold};
+    font-size: ${cssUnit.fontSize.medium};
+
+    p {
+        &.more {
+            font-size: 16px;
+            margin-left: 25px;
+            color: #a5a5a5;
+        }
+    }
+`;
+
+export const CategoryContent = styled.div`
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
 `;

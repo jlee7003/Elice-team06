@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Main, Category } from "@/styles/pages/home-style";
+import { Main, Category, CategoryTitle, CategoryContent } from "@/styles/pages/home-style";
 import { Banner } from "@/styles/banner";
 import ChallengeCard from "@/components/ChallengeCard";
 
@@ -25,22 +25,30 @@ const Home = () => {
             <Banner />
             <Main>
                 <Category>
-                    <p>이런 챌린지가 있어요</p>
-                    <div>
+                    <CategoryTitle>
+                        <p>이런 챌린지가 있어요</p>
+                    </CategoryTitle>
+
+                    <CategoryContent>
                         <ChallengeCard level="beginner" />
                         <ChallengeCard level="intermediate" />
                         <ChallengeCard level="advanced" />
                         <ChallengeCard />
-                    </div>
+                    </CategoryContent>
                 </Category>
                 <Category>
-                    <p>유저들이 선택한 챌린지</p>
-                    <div>
+                    <CategoryTitle>
+                        <p>유저들이 선택한 챌린지</p>
+                        <p className="more">
+                            <a>더보기 &gt;</a>
+                        </p>
+                    </CategoryTitle>
+                    <CategoryContent>
                         <ChallengeCard level="beginner" />
                         <ChallengeCard level="intermediate" />
                         <ChallengeCard level="advanced" />
                         <ChallengeCard />
-                    </div>
+                    </CategoryContent>
                 </Category>
             </Main>
         </div>
