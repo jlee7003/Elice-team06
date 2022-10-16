@@ -3,14 +3,16 @@ import cssUnit from "@/lib/cssUnit";
 export const Container = styled.div`
     display: grid;
     place-items: start center;
-    width: ${cssUnit.unit.width};
-    height: 100vh;
+    /* width: ${cssUnit.unit.width}; */
+    /* height: 100vh; */
+    width: auto !important;
 `;
 export const CenterContainer = styled.div`
     display: flex;
     place-items: start center;
     width: 1275px;
-    height: 100vh;
+    padding-bottom: 120px;
+    /* height: 100vh; */
 `;
 export const Main = styled.div`
     display: grid;
@@ -21,7 +23,7 @@ export const Main = styled.div`
 export const Sub = styled.div`
     border: 0px solid black;
     width: 35%;
-    height: 100vh;
+    /* height: 100vh; */
     padding: 15px;
 `;
 export const FlexBox = styled.div`

@@ -3,14 +3,16 @@ import cssUnit from "@/lib/cssUnit";
 
 export const HomeContainer = styled.div`
     width: auto !important;
+    /* height: auto !important; */
 `;
 
 export const Main = styled.main`
     width: ${cssUnit.unit.width};
-    height: 70vh;
-
+    /* height: 70vh; */
+    height: auto;
     margin: auto;
     padding-top: 70px;
+    padding-bottom: 120px;
 `;
 
 export const Category = styled.div`
