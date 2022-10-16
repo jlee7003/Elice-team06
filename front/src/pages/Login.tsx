@@ -21,18 +21,18 @@ import errorRecoil from "@/recoil/errorRecoil";
 const Login = () => {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [setLogin] = useLogin();
 
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
 
     const navigate = useNavigate();
     const [isError, setIsError] = useState(false);
+    const setLogin = useLogin(setIsError, "/");
 
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
 
-    const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         if (emailRef.current == null || passwordRef.current == null) {
@@ -44,15 +44,7 @@ const Login = () => {
             password: passwordRef.current.value,
         };
 
-        console.log(loginData);
-
-        const result = await setLogin(loginData);
-
-        // if (!result) {
-        //     setIsError(true);
-        // }
-
-        navigate(ROUTES.Home.path);
+        setLogin(loginData);
     };
 
     return (

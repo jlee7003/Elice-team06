@@ -1,38 +1,53 @@
 import { User } from "./user";
 
-export interface LoginFormData {
-    email: string;
-    password: string;
-    [key: string]: any;
-}
-
-export interface LoginResult extends User {
+interface token {
     accessToken: string;
     refreshToken: string;
 }
 
-export interface SignupFormData {
-    user_email: string;
+export interface LoginData {
+    email: string;
+    password: string;
+}
+
+export type LoginResult = token & User;
+
+export interface SignupData {
+    email: string;
     nickname: string;
     introduce: string;
     password: string;
     password_hint: string;
-    // token: string;
     age: string;
     region: string;
     gender: string;
-
-    // profile_image?: string;
-    // introduce?: string;
-    // ban?: boolean;
-    // withdrawal?: boolean;
-    // role?: string;
-    // createdAt?: string;
-    // updatedAt?: string;
-    [key: string]: any;
 }
 
-export interface SignupResult extends User {
+export type SignupResult = token & User;
+
+export interface RefreshResult {
     accessToken: string;
-    refreshToken: string;
+    nickname: string;
+    Profile: [
+        {
+            introduce: string;
+        }
+    ];
+}
+
+export interface ChangePasswordData {
+    nickname: string;
+    password: string;
+    password_hint: string;
+}
+
+export interface ChangeMyInfoData {
+    nickname: string;
+    updateData: {
+        age?: string;
+        region?: string;
+        gender?: string;
+        profile_image?: string;
+        introduce?: string;
+    };
 }

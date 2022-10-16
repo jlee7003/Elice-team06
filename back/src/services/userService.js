@@ -64,9 +64,6 @@ class userService {
             return null;
         }
         //유저 존재 확인
-        console.log(email);
-        const test = await prisma.User.findUnique({ where: email });
-        console.log(test);
         const userData = await prisma.User.findUnique({
             where: {
                 email,
@@ -131,7 +128,7 @@ class userService {
             },
             select: {
                 nickname: true,
-                introduce: true,
+                Profile: { select: { introduce: true } },
             },
         });
         return userData;

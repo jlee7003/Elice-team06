@@ -1,36 +1,38 @@
 import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import userState from "@/recoil/user";
-import { LoginFormData } from "@/types/auth";
-import { login } from "@/api/auth";
+import { LoginData } from "@/types/auth";
+import { login } from "@/api/user";
 import { User } from "@/types/user";
+import API from "@/api/.";
 
-const useLogin = () => {
+const useLogin = (errorFunction: any, redirectURL: string) => {
     const setUser = useSetRecoilState(userState);
-    let state = false;
+    const navigate = useNavigate();
 
-    const setLogin = async (loginFormData: LoginFormData) => {
+    const setLogin = async (loginFormData: LoginData) => {
         const result = await login(loginFormData);
 
         if (result === null) {
-            state = false;
-
-            return false;
+            errorFunction(true);
+            return;
         }
+        const data = result.data;
 
-        sessionStorage.setItem("refresh", result.refreshToken);
+        sessionStorage.setItem("refresh", data.refreshToken);
+        API.setAccessToken(data.accessToken);
 
         const user: User = {
-            nickname: result.nickname,
-            introduce: result.introduce,
+            nickname: data.nickname,
+            introduce: data.introduce,
         };
 
         setUser(user);
-        state = true;
 
-        return true;
+        navigate(redirectURL);
     };
 
-    return [setLogin];
+    return setLogin;
 };
 
 export default useLogin;

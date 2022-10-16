@@ -1,4 +1,6 @@
-import { ChangeEvent, useState, useRef, MouseEvent } from "react";
+import { useState, useRef, MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/routes";
 import {
     Container,
     Form,
@@ -12,12 +14,11 @@ import {
     SecondContainer1,
     Select,
 } from "../styles/pages/signup-style";
-import signup from "@/api/signup";
+import { signup } from "@/api/user";
 import { Logo } from "@/styles/common";
 
 const Signup = () => {
     const nickname = useRef<HTMLInputElement>(null);
-    // const user_email = useRef<HTMLInputElement>(null);
     const introduce = useRef<HTMLInputElement>(null);
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
@@ -28,6 +29,8 @@ const Signup = () => {
     const gender = useRef<HTMLInputElement>(null);
     const [ValidationCheck, setValidationCheck] = useState(false);
     const [inputStatus, setInputStatus] = useState("");
+
+    const navigate = useNavigate();
 
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
@@ -68,7 +71,6 @@ const Signup = () => {
     }
     let formData = {
         email: "",
-        // user_email: "",
         introduce: "",
         nickname: "",
         password: "",
@@ -76,15 +78,6 @@ const Signup = () => {
         age: "",
         region: "",
         gender: "",
-        // token: "",
-        // profile_image: "",
-        // introduce: "",
-        // ban: false,
-        // withdrawal: false,
-        // role: "",
-        // createdAt: "",
-        // updatedAt: "",
-        // [key: string]: any;
     };
     const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -98,7 +91,6 @@ const Signup = () => {
 
         if (
             email.current == null ||
-            // user_email.current == null ||
             introduce.current == null ||
             password.current == null ||
             passwordok.current == null ||
@@ -113,7 +105,6 @@ const Signup = () => {
 
         formData = {
             email: email.current?.value,
-            // user_email: user_email.current?.value,
             introduce: introduce.current?.value,
             password: password.current?.value,
             password_hint: password_hint.current?.value,
@@ -121,18 +112,15 @@ const Signup = () => {
             gender: inputStatus,
             age: age.current?.value,
             region: region.current?.value,
-            // token: "",
-            // profile_image: "",
-            // introduce: "",
-            // ban: false,
-            // withdrawal: false,
-            // role: "",
-            // createdAt: "",
-            // updatedAt: "",
         };
+
         const result = await signup(formData);
-        // console.log("success", formData);
-        alert("회원가입성공");
+
+        if (result === null) {
+            // todo: error indicate
+        }
+
+        navigate(ROUTES.Home.path);
     };
 
     function selectnum() {
