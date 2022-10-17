@@ -13,13 +13,20 @@ import {
 import { Logo } from "@/styles/common";
 import ThemeWrapper from "@/components/ThemeWrapper";
 import ModalState from "@/recoil/modalState";
+import DarkMode from "@/recoil/darkMode";
 import LoginModal from "@/modal/LoginModal";
+import HeaderStyle from "@/styles/global-style";
+
+export interface Props {
+    mode?: string;
+}
 
 function Header() {
     const navigate = useNavigate();
 
     const user = useRecoilValue(userState);
     const [onModal, setOnModal] = useRecoilState(ModalState);
+    const [darkMode] = useRecoilState(DarkMode);
     const setLogout = useLogout();
 
     const onClickLogo = () => {
@@ -31,7 +38,7 @@ function Header() {
     };
 
     return (
-        <HeaderSticky>
+        <HeaderSticky mode={darkMode ?? "Light"}>
             <HeaderContainer>
                 <Logo onClick={onClickLogo} />
                 {user ? (

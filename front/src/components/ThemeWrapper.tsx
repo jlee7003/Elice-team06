@@ -9,8 +9,10 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
     const [darkMode, setDarkMode] = useRecoilState(DarkMode);
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (darkMode == "Light") {
+            // sessionStorage.setItem("mode", "Dark");
             setDarkMode("Dark");
         } else {
+            // sessionStorage.setItem("mode", "Light");
             setDarkMode("Light");
         }
     }

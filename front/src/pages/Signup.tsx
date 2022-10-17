@@ -63,9 +63,11 @@ const Signup = () => {
             nickname.current?.value == "" ||
             gender.current?.value == "" ||
             age.current?.value == "" ||
-            region.current?.value == ""
+            region.current?.value == "" ||
+            region.current?.value == "해당없음"
         ) {
-            return false;
+            setValidationCheck(false);
+            return;
         }
         setValidationCheck(true);
     }
