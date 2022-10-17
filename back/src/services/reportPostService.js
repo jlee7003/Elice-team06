@@ -2,21 +2,21 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class reportPostService {
-    static async getReports({ postId }) {
+    static async getReports({ boardId }) {
         const reportData = await prisma.ReportPost.aggregate({
-            where: { post_id: Number(postId) },
+            where: { post_id: Number(boardId) },
             _count: true,
         });
         return reportData;
     }
-    static async report({ postId, nickname, description }) {
+    static async report({ boardId, nickname, description }) {
         const reportData = await prisma.ReportPost.findMany({
-            where: { AND: [{ reporter: nickname }, { post_id: Number(postId) }] },
+            where: { AND: [{ reporter: nickname }, { post_id: Number(boardId) }] },
         });
 
         if (reportData.length !== 0) {
             await prisma.ReportPost.deleteMany({
-                where: { reporter: nickname, post_id: Number(postId) },
+                where: { reporter: nickname, post_id: Number(boardId) },
             });
             return "신고 취소";
         }
@@ -28,7 +28,7 @@ class reportPostService {
                     connect: { nickname },
                 },
                 post: {
-                    connect: { id: Number(postId) },
+                    connect: { id: Number(boardId) },
                 },
             },
         });

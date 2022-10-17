@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class commentPostService {
-    static async addComment({ postId, nickname, description }) {
+    static async addComment({ boardId, nickname, description }) {
         const result = await prisma.CommentPost.create({
             data: {
                 description,
@@ -10,15 +10,15 @@ class commentPostService {
                     connect: { nickname },
                 },
                 post: {
-                    connect: { id: Number(postId) },
+                    connect: { id: Number(boardId) },
                 },
             },
         });
         return result;
     }
-    static async getComments({ postId }) {
+    static async getComments({ boardId }) {
         const result = await prisma.CommentPost.findMany({
-            where: { post_id: Number(postId) },
+            where: { post_id: Number(boardId) },
             select: { author: true, description: true },
         });
         return result;
@@ -29,20 +29,20 @@ class commentPostService {
         });
         return result;
     }
-    static async updateComment({ commentId, updateData }) {
+    static async updateComment({ commentId, description }) {
         const result = await prisma.CommentPost.update({
             where: {
                 id: Number(commentId),
             },
-            data: { ...updateData },
+            data: { description },
         });
         return result;
     }
     static async removeComment({ commentId }) {
-        const result = await prisma.CommentPost.delete({
+        await prisma.CommentPost.delete({
             where: { id: Number(commentId) },
         });
-        return result;
+        return "댓글 삭제";
     }
 }
 export default commentPostService;

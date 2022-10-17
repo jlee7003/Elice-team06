@@ -16,17 +16,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/ping", (req, res) => {
-    res.send("pong");
-});
-
-app.use("/api", userRoute);
-app.use("/api", challengeRoute);
-app.use("/api", boardRoute);
-app.use("/api", commentPostRoute);
-app.use("/api", votePostRoute);
-app.use("/api", reportPostRoute);
-app.use("/api", dataRoute);
+app.use("/user", userRoute);
+app.use("/board", boardRoute);
+app.use("/comment", commentPostRoute);
+app.use("/vote", votePostRoute);
+app.use("/report", reportPostRoute);
+app.use("/challenge", challengeRoute);
+app.use("/data", dataRoute);
 
 app.use(errorMiddleware);
 

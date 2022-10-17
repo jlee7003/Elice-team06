@@ -15,7 +15,7 @@ const NavPagination = (prop: { value: Posts }) => {
     현재 페이지, pagination의 범위 단위, 총 페이지 넘버 수, 페이지 넘버(배열)*/
     const currentPage = useRef<number>(1); //default page : 1
     const blockNum = 5; //set pagination scope unit
-    const totalPages = Object.keys(post).length;
+    const totalPages = Object.keys(post).length; //불러올 떄마다 연산함->useRef를 쓰는게 좋음 //묶어서 useRef useMemo
     const postKeyArr = Object.keys(post); //['1','2','3','4'...]
     /*-------------------------------------------------------*/
     /**To know how many blocks would be created(by slicing)  

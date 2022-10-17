@@ -5,19 +5,18 @@ const prisma = new PrismaClient();
 function chunk(data = [], start = 1, size = 1) {
     const items = [...data];
     let i = Number(start);
-    const arr = {};
+    const map = {};
 
     while (items.length) {
-        arr[i] = items.splice(0, size);
+        map[i] = items.splice(0, size);
         i += 1;
     }
-    return arr;
+    return map;
 }
 
-// the abbreviation for challenge: chl
 class challengeService {
     // Challenge API
-    static async getchls(pagination = { start: 1, end: 5, count: 8 }) {
+    static async getChallenges(pagination = { start: 1, end: 5, count: 8 }) {
         const { start, end, count } = pagination;
         let challenges = await prisma.Challenge.findMany({
             where: { due_date: { gte: new Date() } },
@@ -37,18 +36,18 @@ class challengeService {
         return challenges;
     }
 
-    static async findchl({ nickname, challengeId = null }) {
-        let findChallenge;
+    static async findChallenge({ nickname, challengeId = null }) {
+        let findChallenges;
 
         if (challengeId) {
-            findChallenge = await prisma.Challenge.findUniqueOrThrow({
+            findChallenges = await prisma.Challenge.findUniqueOrThrow({
                 where: { id: Number(challengeId) },
                 include: {
                     Challenger: { select: { nickname: true } },
                 },
             });
         } else {
-            findChallenge = await prisma.Challenger.findMany({
+            findChallenges = await prisma.Challenger.findMany({
                 where: { nickname },
                 select: {
                     challenge_id: true,
@@ -65,10 +64,10 @@ class challengeService {
             });
         }
         await prisma.$disconnect();
-        return findChallenge;
+        return findChallenges;
     }
 
-    static async addchl(input) {
+    static async addChallenge(input) {
         input.start_date = new Date(input.start_date);
         input.due_date = new Date(input.due_date);
         try {
@@ -81,20 +80,20 @@ class challengeService {
         }
     }
 
-    static async updatechl(challengeId = null, input) {
+    static async updateChallenge(challengeId = null, input) {
         input.start_date = new Date(input.start_date);
         input.due_date = new Date(input.due_date);
 
-        const updateChallenge = await prisma.Challenge.update({
+        const upChallenge = await prisma.Challenge.update({
             where: { id: Number(challengeId) },
             data: { ...input },
         });
 
         await prisma.$disconnect();
-        return updateChallenge;
+        return upChallenge;
     }
 
-    static async deletechl(challengeId) {
+    static async deleteChallenge(challengeId) {
         await prisma.Challenger.deleteMany({ where: { challenge_id: Number(challengeId) } });
         await prisma.ChallengeComment.deleteMany({ where: { challenge_id: Number(challengeId) } });
         await prisma.Challenge.delete({
@@ -102,11 +101,11 @@ class challengeService {
         });
 
         await prisma.$disconnect();
-        return "삭제 됐습니다";
+        return { result: true, message: "삭제 됐습니다" };
     }
     // Challenge Join API
-    static async joinchl({ nickname, challengeId }) {
-        let joinChallenge = await prisma.Challenger.findUnique({
+    static async joinChallenge({ nickname, challengeId }) {
+        let Challenge = await prisma.Challenger.findUnique({
             where: {
                 challenge_id_nickname: {
                     challenge_id: Number(challengeId),
@@ -115,12 +114,12 @@ class challengeService {
             },
         });
 
-        if (!joinChallenge) {
-            joinChallenge = await prisma.Challenger.create({
+        if (!Challenge) {
+            Challenge = await prisma.Challenger.create({
                 data: { challenge_id: Number(challengeId), nickname },
             });
             await prisma.$disconnect();
-            return joinChallenge;
+            return Challenge;
         }
 
         await prisma.Challenger.delete({
@@ -133,10 +132,10 @@ class challengeService {
         });
 
         await prisma.$disconnect();
-        return "cancel";
+        return { result: true, message: "취소 됐습니다" };
     }
     //Challenge Comment API
-    static async findcomments({
+    static async findComments({
         nickname,
         challengeId = null,
         pagination = { start: 1, end: 5, count: 4 },
@@ -164,25 +163,25 @@ class challengeService {
         return comments;
     }
 
-    static async postcomment(input) {
+    static async postComment(input) {
         const newComment = await prisma.ChallengeComment.create({ data: { ...input } });
         await prisma.$disconnect();
         return newComment;
     }
 
-    static async updatecomment(commentId = null, input) {
-        const updateComment = await prisma.ChallengeComment.update({
+    static async updateComment(commentId = null, input) {
+        const upComment = await prisma.ChallengeComment.update({
             where: { id: Number(commentId) },
             data: { ...input },
         });
         await prisma.$disconnect();
-        return updateComment;
+        return upComment;
     }
 
-    static async deletecomment(commentId) {
+    static async deleteComment(commentId) {
         await prisma.ChallengeComment.delete({ where: { id: Number(commentId) } });
         await prisma.$disconnect();
-        return "삭제 됐습니다";
+        return { result: true, message: "삭제 됐습니다" };
     }
 }
 
