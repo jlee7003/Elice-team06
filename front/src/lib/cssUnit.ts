@@ -22,6 +22,7 @@ const cssUnit = {
         blue: "#6186be",
         purple: "#8075bf",
         gray: "#eeeeee",
+        darkergray: "#9D9D9D",
         white: "white",
         black: "black",
         carbongreen: "#75c6a0",
