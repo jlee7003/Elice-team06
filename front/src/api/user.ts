@@ -21,13 +21,13 @@ export const signup = async (formData: SignupData) => {
 };
 
 export const logout = async () => {
-    const result = await API.post<any>(["user", "logout"], "");
+    const result = await API.put<any>(["user", "logout"], "");
 
     return result;
 };
 
 export const refresh = async () => {
-    const result = await API.post<RefreshResult>(["user", "refresh"], "");
+    const result = await API.get<RefreshResult>(["user", "refresh"]);
 
     return result;
 };
