@@ -19,13 +19,14 @@ import NavPagination from "./NavPagination";
 import { postsSelector } from "@/recoil/requestPosts";
 import { useEffect } from "react";
 //pagination
-import Pagination from "@/components/pagination";
+//import Pagination from "@/components/pagination";
 import urlCheck from "@/recoil/urlCheck";
 //dummies
 import post from "@/lib/dummyPosts";
 //Modal
 import ModalState from "@/recoil/modalState";
 import ChallengeRequestModal from "@/modal/ChallengeRequestModal";
+import { Pagination } from "@/components/PagiantionNav";
 
 const ReqPage = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
@@ -87,7 +88,7 @@ const ReqPage = () => {
                         <a onClick={navtesting}>TEST</a>
                     </ButtonContianer>
                 </Section>
-                <NavPagination value={post} />
+                <Pagination value={post} />
             </Main>
         </Container>
     );
