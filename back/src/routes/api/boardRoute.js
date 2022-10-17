@@ -7,7 +7,7 @@ const boardRoute = Router();
 
 //전체 게시글 목록//
 boardRoute.get(
-    "/posts",
+    "/all",
     asyncHandler(async (req, res) => {
         const { start, end, post } = req.query;
         const result = await boardService.getPosts({ start, end, post });
@@ -16,39 +16,37 @@ boardRoute.get(
     })
 );
 
+//자신이 등록한 게시글 목록//
+boardRoute.get(
+    "/myPost",
+    authToken,
+    asyncHandler(async (req, res) => {
+        const { nickname } = req.nickname;
+        const result = await boardService.getMyPost({ nickname });
+        res.status(200).send(result);
+    })
+);
+
+//자신이 투표한 게시글 목록//
+boardRoute.get(
+    "/likePost",
+    authToken,
+    asyncHandler(async (req, res) => {
+        const { nickname } = req.nickname;
+        const result = await boardService.getLikePost({ nickname });
+
+        res.status(200).send(result);
+    })
+);
 //특정 게시글 상세//
 boardRoute.get(
-    "/posts/:postId",
+    "/:postId",
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
         const result = await boardService.getPost({ postId });
         res.status(200).send(result);
     })
 );
-
-//자신이 등록한 게시글 목록//
-boardRoute.get(
-    "/myPosts",
-    // authToken,
-    asyncHandler(async (req, res) => {
-        const { nickname } = req.body;
-        const postData = await boardService.getMyPost({ nickname });
-        res.status(200).send(postData);
-    })
-);
-
-//자신이 투표한 게시글 목록//
-boardRoute.get(
-    "/likePosts",
-    // authToken,
-    asyncHandler(async (req, res) => {
-        const { nickname } = req.body;
-        const result = await boardService.getLikePost({ nickname });
-
-        res.status(200).send(result);
-    })
-);
-
 //게시글 방문수 up//
 boardRoute.post(
     "/:postId/views",
@@ -61,20 +59,20 @@ boardRoute.post(
 
 //게시글 등록//
 boardRoute.post(
-    "/posts",
-    // authToken,
+    "/",
+    authToken,
     asyncHandler(async (req, res) => {
         const postData = req.body;
-        // const { nickname } = req.userId;
-        const result = await boardService.addPost({ postData });
+        const { nickname } = req.nickname;
+        const result = await boardService.addPost({ nickname, postData });
         res.status(200).send(result);
     })
 );
 
 //게시글 수정//
 boardRoute.put(
-    "/posts/:postId",
-    // authToken,
+    "/:postId",
+    authToken,
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
         const { title, description } = req.body;
@@ -86,8 +84,8 @@ boardRoute.put(
 
 //게시글 삭제//
 boardRoute.delete(
-    "/posts/:postId",
-    // authToken,
+    "/:postId",
+    authToken,
     asyncHandler(async (req, res) => {
         const { postId } = req.params;
         const result = await boardService.deletePost({ postId });

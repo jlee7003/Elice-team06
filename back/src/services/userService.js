@@ -19,7 +19,8 @@ class userService {
     static async addUser({ userData }) {
         //이메일 형식 확인
         if (isInvalidEmail(userData.email)) {
-            return "적합한 이메일이 아닙니다";
+            const message = "이메일 형식이 올바르지 않습니다.";
+            return { result: false, message };
         }
 
         //이메일 중복 확인
@@ -27,14 +28,16 @@ class userService {
         const searchUser = await prisma.User.findUnique({ where: { email } });
 
         if (searchUser) {
-            return null;
+            const message = "이미 존재하는 이메일입니다.";
+            return { result: false, message };
         }
 
         //닉네임 중복 확인
         const nickname = userData.nickname;
         const searchNickname = await prisma.User.findUnique({ where: { nickname } });
         if (searchNickname) {
-            return null;
+            const message = "이미 존재하는 닉네임입니다.";
+            return { result: false, message };
         }
 
         //비밀번호 hash 처리
@@ -54,14 +57,15 @@ class userService {
                 Profile: { create: { age, region, gender, profile_image, introduce } },
             },
         });
-
+        await prisma.$disconnect();
         return newUser;
     }
 
     static async loginUser({ email, password }) {
         //이메일 형식이 맞는지 검사
         if (isInvalidEmail(email)) {
-            return null;
+            const message = "이메일 형식이 올바르지 않습니다.";
+            return { result: false, message };
         }
         //유저 존재 확인
         const userData = await prisma.User.findUnique({
@@ -73,24 +77,31 @@ class userService {
             },
         });
         if (userData === null) {
-            return null;
+            const message = "존재하지 않는 이메일입니다.";
+            return { result: false, message };
         }
         //유저 밴, 탈퇴 확인
         if (userData.ban === true || userData.withdrawal === true) {
-            return null;
+            const message = "유효하지 않은 유저입니다.";
+            return { result: false, message };
         }
         //비밀번호 일치 확인
         const result = await bcrypt.compare(password, userData.password);
         if (!result) {
-            return null;
+            const message = "비밀번호가 틀렸습니다.";
+            return { result: false, message };
         }
         // const { introduce, nickname } = userData.Profile[0];
         const introduce = userData.Profile.introduce;
         const nickname = userData.nickname;
+
         const accessToken = generateToken({ nickname: userData.nickname }, "accessToken");
         let refreshToken = generateToken({}, "refreshToken");
+
         await prisma.User.update({ where: { nickname }, data: { token: null } });
         await prisma.User.update({ where: { nickname }, data: { token: refreshToken } });
+
+        await prisma.$disconnect();
         return { nickname, introduce, accessToken, refreshToken };
     }
     static async logoutUser(token) {
@@ -107,7 +118,8 @@ class userService {
 
         const result = await bcrypt.compare(password, userData.password);
         if (!result) {
-            return "비밀번호가 일치하지 않습니다.";
+            const message = "비밀번호가 틀렸습니다.";
+            return { result: false, message };
         }
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -120,6 +132,8 @@ class userService {
                 password_hint,
             },
         });
+        await prisma.$disconnect();
+        return { result: true };
     }
     static async getUser({ refreshtoken }) {
         const userData = await prisma.User.findUnique({
@@ -131,6 +145,7 @@ class userService {
                 Profile: { select: { introduce: true } },
             },
         });
+        await prisma.$disconnect();
         return userData;
     }
     static async getInfo({ nickname }) {
@@ -147,6 +162,7 @@ class userService {
                 profile_image: true,
             },
         });
+        await prisma.$disconnect();
         return userData;
     }
 
@@ -159,7 +175,8 @@ class userService {
             });
             //닉네임 중복 확인
             if (searchNickname && searchNickname.nickname !== nickname) {
-                return "이미 존재하는 닉네임입니다.";
+                const message = "이미 존재하는 닉네임입니다.";
+                return { result: false, message };
             }
             const { age, region, gender, profile_image, introduce } = updateData;
 
@@ -173,7 +190,7 @@ class userService {
                 },
                 data: { age, region, gender, profile_image, introduce },
             });
-
+            await prisma.$disconnect();
             return [updateInfo, { accessToken: null }];
         }
         const { age, region, gender, profile_image, introduce } = updateData;
@@ -183,6 +200,7 @@ class userService {
             },
             data: { age, region, gender, profile_image, introduce },
         });
+        await prisma.$disconnect();
         return updateInfo;
     }
 
@@ -195,8 +213,11 @@ class userService {
         const result = await bcrypt.compare(password, userData.password);
 
         if (!result) {
-            return "비밀번호가 일치하지 않습니다.";
+            await prisma.$disconnect();
+            const message = "비밀번호가 일치하지 않습니다.";
+            return { result: false, message };
         }
+        await prisma.$disconnect();
         return "인증 성공!";
     }
 
@@ -205,6 +226,8 @@ class userService {
             where: { nickname },
             data: { withdrawal: true },
         });
+        await prisma.$disconnect();
+        return "회원 탈퇴";
     }
 }
 

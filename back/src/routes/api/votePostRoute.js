@@ -7,22 +7,22 @@ const voteRoute = Router();
 
 //게시글 투표수//
 voteRoute.get(
-    "/votes/:postId",
+    "/:boardId",
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
-        const result = await votePostService.getVotes({ postId });
+        const { boardId } = req.params;
+        const result = await votePostService.getVotes({ boardId });
         res.status(200).send(result);
     })
 );
 
 //게시글 투표, 투표 취소//
 voteRoute.post(
-    "/votes/:postId",
-    // authToken,
+    "/:boardId",
+    authToken,
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
-        const { nickname } = req.body;
-        const result = await votePostService.vote({ postId, nickname });
+        const { boardId } = req.params;
+        const { nickname } = req.nickname;
+        const result = await votePostService.vote({ boardId, nickname });
         res.status(200).send(result);
     })
 );

@@ -7,20 +7,20 @@ const commentPostRoute = Router();
 
 //특정 게시글 댓글 목록//
 commentPostRoute.get(
-    "/comments/:postId",
+    "/board/:boardId",
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
-        const result = await commentPostService.getComments({ postId });
+        const { boardId } = req.params;
+        const result = await commentPostService.getComments({ boardId });
         res.status(200).send(result);
     })
 );
 
 //유저가 쓴 댓글 목록//
 commentPostRoute.get(
-    "/comments",
-    // authToken,
+    "/my",
+    authToken,
     asyncHandler(async (req, res) => {
-        const { nickname } = req.body;
+        const { nickname } = req.nickname;
         const result = await commentPostService.getMyComments({ nickname });
         res.status(200).send(result);
     })
@@ -28,31 +28,32 @@ commentPostRoute.get(
 
 //댓글 등록//
 commentPostRoute.post(
-    "/comments/:postId",
-    // authToken,
+    "/board/:boardId",
+    authToken,
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
-        const { nickname, description } = req.body;
-        const result = await commentPostService.addComment({ postId, nickname, description });
+        const { boardId } = req.params;
+        const { nickname } = req.nickname;
+        const { description } = req.body;
+        const result = await commentPostService.addComment({ boardId, nickname, description });
         res.status(200).send(result);
     })
 );
 //댓글 수정//
 commentPostRoute.put(
-    "/comments/:commentId",
-    // authToken,
+    "/:commentId",
+    authToken,
     asyncHandler(async (req, res) => {
         const { commentId } = req.params;
-        const updateData = req.body;
-        const result = await commentPostService.updateComment({ commentId, updateData });
+        const { description } = req.body;
+        const result = await commentPostService.updateComment({ commentId, description });
 
         res.status(200).send(result);
     })
 );
 //댓글 삭제//
 commentPostRoute.delete(
-    "/comments/:commentId",
-    //authToken,
+    "/:commentId",
+    authToken,
     asyncHandler(async (req, res) => {
         const { commentId } = req.params;
         const result = await commentPostService.removeComment({ commentId });

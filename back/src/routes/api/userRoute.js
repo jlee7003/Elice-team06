@@ -11,9 +11,10 @@ userRoute.post(
     asyncHandler(async (req, res) => {
         const userData = req.body;
         const newUser = await userService.addUser({ userData });
-        if (newUser === null) {
-            return res.status(409).send("이미 존재하는 유저입니다.");
+        if (newUser.message) {
+            return res.status(409).send(newUser);
         }
+
         res.status(200).send(newUser);
     })
 );
@@ -24,27 +25,25 @@ userRoute.post(
     asyncHandler(async (req, res) => {
         const { email, password } = req.body;
         const result = await userService.loginUser({ email, password });
-        if (result === null) {
-            return res.status(409).send("이메일/비밀번호 오류");
+        if (result.message) {
+            return res.status(409).send(result);
         }
 
         res.status(200).send(result);
     })
 );
 
-//로그아웃//---->헤더에서 토큰 정보 빼오기
-userRoute.post(
+//로그아웃//
+userRoute.put(
     "/logout",
     asyncHandler(async (req, res) => {
         const { refreshtoken } = req.headers;
-        console.log(refreshtoken);
 
-        const value = await userService.logoutUser(refreshtoken);
-        if (value === "500") {
-            console.log("중복 로그인 중");
-            res.status(500).send("중복 로그인 중"); //1번 : 구 로그인 / token 만료된 상태나 마찬가지
+        const result = await userService.logoutUser(refreshtoken);
+        if (result.message) {
+            res.status(401).send(result);
         } else {
-            res.status(200).send("로그아웃"); //2번 : 최근 로그인
+            res.status(200).send("로그아웃");
         }
     })
 );
@@ -57,24 +56,25 @@ userRoute.put(
         const { nickname } = req.nickname;
         const { password, password_hint } = req.body;
         const result = await userService.changePassword({ nickname, password, password_hint });
+        if (result.message) {
+            res.status(409).send(result);
+        }
         res.status(200).send(result);
     })
 );
 
 // 엑세스 토큰 발급//
-userRoute.post(
+userRoute.get(
     "/refresh",
     authToken,
     asyncHandler(async (req, res) => {
         const { refreshtoken } = req.headers;
-
         const userData = await userService.getUser({ refreshtoken });
         res.status(200).send({ accessToken: req.nickname, ...userData });
     })
 );
 
-//---//
-//유저 닉네임,소개글 가져오기// -->(유저 테이블 분리 후 라우터/서비스 분리 예정)
+//유저 닉네임,소개글 가져오기//
 userRoute.get(
     "/myInfo",
     authToken,
@@ -89,14 +89,17 @@ userRoute.get(
 //유저 닉네임,소개글 수정//
 userRoute.put(
     "/myInfo",
-    // authToken,
+    authToken,
     asyncHandler(async (req, res) => {
-        // const { nickname } = req.nickname;
-        const { nickname, updateData } = req.body;
+        const { nickname } = req.nickname;
+        const { updateData } = req.body;
         const result = await userService.updateUser({
             nickname,
             updateData,
         });
+        if (result.message) {
+            res.status(409).send(result);
+        }
 
         res.status(200).send(result);
     })
@@ -104,19 +107,22 @@ userRoute.put(
 
 //유저 비밀번호 인증//
 userRoute.get(
-    "/myInfo/auth",
+    "/auth",
     authToken,
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
         const { password } = req.body;
         const result = await userService.comparePassword({ nickname, password });
+        if (result.message) {
+            res.status(409).send(result);
+        }
         res.status(200).send(result);
     })
 );
 
 //회원 탈퇴//
 userRoute.put(
-    "/myInfo/withdrawal",
+    "/withdrawal",
     authToken,
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
