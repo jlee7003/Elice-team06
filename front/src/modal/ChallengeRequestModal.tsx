@@ -12,15 +12,26 @@ import {
     Input,
     NonFlexBox,
 } from "@/styles/challengeRequestModal-style";
+import "react-datepicker/dist/react-datepicker.css";
+import "@/styles/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import { useState } from "react";
+import ReactDatePicker from "@/components/ReactDatePicker";
+import * as _ from "lodash";
+import { getMonth, getYear } from "date-fns";
+
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
 };
 
 const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const tittle = useRef<HTMLInputElement>(null);
     const contents = useRef<HTMLInputElement>(null);
-
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
     return (
         <ModalPortal>
             <ModalContainer>
@@ -59,7 +70,34 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                                     // type="email"
                                     placeholder="챌린지 제목을 입력하세요."
                                 />
-                                <Label>비밀번호</Label>
+                                <div style={{ display: "flex", width: "100%" }}>
+                                    <Label>기간</Label>
+                                    <Label>목표량</Label>
+                                </div>
+                                <div style={{ display: "flex" }}>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            width: "50%",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                            }}
+                                        >
+                                            <ReactDatePicker />
+                                        </div>
+                                    </div>
+                                    <Input
+                                        ref={contents}
+                                        style={{ width: "50%" }}
+                                        placeholder="목표량을 입력하세요."
+                                    />
+                                </div>
+                                <Label>내용</Label>
                                 <LongInput
                                     ref={contents}
                                     // type="password"
@@ -70,6 +108,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                                     수 있습니다
                                 </div>
                             </NonFlexBox>
+
                             <FlexBox>
                                 <GrayButton
                                     className="close"

@@ -23,18 +23,16 @@ export const FlexBox = styled.div`
     } */
 `;
 export const NonFlexBox = styled.div`
-    /* justify-content: center; */
-    /* align-items: center; */
-    height: 100%;
+    height: 120%;
 `;
 
 export const ModalBody = styled.div`
     position: absolute;
-    top: 30%;
-    left: 30%;
+    top: 15%;
+    left: 28%;
 
     width: 1250px;
-    height: 660px;
+    height: 1100px;
 
     padding: 30px;
 
@@ -84,7 +82,7 @@ export const Input = styled.input`
 `;
 export const LongInput = styled.input`
     width: 100%;
-    height: 200px;
+    height: 400px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;

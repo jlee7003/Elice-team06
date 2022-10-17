@@ -10,25 +10,24 @@ import {
 } from "@/types/auth";
 
 export const login = async (loginData: LoginData) => {
-    const result = await API.post<LoginResult>(["api", "login"], loginData);
-
+    const result = await API.post<LoginResult>(["user", "login"], loginData);
     return result;
 };
 
 export const signup = async (formData: SignupData) => {
-    const result = await API.post<SignupResult>(["api", "signup"], formData);
+    const result = await API.post<SignupResult>(["user", "signup"], formData);
 
     return result;
 };
 
 export const logout = async () => {
-    const result = await API.post<any>(["api", "logout"], "");
+    const result = await API.post<any>(["user", "logout"], "");
 
     return result;
 };
 
 export const refresh = async () => {
-    const result = await API.post<RefreshResult>(["api", "refresh"], "");
+    const result = await API.post<RefreshResult>(["user", "refresh"], "");
 
     return result;
 };
