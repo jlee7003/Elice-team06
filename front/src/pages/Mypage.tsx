@@ -18,12 +18,18 @@ import { CategoryTitle } from "@/styles/pages/home-style";
 //components
 import ChallengeCard from "@/components/ChallengeCard";
 import ReqeustCards from "@/components/RequestCards";
-//datas
+//user's data
+import { useRecoilState, useRecoilValue } from "recoil";
+import userState from "@/recoil/user";
+
 import post from "@/lib/dummyPosts";
+
 //현재 post는 전체 게시글 데이터를 받아오는 더미데이터로 향후 특정유저의 포스트만 모아놓는 더미데이터와 유저 더미데이터를 만들어서 사용할 예정
 
 const Mypage = () => {
     // const [user, setUser] = useRecoilState(userState);
+    const user = useRecoilValue(userState);
+    console.log("user:", user);
 
     return (
         <div>
@@ -32,10 +38,10 @@ const Mypage = () => {
                 <SideBar>
                     <MySec>
                         <span>
-                            <p>user.name</p>
+                            <p>{user?.nickname}</p>
                             <span></span>
                         </span>
-                        <span>user.desc 유저가 묘사하는 내용</span>
+                        <span>{user?.introduce}</span>
                     </MySec>
                     <MenuContainer>
                         <Menu>
