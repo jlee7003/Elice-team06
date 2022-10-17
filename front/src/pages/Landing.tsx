@@ -60,7 +60,7 @@ const Landing = () => {
     useEffect(() => {
         const getData: any = async () => {
             const url = fetch(
-                "http://" + window.location.hostname + ":" + "3001" + "/api/data/sealevel"
+                "http://" + window.location.hostname + ":" + "3001" + "/data/sealevel"
             );
 
             const result = await url.then((res) => res.json());
