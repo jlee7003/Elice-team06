@@ -151,10 +151,50 @@ export const CarbonGraph = styled.div<StyleProps>`
     max-width: 1093px;
 `;
 
+const ScrollAnimation = keyframes`
+    0%{
+        height: 30%;
+        top:10%;
+        opacity: 1;
+    }
+    10%{
+        height: 30%;
+        top:10%;
+        opacity: 1;
+    }
+    50%{
+        height: 80%;
+        top:10%;
+        opacity: 1;
+    }
+    70%{
+        height: 80%;
+        bottom:10%;
+        opacity: 1;
+    }
+    /* 80%{
+        height: 30%;
+        bottom:10%;
+        opacity: 0.8;
+    } */
+    100%{
+        height: 0%;
+        bottom:10%;
+        opacity: 0.5;
+    }
+`;
+
+export const ButtonLink = styled(Link)`
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 60px;
+`;
+
 export const Section1Box = styled.div`
     margin: 400px auto 0;
     width: auto;
-    height: 40%;
+    height: 50%;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -176,6 +216,9 @@ export const Section1Box = styled.div`
 
     & > p {
         background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         button {
             background-color: #fff;
             color: #000;
@@ -187,6 +230,40 @@ export const Section1Box = styled.div`
             font-size: 20px;
             font-weight: bold;
             box-shadow: 0 0 15px rgb(0 0 0 / 80%);
+
+            &:first-child {
+                transition: all 0.3s ease-in-out;
+                &:hover {
+                    background-color: #34c759;
+                    color: #fff;
+                }
+            }
+
+            &:last-child {
+                background-color: rgba(255, 255, 255, 0.6);
+                width: 60px;
+                height: 90px;
+                border-radius: 50px;
+                color: #000;
+                margin-top: 50px;
+                border: 6px solid #fff;
+                box-sizing: border-box;
+                position: relative;
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    width: 6px;
+                    height: 30%;
+                    left: 50%;
+                    /* top: 10%; */
+                    margin-left: -3px;
+                    background-color: #fff;
+                    border-radius: 50px;
+                    /* transition: all 0.5s ease-in-out; */
+                    animation: ${ScrollAnimation} 2s infinite 0.3s;
+                }
+            }
         }
     }
 `;
@@ -436,8 +513,8 @@ export const Section5Box = styled.ul`
     width: 60%;
     margin: 70px auto 0;
     display: grid;
-    grid-template-columns: 30% 30% 30%;
-    grid-template-rows: 50% 50%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     li {
         list-style: none;
         display: flex;

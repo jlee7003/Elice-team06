@@ -128,7 +128,7 @@ class userService {
             },
             select: {
                 nickname: true,
-                introduce: true,
+                Profile: { select: { introduce: true } },
             },
         });
         return userData;

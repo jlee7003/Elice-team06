@@ -1,83 +1,77 @@
 import axios, { AxiosInstance } from "axios";
-import { User } from "@/types/user";
 
-class Api {
-    private static instance: Api;
-    private axiosInstance: AxiosInstance;
+class API {
+    private instance: AxiosInstance;
 
-    private constructor() {
-        this.axiosInstance = axios.create({
+    public constructor() {
+        this.instance = axios.create({
             baseURL: "http://" + window.location.hostname + ":" + "3001" + "/",
         });
     }
 
-    public static getInstance() {
-        if (Api.instance == null) {
-            Api.instance = new Api();
-        }
-
-        return Api.instance;
+    public setAccessToken(accessToken: string) {
+        this.instance.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
     }
-
-    setToken(accessToken: string) {
-        this.axiosInstance.defaults.headers.common["Authorization"] = accessToken;
-        this.axiosInstance.defaults.headers.common["refreshToken"] =
+    public setRefreshToken() {
+        this.instance.defaults.headers.common["refreshtoken"] =
             sessionStorage.getItem("refresh") ?? "";
     }
 
-    async getToken() {
-        const API = Api.getInstance();
+    public async get<T>(params: string[]) {
+        this.setRefreshToken();
 
-        this.setToken("Bearer refreshed");
+        const url = params.join("/");
 
-        const result = await this.post<string, { accessToken: string } & User>(
-            ["api", "refresh"],
-            "refresh"
-        );
-        console.log(result);
-        if (result.status !== 200) {
+        try {
+            const response = await this.instance.get<T>(url);
+
+            return response;
+        } catch (err) {
             return null;
         }
-
-        this.setToken(result.data.accessToken);
-        return {
-            nickname: result.data.nickname,
-            introduce: result.data.introduce,
-        };
     }
 
-    async resetToken() {
-        sessionStorage.clear();
+    public async post<T>(params: string[], data: any) {
+        this.setRefreshToken();
 
-        this.axiosInstance.defaults.headers.common["Authorization"] = "";
-        this.axiosInstance.defaults.headers.common["refresh"] = "";
-
-        const res = await this.post<string, string>(["api", "logout"], "");
-    }
-
-    async get<T>(params: string[]) {
         const url = params.join("/");
 
-        return this.axiosInstance.get<T>(url);
+        try {
+            const response = await this.instance.post<T>(url, data);
+
+            return response;
+        } catch (err) {
+            return null;
+        }
     }
 
-    async post<P, T>(params: string[], data: P) {
+    public async put<T>(params: string[], data: any) {
+        this.setRefreshToken();
+
         const url = params.join("/");
 
-        return this.axiosInstance.post<T>(url, data);
+        try {
+            const response = await this.instance.put<T>(url, data);
+
+            return response;
+        } catch (err) {
+            return null;
+        }
     }
 
-    async put<P, T>(params: string[], data: P) {
+    public async delete<T>(params: string[]) {
+        this.setRefreshToken();
+
         const url = params.join("/");
 
-        return this.axiosInstance.put<T>(url, data);
-    }
+        try {
+            const response = await this.instance.delete<T>(url);
 
-    async delete<T>(params: string[]) {
-        const url = params.join("/");
-
-        return this.axiosInstance.delete<T>(url);
+            return response;
+        } catch (err) {
+            return null;
+        }
     }
 }
 
-export default Api;
+export default new API();

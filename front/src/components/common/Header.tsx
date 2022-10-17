@@ -1,3 +1,8 @@
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/routes/.";
+import userState from "@/recoil/user";
+import useLogout from "@/hooks/useLogout";
 import {
     HeaderContainer,
     HeaderMenuContainer,
@@ -5,31 +10,24 @@ import {
     HeaderSticky,
     FlexBox,
 } from "@/styles/common/Header-style";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useResetRecoilState, useRecoilState } from "recoil";
-import userState from "@/recoil/user";
-import { ROUTES } from "@/routes/.";
-import Api from "@/api/.";
 import { Logo } from "@/styles/common";
 import ThemeWrapper from "@/components/ThemeWrapper";
 import ModalState from "@/recoil/modalState";
 import LoginModal from "@/modal/LoginModal";
+
 function Header() {
-    // const [onModal, setOnModal] = useState(false);
-    const [onModal, setOnModal] = useRecoilState(ModalState);
-    const resetUser = useResetRecoilState(userState);
     const navigate = useNavigate();
+
     const user = useRecoilValue(userState);
+    const [onModal, setOnModal] = useRecoilState(ModalState);
+    const setLogout = useLogout();
+
     const onClickLogo = () => {
         navigate(ROUTES.Home.path);
     };
 
     const onClickLogout = () => {
-        const API = Api.getInstance();
-
-        API.resetToken();
-        resetUser();
-        navigate(ROUTES.Home.path);
+        setLogout();
     };
 
     return (

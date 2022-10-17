@@ -26,6 +26,7 @@ import {
     ArrowIcon,
     SlideList,
     Tooltips,
+    ButtonLink,
 } from "@/styles/pages/landing-style";
 import assets from "@/lib/assets";
 import urlCheck from "@/recoil/urlCheck";
@@ -412,19 +413,20 @@ const Landing = () => {
                 <Section bgColor="#8FACBD" bgImg="url('src/assets/landing_bgImage.png')">
                     <Section1Box>
                         <div>
-                            <h2>탄소 발자국을 줄이자</h2>
+                            <h2>
+                                함께 <span>탄소 발자국</span>을 줄여요
+                            </h2>
                             <p>
-                                탄소발자국이 뭔지 블라블라....
+                                지구를 지키기 위한 첫 도전은
                                 <br />
-                                그래서 뭐 어쩌고 저쩌고...
-                                <br />
-                                우리는 이렇게 등등.....
+                                함께하는 것입니다.
                             </p>
                         </div>
                         <p>
-                            <button type="button" onClick={onClickScrollDown}>
-                                자세히 보기(또는 스크롤 표시)
+                            <button type="button">
+                                <ButtonLink to={ROUTES.Home.path}>챌린지 하러가기</ButtonLink>
                             </button>
+                            <button type="button" onClick={onClickScrollDown}></button>
                         </p>
                     </Section1Box>
                 </Section>
@@ -450,8 +452,8 @@ const Landing = () => {
                                 <Area
                                     type="monotone"
                                     dataKey="uv"
-                                    stroke="#8884d8"
-                                    fill="#8884d8"
+                                    stroke="#34c759"
+                                    fill="#34c759"
                                 />
                             </AreaChart>
                         </ResponsiveContainer>
@@ -460,11 +462,8 @@ const Landing = () => {
                 <Section bgImg="url('src/assets/pollution_bgImage.jpg')">
                     <Section3Box>
                         <div>
-                            <h2>지금 탄소문제 심각함 ㅇㅇ</h2>
-                            <p>
-                                탄소문제 블라블라.... 그래서 뭐 어쩌고 저쩌고... <br />
-                                우리는 이렇게 등등.....
-                            </p>
+                            <h2>심각한 탄소 문제</h2>
+                            <p>탄소문제는 나날이 심각해지고 있는 상황입니다.</p>
                         </div>
                         <Section3Content>
                             <ul>
@@ -503,8 +502,8 @@ const Landing = () => {
                                             <Area
                                                 type="monotone"
                                                 dataKey="uv"
-                                                stroke="#8884d8"
-                                                fill="#8884d8"
+                                                stroke="#34c759"
+                                                fill="#34c759"
                                             />
                                         </AreaChart>
                                     </ResponsiveContainer>
@@ -515,7 +514,9 @@ const Landing = () => {
                 </Section>
                 <Section bgColor="#fff">
                     <Section4Box>
-                        <h2>우리 챌린지 서비스😍</h2>
+                        <h2>
+                            <span style={{ color: "#34c759" }}>탄小</span> 의 챌린지들
+                        </h2>
                         <div>
                             <ChallengeSlide>
                                 <input type="radio" name="slide" id="slide01" defaultChecked />

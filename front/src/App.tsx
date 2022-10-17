@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useSetRecoilState, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
-import Api from "./api";
-import { ROUTES_LIST } from "./routes";
-import userState from "@/recoil/user";
+import { ROUTES_LIST } from "@/routes";
 import visibleCommonComponent from "./recoil/visibleCommonComponent";
 import DarkMode from "@/recoil/darkMode";
 
-import urlCheck from "./recoil/urlCheck";
+import urlCheck from "@/recoil/urlCheck";
+import useRefresh from "@/hooks/useRefresh";
 
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
@@ -16,30 +15,22 @@ import GlobalStyle from "@/styles/global-style";
 import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import ErrorModal from "@/modal/ErrorModal";
+
 export interface Props {
     mode?: string;
 }
 
 const App = () => {
-    const setUser = useSetRecoilState(userState);
     const [onModal, setOnModal] = useRecoilState(ModalState);
     const [error] = useRecoilState(errorRecoil);
     const [darkMode] = useRecoilState(DarkMode);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
-    // const isLanding = window.location.href.split("/").includes("landing");
+
+    const reload = useRefresh();
 
     useEffect(() => {
-        const refresh = sessionStorage.getItem("refresh");
-        if (refresh === null) {
-            return;
-        }
-
-        const API = Api.getInstance();
-
-        API.getToken().then((user) => {
-            setUser(user);
-        });
+        reload();
     }, []);
 
     useEffect(() => {
@@ -59,7 +50,6 @@ const App = () => {
         //     return (prev = prev);
         // });
     }, [currentUrl]);
-    console.log(error);
     function onClickLogout() {
         console.log(444);
     }
