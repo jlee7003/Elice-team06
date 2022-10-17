@@ -45,16 +45,34 @@ const Landing = () => {
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
     const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
     const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
+    const [data01, setData01] = useState([]); //rechart data 01
 
     const section = useRef<HTMLDivElement>(null); //section
-    const navRefs = useRef<any | null>([]); //section navigation //HTMLLIElement[] | null
-    const carbonList = useRef<any | null>([]);
-    const challengers = useRef<any | null>(null);
-    const challengerJoin = useRef<any | null>(null);
+    const navRefs = useRef<HTMLLIElement[]>([]); //section navigation //HTMLLIElement[] | null
+    const carbonListRefs = useRef<HTMLLIElement[]>([]);
+    const challengersRefs = useRef<HTMLSpanElement>(null);
+    const challengerJoinRefs = useRef<HTMLSpanElement>(null);
 
     //section nav list
     const nav = ["탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개"];
     const carbonArray = ["위험성", "해수면", "온도"];
+
+    useEffect(() => {
+        const getData: any = async () => {
+            const url = fetch(
+                "http://" + window.location.hostname + ":" + "3001" + "/api/data/sealevel"
+            );
+
+            const result = await url.then((res) => res.json());
+
+            setData01(result);
+            console.log(result);
+
+            return result;
+        };
+
+        getData();
+    }, []);
 
     useEffect(() => {
         setCurrentUrl(window.location.href);
@@ -62,8 +80,8 @@ const Landing = () => {
 
     useEffect(() => {
         //Section 03 - tab default
-        if (carbonList.current) {
-            carbonList.current[0].style.backgroundColor = "teal";
+        if (carbonListRefs.current) {
+            carbonListRefs.current[0].style.backgroundColor = "teal";
         }
 
         //-----👉디자인 수정용 잠시 설정해 놓은 것🐱‍🐉-----
@@ -217,37 +235,6 @@ const Landing = () => {
                 const scrollPosition = Math.abs(
                     Number(section.current.style.top.replace("px", "")) / innerHeight
                 );
-
-                if (scrollPosition == 3) {
-                    if (
-                        challengers.current.innerText == 56 ||
-                        challengerJoin.current.innerText == 1000
-                    ) {
-                        return;
-                    }
-                    // if (challengers.current != null) {
-                    //     let countReset = 0;
-                    //     setInterval(() => {
-                    //         challengers.current.innerText = String(countReset);
-
-                    //         if (countReset >= 56) {
-                    //             return;
-                    //         }
-                    //         countReset += 1;
-                    //     }, 20);
-                    // }
-                    // if (challengerJoin.current != null) {
-                    //     let countReset = 0;
-                    //     setInterval(() => {
-                    //         challengerJoin.current.innerText = String(countReset);
-                    //         //3자리 수마다 점찍기 해야함
-                    //         if (countReset >= 1000) {
-                    //             return;
-                    //         }
-                    //         countReset += 10;
-                    //     }, 20);
-                    // }
-                }
             }
 
             if (top === Number(-innerHeight * 4)) {
@@ -336,12 +323,12 @@ const Landing = () => {
      */
     const onTabClick = (e: number) => {
         for (let i = 0; i < 3; i++) {
-            if (carbonList.current != null) {
-                carbonList.current[i].style.backgroundColor = "#cbcbcb";
+            if (carbonListRefs.current != null) {
+                carbonListRefs.current[i].style.backgroundColor = "#cbcbcb";
             }
             if (e == i) {
-                if (carbonList.current != null) {
-                    carbonList.current[i].style.backgroundColor = "teal";
+                if (carbonListRefs.current != null) {
+                    carbonListRefs.current[i].style.backgroundColor = "teal";
                 }
             }
         }
@@ -395,7 +382,7 @@ const Landing = () => {
                     return (
                         <li
                             key={i}
-                            ref={(el) => {
+                            ref={(el: HTMLLIElement) => {
                                 navRefs.current[i] = el;
                             }}
                             style={{
@@ -437,7 +424,7 @@ const Landing = () => {
                             <AreaChart
                                 width={500}
                                 height={400}
-                                data={data}
+                                data={data01}
                                 margin={{
                                     top: 10,
                                     right: 30,
@@ -471,8 +458,8 @@ const Landing = () => {
                                     return (
                                         <li
                                             key={index}
-                                            ref={(el) => {
-                                                carbonList.current[index] = el;
+                                            ref={(el: HTMLLIElement) => {
+                                                carbonListRefs.current[index] = el;
                                             }}
                                             onClick={() => onTabClick(index)}
                                         >
@@ -571,11 +558,11 @@ const Landing = () => {
                             <ChallengeCurrent>
                                 <div>
                                     <p>챌린지 참여 현황</p>
-                                    <span ref={challengers}>56</span>
+                                    <span ref={challengersRefs}>56</span>
                                 </div>
                                 <div>
                                     <p>챌린저 가입 수</p>
-                                    <span ref={challengerJoin}>1,000</span>
+                                    <span ref={challengerJoinRefs}>1,000</span>
                                 </div>
                             </ChallengeCurrent>
                         </div>
