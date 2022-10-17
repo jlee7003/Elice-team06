@@ -8,22 +8,22 @@ const reportPostRoute = Router();
 
 //신고 수//
 reportPostRoute.get(
-    "/reports/:postId",
+    "/:boardId",
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
-        const result = await reportPostService.getReports({ postId });
+        const { boardId } = req.params;
+        const result = await reportPostService.getReports({ boardId });
         res.status(200).send(result);
     })
 );
 
 //신고 , 신고 취소//
 reportPostRoute.post(
-    "/reports/:postId",
+    "/:boardId",
     // authToken,
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
+        const { boardId } = req.params;
         const { nickname, description } = req.body;
-        const result = await reportPostService.report({ postId, nickname, description });
+        const result = await reportPostService.report({ boardId, nickname, description });
         res.status(200).send(result);
     })
 );
