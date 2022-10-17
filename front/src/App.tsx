@@ -28,7 +28,6 @@ const App = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
 
     const reload = useRefresh();
-
     useEffect(() => {
         reload();
     }, []);
@@ -51,15 +50,10 @@ const App = () => {
         // });
     }, [currentUrl]);
     function onClickLogout() {
-        console.log(444);
+        console.log("함수 실행 내용");
     }
     return (
         <Router>
-            {/* {themeMode == "Common" ? (
-                <GlobalStyle mode="Common" />
-            ) : (
-                <GlobalStyle mode={darkMode ?? "Light"} />
-            )} */}
             <GlobalStyle mode={darkMode ?? "Light"} />
             {error?.isError ? (
                 <ErrorModal setOnModal={setOnModal} logout={onClickLogout}>

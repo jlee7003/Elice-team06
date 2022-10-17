@@ -14,7 +14,7 @@ import {
     MenuLink,
 } from "@/styles/pages/login-style";
 import { Logo } from "@/styles/common";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import urlCheck from "@/recoil/urlCheck";
 import errorRecoil from "@/recoil/errorRecoil";
 
@@ -23,10 +23,10 @@ const Login = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
 
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
-
+    const setError = useSetRecoilState(errorRecoil);
     const navigate = useNavigate();
     const [isError, setIsError] = useState(false);
-    const setLogin = useLogin(setIsError, "/");
+    const setLogin = useLogin(setError, "/");
 
     useEffect(() => {
         setCurrentUrl(window.location.href);
@@ -45,6 +45,15 @@ const Login = () => {
         };
 
         setLogin(loginData);
+        // try {
+        //     console.log(1111);
+        // } catch (err: any) {
+        //     console.log(err);
+        //     setError({
+        //         isError: true,
+        //         message: err.response.data,
+        //     });
+        // }
     };
 
     return (

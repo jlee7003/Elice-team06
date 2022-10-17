@@ -21,13 +21,13 @@ const useRefresh = () => {
             return;
         }
 
-        const data = result.data;
+        const data = (result as any).data;
 
-        API.setAccessToken(data.accessToken);
-        console.log(data.nickname, data.Profile[0]);
+        API.setAccessToken(data?.accessToken);
+        console.log(data?.nickname, data?.Profile[0]);
         setUser({
-            nickname: data.nickname,
-            introduce: data.Profile[0].introduce,
+            nickname: data?.nickname,
+            introduce: data?.Profile[0].introduce,
         });
     };
 

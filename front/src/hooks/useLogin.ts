@@ -11,20 +11,23 @@ const useLogin = (errorFunction: any, redirectURL: string) => {
     const navigate = useNavigate();
 
     const setLogin = async (loginFormData: LoginData) => {
-        const result = await login(loginFormData);
-
-        if (result === null) {
-            errorFunction(true);
+        const result: any = await login(loginFormData);
+        if (result?.response?.status != undefined) {
+            // errorFunction(true);
+            errorFunction({
+                isError: true,
+                message: result?.response?.data,
+            });
             return;
         }
-        const data = result.data;
+        const data = (result as any).data;
 
-        sessionStorage.setItem("refresh", data.refreshToken);
-        API.setAccessToken(data.accessToken);
+        sessionStorage.setItem("refresh", data?.refreshToken);
+        API.setAccessToken(data?.accessToken);
 
         const user: User = {
-            nickname: data.nickname,
-            introduce: data.introduce,
+            nickname: data?.nickname,
+            introduce: data?.introduce,
         };
 
         setUser(user);

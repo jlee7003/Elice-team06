@@ -1,8 +1,12 @@
 import axios, { AxiosInstance } from "axios";
-
+import errorRecoil from "@/recoil/errorRecoil";
+import { useRecoilState } from "recoil";
 class API {
     private instance: AxiosInstance;
 
+    public errorset() {
+        const [error, setError] = useRecoilState(errorRecoil);
+    }
     public constructor() {
         this.instance = axios.create({
             baseURL: "http://" + window.location.hostname + ":" + "3001" + "/",
@@ -38,10 +42,9 @@ class API {
 
         try {
             const response = await this.instance.post<T>(url, data);
-
             return response;
         } catch (err) {
-            return null;
+            return err;
         }
     }
 
