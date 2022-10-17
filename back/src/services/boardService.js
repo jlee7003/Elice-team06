@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class boardService {
-    static async addPost({ postData }) {
-        const { nickname, title, description } = postData;
+    static async addPost({ nickname, postData }) {
+        const { title, description } = postData;
 
         const result = await prisma.Board.create({
             data: {
@@ -16,7 +16,7 @@ class boardService {
                 },
             },
         });
-
+        await prisma.$disconnect();
         return result;
     }
     static async viewCount({ postId }) {
@@ -28,6 +28,7 @@ class boardService {
                 },
             },
         });
+        await prisma.$disconnect();
         return addView;
     }
     static async getPosts({ start, end, post }) {
@@ -43,18 +44,21 @@ class boardService {
                 break;
             }
         }
+        await prisma.$disconnect();
         return result;
     }
     static async getPost({ postId }) {
         const postData = await prisma.Board.findUnique({
-            where: { id: postId },
+            where: { id: Number(postId) },
         });
+        await prisma.$disconnect();
         return postData;
     }
     static async getMyPost({ nickname }) {
         const postData = await prisma.Board.findMany({
             where: { author: nickname },
         });
+        await prisma.$disconnect();
         return postData;
     }
     static async getLikePost({ nickname }) {
@@ -64,6 +68,7 @@ class boardService {
                 VotePost: true,
             },
         });
+        await prisma.$disconnect();
         return postData;
     }
     static async updatePost({ postId, title, description }) {
@@ -71,11 +76,24 @@ class boardService {
             where: { id: Number(postId) },
             data: { title, description },
         });
+        await prisma.$disconnect();
         return postUpdate;
     }
     static async deletePost({ postId }) {
-        const postDelete = await prisma.Board.delete({ where: { id: Number(postId) } });
-        return postDelete;
+        await prisma.VotePost.deleteMany({
+            where: { post_id: Number(postId) },
+        });
+        await prisma.ReportPost.deleteMany({
+            where: { post_id: Number(postId) },
+        });
+        await prisma.commentPost.deleteMany({
+            where: { post_id: Number(postId) },
+        });
+        await prisma.Board.delete({
+            where: { id: Number(postId) },
+        });
+        await prisma.$disconnect();
+        return "삭제되었습니다.";
     }
 }
 
