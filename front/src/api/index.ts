@@ -42,6 +42,7 @@ class API {
 
         try {
             const response = await this.instance.post<T>(url, data);
+
             return response;
         } catch (err) {
             return err;

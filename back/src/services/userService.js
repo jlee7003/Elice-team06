@@ -65,6 +65,7 @@ class userService {
         //이메일 형식이 맞는지 검사
         if (isInvalidEmail(email)) {
             const message = "이메일 형식이 올바르지 않습니다.";
+
             return { result: false, message };
         }
         //유저 존재 확인
