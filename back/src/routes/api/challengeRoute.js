@@ -7,7 +7,7 @@ const challengeRoute = Router();
 
 // Challenge API
 challengeRoute.get(
-    "/challenges",
+    "/all",
     asyncHandler(async (req, res) => {
         try {
             const pagination = req.query;
@@ -20,7 +20,7 @@ challengeRoute.get(
 );
 
 challengeRoute.get(
-    "/mychallenges",
+    "/my",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -34,7 +34,7 @@ challengeRoute.get(
 );
 
 challengeRoute.get(
-    "/challenge/:id",
+    "/:id",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -47,7 +47,7 @@ challengeRoute.get(
 );
 
 challengeRoute.post(
-    "/challenge",
+    "/",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -64,7 +64,7 @@ challengeRoute.post(
 );
 
 challengeRoute.put(
-    "/challenge/:id",
+    "/:id",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -78,7 +78,7 @@ challengeRoute.put(
 );
 
 challengeRoute.delete(
-    "/challenge/:id",
+    "/:id",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -92,7 +92,7 @@ challengeRoute.delete(
 
 // Challenge Join API
 challengeRoute.post(
-    "/challenge/:id/join",
+    "/:id/join",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -110,10 +110,11 @@ challengeRoute.post(
 
 // Challenge Comment API
 challengeRoute.get(
-    "/mycomments",
+    "/my/comments",
     authToken,
     asyncHandler(async (req, res) => {
         try {
+            req.nickname = { nickname: "test" };
             const { nickname } = req.nickname;
             const mycomments = await challengeService.findComments({ nickname });
             res.status(200).send(mycomments);
@@ -124,7 +125,7 @@ challengeRoute.get(
 );
 
 challengeRoute.get(
-    "/challenge/:id/comment",
+    "/:id/comment",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -141,7 +142,7 @@ challengeRoute.get(
 );
 
 challengeRoute.post(
-    "/challenge/:id/comment",
+    "/:id/comment",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -159,7 +160,7 @@ challengeRoute.post(
 );
 
 challengeRoute.put(
-    "/challenge/:id/comment",
+    "/:id/comment",
     authToken,
     asyncHandler(async (req, res) => {
         try {
@@ -173,7 +174,7 @@ challengeRoute.put(
 );
 
 challengeRoute.delete(
-    "/challenge/:id/comment",
+    "/:id/comment",
     authToken,
     asyncHandler(async (req, res) => {
         try {
