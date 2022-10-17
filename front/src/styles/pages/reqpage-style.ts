@@ -37,7 +37,8 @@ export const Section = styled.section`
     flex-direction: column;
     justify-content: center;
     width: ${cssUnit.unit.width};
-    height: 90%;
+    height: 500px;
+    /* height: 90%; */
     margin: auto;
     padding: 5px;
 `;
