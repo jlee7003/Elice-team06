@@ -40,7 +40,6 @@ userRoute.put(
     "/logout",
     asyncHandler(async (req, res) => {
         const { refreshtoken } = req.headers;
-        console.log(332);
         const result = await userService.logoutUser(refreshtoken);
         if (result.message) {
             res.status(401).send(result);
