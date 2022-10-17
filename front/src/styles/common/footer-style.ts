@@ -33,7 +33,7 @@ export const FooterBackground = styled.footer`
     z-index: 1;
     background-color: #343434;
 
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
 `;
 

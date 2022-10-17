@@ -51,7 +51,7 @@ function Header() {
                             </span>{" "}
                             님 환영합니다!
                         </div>
-                        <div>{user?.introduce}</div>
+                        {/* <div>{user?.introduce}</div> */}
                     </>
                 ) : (
                     <></>
