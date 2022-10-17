@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class commentPostService {
-    static async addComment({ postId, nickname, description }) {
+    static async addComment({ boardId, nickname, description }) {
         const result = await prisma.CommentPost.create({
             data: {
                 description,
@@ -10,15 +10,15 @@ class commentPostService {
                     connect: { nickname },
                 },
                 post: {
-                    connect: { id: Number(postId) },
+                    connect: { id: Number(boardId) },
                 },
             },
         });
         return result;
     }
-    static async getComments({ postId }) {
+    static async getComments({ boardId }) {
         const result = await prisma.CommentPost.findMany({
-            where: { post_id: Number(postId) },
+            where: { post_id: Number(boardId) },
             select: { author: true, description: true },
         });
         return result;

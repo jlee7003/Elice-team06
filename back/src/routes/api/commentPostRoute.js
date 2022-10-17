@@ -7,17 +7,17 @@ const commentPostRoute = Router();
 
 //특정 게시글 댓글 목록//
 commentPostRoute.get(
-    "/comments/:postId",
+    "/board/:boardId",
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
-        const result = await commentPostService.getComments({ postId });
+        const { boardId } = req.params;
+        const result = await commentPostService.getComments({ boardId });
         res.status(200).send(result);
     })
 );
 
 //유저가 쓴 댓글 목록//
 commentPostRoute.get(
-    "/comments",
+    "/my",
     // authToken,
     asyncHandler(async (req, res) => {
         const { nickname } = req.body;
@@ -28,18 +28,18 @@ commentPostRoute.get(
 
 //댓글 등록//
 commentPostRoute.post(
-    "/comments/:postId",
+    "/board/:boardId",
     // authToken,
     asyncHandler(async (req, res) => {
-        const { postId } = req.params;
+        const { boardId } = req.params;
         const { nickname, description } = req.body;
-        const result = await commentPostService.addComment({ postId, nickname, description });
+        const result = await commentPostService.addComment({ boardId, nickname, description });
         res.status(200).send(result);
     })
 );
 //댓글 수정//
 commentPostRoute.put(
-    "/comments/:commentId",
+    "/:commentId",
     // authToken,
     asyncHandler(async (req, res) => {
         const { commentId } = req.params;
@@ -51,7 +51,7 @@ commentPostRoute.put(
 );
 //댓글 삭제//
 commentPostRoute.delete(
-    "/comments/:commentId",
+    "/:commentId",
     //authToken,
     asyncHandler(async (req, res) => {
         const { commentId } = req.params;
