@@ -71,10 +71,14 @@ class challengeService {
     static async addchl(input) {
         input.start_date = new Date(input.start_date);
         input.due_date = new Date(input.due_date);
-
-        const newChallenge = await prisma.Challenge.create({ data: { ...input } });
-        await prisma.$disconnect();
-        return newChallenge;
+        try {
+            const newChallenge = await prisma.Challenge.create({ data: { ...input } });
+            console.log("=======", newChallenge);
+            await prisma.$disconnect();
+            return newChallenge;
+        } catch (err) {
+            console.log("err ", err);
+        }
     }
 
     static async updatechl(challengeId = null, input) {

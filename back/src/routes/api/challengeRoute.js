@@ -27,6 +27,8 @@ challengeRoute.get(
             //const { nickname } = req.userId;
             const nickname = "test";
             const myChallenges = await challengeService.findchl({ nickname });
+
+            console.log(myChallenges);
             res.status(200).send(myChallenges);
         } catch (error) {
             res.status(504).send(error);
@@ -56,7 +58,7 @@ challengeRoute.post(
             const nickname = "test";
             const input = req.body;
             input.proposer = nickname;
-
+            console.log("input: ", input);
             const newChallenge = await challengeService.addchl(input);
             res.status(201).send(newChallenge);
         } catch (error) {

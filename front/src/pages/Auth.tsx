@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
 import { Logo } from "@/styles/common";
@@ -36,19 +36,20 @@ const Auth = () => {
 
     const params = useParams().target;
     const navigate = useNavigate();
-
-    switch (params) {
-        case "email":
-            data.current = target[params];
-            console.log(data.current);
-            break;
-        case "password":
-            data.current = target[params];
-            break;
-        default:
-            navigate(ROUTES.ErrorPage.path);
-            return null;
-    }
+    useEffect(() => {
+        switch (params) {
+            case "email":
+                data.current = target[params];
+                console.log(data.current);
+                return;
+            case "password":
+                data.current = target[params];
+                return;
+            default:
+                navigate(ROUTES.ErrorPage.path);
+                return;
+        }
+    }, []);
 
     return (
         <Main>
