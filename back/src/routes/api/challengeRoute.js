@@ -114,7 +114,6 @@ challengeRoute.get(
     authToken,
     asyncHandler(async (req, res) => {
         try {
-            req.nickname = { nickname: "test" };
             const { nickname } = req.nickname;
             const mycomments = await challengeService.findComments({ nickname });
             res.status(200).send(mycomments);
