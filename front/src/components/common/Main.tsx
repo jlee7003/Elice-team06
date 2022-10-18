@@ -6,3 +6,10 @@ export const Main = styled.main`
     height: 100vh;
     margin: 0 auto;
 `;
+
+// export const MainContainer = styled.body`
+//     width: ${cssUnit.unit.width};
+//     height: 1600px;
+//     margin: 0 auto;
+//     padding-top: 300px;
+// `;

@@ -14,12 +14,17 @@ import {
     CommentContainer,
 } from "@/styles/pages/challengedetail-style";
 import challengeBoardWriterData from "@/recoil/challengeBoardWriter";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Pagination from "./pagination";
-import commentState from "@/recoil/commentState";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { addComment } from "@/api/challenge";
+import { getComment } from "@/api/challenge";
+import { useNavigate } from "react-router-dom";
+import { commentState } from "@/recoil/commentState";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import userState from "@/recoil/user";
-
+import errorRecoil from "@/recoil/errorRecoil";
+import { ROUTES } from "@/routes";
+import { isArray } from "lodash";
 const ChallengeDetailMainCard = () => {
     // const [lists, setLists] = useState([] as any | undefined); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
     const [limit, setLimit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
@@ -28,16 +33,38 @@ const ChallengeDetailMainCard = () => {
     const offset = (page - 1) * limit;
     const [comments, setComments] = useRecoilState(commentState);
     const [counts, setCounts] = useState(0); // 데이터의 총 개수를 setCounts 에 저장해서 사용
-
+    const setError = useSetRecoilState(errorRecoil);
     const user = useRecoilValue(userState);
-
+    const navigate = useNavigate();
     const [userData, setUserData] = useRecoilState(challengeBoardWriterData);
     const commentsRef = useRef<HTMLInputElement>(null);
+    let challengeId = 1;
+    let start = 1;
+    let end = 100000;
+    let count = 1;
     const [joiner, setJoiner] = useState([
         {
             writer: "테스트",
         },
     ]);
+    const getComments = () => {
+        if (!sessionStorage.getItem("refresh")) {
+            navigate(ROUTES.Home.path);
+            return;
+        }
+        getComment(challengeId, start, end, count).then((res) => {
+            if (res === null) {
+                return;
+            }
+            setComments(res.data);
+            const count = Object.keys(res.data).length;
+            setCounts(count);
+        });
+    };
+
+    let addCommentData = {
+        description: "",
+    };
     function addjoiner() {
         setJoiner((prev: { writer: any }[]) => {
             let joiners = [];
@@ -54,24 +81,38 @@ const ChallengeDetailMainCard = () => {
             return joiners;
         });
     }
-    const addComments = () => {
+
+    const addComments = async () => {
         if (commentsRef.current == null) {
             return;
         }
         console.log(commentsRef.current.value);
-        setComments([
-            {
-                writer: "작성자",
-                comment: commentsRef.current.value,
-            },
-            ...comments,
-        ]);
+        addCommentData = {
+            description: commentsRef.current?.value,
+        };
+        const result: any = await addComment(addCommentData, challengeId);
+        if (result?.response?.status != undefined) {
+            console.log(result?.response?.data);
+            setError({
+                isError: true,
+                message: result?.response?.data?.message,
+            });
+            return;
+        }
+
         setCounts((prev: number) => {
-            return (prev = comments.length);
+            console.log("count", Object.keys(comments).length, count);
+            return (prev = Object.keys(comments).length);
         });
         commentsRef.current.value = "";
+        getComments();
         setPage(1);
     };
+
+    useEffect(() => {
+        getComments();
+    }, []);
+
     return (
         <>
             <Main>
@@ -89,13 +130,35 @@ const ChallengeDetailMainCard = () => {
                 </div>
                 <CommentContainer>
                     <SubTitle>챌린저스의 한마디</SubTitle>
-                    {comments.slice(offset, offset + limit).map((comment) => (
-                        <CommentBox key={comment.comment}>
-                            <div>작성자</div>
-                            <div>{user?.nickname}</div>
-                            <div>{comment.comment}</div>
-                        </CommentBox>
-                    ))}
+                    {Object.values(comments)
+                        .reverse()
+                        .slice(offset, offset + limit)
+                        .map((comment) => (
+                            // {comments.slice(offset, offset + limit).map((comment) => (
+
+                            // <CommentBox key={comment.data.id}>
+                            //     <div>작성자</div>
+                            //     <div>{comment.data.author}</div>
+                            //     <div>{comment.data.description}</div>
+                            // </CommentBox>
+                            <CommentBox key={comment[0].id}>
+                                <div>작성자</div>
+                                <div>{comment[0].author}</div>
+                                <div>{comment[0].description}</div>
+                            </CommentBox>
+                        ))}
+                    {/* {Object.values(comments).map((comment) =>
+                        comment.map((commen: any) => (
+                            <CommentBox key={comment[0].id}>
+                                <div>작성자</div>
+                                <div>
+                                    {comment[0].author}
+                                    {comment[0].id}
+                                </div>
+                                <div>{comment[0].description}</div>
+                            </CommentBox>
+                        ))
+                    )} */}
                     <Pagination
                         limit={limit}
                         page={page}

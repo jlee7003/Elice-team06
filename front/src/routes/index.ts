@@ -75,18 +75,3 @@ export const ROUTES: routeWrap = {
 };
 
 export const ROUTES_LIST: route[] = Object.values(ROUTES);
-
-//test
-
-// import TestPageReq from "@/pages/testPageReq";
-// import TestPageReal from "@/pages/TestPageReal";
-// import TestPage from "@/pages/testPageReq";
-
-// RqeTestPage: {
-//     path: "/reqpage/start=1&end=5&page=2",
-//     Component: Signup,
-// },
-// TestPage: {
-//     path: "/testpage",
-//     Component: TestPage,
-// },

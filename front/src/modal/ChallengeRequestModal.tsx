@@ -21,7 +21,7 @@ import { useState } from "react";
 import ReactDatePicker from "@/components/ReactDatePicker";
 import * as _ from "lodash";
 import { getMonth, getYear } from "date-fns";
-import { challenge } from "@/api/chalenge";
+import { challenge } from "@/api/challenge";
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;

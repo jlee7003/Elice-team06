@@ -10,6 +10,7 @@ import {
 } from "@/types/auth";
 
 export const login = async (loginData: LoginData) => {
+    console.log("login");
     const result = await API.post<LoginResult>(["user", "login"], loginData);
     return result;
 };

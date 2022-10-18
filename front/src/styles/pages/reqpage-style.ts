@@ -6,13 +6,24 @@ import cssUnit from "@/lib/cssUnit";
 lv 0 (div, for background container)->main
 */
 export const Container = styled.div`
+    height: 1600px;
+    margin: 0;
+    padding: 0;
+
+    z-index: 7;
+`;
+
+export const GridContainer = styled.div`
     display: grid;
-    place-items: center;
-    /* display: flex;
-    flex-direction: row; */
-    width: ${cssUnit.unit.width};
-    height: 900px;
-    padding-top: 70px;
+    //align-items: center;
+    justify-content: center;
+    justify-items: start;
+
+    height: 1600px;
+    margin: 0;
+    padding: 0;
+
+    z-index: 6;
 `;
 
 /*
@@ -22,9 +33,10 @@ lv 1(main)->section,nav
 export const Main = styled.main`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: ${cssUnit.unit.width};
-    height: 720px;
+    height: 1200px;
+    padding-bottom: 200px;
+    z-index: 5;
 `;
 
 /*
@@ -36,11 +48,13 @@ export const Section = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     width: ${cssUnit.unit.width};
-    height: 500px;
-    /* height: 90%; */
-    margin: auto;
+    height: 1100px;
+    margin: 10px;
     padding: 5px;
+
+    z-index: 4;
 `;
 
 //nav
@@ -48,10 +62,13 @@ export const Nav = styled.nav`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     width: 99%;
-    height: 10%;
-    margin: auto;
-    padding: 5px;
+    height: 100px;
+
+    margin: 2px;
+
+    z-index: 4;
 
     & > ul {
         color: #979797;
@@ -67,9 +84,14 @@ lv 3 (articles, containter for bottom button, Links)
 export const ButtonContianer = styled.div`
     display: flex;
     flex-direction: row-reverse;
+
     width: 1200px;
-    height: 250px;
+    height: 30px;
+
+    margin-top: 10px;
     margin-left: 30px;
+
+    z-index: 3;
 
     & > button {
         display: flex;
@@ -77,19 +99,28 @@ export const ButtonContianer = styled.div`
         vertical-align: middle;
         justify-content: center;
         align-items: center;
+
         width: 100px;
         height: 100%;
         margin: 5px;
+
         background-color: #61be92;
         color: white;
+
         font-size: 14px;
         text-align: center;
+
+        &:hover {
+            box-shadow: 3px 3px 2px 2px ${cssUnit.color.darkergray};
+        }
     }
 `;
 //nav's Links
 export const NavLink = styled(Link)`
     display: inline;
+
     margin: 15px;
+
     font-size: 16px;
     text-decoration: none;
     & > span {
@@ -100,10 +131,12 @@ export const NavLink = styled(Link)`
 `;
 export const NaviLink = styled.button`
     display: inline;
-    margin: 15px;
+    margin: 10px;
+
     font-size: 16px;
     text-decoration: none;
     cursor: pointer;
+
     & > span {
         display: inline;
         margin: 10px;
