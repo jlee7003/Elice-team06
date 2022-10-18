@@ -1,6 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+function pagination(data = [], start, end, count) {
+    const item = [...data];
+    const result = {};
+    for (var i = start; i < end - start + 2; i++) {
+        result[`${i}`] = item.slice(0, count);
+        item.splice(0, count);
+        if (item.length === 0) {
+            break;
+        }
+    }
+    return result;
+}
+
 class boardService {
     static async addPost({ nickname, postData }) {
         const { title, description } = postData;
@@ -31,19 +44,12 @@ class boardService {
         await prisma.$disconnect();
         return addView;
     }
-    static async getPosts({ start, end, post }) {
+    static async getPosts({ start, end, count }) {
         const allPosts = await prisma.Board.findMany({
-            take: post * (end - start + 1),
-            skip: (start - 1) * post,
+            take: count * (end - start + 1),
+            skip: (start - 1) * count,
         });
-        const result = {};
-        for (var i = start; i < end - start + 2; i++) {
-            result[`${i}`] = allPosts.slice(0, post);
-            allPosts.splice(0, post);
-            if (allPosts.length === 0) {
-                break;
-            }
-        }
+        const result = pagination(allPosts, start, end, count);
         await prisma.$disconnect();
         return result;
     }
@@ -61,15 +67,17 @@ class boardService {
         await prisma.$disconnect();
         return postData;
     }
-    static async getLikePost({ nickname }) {
+    static async getLikePost({ nickname, start, end, count }) {
         const postData = await prisma.User.findUnique({
             where: { nickname },
             select: {
                 VotePost: true,
             },
         });
+        const result = pagination(postData.VotePost, start, end, count);
+
         await prisma.$disconnect();
-        return postData;
+        return result;
     }
     static async updatePost({ postId, title, description }) {
         const postUpdate = await prisma.Board.update({
