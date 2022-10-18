@@ -18,6 +18,7 @@ import { PostLists } from "@/types/post";
 import { Post } from "@/types/post";
 
 //API import
+import API from "@/api/.";
 import { AllPostList } from "@/api/postList";
 
 //더미에서 Posts라는 전체 리스트의 정보 인터페이스를 가져오고.... 그 내용물?을 post로 썼다면, 나는 이제 여기서? API로 정보를 받아와서 post라고 해줘야 겠는데..
@@ -38,45 +39,67 @@ export const PaginationReal = (prop: { value: Posts }) => {
     const postList = useRef<PostLists | []>([]);
 
     const { id } = useParams();
+    const pageData = {
+        start: currentPage.current, //1
+        range: 5,
+        count: 5, //한 페이지에 5개의 포스트를 보여줄 것
+        end: currentPage.current + 5,
+    };
+    const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
+
     useEffect(() => {
         if (id === undefined) {
             navigate(ROUTES.ErrorPage.path);
             return; //to alret
         }
         currentPage.current = parseInt(id);
+
+        const getAllPosts = async (param: string) => {
+            const result = await API.get<PostLists>(["board", param]);
+            if (result === null) {
+                navigate(ROUTES.ErrorPage.path);
+                //console.log(result);
+                return; //to alret
+            }
+            return result.data;
+        };
+        getAllPosts(query).then((res) => {
+            if (res === undefined) {
+                navigate(ROUTES.ErrorPage.path);
+                return; //to alret
+            }
+            postList.current = res;
+            console.log("postList.current: ", postList.current);
+            console.log("postList.current의 타입: ", typeof postList.current);
+        });
     });
-
-    const range = 5;
-    const count = 5; //한 페이지에 5개의 포스트를 보여줄 것
-    const start = currentPage.current; //1
-    const end = start + range;
-
-    //start=1&end=3&count=2
-    //['start=1', 'end=3','count=2'] 와 같이 넣어주면 AllPostList에서 &으로 엮어주고, API에서 getQuery가 엮어줄 것...임.
-
-    const getAllPosts = async (start: number, end: number, count: number) => {
-        const result = await AllPostList([`start=${start}`, `end=${end}`, `count=${count}`]);
-        if (result === null) {
-            //navigate(ROUTES.ErrorPage.path);
-            console.log(result);
-            return; //to alret
-        }
-        postList.current = result.data;
-    };
-
-    const test = getAllPosts(start, end, count).then;
-
-    console.log(test);
-
-    //const post=useRecoilValue(postState);
-    // -----reqpage/page=1
-
-    //"/reqpage/pages/:id",
-    //현재 페이지 쿼리 받아오기
+    if (Object.keys(postList.current).length > 0) {
+        const limit = Object.keys(postList.current).length - 1;
+        console.log("limit", limit);
+    }
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         const { name } = e.target as HTMLButtonElement;
-        navigate(`/reqpage/pages/${name}`);
+        if (name === "prev") {
+            if (pageData.start - pageData.range < 0) {
+                pageData.start = 1;
+            }
+            pageData.start = pageData.start - pageData.range; //start
+            return navigate(`/reqpage/pages/1`);
+        }
+        if (name === "next") {
+            const limit = Object.keys(postList.current).length - 1;
+            if (pageData.end + pageData.range > limit) {
+                pageData.start = limit - pageData.range;
+            }
+            pageData.start = pageData.start + pageData.range; //start
+            console.log("pageData.end", pageData.end);
+            return navigate(`/reqpage/pages/${limit}`);
+
+            //return navigate(`/reqpage/pages/${pageData.end}`);
+        }
+        currentPage.current = parseInt(name);
+        return navigate(`/reqpage/pages/${name}`);
     };
 
     return (
@@ -85,10 +108,10 @@ export const PaginationReal = (prop: { value: Posts }) => {
                 <NaviLink name="prev" onClick={onClick}>
                     <span>&lt;</span>
                 </NaviLink>
-                {Object.keys(post).map((page, idx) => {
+                {Object.keys(postList.current).map((post, idx) => {
                     return (
-                        <NaviLink key={idx} name={page} onClick={onClick}>
-                            {page}
+                        <NaviLink key={idx} name={post} onClick={onClick}>
+                            {post}
                         </NaviLink>
                     );
                 })}
