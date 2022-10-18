@@ -41,7 +41,19 @@ const ReqPage = () => {
                 <Section>
                     <ReqeustCards value={post} />
                     <ButtonContianer>
-                        <button onClick={() => setOnModal("challenge")}>글쓰기</button>
+                        {/* //첼린지 저장 */}
+                        {/* <button onClick={() => setOnModal("challenge")}>글쓰기</button>
+                        {onModal == "challenge" && (
+                            // <ModalFrame
+                            //     setOnModal={(bool) => setOnModal(bool)}
+                            //     logout={() => onClickLogout()}
+                            // />
+                            <ChallengeRequestModal
+                                setOnModal={setOnModal}
+                                addfunction={alert}
+                            ></ChallengeRequestModal>
+                        )} */}
+                        <button onClick={() => setOnModal("board")}>글쓰기</button>
                         {onModal == "challenge" && (
                             // <ModalFrame
                             //     setOnModal={(bool) => setOnModal(bool)}
