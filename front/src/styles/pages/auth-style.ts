@@ -49,13 +49,23 @@ export const Input = styled.input<Props>`
     margin-bottom: 30px;
     padding: 10px;
 
-    /* border: 1px solid #d9d9d9; */
-
     border: ${(props) => {
         if (props.invalid === true) {
             return "1px solid red;";
         }
     }};
+
+    outline: none;
+`;
+
+export const Result = styled.div`
+    width: 100%;
+    height: 62px;
+
+    margin-bottom: 30px;
+    padding: 10px;
+
+    font-size: ${cssUnit.fontSize.medium};
 
     outline: none;
 `;

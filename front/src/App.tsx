@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import { ToastContainer } from "react-toastify";
 
 import { ROUTES_LIST } from "@/routes";
 import visibleCommonComponent from "./recoil/visibleCommonComponent";
@@ -53,24 +54,38 @@ const App = () => {
         console.log("함수 실행 내용");
     }
     return (
-        <Router>
+        <>
             <GlobalStyle mode={darkMode ?? "Light"} />
-            {error?.isError ? (
-                <ErrorModal setOnModal={setOnModal} logout={onClickLogout}>
-                    {error?.message as string}
-                </ErrorModal>
-            ) : (
-                ""
-            )}
-            {visible && <Header />}
-            <Routes>
-                {ROUTES_LIST.map(({ path, Component }, idx) => (
-                    <Route key={idx} path={path} element={<Component />} />
-                ))}
-            </Routes>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover
+                theme="light"
+            />
+            <Router>
+                {error?.isError ? (
+                    <ErrorModal setOnModal={setOnModal} logout={onClickLogout}>
+                        {error?.message as string}
+                    </ErrorModal>
+                ) : (
+                    ""
+                )}
+                {visible && <Header />}
+                <Routes>
+                    {ROUTES_LIST.map(({ path, Component }, idx) => (
+                        <Route key={idx} path={path} element={<Component />} />
+                    ))}
+                </Routes>
 
-            {visible && <Footer />}
-        </Router>
+                {visible && <Footer />}
+            </Router>
+        </>
     );
 };
 

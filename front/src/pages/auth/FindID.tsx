@@ -1,13 +1,17 @@
 import { useRef, useState, ChangeEvent, MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "@/api/.";
 import { Logo } from "@/styles/common";
 import { Main, Form, Label, Input, SubmitButton } from "@/styles/pages/auth-style";
+import { ROUTES } from "@/routes";
 
 const EMAIL_REG = /^[\w-\.]+@([\w-]+\.)+com$/;
 
 const FindID = () => {
     const emailRef = useRef<HTMLInputElement>(null);
     const [validation, setValidation] = useState(false);
+
+    const navigate = useNavigate();
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (emailRef.current === null) {
@@ -28,9 +32,16 @@ const FindID = () => {
             return;
         }
 
-        API.post(["user", "find", "id"], emailRef.current.value).then((res) => {
-            console.log(res);
-        });
+        API.post<{ id: string }>(["user", "find", "id"], { email: emailRef.current.value }).then(
+            (res) => {
+                if (res.status !== 200) {
+                    console.log("hihihi");
+                    return;
+                }
+
+                navigate(ROUTES.FindResult.path, { state: { result: res.data.id } });
+            }
+        );
     };
 
     return (
