@@ -17,7 +17,7 @@ const useLogin = (errorFunction: any, redirectURL: string) => {
             // errorFunction(true);
             errorFunction({
                 isError: true,
-                message: result?.response?.data,
+                message: result?.response?.data?.message,
             });
             return;
         }
