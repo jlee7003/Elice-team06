@@ -10,6 +10,7 @@ import Mypage from "@/pages/Mypage";
 import Landing from "@/pages/Landing";
 import Auth from "@/pages/Auth";
 import Challenges from "@/pages/Challenges";
+import FindID from "@/pages/FindID";
 
 interface route {
     path: string;
@@ -56,6 +57,10 @@ export const ROUTES: routeWrap = {
     Auth: {
         path: "/auth/:target",
         Component: Auth,
+    },
+    FindID: {
+        path: "/findid",
+        Component: FindID,
     },
     Challenges: {
         path: "/challenges/:target",
