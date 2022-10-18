@@ -10,20 +10,32 @@ export const ModalContainer = styled.div`
     height: 115%;
 
     background-color: rgba(0, 0, 0, 0.4);
-    z-index: 2;
+    z-index: 11;
 `;
 
 export const FlexBox = styled.div`
-    /* justify-content: center; */
-    /* align-items: center; */
-    height: 10%;
-    text-align: center;
-    /* button {
-        width: 100px;
-    } */
+    display: flex;
+`;
+export const AllCenterBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
 `;
 export const NonFlexBox = styled.div`
     height: 120%;
+`;
+export const TitleBOx = styled.div`
+    display: flex;
+    justify-content: space-between;
+    & > div {
+        font-weight: bold;
+        font-size: 24px;
+        color: black;
+    }
+    & > button {
+        font-size: 28px;
+    }
 `;
 
 export const ModalBody = styled.div`
@@ -42,6 +54,11 @@ export const ModalBody = styled.div`
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
     transform: translateX(-50%) translateY(-50%);
+
+    & > div {
+        height: 70%;
+        display: block;
+    }
 `;
 
 export const GrayButton = styled.button`

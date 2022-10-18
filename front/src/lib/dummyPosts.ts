@@ -17,8 +17,9 @@ export interface Posts {
 const post: Posts = {
     1: [
         {
-            title: "test1",
-            summary: "내용",
+            title: "안녕하세요",
+            summary:
+                "내용입니다 내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다 ",
             writer: "tester1",
             like: 10,
             vote: 10,
@@ -27,7 +28,9 @@ const post: Posts = {
             timestamp: "2022-10-01",
         },
         {
-            title: "test2",
+            title: "테스트 내용 입니다",
+            summary:
+                "내용입니다 내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다 채우면 이렇게 됩니다",
             writer: "tester2",
             like: 20,
             vote: 20,

@@ -39,7 +39,7 @@ export const ROUTES: routeWrap = {
         Component: Post,
     },
     ReqPage: {
-        path: "/reqpage",
+        path: "/reqpage/pages/:id",
         Component: ReqPage,
     },
     Landing: {

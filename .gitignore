@@ -12,3 +12,4 @@ back2
 .sudo_as_admin_successful
 .viminfo
 .yarnrc
+front/src/modal/ErrorModal.tsx

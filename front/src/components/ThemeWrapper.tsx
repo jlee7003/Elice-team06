@@ -4,15 +4,12 @@ import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
 import { CheckBox, Label, Sun, Moon } from "@/styles/pages/toggleButton-style";
 const ThemeWrapper: React.FC = ({ children }: any) => {
-    // const { theme, changeTheme } = React.useContext(ThemeContext) as ThemeContextType;
     const chk = document.getElementById("chk");
     const [darkMode, setDarkMode] = useRecoilState(DarkMode);
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (darkMode == "Light") {
-            // sessionStorage.setItem("mode", "Dark");
             setDarkMode("Dark");
         } else {
-            // sessionStorage.setItem("mode", "Light");
             setDarkMode("Light");
         }
     }
@@ -21,8 +18,7 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
             <div style={{ display: "flex" }}>
                 <CheckBox type="checkbox" id="chk" onChange={handleChange} />
                 <Label>
-                    <Sun>☀️</Sun>
-                    <Moon>🌙</Moon>
+                    {/* ball */}
                     <div></div>
                 </Label>
             </div>

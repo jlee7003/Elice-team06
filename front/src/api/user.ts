@@ -21,7 +21,7 @@ export const signup = async (formData: SignupData) => {
 };
 
 export const logout = async () => {
-    const result = await API.post<any>(["user", "logout"], "");
+    const result = await API.put<any>(["user", "logout"], "");
 
     return result;
 };

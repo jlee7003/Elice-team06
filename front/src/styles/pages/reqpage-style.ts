@@ -12,7 +12,7 @@ export const Container = styled.div`
     flex-direction: row; */
     width: ${cssUnit.unit.width};
     height: 900px;
-    //padding-top: 70px;
+    padding-top: 70px;
 `;
 
 /*
@@ -37,7 +37,8 @@ export const Section = styled.section`
     flex-direction: column;
     justify-content: center;
     width: ${cssUnit.unit.width};
-    height: 90%;
+    height: 500px;
+    /* height: 90%; */
     margin: auto;
     padding: 5px;
 `;
@@ -97,7 +98,7 @@ export const NavLink = styled(Link)`
         font-weight: bolder;
     }
 `;
-export const NaviLink = styled.a`
+export const NaviLink = styled.button`
     display: inline;
     margin: 15px;
     font-size: 16px;

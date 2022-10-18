@@ -21,7 +21,7 @@ class boardService {
     }
     static async viewCount({ postId }) {
         const addView = await prisma.Board.update({
-            where: { id: postId },
+            where: { id: Number(postId) },
             data: {
                 view: {
                     increment: 1,

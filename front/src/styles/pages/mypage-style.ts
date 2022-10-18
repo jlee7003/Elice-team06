@@ -190,7 +190,12 @@ export const MyChallenges = styled.section`
 export const LikeChallenges = styled.section`
     display: flex;
     flex-direction: column;
-
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &:-webkit-scrollbar {
+        display: none;
+    }
     & > p {
         margin-bottom: 15px;
     }
