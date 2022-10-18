@@ -24,9 +24,7 @@ import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import userState from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
 import { ROUTES } from "@/routes";
-import { isArray } from "lodash";
 const ChallengeDetailMainCard = () => {
-    // const [lists, setLists] = useState([] as any | undefined); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
     const [limit, setLimit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
     const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
     const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
@@ -47,12 +45,12 @@ const ChallengeDetailMainCard = () => {
             writer: "테스트",
         },
     ]);
-    const getComments = () => {
+    const getComments = async () => {
         if (!sessionStorage.getItem("refresh")) {
             navigate(ROUTES.Home.path);
             return;
         }
-        getComment(challengeId, start, end, count).then((res) => {
+        await getComment(challengeId, start, end, count).then((res) => {
             if (res === null) {
                 return;
             }
@@ -110,7 +108,11 @@ const ChallengeDetailMainCard = () => {
     };
 
     useEffect(() => {
-        getComments();
+        const timer = setTimeout(() => {
+            getComments();
+        }, 0);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
@@ -134,31 +136,12 @@ const ChallengeDetailMainCard = () => {
                         .reverse()
                         .slice(offset, offset + limit)
                         .map((comment) => (
-                            // {comments.slice(offset, offset + limit).map((comment) => (
-
-                            // <CommentBox key={comment.data.id}>
-                            //     <div>작성자</div>
-                            //     <div>{comment.data.author}</div>
-                            //     <div>{comment.data.description}</div>
-                            // </CommentBox>
                             <CommentBox key={comment[0].id}>
                                 <div>작성자</div>
                                 <div>{comment[0].author}</div>
                                 <div>{comment[0].description}</div>
                             </CommentBox>
                         ))}
-                    {/* {Object.values(comments).map((comment) =>
-                        comment.map((commen: any) => (
-                            <CommentBox key={comment[0].id}>
-                                <div>작성자</div>
-                                <div>
-                                    {comment[0].author}
-                                    {comment[0].id}
-                                </div>
-                                <div>{comment[0].description}</div>
-                            </CommentBox>
-                        ))
-                    )} */}
                     <Pagination
                         limit={limit}
                         page={page}

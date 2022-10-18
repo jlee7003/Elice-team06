@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import errorRecoil from "@/recoil/errorRecoil";
-import { useRecoilState } from "recoil";
+import { constSelector, useRecoilState } from "recoil";
 class API {
     private instance: AxiosInstance;
 
@@ -23,7 +23,7 @@ class API {
 
     public async get<T>(params: string[]) {
         this.setRefreshToken();
-
+        console.log(3535353);
         const url = params.join("/");
 
         try {
