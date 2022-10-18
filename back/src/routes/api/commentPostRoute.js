@@ -9,8 +9,9 @@ const commentPostRoute = Router();
 commentPostRoute.get(
     "/board/:boardId",
     asyncHandler(async (req, res) => {
+        const { start, end, count } = req.query;
         const { boardId } = req.params;
-        const result = await commentPostService.getComments({ boardId });
+        const result = await commentPostService.getComments({ boardId, start, end, count });
         res.status(200).send(result);
     })
 );
