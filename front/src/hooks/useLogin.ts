@@ -14,7 +14,6 @@ const useLogin = (errorFunction: any, redirectURL: string) => {
         const result: any = await login(loginFormData);
 
         if (result?.response?.status != undefined) {
-            // errorFunction(true);
             console.log(result?.response?.data);
             errorFunction({
                 isError: true,

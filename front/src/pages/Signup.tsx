@@ -16,19 +16,21 @@ import {
 } from "../styles/pages/signup-style";
 import { signup } from "@/api/user";
 import { Logo } from "@/styles/common";
-
+import errorRecoil from "@/recoil/errorRecoil";
+import { useSetRecoilState } from "recoil";
 const Signup = () => {
     const nickname = useRef<HTMLInputElement>(null);
     const introduce = useRef<HTMLInputElement>(null);
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
     const passwordok = useRef<HTMLInputElement>(null);
-    const password_hint = useRef<HTMLInputElement>(null);
+    const id = useRef<HTMLInputElement>(null);
     const region = useRef<HTMLSelectElement>(null);
     const age = useRef<HTMLSelectElement>(null);
     const gender = useRef<HTMLInputElement>(null);
     const [ValidationCheck, setValidationCheck] = useState(false);
     const [inputStatus, setInputStatus] = useState("");
+    const setError = useSetRecoilState(errorRecoil);
 
     const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ const Signup = () => {
             introduce.current == null ||
             password.current == null ||
             passwordok.current == null ||
-            password_hint.current == null ||
+            id.current == null ||
             nickname.current == null ||
             gender.current == null ||
             age.current == null ||
@@ -59,7 +61,7 @@ const Signup = () => {
             introduce.current?.value == "" ||
             password.current?.value == "" ||
             passwordok.current?.value == "" ||
-            password_hint.current?.value == "" ||
+            id.current?.value == "" ||
             nickname.current?.value == "" ||
             gender.current?.value == "" ||
             age.current?.value == "" ||
@@ -76,7 +78,7 @@ const Signup = () => {
         introduce: "",
         nickname: "",
         password: "",
-        password_hint: "",
+        id: "",
         age: "",
         region: "",
         gender: "",
@@ -96,7 +98,7 @@ const Signup = () => {
             introduce.current == null ||
             password.current == null ||
             passwordok.current == null ||
-            password_hint.current == null ||
+            id.current == null ||
             nickname.current == null ||
             gender.current == null ||
             age.current == null ||
@@ -109,19 +111,23 @@ const Signup = () => {
             email: email.current?.value,
             introduce: introduce.current?.value,
             password: password.current?.value,
-            password_hint: password_hint.current?.value,
+            id: id.current?.value,
             nickname: nickname.current?.value,
             gender: inputStatus,
             age: age.current?.value,
             region: region.current?.value,
         };
 
-        const result = await signup(formData);
+        const result: any = await signup(formData);
 
-        if (result === null) {
-            // todo: error indicate
+        if (result?.response?.status != undefined) {
+            console.log(result?.response?.data);
+            setError({
+                isError: true,
+                message: result?.response?.data?.message,
+            });
+            return;
         }
-
         navigate(ROUTES.Home.path);
     };
 
@@ -144,11 +150,7 @@ const Signup = () => {
                         <SecondContainer1>
                             <Form>
                                 <Label>아이디</Label>
-                                <Input
-                                    placeholder="아이디"
-                                    name="passwordhint"
-                                    ref={password_hint}
-                                />
+                                <Input placeholder="아이디" name="passwordhint" ref={id} />
 
                                 <Label>이메일</Label>
                                 <Input
@@ -236,7 +238,7 @@ const Signup = () => {
                                 <Input
                                     placeholder="아이디"
                                     name="passwordhint"
-                                    ref={password_hint}
+                                    ref={id}
                                 /> */}
                                 {ValidationCheck ? (
                                     <OKButton onClick={onClick} onMouseEnter={validationTrue}>
