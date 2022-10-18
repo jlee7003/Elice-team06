@@ -50,15 +50,17 @@ challengeRoute.post(
     "/",
     authToken,
     asyncHandler(async (req, res) => {
+        console.log(3333);
         try {
             const { nickname } = req.nickname;
             const input = req.body;
             input.proposer = nickname;
-
+            console.log(input);
             const newChallenge = await challengeService.addChallenge(input);
             res.status(201).send(newChallenge);
         } catch (error) {
             res.status(504).send(error);
+            console.log(error);
         }
     })
 );

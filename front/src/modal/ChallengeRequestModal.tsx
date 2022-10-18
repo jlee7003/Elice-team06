@@ -11,6 +11,8 @@ import {
     Label,
     Input,
     NonFlexBox,
+    AllCenterBox,
+    TitleBOx,
 } from "@/styles/challengeRequestModal-style";
 import "react-datepicker/dist/react-datepicker.css";
 import "@/styles/react-datepicker.css";
@@ -19,7 +21,7 @@ import { useState } from "react";
 import ReactDatePicker from "@/components/ReactDatePicker";
 import * as _ from "lodash";
 import { getMonth, getYear } from "date-fns";
-
+import { challenge } from "@/api/chalenge";
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
@@ -28,79 +30,80 @@ type Props = {
 const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const tittle = useRef<HTMLInputElement>(null);
-    const contents = useRef<HTMLInputElement>(null);
+    const title = useRef<HTMLInputElement>(null);
+    const description = useRef<HTMLInputElement>(null);
+    const goal = useRef<HTMLInputElement>(null);
+    const level = useRef<HTMLInputElement>(null);
+    // const proposer = useRef<HTMLInputElement>(null);
+
     console.log("startDate:", startDate);
     console.log("endDate:", endDate);
+    let formData = {
+        title: "",
+        description: "",
+        goal: "",
+        // level: "",
+        start_date: "",
+        due_date: "",
+        // proposer: "",
+        // createdAt: "",
+        // updatedAt: "",
+    };
+    const buttonClick = async () => {
+        if (
+            title.current == null ||
+            description.current == null ||
+            goal.current == null
+            // start_date.current == null ||
+            // due_date.current == null ||
+        ) {
+            return;
+        }
+        formData = {
+            title: title.current?.value,
+            description: description.current?.value,
+            goal: goal.current?.value,
+            start_date: startDate.toDateString(),
+            due_date: endDate.toDateString(),
+        };
+        const result = await challenge(formData);
+        console.log("요청완료");
+    };
+
     return (
         <ModalPortal>
             <ModalContainer>
                 <Draggable>
                     <ModalBody>
-                        <div
-                            style={{
-                                height: "70%",
-                                display: "block",
-                            }}
-                        >
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                <div
-                                    style={{
-                                        fontWeight: "bold",
-                                        fontSize: "24px",
-                                        color: "black",
-                                    }}
-                                >
-                                    나만의 챌린지 요청하기
-                                </div>
-                                <button
-                                    style={{
-                                        fontSize: "28px",
-                                    }}
-                                    className="close"
-                                    onClick={() => setOnModal("false")}
-                                >
+                        <div>
+                            <TitleBOx>
+                                <div>나만의 챌린지 요청하기</div>
+                                <button className="close" onClick={() => setOnModal("false")}>
                                     ❌
                                 </button>
-                            </div>
+                            </TitleBOx>
                             <NonFlexBox style={{ marginTop: "60px" }}>
                                 <Label>챌린지 제목</Label>
-                                <Input
-                                    ref={tittle}
-                                    // type="email"
-                                    placeholder="챌린지 제목을 입력하세요."
-                                />
+                                <Input ref={title} placeholder="챌린지 제목을 입력하세요." />
                                 <div style={{ display: "flex", width: "100%" }}>
                                     <Label>기간</Label>
                                     <Label>목표량</Label>
                                 </div>
-                                <div style={{ display: "flex" }}>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            width: "50%",
-                                        }}
-                                    >
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                            }}
-                                        >
+                                <FlexBox>
+                                    <AllCenterBox>
+                                        <FlexBox>
                                             <ReactDatePicker />
-                                        </div>
-                                    </div>
+                                        </FlexBox>
+                                    </AllCenterBox>
                                     <Input
-                                        ref={contents}
+                                        ref={goal}
                                         style={{ width: "50%" }}
                                         placeholder="목표량을 입력하세요."
                                     />
-                                </div>
+                                </FlexBox>
                                 <Label>내용</Label>
                                 <LongInput
-                                    ref={contents}
-                                    // type="password"
+                                    ref={description}
                                     placeholder="챌린지 내용을 입력하세요."
                                 />
                                 <div style={{ marginBottom: "30px" }}>
@@ -122,8 +125,8 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                                 <GreenButton
                                     className="close"
                                     onClick={() => {
+                                        buttonClick();
                                         setOnModal("false");
-                                        addfunction();
                                     }}
                                 >
                                     챌린지 요청하기

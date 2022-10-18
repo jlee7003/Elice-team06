@@ -15,7 +15,7 @@ import {
 } from "@/styles/pages/reqpage-style";
 /*boards*/
 import ReqeustCards from "@/components/RequestCards";
-import NavPagination from "./NavPagination";
+// import NavPagination from "./NavPagination";
 import { postsSelector } from "@/recoil/requestPosts";
 import { useEffect } from "react";
 //pagination

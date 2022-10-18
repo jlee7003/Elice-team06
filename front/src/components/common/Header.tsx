@@ -47,17 +47,14 @@ function Header() {
                                 style={{ fontSize: "20px", color: "#61be92", fontWeight: "bold" }}
                             >
                                 {user?.nickname}
-                            </span>{" "}
+                            </span>
                             님 환영합니다!
                         </div>
-                        {/* <div>{user?.introduce}</div> */}
                     </>
                 ) : (
                     <></>
                 )}
                 <HeaderMenuContainer>
-                    {/* 로그인 안했을 경우 */}
-
                     <HeaderMenuItem to={"/reqpage/pages/1"}>요청 게시판</HeaderMenuItem>
                     {user === null ? (
                         <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
@@ -67,10 +64,6 @@ function Header() {
                             <HeaderMenuItem as="div">
                                 <button onClick={() => setOnModal("login")}>로그아웃</button>
                                 {onModal == "login" && (
-                                    // <ModalFrame
-                                    //     setOnModal={(bool) => setOnModal(bool)}
-                                    //     logout={() => onClickLogout()}
-                                    // />
                                     <LoginModal
                                         setOnModal={setOnModal}
                                         logout={onClickLogout}
@@ -79,10 +72,6 @@ function Header() {
                             </HeaderMenuItem>
                         </>
                     )}
-                    {/* <HeaderMenuItem to={ROUTES.Login.path}>요청 게시판</HeaderMenuItem> */}
-                    {/* <ThemeToggle toggle={toggleTheme} mode={ThemeMode}>
-                            DarkMode
-                        </ThemeToggle> */}
                     <FlexBox>
                         <ThemeWrapper />
                     </FlexBox>

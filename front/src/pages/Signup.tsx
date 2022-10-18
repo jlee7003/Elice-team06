@@ -143,13 +143,13 @@ const Signup = () => {
                     <SecondContainer>
                         <SecondContainer1>
                             <Form>
-                                <Label>닉네임</Label>
+                                <Label>아이디</Label>
                                 <Input
-                                    type="id"
-                                    placeholder="닉네임을 입력하세요."
-                                    name="nickname"
-                                    ref={nickname}
+                                    placeholder="아이디"
+                                    name="passwordhint"
+                                    ref={password_hint}
                                 />
+
                                 <Label>이메일</Label>
                                 <Input
                                     type="email"
@@ -157,6 +157,13 @@ const Signup = () => {
                                     name="email"
                                     ref={email}
                                     // ref={user_email}
+                                />
+                                <Label>닉네임</Label>
+                                <Input
+                                    type="id"
+                                    placeholder="닉네임을 입력하세요."
+                                    name="nickname"
+                                    ref={nickname}
                                 />
                                 <Label>인사말</Label>
                                 <Input
@@ -189,22 +196,6 @@ const Signup = () => {
                                         여
                                     </span>
                                 </div>
-                                <Label>나이</Label>
-                                {/* <Select defaultValue="1" name="age"> */}
-                                <Select defaultValue="1" ref={age} name="age">
-                                    {selectnum()}
-                                </Select>
-                                <Label>지역</Label>
-                                <Select defaultValue="해당없음" name="local" ref={region}>
-                                    {/* <Select defaultValue="해당없음" name="local"> */}
-                                    <option value="해당없음">해당없음</option>
-                                    <option value="서울">서울</option>
-                                    <option value="경기도">경기도</option>
-                                    <option value="강원도">강원도</option>
-                                    <option value="충청도">충청도</option>
-                                    <option value="경상도">경상도</option>
-                                    <option value="전라도">전라도</option>
-                                </Select>
                             </Form>
                         </SecondContainer1>
                         <SecondContainer1>
@@ -225,12 +216,28 @@ const Signup = () => {
                                     ref={passwordok}
                                     maxLength={8}
                                 />
-                                <Label>비밀번호 힌트</Label>
+                                <Label>나이</Label>
+                                {/* <Select defaultValue="1" name="age"> */}
+                                <Select defaultValue="1" ref={age} name="age">
+                                    {selectnum()}
+                                </Select>
+                                <Label>지역</Label>
+                                <Select defaultValue="해당없음" name="local" ref={region}>
+                                    {/* <Select defaultValue="해당없음" name="local"> */}
+                                    <option value="해당없음">해당없음</option>
+                                    <option value="서울">서울</option>
+                                    <option value="경기도">경기도</option>
+                                    <option value="강원도">강원도</option>
+                                    <option value="충청도">충청도</option>
+                                    <option value="경상도">경상도</option>
+                                    <option value="전라도">전라도</option>
+                                </Select>
+                                {/* <Label>아이디</Label>
                                 <Input
-                                    placeholder="힌트를 입력하세요."
+                                    placeholder="아이디"
                                     name="passwordhint"
                                     ref={password_hint}
-                                />
+                                /> */}
                                 {ValidationCheck ? (
                                     <OKButton onClick={onClick} onMouseEnter={validationTrue}>
                                         회원 가입하기
