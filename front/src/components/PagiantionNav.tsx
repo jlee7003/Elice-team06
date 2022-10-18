@@ -1,4 +1,4 @@
-//lib: recoil
+//lib
 import { useRef, useEffect, MouseEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 //import { RecoilState, useRecoilState, useRecoilValue } from "recoil";
@@ -13,6 +13,8 @@ import { ROUTES } from "@/routes/.";
 import { Posts } from "@/lib/dummyPosts";
 import post from "@/lib/dummyPosts";
 
+//prop으로 받아와야 하는 것!
+//어떤 페이지인지 라우터로 연결시켜주어야 하는것과 보스트
 export const Pagination = (prop: { value: Posts }) => {
     const postList = useRef<object[] | []>([]);
     //Usenavigate
@@ -26,7 +28,7 @@ export const Pagination = (prop: { value: Posts }) => {
     useEffect(() => {
         if (id === undefined) {
             navigate(ROUTES.ErrorPage.path);
-            return; //끝났다 알려야 함
+            return; //to alret
         }
         const currentPageNumber = parseInt(id);
         postList.current = post[currentPageNumber];
@@ -34,7 +36,7 @@ export const Pagination = (prop: { value: Posts }) => {
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         const { name } = e.target as HTMLButtonElement;
-        navigate(`/pages/${name}`);
+        navigate(`/reqpage/pages/${name}`);
     };
 
     return (

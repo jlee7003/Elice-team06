@@ -7,6 +7,7 @@ lv 3 (articles, containter for bottom button, Links)
 export const Article = styled.article`
     display: absolute;
     flex-direction: column;
+
     height: 120px;
 
     margin: 5px auto;

@@ -12,7 +12,7 @@ export const Container = styled.div`
     flex-direction: row; */
     width: ${cssUnit.unit.width};
     height: 900px;
-    //padding-top: 70px;
+    padding-top: 70px;
 `;
 
 /*
