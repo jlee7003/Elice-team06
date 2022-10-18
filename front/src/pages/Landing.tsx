@@ -27,6 +27,7 @@ import {
     SlideList,
     Tooltips,
     ButtonLink,
+    Name,
 } from "@/styles/pages/landing-style";
 import assets from "@/lib/assets";
 import urlCheck from "@/recoil/urlCheck";
@@ -39,6 +40,7 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
+import API from "@/api/.";
 
 const Landing = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
@@ -52,26 +54,45 @@ const Landing = () => {
     const carbonListRefs = useRef<HTMLLIElement[]>([]);
     const challengersRefs = useRef<HTMLSpanElement>(null);
     const challengerJoinRefs = useRef<HTMLSpanElement>(null);
+    const graphs01Ref = useRef<HTMLDivElement>(null);
+    const graphs02Ref = useRef<HTMLDivElement>(null);
+    const graphs03Ref = useRef<HTMLDivElement>(null);
 
     //section nav list
     const nav = ["탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개"];
-    const carbonArray = ["위험성", "해수면", "온도"];
+
+    const skull = assets("skull.png");
+    const temperature = assets("temperature.png");
+    const water = assets("water.png");
+    const carbonArray = [
+        { icon: skull, text: "위험성" },
+        { icon: temperature, text: "해수면" },
+        { icon: water, text: "온도" },
+    ];
+
+    console.log(carbonArray[0].icon);
+    // console.log(assets("skull.png"));
 
     useEffect(() => {
-        const getData: any = async () => {
-            const url = fetch(
-                "http://" + window.location.hostname + ":" + "3001" + "/data/sealevel"
-            );
+        // const getData: any = async () => {
+        //     const url = fetch(
+        //         "http://" + window.location.hostname + ":" + "3001" + "/data/sealevel"
+        //     );
 
-            const result = await url.then((res) => res.json());
+        //     const result = await url.then((res) => res.json());
 
-            setData01(result);
-            console.log(result);
+        //     setData01(result);
+        //     console.log(result);
 
-            return result;
-        };
-
-        getData();
+        //     return result;
+        // };
+        // getData();
+        API.get<{ data: number; sealevel: number }>(["data", "sealevel"]).then((res) => {
+            if (res === null) {
+                return;
+            }
+            setData01(res.data);
+        });
     }, []);
 
     useEffect(() => {
@@ -81,7 +102,8 @@ const Landing = () => {
     useEffect(() => {
         //Section 03 - tab default
         if (carbonListRefs.current) {
-            carbonListRefs.current[0].style.backgroundColor = "teal";
+            carbonListRefs.current[0].style.backgroundColor = "#fff";
+            carbonListRefs.current[0].style.color = "#000";
         }
 
         //-----👉디자인 수정용 잠시 설정해 놓은 것🐱‍🐉-----
@@ -321,15 +343,45 @@ const Landing = () => {
      * 각 List 클릭 시, 각 List CSS 적용
      * @param e list index 값
      */
+    if (graphs01Ref.current != null) {
+        graphs01Ref.current.classList.add("show");
+    }
+
     const onTabClick = (e: number) => {
         for (let i = 0; i < 3; i++) {
             if (carbonListRefs.current != null) {
-                carbonListRefs.current[i].style.backgroundColor = "#cbcbcb";
+                carbonListRefs.current[i].style.backgroundColor = " rgb(255 255 255 / 24%)";
+                carbonListRefs.current[i].style.color = " rgb(0,0,0,0.6)";
             }
-            if (e == i) {
+            if (e === i) {
                 if (carbonListRefs.current != null) {
-                    carbonListRefs.current[i].style.backgroundColor = "teal";
+                    carbonListRefs.current[i].style.backgroundColor = "#fff";
+                    carbonListRefs.current[i].style.color = " #000";
                 }
+            }
+
+            if (
+                graphs01Ref.current === null ||
+                graphs02Ref.current === null ||
+                graphs03Ref.current === null
+            ) {
+                return;
+            }
+
+            if (e === 0) {
+                graphs01Ref.current.classList.add("show");
+                graphs02Ref.current.classList.remove("show");
+                graphs03Ref.current.classList.remove("show");
+            }
+            if (e === 1) {
+                graphs01Ref.current.classList.remove("show");
+                graphs02Ref.current.classList.add("show");
+                graphs03Ref.current.classList.remove("show");
+            }
+            if (e === 2) {
+                graphs01Ref.current.classList.remove("show");
+                graphs02Ref.current.classList.remove("show");
+                graphs03Ref.current.classList.add("show");
             }
         }
     };
@@ -433,12 +485,12 @@ const Landing = () => {
                                 }}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
+                                <XAxis dataKey="year" />
                                 <YAxis />
-                                <Tooltip content={<Tooltips />} />
+                                <Tooltip />
                                 <Area
                                     type="monotone"
-                                    dataKey="uv"
+                                    dataKey="sea_level"
                                     stroke="#34c759"
                                     fill="#34c759"
                                 />
@@ -463,13 +515,22 @@ const Landing = () => {
                                             }}
                                             onClick={() => onTabClick(index)}
                                         >
-                                            {item}
+                                            <span>
+                                                <img src={item.icon} alt={item.text} />
+                                            </span>
+                                            <span>{item.text}</span>
                                         </li>
                                     );
                                 })}
                             </ul>
                             <div className="graphWrap">
-                                <CarbonGraph width="90%" height="90%" margin="20px auto">
+                                <CarbonGraph
+                                    className="graphs"
+                                    ref={graphs01Ref}
+                                    width="90%"
+                                    height="90%"
+                                    margin="20px auto"
+                                >
                                     <ResponsiveContainer width="100%" height="100%">
                                         <AreaChart
                                             width={500}
@@ -485,7 +546,71 @@ const Landing = () => {
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="name" />
                                             <YAxis />
-                                            <Tooltip content={<Tooltips />} />
+                                            <Tooltip />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="uv"
+                                                stroke="#34c759"
+                                                fill="#34c759"
+                                            />
+                                        </AreaChart>
+                                    </ResponsiveContainer>
+                                </CarbonGraph>
+                                <CarbonGraph
+                                    className="graphs"
+                                    ref={graphs02Ref}
+                                    width="90%"
+                                    height="90%"
+                                    margin="20px auto"
+                                >
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <AreaChart
+                                            width={500}
+                                            height={400}
+                                            data={dangerData}
+                                            margin={{
+                                                top: 10,
+                                                right: 30,
+                                                left: 0,
+                                                bottom: 0,
+                                            }}
+                                        >
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="name" />
+                                            <YAxis />
+                                            <Tooltip />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="uv"
+                                                stroke="#34c759"
+                                                fill="#34c759"
+                                            />
+                                        </AreaChart>
+                                    </ResponsiveContainer>
+                                </CarbonGraph>
+                                <CarbonGraph
+                                    className="graphs"
+                                    ref={graphs03Ref}
+                                    width="90%"
+                                    height="90%"
+                                    margin="20px auto"
+                                >
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <AreaChart
+                                            width={500}
+                                            height={400}
+                                            data={dangerData}
+                                            margin={{
+                                                top: 10,
+                                                right: 30,
+                                                left: 0,
+                                                bottom: 0,
+                                            }}
+                                        >
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="name" />
+                                            <YAxis />
+                                            <Tooltip />
                                             <Area
                                                 type="monotone"
                                                 dataKey="uv"
@@ -502,7 +627,7 @@ const Landing = () => {
                 <Section bgColor="#fff">
                     <Section4Box>
                         <h2>
-                            <span style={{ color: "#34c759" }}>탄小</span> 의 챌린지들
+                            <span style={{ color: "#61be92" }}>탄小</span> 의 챌린지들
                         </h2>
                         <div>
                             <ChallengeSlide>
@@ -572,22 +697,28 @@ const Landing = () => {
                     <SectionTitle>함께한 팀원들</SectionTitle>
                     <Section5Box>
                         <li>
-                            <p>김영준</p>
+                            <p></p>
+                            <Name>김영준</Name>
                         </li>
                         <li>
-                            <p>이지원</p>
+                            <p></p>
+                            <Name>이지원</Name>
                         </li>
                         <li>
-                            <p>이안토니의호</p>
+                            <p></p>
+                            <Name>이안토니의호</Name>
                         </li>
                         <li>
-                            <p>류지윤</p>
+                            <p></p>
+                            <Name>류지윤</Name>
                         </li>
                         <li>
-                            <p>임지원</p>
+                            <p></p>
+                            <Name>임지원</Name>
                         </li>
                         <li>
-                            <p>홍지민</p>
+                            <p></p>
+                            <Name>홍지민</Name>
                         </li>
                     </Section5Box>
                 </Section>
