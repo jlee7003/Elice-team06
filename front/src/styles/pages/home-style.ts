@@ -3,7 +3,7 @@ import cssUnit from "@/lib/cssUnit";
 
 export const HomeContainer = styled.div`
     width: auto !important;
-    /* height: auto !important; */
+    height: auto !important;
 `;
 
 export const Main = styled.main`

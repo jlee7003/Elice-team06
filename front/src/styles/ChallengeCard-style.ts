@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Props } from "@/components/ChallengeCard";
 import cssUnit from "@/lib/cssUnit";
 import assets from "@/lib/assets";
@@ -50,11 +50,19 @@ export const CardLower = styled.div`
     padding: 0 20px 20px;
 `;
 
-export const CardTitle = styled.h3`
+export const CardTitle = styled.h3<Props>`
     font-size: 16px;
     font-weight: bold;
     border-bottom: 1px solid #e9e9e9;
     padding: 10px 0;
+    ${(props) =>
+        props.mode == "Light"
+            ? css`
+                  color: black;
+              `
+            : css`
+                  color: black;
+              `};
 `;
 
 export const CardInfo = styled.div`

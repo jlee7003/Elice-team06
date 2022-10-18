@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import errorRecoil from "@/recoil/errorRecoil";
-import { useRecoilState } from "recoil";
+import { constSelector, useRecoilState } from "recoil";
 class API {
     private instance: AxiosInstance;
 
@@ -23,11 +23,28 @@ class API {
 
     public async get<T>(params: string[]) {
         this.setRefreshToken();
-        console.log("params", params);
+
         const url = params.join("/");
 
         try {
             const response = await this.instance.get<T>(url);
+
+            return response;
+        } catch (err) {
+            return null;
+        }
+    }
+
+    //쿼리가 필요한 get
+    public async getQuery<T>(params: string[]) {
+        this.setRefreshToken();
+
+        const url = params.join("?");
+        console.log(url);
+
+        try {
+            const response = await this.instance.get<T>(url);
+            console.log(response);
 
             return response;
         } catch (err) {
