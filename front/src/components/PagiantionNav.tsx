@@ -6,12 +6,19 @@ import { useNavigate, useParams } from "react-router-dom";
 
 /*styles*/
 
-import { Nav, NaviLink, Main } from "@/styles/pages/reqpage-style";
+import { Nav, NaviLink } from "@/styles/pages/reqpage-style";
 import { ROUTES } from "@/routes/.";
 
 //dummies
 import { Posts } from "@/lib/dummyPosts";
 import post from "@/lib/dummyPosts";
+
+//real data
+import { PostLists } from "@/types/post";
+import { Post } from "@/types/post";
+
+//더미에서 Posts라는 전체 리스트의 정보 인터페이스를 가져오고.... 그 내용물?을 post로 썼다면, 나는 이제 여기서? API로 정보를 받아와서 post라고 해줘야 겠는데..
+//이걸 여기서 해도 되는가? reqpage를 보고 생각해보자....
 
 //prop으로 받아와야 하는 것!
 //어떤 페이지인지 라우터로 연결시켜주어야 하는것과 보스트

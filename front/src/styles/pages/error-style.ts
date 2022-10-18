@@ -6,7 +6,7 @@ const errorImg = assets("error_image.png");
 export const Container = styled.div`
     width: ${cssUnit.unit.width};
     height: calc(100vh - 180px) !important;
-    background: url(${errorImg}) no-repeat left bottom -45px / 1300px;
+    background: url(${errorImg}) no-repeat center bottom -45px / 1300px;
 `;
 
 export const LoadingBox = styled.div`

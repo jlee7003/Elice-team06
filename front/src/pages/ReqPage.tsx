@@ -28,6 +28,10 @@ import post from "@/lib/dummyPosts";
 import ModalState from "@/recoil/modalState";
 import ChallengeRequestModal from "@/modal/ChallengeRequestModal";
 import { Pagination } from "@/components/PagiantionNav";
+//get data by API
+import { AllPostList } from "@/api/postList";
+
+import { PaginationReal } from "@/components/PaginationReal";
 
 const ReqPage = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
@@ -35,6 +39,13 @@ const ReqPage = () => {
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
+
+    // const getPosts = async () => {
+    //     const result = await AllPostList();
+    //     console.log("result는?", result);
+    // };
+
+    // getPosts();
 
     return (
         <Container>
@@ -53,7 +64,7 @@ const ReqPage = () => {
                             )}
                         </ButtonContianer>
                     </Section>
-                    <Pagination value={post} />
+                    <PaginationReal value={post} />
                 </Main>
             </GridContainer>
         </Container>

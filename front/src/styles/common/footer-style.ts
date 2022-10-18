@@ -6,8 +6,8 @@ export const TeamName = styled.span`
 
     font-weight: light;
     font-style: italic;
-    color: gray;
-    background-color: #343434;
+    color: #fff;
+    background-color: #61be92;
     font-size: ${cssUnit.fontSize.small};
 `;
 
@@ -24,14 +24,14 @@ export const Gitlab = styled.a.attrs({
 export const LogoContainer = styled.div`
     display: flex;
     align-items: center;
-    background-color: #343434;
+    background-color: #61be92;
 `;
 
 export const FooterBackground = styled.footer`
     width: 100%;
     height: 100px;
     z-index: 1;
-    background-color: #343434;
+    background-color: #61be92;
 
     /* position: absolute; */
     bottom: 0;
@@ -42,9 +42,10 @@ export const FooterContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    width: ${cssUnit.unit.width};
+    max-width: ${cssUnit.unit.width};
+    min-width: 560px;
     height: 100%;
-    background-color: #343434;
+    background-color: #61be92;
     margin: auto;
 
     color: white;
