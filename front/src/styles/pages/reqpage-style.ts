@@ -15,6 +15,7 @@ export const Container = styled.div`
 
 export const GridContainer = styled.div`
     display: grid;
+
     //align-items: center;
     justify-content: center;
     justify-items: start;
@@ -24,6 +25,15 @@ export const GridContainer = styled.div`
     padding: 0;
 
     z-index: 6;
+
+    place-items: center;
+    /* display: flex;
+    flex-direction: row; */
+    /* width: ${cssUnit.unit.width};
+    height: 900px; */
+    /* width: auto !important;
+    height: auto !important;
+    padding-top: 70px; */
 `;
 
 /*

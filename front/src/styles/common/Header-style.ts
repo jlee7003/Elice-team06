@@ -7,7 +7,8 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: ${cssUnit.unit.width};
+    max-width: ${cssUnit.unit.width};
+    min-width: 560px;
     height: 80px;
     margin: auto;
 `;
@@ -19,7 +20,8 @@ export const HeaderSticky = styled.header<Props>`
     height: 80px;
     margin: auto;
     background-color: #fff;
-    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+    /* box-shadow: 0 5px 10px rgb(0 0 0 / 20%); */
+
     z-index: 10;
 
     ${(props) =>
@@ -27,6 +29,7 @@ export const HeaderSticky = styled.header<Props>`
             ? css`
                   background-color: white;
                   color: black;
+                  border-bottom: 1px solid #eee;
                   label {
                       background-color: #282828;
                   }
@@ -37,6 +40,7 @@ export const HeaderSticky = styled.header<Props>`
             : css`
                   background-color: #282828;
                   color: white;
+                  border-bottom: 1px solid #3a3a3a;
                   label {
                       background-color: white;
                   }

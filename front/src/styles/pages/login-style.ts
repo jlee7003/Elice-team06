@@ -67,6 +67,8 @@ export const SubmitButton = styled.button`
     background-color: ${cssUnit.color.green};
     color: white;
     text-align: center;
+    font-size: 20px;
+    font-weight: 600;
 `;
 
 export const Menu = styled.div`
