@@ -54,8 +54,13 @@ userRoute.put(
     authToken,
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
-        const { password, password_hint } = req.body;
-        const result = await userService.changePassword({ nickname, password, password_hint });
+        const { password, new_password, password_hint } = req.body;
+        const result = await userService.changePassword({
+            nickname,
+            password,
+            new_password,
+            password_hint,
+        });
         if (result.message) {
             res.status(409).send(result);
         }

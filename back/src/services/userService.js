@@ -109,7 +109,7 @@ class userService {
         return value;
     }
 
-    static async changePassword({ nickname, password, password_hint }) {
+    static async changePassword({ nickname, password, new_password, password_hint }) {
         const userData = await prisma.User.findUnique({
             where: {
                 nickname,
@@ -121,7 +121,7 @@ class userService {
             const message = "비밀번호가 틀렸습니다.";
             return { result: false, message };
         }
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(new_password, 10);
 
         await prisma.user.update({
             where: {
