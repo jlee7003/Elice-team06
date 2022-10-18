@@ -215,6 +215,7 @@ const Signup = () => {
                                     placeholder="비밀번호를 입력하세요."
                                     name="password"
                                     ref={password}
+                                    maxLength={8}
                                 />
                                 <Label>비밀번호 확인</Label>
                                 <Input
@@ -222,6 +223,7 @@ const Signup = () => {
                                     placeholder="비밀번호를 입력하세요."
                                     name="passwordok"
                                     ref={passwordok}
+                                    maxLength={8}
                                 />
                                 <Label>비밀번호 힌트</Label>
                                 <Input

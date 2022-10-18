@@ -19,13 +19,14 @@ import NavPagination from "./NavPagination";
 import { postsSelector } from "@/recoil/requestPosts";
 import { useEffect } from "react";
 //pagination
-import Pagination from "@/components/pagination";
+//import Pagination from "@/components/pagination";
 import urlCheck from "@/recoil/urlCheck";
 //dummies
 import post from "@/lib/dummyPosts";
 //Modal
 import ModalState from "@/recoil/modalState";
 import ChallengeRequestModal from "@/modal/ChallengeRequestModal";
+import { Pagination } from "@/components/PagiantionNav";
 
 const ReqPage = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
@@ -34,38 +35,6 @@ const ReqPage = () => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
 
-    const currentPage = useRef<number>(1); //default page : 1
-    const [page, setPage] = useState("");
-    //Setting Default
-    const totalPages = Object.keys(post).length;
-    const NavNum = parseInt(Object.values(post)[0].length); //페이지당 사이즈 넘버
-    //Changing values by users << 1 2 3 4 5 >>
-    const startNum = parseInt(Object.keys(post)[0]); //default first nav num: 1
-    //const endNum = Object.keys(post)[4]; //default end nav num: 5
-
-    //let linkString = `start=${startNum}&end=${startNum + NavNum - 1}&page=${currentPage.current}`;
-
-    const CheckingButtonClick = () => {
-        console.log("currentPage.current: ", currentPage.current);
-    };
-
-    const setPaging = () => {
-        setPage(`start=${startNum}&end=${startNum + NavNum - 1}&page=${currentPage.current}`);
-    };
-
-    const pageNumButton = () => {
-        currentPage.current = 2;
-    };
-
-    const navigate = useNavigate();
-    const navtesting = () => {
-        currentPage.current = 2;
-        navigate(`start=${startNum}&end=${startNum + NavNum - 1}&page=${currentPage.current}`);
-    };
-
-    function alert() {
-        console.log("챌린지를 요청합니다.");
-    }
     return (
         <Container>
             <Main>
@@ -83,11 +52,9 @@ const ReqPage = () => {
                                 addfunction={alert}
                             ></ChallengeRequestModal>
                         )}
-                        <button onClick={CheckingButtonClick}>console checking</button>
-                        <a onClick={navtesting}>TEST</a>
                     </ButtonContianer>
                 </Section>
-                <NavPagination value={post} />
+                <Pagination value={post} />
             </Main>
         </Container>
     );

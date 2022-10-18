@@ -15,7 +15,6 @@ import ThemeWrapper from "@/components/ThemeWrapper";
 import ModalState from "@/recoil/modalState";
 import DarkMode from "@/recoil/darkMode";
 import LoginModal from "@/modal/LoginModal";
-import HeaderStyle from "@/styles/global-style";
 
 export interface Props {
     mode?: string;
@@ -51,7 +50,7 @@ function Header() {
                             </span>{" "}
                             님 환영합니다!
                         </div>
-                        <div>{user?.introduce}</div>
+                        {/* <div>{user?.introduce}</div> */}
                     </>
                 ) : (
                     <></>
@@ -59,7 +58,7 @@ function Header() {
                 <HeaderMenuContainer>
                     {/* 로그인 안했을 경우 */}
 
-                    <HeaderMenuItem to={ROUTES.ReqPage.path}>요청 게시판</HeaderMenuItem>
+                    <HeaderMenuItem to={"/reqpage/pages/1"}>요청 게시판</HeaderMenuItem>
                     {user === null ? (
                         <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
                     ) : (

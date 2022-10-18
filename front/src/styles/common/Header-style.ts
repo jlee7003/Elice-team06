@@ -20,16 +20,29 @@ export const HeaderSticky = styled.header<Props>`
     margin: auto;
     background-color: #fff;
     box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+    z-index: 10;
 
     ${(props) =>
         props.mode == "Light"
             ? css`
                   background-color: white;
                   color: black;
+                  label {
+                      background-color: #282828;
+                  }
+                  label > div {
+                      background-color: #cccccc;
+                  }
               `
             : css`
                   background-color: #282828;
                   color: white;
+                  label {
+                      background-color: white;
+                  }
+                  label > div {
+                      background-color: #838383;
+                  }
               `}
 `;
 

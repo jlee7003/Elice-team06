@@ -46,7 +46,7 @@ const authToken = async (req, res, next) => {
         }
 
         if (accessPayload !== null) {
-            req.nickname = accessPayload.nickname;
+            req.nickname = accessPayload.decoded;
         }
         next();
     } catch (err) {

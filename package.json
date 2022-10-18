@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "@material-ui/styles": "^4.11.5"
+    "@material-ui/styles": "^4.11.5",
+    "react-datepicker": "^4.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-datepicker": "^4.4.2"
   }
 }

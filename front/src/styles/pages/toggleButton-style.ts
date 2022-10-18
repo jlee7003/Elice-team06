@@ -42,8 +42,8 @@ export const Label = styled.label`
     align-items: center;
     justify-content: space-between;
     position: relative;
-    height: 29px;
-    width: 50px;
+    height: 20px;
+    width: 40px;
     transform: scale(1.5);
 
     div {
@@ -52,8 +52,8 @@ export const Label = styled.label`
         position: absolute;
         top: 2px;
         left: 2px;
-        height: 25px;
-        width: 24px;
+        height: 16px;
+        width: 16px;
         transform: translateX(0px);
         transition: transform 0.2s linear;
     }
@@ -79,7 +79,7 @@ export const CheckBox = styled.input`
     z-index: 1;
     /* transform: translateX(24px); */
     &:checked + Label div {
-        transform: translateX(24px);
+        transform: translateX(20px);
     }
 `;
 

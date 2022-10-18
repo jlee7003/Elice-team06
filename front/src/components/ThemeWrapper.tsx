@@ -21,8 +21,8 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
             <div style={{ display: "flex" }}>
                 <CheckBox type="checkbox" id="chk" onChange={handleChange} />
                 <Label>
-                    <Sun>☀️</Sun>
-                    <Moon>🌙</Moon>
+                    {/* <Sun>☀️</Sun> */}
+                    {/* <Moon>🌙</Moon> */}
                     <div></div>
                 </Label>
             </div>

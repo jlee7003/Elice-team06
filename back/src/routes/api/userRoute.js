@@ -12,6 +12,8 @@ userRoute.post(
         const userData = req.body;
         const newUser = await userService.addUser({ userData });
         if (newUser.message) {
+            console.log(newUser.message);
+
             return res.status(409).send(newUser);
         }
 
@@ -38,7 +40,6 @@ userRoute.put(
     "/logout",
     asyncHandler(async (req, res) => {
         const { refreshtoken } = req.headers;
-
         const result = await userService.logoutUser(refreshtoken);
         if (result.message) {
             res.status(401).send(result);
@@ -75,6 +76,7 @@ userRoute.get(
     asyncHandler(async (req, res) => {
         const { refreshtoken } = req.headers;
         const userData = await userService.getUser({ refreshtoken });
+
         res.status(200).send({ accessToken: req.nickname, ...userData });
     })
 );

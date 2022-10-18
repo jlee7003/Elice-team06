@@ -32,6 +32,9 @@ export const FooterBackground = styled.footer`
     height: 100px;
     z-index: 1;
     background-color: #343434;
+
+    /* position: absolute; */
+    bottom: 0;
 `;
 
 export const FooterContainer = styled.div`
@@ -45,4 +48,6 @@ export const FooterContainer = styled.div`
     margin: auto;
 
     color: white;
+
+    //position: absolute;
 `;
