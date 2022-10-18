@@ -88,6 +88,17 @@ export const Logo = styled.img.attrs({
     /* background-color: white; */
 `;
 
+const logoWhite = assets("logo_white.png");
+export const LogoWhite = styled.img.attrs({
+    src: logoWhite,
+    alt: "logo_white",
+})`
+    /* width: 130px; */
+    cursor: pointer;
+    height: 60px;
+    /* background-color: white; */
+`;
+
 /**
  * Loading Icon
  */

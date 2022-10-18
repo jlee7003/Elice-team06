@@ -26,28 +26,23 @@ export type challengeResult = {
     updatedAt: string;
 };
 
-// export interface SignupData {
-//     email: string;
-//     nickname: string;
-//     introduce: string;
-//     password: string;
-//     id: string;
-//     age: string;
-//     region: string;
-//     gender: string;
-// }
+export interface addCommentData {
+    description: string;
+}
 
-// export type SignupResult = token & User;
-
-// export interface RefreshResult {
-//     accessToken: string;
-//     nickname: string;
-//     Profile: [
-//         {
-//             introduce: string;
-//         }
-//     ];
-// }
+export type addCommentResult = {
+    id: number;
+    challenge_id: string;
+    author: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+};
+export type getCommentResult = {
+    id: number;
+    author: string;
+    description: string;
+};
 
 // export interface ChangePasswordData {
 //     nickname: string;

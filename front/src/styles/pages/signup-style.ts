@@ -63,6 +63,8 @@ export const OKButton = styled.button`
     border: 0px solid #293e49;
     border-radius: 10px;
     color: white;
+    font-size: 20px;
+    font-weight: 600;
 `;
 export const XButton = styled.button`
     all: unset;
@@ -73,6 +75,8 @@ export const XButton = styled.button`
     border: 0px solid #293e49;
     border-radius: 10px;
     color: white;
+    font-size: 20px;
+    font-weight: 600;
 `;
 export const MenuItem = styled.div`
     display: flex;

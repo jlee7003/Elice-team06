@@ -6,14 +6,14 @@ import {
     TeamName,
     LogoContainer,
 } from "@/styles/common/footer-style";
-import { Logo } from "@/styles/common";
+import { LogoWhite } from "@/styles/common";
 import { GoMarkGithub } from "react-icons/go";
 const Footer = () => {
     return (
         <FooterBackground>
             <FooterContainer>
                 <LogoContainer>
-                    <Logo />
+                    <LogoWhite />
                     <TeamName>Team Hot6(2022)</TeamName>
                 </LogoContainer>
                 <Gitlab>
