@@ -92,7 +92,6 @@ class userService {
             const message = "비밀번호가 틀렸습니다.";
             return { result: false, message };
         }
-        // const { introduce, nickname } = userData.Profile[0];
         const introduce = userData.Profile.introduce;
         const nickname = userData.nickname;
 

@@ -21,7 +21,6 @@ const useRefresh = () => {
             return;
         }
         const data = (result as any).data;
-        console.log(data);
         API.setAccessToken(data?.accessToken);
         setUser({
             nickname: data?.nickname,

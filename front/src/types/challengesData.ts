@@ -31,7 +31,7 @@ export type challengeResult = {
 //     nickname: string;
 //     introduce: string;
 //     password: string;
-//     password_hint: string;
+//     id: string;
 //     age: string;
 //     region: string;
 //     gender: string;
@@ -52,7 +52,7 @@ export type challengeResult = {
 // export interface ChangePasswordData {
 //     nickname: string;
 //     password: string;
-//     password_hint: string;
+//     id: string;
 // }
 
 // export interface ChangeMyInfoData {

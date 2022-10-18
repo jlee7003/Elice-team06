@@ -6,7 +6,7 @@ interface token {
 }
 
 export interface LoginData {
-    email: string;
+    id: string;
     password: string;
 }
 
@@ -17,7 +17,7 @@ export interface SignupData {
     nickname: string;
     introduce: string;
     password: string;
-    password_hint: string;
+    id: string;
     age: string;
     region: string;
     gender: string;
@@ -38,7 +38,7 @@ export interface RefreshResult {
 export interface ChangePasswordData {
     nickname: string;
     password: string;
-    password_hint: string;
+    id: string;
 }
 
 export interface ChangeMyInfoData {

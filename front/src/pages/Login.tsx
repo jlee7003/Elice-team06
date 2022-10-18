@@ -40,7 +40,7 @@ const Login = () => {
         }
 
         const loginData = {
-            email: emailRef.current.value,
+            id: emailRef.current.value,
             password: passwordRef.current.value,
         };
 
