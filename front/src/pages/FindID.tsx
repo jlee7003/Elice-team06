@@ -28,7 +28,9 @@ const FindID = () => {
             return;
         }
 
-        API.post(["user", "auth", "email"], emailRef.current.value);
+        API.post(["user", "find", "id"], emailRef.current.value).then((res) => {
+            console.log(res);
+        });
     };
 
     return (

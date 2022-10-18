@@ -93,7 +93,7 @@ userRoute.put(
 );
 
 //이메일로 Id 찾기//
-userRoute.get(
+userRoute.post(
     "/find/id",
     asyncHandler(async (req, res) => {
         const { email } = req.body;
@@ -105,7 +105,7 @@ userRoute.get(
     })
 );
 //Id,이메일 인증//
-userRoute.get(
+userRoute.post(
     "/auth/id",
     asyncHandler(async (req, res) => {
         const { id, email } = req.body;
