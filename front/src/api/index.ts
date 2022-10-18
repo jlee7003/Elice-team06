@@ -23,7 +23,7 @@ class API {
 
     public async get<T>(params: string[]) {
         this.setRefreshToken();
-
+        console.log("params", params);
         const url = params.join("/");
 
         try {

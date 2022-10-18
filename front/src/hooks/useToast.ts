@@ -1,3 +1,3 @@
-type toastType = "info" | "success" | "error";
+type ToastType = "info" | "success" | "error";
 
-const useToast = (message: string) => {};
+const useToast = (message: string, toastType) => {};

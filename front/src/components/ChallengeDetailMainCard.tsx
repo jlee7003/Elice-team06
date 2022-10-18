@@ -14,7 +14,7 @@ import {
     CommentContainer,
 } from "@/styles/pages/challengedetail-style";
 import challengeBoardWriterData from "@/recoil/challengeBoardWriter";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import Pagination from "./pagination";
 import { addComment } from "@/api/challenge";
 import { getComment } from "@/api/challenge";
@@ -53,6 +53,7 @@ const ChallengeDetailMainCard = () => {
             return;
         }
         getComment(challengeId, start, end, count).then((res) => {
+            console.log("res", res);
             if (res === null) {
                 return;
             }
@@ -109,7 +110,7 @@ const ChallengeDetailMainCard = () => {
         setPage(1);
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getComments();
     }, []);
 
