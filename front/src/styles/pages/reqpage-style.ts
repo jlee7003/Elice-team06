@@ -98,7 +98,7 @@ export const NavLink = styled(Link)`
         font-weight: bolder;
     }
 `;
-export const NaviLink = styled.a`
+export const NaviLink = styled.button`
     display: inline;
     margin: 15px;
     font-size: 16px;
