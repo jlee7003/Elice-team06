@@ -40,24 +40,22 @@ export const Pagination = (prop: { value: Posts }) => {
     };
 
     return (
-        <Main>
-            <Nav>
-                <ul>
-                    <NaviLink name="prev" onClick={onClick}>
-                        <span>&lt;</span>
-                    </NaviLink>
-                    {Object.keys(post).map((page, idx) => {
-                        return (
-                            <NaviLink key={idx} name={page} onClick={onClick}>
-                                {page}
-                            </NaviLink>
-                        );
-                    })}
-                    <NaviLink name="next " onClick={onClick}>
-                        <span>&gt; </span>
-                    </NaviLink>
-                </ul>
-            </Nav>
-        </Main>
+        <Nav>
+            <ul>
+                <NaviLink name="prev" onClick={onClick}>
+                    <span>&lt;</span>
+                </NaviLink>
+                {Object.keys(post).map((page, idx) => {
+                    return (
+                        <NaviLink key={idx} name={page} onClick={onClick}>
+                            {page}
+                        </NaviLink>
+                    );
+                })}
+                <NaviLink name="next " onClick={onClick}>
+                    <span>&gt; </span>
+                </NaviLink>
+            </ul>
+        </Nav>
     );
 };
