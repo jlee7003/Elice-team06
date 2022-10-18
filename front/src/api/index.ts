@@ -35,6 +35,23 @@ class API {
         }
     }
 
+    //쿼리가 필요한 get
+    public async getQuery<T>(params: string[]) {
+        this.setRefreshToken();
+
+        const url = params.join("?");
+        console.log(url);
+
+        try {
+            const response = await this.instance.get<T>(url);
+            console.log(response);
+
+            return response;
+        } catch (err) {
+            return null;
+        }
+    }
+
     public async post<T>(params: string[], data: any) {
         this.setRefreshToken();
 
