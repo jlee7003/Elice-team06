@@ -10,8 +10,10 @@ export const Container = styled.div`
     place-items: center;
     /* display: flex;
     flex-direction: row; */
-    width: ${cssUnit.unit.width};
-    height: 900px;
+    /* width: ${cssUnit.unit.width};
+    height: 900px; */
+    width: auto !important;
+    height: auto !important;
     padding-top: 70px;
 `;
 
