@@ -15,9 +15,11 @@ const useLogin = (errorFunction: any, redirectURL: string) => {
 
         if (result?.response?.status != undefined) {
             // errorFunction(true);
+            console.log(result?.response?.data);
             errorFunction({
                 isError: true,
-                message: result?.response?.data,
+                message: result?.response?.data?.message,
+                // message: "",
             });
             return;
         }
