@@ -25,8 +25,8 @@ userRoute.post(
 userRoute.post(
     "/login",
     asyncHandler(async (req, res) => {
-        const { email, password } = req.body;
-        const result = await userService.loginUser({ email, password });
+        const { id, password } = req.body;
+        const result = await userService.loginUser({ id, password });
         if (result.message) {
             return res.status(409).send(result);
         }
@@ -46,26 +46,6 @@ userRoute.put(
         } else {
             res.status(200).send("로그아웃");
         }
-    })
-);
-
-//비밀번호 변경//
-userRoute.put(
-    "/changePassword",
-    authToken,
-    asyncHandler(async (req, res) => {
-        const { nickname } = req.nickname;
-        const { password, new_password, password_hint } = req.body;
-        const result = await userService.changePassword({
-            nickname,
-            password,
-            new_password,
-            password_hint,
-        });
-        if (result.message) {
-            res.status(409).send(result);
-        }
-        res.status(200).send(result);
     })
 );
 
@@ -112,9 +92,34 @@ userRoute.put(
     })
 );
 
+//이메일로 Id 찾기//
+userRoute.get(
+    "/find/id",
+    asyncHandler(async (req, res) => {
+        const { email } = req.body;
+        const result = await userService.findId({ email });
+        if (result.message) {
+            res.status(409).send(result);
+        }
+        res.status(200).send(result);
+    })
+);
+//Id,이메일 인증//
+userRoute.get(
+    "/auth/id",
+    asyncHandler(async (req, res) => {
+        const { id, email } = req.body;
+        const result = await userService.authId({ id, email });
+        if (result.message) {
+            res.status(409).send(result);
+        }
+        res.status(200).send(result);
+    })
+);
+
 //유저 비밀번호 인증//
 userRoute.get(
-    "/auth",
+    "/auth/password",
     authToken,
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
@@ -127,6 +132,24 @@ userRoute.get(
     })
 );
 
+//비밀번호 변경//
+userRoute.put(
+    "/changePassword",
+    authToken,
+    asyncHandler(async (req, res) => {
+        const { nickname } = req.nickname;
+        const { password, new_password } = req.body;
+        const result = await userService.changePassword({
+            nickname,
+            password,
+            new_password,
+        });
+        if (result.message) {
+            res.status(409).send(result);
+        }
+        res.status(200).send(result);
+    })
+);
 //회원 탈퇴//
 userRoute.put(
     "/withdrawal",

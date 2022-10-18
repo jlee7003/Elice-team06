@@ -22,6 +22,13 @@ class userService {
             const message = "이메일 형식이 올바르지 않습니다.";
             return { result: false, message };
         }
+        //아이디 중복 확인
+        const id = userData.id;
+        const searchId = await prisma.User.findUnique({ where: { id } });
+        if (searchId) {
+            const message = "이미 존재하는 id입니다.";
+            return { result: false, message };
+        }
 
         //이메일 중복 확인
         const email = userData.email;
@@ -45,15 +52,14 @@ class userService {
         const hash = await bcrypt.hash(password, 10);
         userData.password = hash;
 
-        const { age, region, gender, profile_image } = userData;
-        const { password_hint, introduce } = userData;
+        const { age, region, gender, profile_image, introduce } = userData;
 
         const newUser = await prisma.User.create({
             data: {
+                id,
                 email,
                 nickname,
                 password: hash,
-                password_hint,
                 Profile: { create: { age, region, gender, profile_image, introduce } },
             },
         });
@@ -61,24 +67,18 @@ class userService {
         return newUser;
     }
 
-    static async loginUser({ email, password }) {
-        //이메일 형식이 맞는지 검사
-        if (isInvalidEmail(email)) {
-            const message = "이메일 형식이 올바르지 않습니다.";
-
-            return { result: false, message };
-        }
+    static async loginUser({ id, password }) {
         //유저 존재 확인
         const userData = await prisma.User.findUnique({
             where: {
-                email,
+                id,
             },
             include: {
                 Profile: { select: { introduce: true, nickname: true } },
             },
         });
         if (userData === null) {
-            const message = "존재하지 않는 이메일입니다.";
+            const message = "존재하지 않는 유저입니다.";
             return { result: false, message };
         }
         //유저 밴, 탈퇴 확인
@@ -110,7 +110,7 @@ class userService {
         return value;
     }
 
-    static async changePassword({ nickname, password, new_password, password_hint }) {
+    static async changePassword({ nickname, password, new_password }) {
         const userData = await prisma.User.findUnique({
             where: {
                 nickname,
@@ -130,7 +130,6 @@ class userService {
             },
             data: {
                 password: hashedPassword,
-                password_hint,
             },
         });
         await prisma.$disconnect();
@@ -203,6 +202,40 @@ class userService {
         });
         await prisma.$disconnect();
         return updateInfo;
+    }
+    static async findId({ email }) {
+        if (isInvalidEmail(email)) {
+            const message = "이메일 형식이 올바르지 않습니다.";
+
+            return { result: false, message };
+        }
+        const userData = await prisma.User.findUnique({
+            where: {
+                email,
+            },
+            select: {
+                id: true,
+            },
+        });
+        await prisma.$disconnect();
+        return userData;
+    }
+
+    static async authId({ id, email }) {
+        if (isInvalidEmail(email)) {
+            const message = "이메일 형식이 올바르지 않습니다.";
+
+            return { result: false, message };
+        }
+        const userData = await prisma.User.findMany({
+            where: { AND: [{ id }, { email }] },
+        });
+        if (userData.length === 0) {
+            const message = "존재하지 않는 유저입니다.";
+            return { result: false, message };
+        }
+        console.log(userData);
+        return { result: true };
     }
 
     static async comparePassword({ nickname, password }) {

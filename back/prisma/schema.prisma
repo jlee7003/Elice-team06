@@ -11,10 +11,10 @@ datasource db {
 }
 
 model User {
+  id               String             @unique
   email            String             @id @unique
   nickname         String             @unique
   password         String
-  password_hint    String
   token            String?            @unique
   ban              Boolean            @default(false)
   withdrawal       Boolean            @default(false)
