@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import cssUnit from "@/lib/cssUnit";
 /*
 lv 3 (articles, containter for bottom button, Links)
 */
@@ -8,12 +8,16 @@ export const Article = styled.article`
     display: absolute;
     flex-direction: column;
 
-    height: 120px;
+    height: 190px;
 
     margin: 5px auto;
     padding: 10px;
 
     border: 2px solid #eeeeee;
+    &:hover {
+        background-color: ${cssUnit.color.gray};
+        box-shadow: 3px 3px 10px 2px ${cssUnit.color.darkergray};
+    }
 `;
 
 /*
@@ -58,7 +62,7 @@ export const Contents = styled.div`
     & > h3 {
         margin-bottom: 5px;
 
-        font-size: 16px;
+        font-size: 20px;
         text-align: left;
     }
     & > p {
@@ -66,7 +70,7 @@ export const Contents = styled.div`
         width: 100%;
         margin: 2px;
 
-        font-size: 13px;
+        font-size: 15px;
         text-align: left;
     }
 `;
@@ -115,7 +119,7 @@ export const Details = styled.ul`
     float: left;
 
     width: 80%;
-    height: 100%;
+    height: 80%;
     padding: 5px 0 0 5px;
 
     font-size: 12px;
@@ -129,7 +133,8 @@ export const Details = styled.ul`
 
         margin: 0 5px 0 0;
 
-        vertical-align: middle;
+        font-size: 16px;
+        vertical-align: baseline;
     }
     & > li > img {
         width: 20px;
@@ -152,9 +157,12 @@ export const Details = styled.ul`
     & > li > span {
         display: inline-block;
 
+        height: 80%;
         margin: 0 10px 0 0;
 
         color: black;
+
+        font-size: 15px;
         font-weight: 600;
 
         vertical-align: middle;

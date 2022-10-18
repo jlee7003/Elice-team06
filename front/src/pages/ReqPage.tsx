@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 /*data*/
 /*styles*/
 import {
+    GridContainer,
     Container,
     Main,
     Section,
@@ -15,7 +16,7 @@ import {
 } from "@/styles/pages/reqpage-style";
 /*boards*/
 import ReqeustCards from "@/components/RequestCards";
-// import NavPagination from "./NavPagination";
+import { Banner } from "@/styles/banner";
 import { postsSelector } from "@/recoil/requestPosts";
 import { useEffect } from "react";
 //pagination
@@ -37,37 +38,24 @@ const ReqPage = () => {
 
     return (
         <Container>
-            <Main>
-                <Section>
-                    <ReqeustCards value={post} />
-                    <ButtonContianer>
-                        {/* //첼린지 저장 */}
-                        {/* <button onClick={() => setOnModal("challenge")}>글쓰기</button>
-                        {onModal == "challenge" && (
-                            // <ModalFrame
-                            //     setOnModal={(bool) => setOnModal(bool)}
-                            //     logout={() => onClickLogout()}
-                            // />
-                            <ChallengeRequestModal
-                                setOnModal={setOnModal}
-                                addfunction={alert}
-                            ></ChallengeRequestModal>
-                        )} */}
-                        <button onClick={() => setOnModal("board")}>글쓰기</button>
-                        {onModal == "challenge" && (
-                            // <ModalFrame
-                            //     setOnModal={(bool) => setOnModal(bool)}
-                            //     logout={() => onClickLogout()}
-                            // />
-                            <ChallengeRequestModal
-                                setOnModal={setOnModal}
-                                addfunction={alert}
-                            ></ChallengeRequestModal>
-                        )}
-                    </ButtonContianer>
-                </Section>
-                <Pagination value={post} />
-            </Main>
+            <Banner />
+            <GridContainer>
+                <Main>
+                    <Section>
+                        <ReqeustCards value={post} />
+                        <ButtonContianer>
+                            <button onClick={() => setOnModal("challenge")}>글쓰기</button>
+                            {onModal == "challenge" && (
+                                <ChallengeRequestModal
+                                    setOnModal={setOnModal}
+                                    addfunction={alert}
+                                ></ChallengeRequestModal>
+                            )}
+                        </ButtonContianer>
+                    </Section>
+                    <Pagination value={post} />
+                </Main>
+            </GridContainer>
         </Container>
     );
 };

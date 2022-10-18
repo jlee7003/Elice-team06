@@ -9,8 +9,8 @@ const boardRoute = Router();
 boardRoute.get(
     "/all",
     asyncHandler(async (req, res) => {
-        const { start, end, post } = req.query;
-        const result = await boardService.getPosts({ start, end, post });
+        const { start, end, count } = req.query;
+        const result = await boardService.getPosts({ start, end, count });
 
         res.status(200).send(result);
     })
@@ -33,7 +33,8 @@ boardRoute.get(
     authToken,
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
-        const result = await boardService.getLikePost({ nickname });
+        const { start, end, count } = req.query;
+        const result = await boardService.getLikePost({ nickname, start, end, count });
 
         res.status(200).send(result);
     })
