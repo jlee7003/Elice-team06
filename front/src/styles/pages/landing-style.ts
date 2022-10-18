@@ -234,7 +234,7 @@ export const Section1Box = styled.div`
             &:first-child {
                 transition: all 0.3s ease-in-out;
                 &:hover {
-                    background-color: #34c759;
+                    background-color: #61be92;
                     color: #fff;
                 }
             }
@@ -261,7 +261,7 @@ export const Section1Box = styled.div`
                     background-color: #fff;
                     border-radius: 50px;
                     /* transition: all 0.5s ease-in-out; */
-                    animation: ${ScrollAnimation} 2s infinite 0.3s;
+                    animation: ${ScrollAnimation} 1.7s infinite 0.3s;
                 }
             }
         }
@@ -288,6 +288,10 @@ export const Section3Box = styled.div`
     }
 `;
 
+const skull = assets("skull.png");
+const temperature = assets("temperature.png");
+const water = assets("water.png");
+
 export const Section3Content = styled.div`
     height: 400px;
     max-width: 1093px;
@@ -295,11 +299,15 @@ export const Section3Content = styled.div`
     margin: 100px auto 0;
     display: flex;
     justify-content: space-between;
+    position: relative;
     ul {
         width: 30%;
         height: 100%;
         li {
-            background-color: #cbcbcb;
+            background-color: rgb(255 255 255 / 24%);
+            font-size: 25px;
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 600;
             width: 100%;
             height: 120px;
             list-style: none;
@@ -308,14 +316,43 @@ export const Section3Content = styled.div`
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.4s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             & + li {
                 margin-top: 19px;
             }
             &:hover {
                 background-color: #ababab;
             }
+
+            span:first-child {
+                display: block;
+                width: 20px;
+                margin-right: 15px;
+                img {
+                    width: 100%;
+                }
+            }
+
+            /* &:nth-child(1) {
+                background-image: url(${skull});
+                background-size: 20px;
+                background-position: 95px center;
+            }
+            &:nth-child(2) {
+                background-image: url(${water});
+                background-size: 20px;
+                background-position: 95px center;
+            }
+            &:nth-child(3) {
+                background-image: url(${temperature});
+                background-size: 20px;
+                background-position: 95px center;
+            } */
         }
     }
+
     .graphWrap {
         background-color: #fff;
         border-radius: 20px;
@@ -325,8 +362,26 @@ export const Section3Content = styled.div`
         color: #cbcbcb;
         line-height: 400px;
         text-align: center;
+
+        position: relative;
+
+        .show {
+            opacity: 1 !important;
+        }
+
+        .graphs {
+            opacity: 0;
+            position: absolute;
+            right: 34px;
+            top: 5px;
+            transition: all 0.5s ease-in-out;
+        }
     }
 `;
+
+// export const Graph3Wrap = styled.div`
+
+// `;
 
 export const Section4Box = styled.div`
     margin: 150px auto 0;
@@ -478,6 +533,8 @@ export const ChallengeCurrent = styled.div`
 
         p {
             color: #000;
+            font-size: 23px;
+            font-weight: 500;
         }
         span {
             color: #000;
@@ -507,6 +564,25 @@ export const SectionTitle = styled.h2`
     margin-top: 100px;
 `;
 
+const boyImg = assets("boy.png");
+const girlImg = assets("girl.png");
+
+export const Name = styled.span`
+    display: inline-block;
+    background-color: #fff;
+    /* width: 100px; */
+    text-align: center;
+    border-radius: 20px;
+
+    padding: 10px 25px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #61be92;
+    margin-top: -60px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+`;
+
 export const Section5Box = styled.ul`
     height: 70vh;
     max-width: 1093px;
@@ -518,6 +594,7 @@ export const Section5Box = styled.ul`
     li {
         list-style: none;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
 
@@ -533,10 +610,52 @@ export const Section5Box = styled.ul`
             cursor: pointer;
             border: 8px solid transparent;
             transition: all 0.4s ease-in-out;
+            background-size: 100px;
+            background-repeat: no-repeat;
+            background-position: center;
             &:hover {
                 margin-top: -15px;
                 /* box-shadow: 15px 15px 0px rgba(97, 190, 146, 50); */
                 border-color: #61be92;
+                & + ${Name} {
+                    margin-top: 20px;
+                    opacity: 1;
+                }
+            }
+        }
+
+        &:nth-child(1) {
+            p {
+                background-image: url(${boyImg});
+                position: relative;
+            }
+        }
+        &:nth-child(2) {
+            p {
+                background-image: url(${girlImg});
+                background-size: 180px;
+            }
+        }
+        &:nth-child(3) {
+            p {
+                background-image: url(${boyImg});
+            }
+        }
+        &:nth-child(4) {
+            p {
+                background-image: url(${girlImg});
+                background-size: 180px;
+            }
+        }
+        &:nth-child(5) {
+            p {
+                background-image: url(${girlImg});
+                background-size: 180px;
+            }
+        }
+        &:nth-child(6) {
+            p {
+                background-image: url(${boyImg});
             }
         }
     }
