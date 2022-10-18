@@ -15,7 +15,6 @@ import ThemeWrapper from "@/components/ThemeWrapper";
 import ModalState from "@/recoil/modalState";
 import DarkMode from "@/recoil/darkMode";
 import LoginModal from "@/modal/LoginModal";
-import HeaderStyle from "@/styles/global-style";
 
 export interface Props {
     mode?: string;

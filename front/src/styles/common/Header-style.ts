@@ -27,10 +27,22 @@ export const HeaderSticky = styled.header<Props>`
             ? css`
                   background-color: white;
                   color: black;
+                  label {
+                      background-color: #282828;
+                  }
+                  label > div {
+                      background-color: #cccccc;
+                  }
               `
             : css`
                   background-color: #282828;
                   color: white;
+                  label {
+                      background-color: white;
+                  }
+                  label > div {
+                      background-color: #838383;
+                  }
               `}
 `;
 
