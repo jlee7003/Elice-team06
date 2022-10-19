@@ -62,6 +62,14 @@ userRoute.get(
     })
 );
 
+userRoute.get(
+    "/about",
+    asyncHandler(async (req, res) => {
+        const result = await userService.getAbout();
+        res.status(200).send(result);
+    })
+);
+
 //유저 닉네임,소개글 가져오기//
 userRoute.get(
     "/myInfo",

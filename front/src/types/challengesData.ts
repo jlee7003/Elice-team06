@@ -44,11 +44,10 @@ export type getCommentResult = {
     description: string;
 };
 
-// export interface ChangePasswordData {
-//     nickname: string;
-//     password: string;
-//     id: string;
-// }
+export interface ChallengeJoinResult {
+    challenge_id: string;
+    nickname: string;
+}
 
 // export interface ChangeMyInfoData {
 //     nickname: string;

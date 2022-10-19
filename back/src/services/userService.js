@@ -147,6 +147,26 @@ class userService {
         await prisma.$disconnect();
         return userData;
     }
+
+    static async getAbout() {
+        const userCount = await prisma.User.aggregate({
+            _count: true,
+        });
+        const challengerCount = await prisma.User.findMany({
+            select: { Challenge: true },
+        });
+        let count = 0;
+        challengerCount.forEach((user) => {
+            if (user.Challenge.length > 0) {
+                count += 1;
+            }
+        });
+
+        const result = { users: userCount._count, challenger: count };
+
+        return result;
+    }
+
     static async getInfo({ nickname }) {
         const userData = await prisma.Profile.findUnique({
             where: {
