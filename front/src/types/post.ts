@@ -35,10 +35,10 @@ type PageData = {
 };
 
 export interface PageDataProps {
-    start: number;
+    startNum: number;
     range: number;
-    count: number;
-    end: number;
+    countNum: number;
+    endNum: number;
 }
 export interface PostProps {
     PostList: PostLists | null;

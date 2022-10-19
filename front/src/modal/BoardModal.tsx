@@ -21,47 +21,48 @@ import { useState } from "react";
 import ReactDatePicker from "@/components/ReactDatePicker";
 import * as _ from "lodash";
 import { getMonth, getYear } from "date-fns";
-import { challenge } from "@/api/challenge";
+import { writeboard } from "@/api/board";
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
 };
 
-const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
+    // const [startDate, setStartDate] = useState(new Date());
+    // const [endDate, setEndDate] = useState(new Date());
     const title = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
-    const goal = useRef<HTMLInputElement>(null);
-    const level = useRef<HTMLInputElement>(null);
+    // const goal = useRef<HTMLInputElement>(null);
+    // const level = useRef<HTMLInputElement>(null);
     // const proposer = useRef<HTMLInputElement>(null);
 
-    console.log("startDate:", startDate);
-    console.log("endDate:", endDate);
+    // console.log("startDate:", startDate);
+    // console.log("endDate:", endDate);
     let formData = {
         title: "",
         description: "",
-        goal: "",
+        // goal: "",
         // level: "",
-        start_date: "",
-        due_date: "",
+        // start_date: "",
+        // due_date: "",
         // proposer: "",
         // createdAt: "",
         // updatedAt: "",
     };
     const buttonClick = async () => {
-        if (title.current == null || description.current == null || goal.current == null) {
+        if (title.current == null || description.current == null) {
             return;
         }
         formData = {
             title: title.current?.value,
             description: description.current?.value,
-            goal: goal.current?.value,
-            start_date: startDate.toDateString(),
-            due_date: endDate.toDateString(),
+            // goal: goal.current?.value,
+            // start_date: startDate.toDateString(),
+            // due_date: endDate.toDateString(),
         };
         console.log("formdata:", formData);
-        const result = await challenge(formData);
+        const result = await writeboard(formData);
+        console.log(result);
         console.log("요청완료");
     };
 
@@ -85,21 +86,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                                     <Label>목표량</Label>
                                 </div>
                                 <FlexBox>
-                                    <AllCenterBox>
-                                        <FlexBox>
-                                            <ReactDatePicker
-                                                setStart={setStartDate}
-                                                // startDate={startDate}
-                                                setEnd={setEndDate}
-                                                // endDate={endDate}
-                                            />
-                                        </FlexBox>
-                                    </AllCenterBox>
-                                    <Input
-                                        ref={goal}
-                                        style={{ width: "50%" }}
-                                        placeholder="목표량을 입력하세요."
-                                    />
+                                    <AllCenterBox></AllCenterBox>
                                 </FlexBox>
                                 <Label>내용</Label>
                                 <LongInput
@@ -140,4 +127,4 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
     );
 };
 
-export default ChallengeRequestModal;
+export default BoardModal;

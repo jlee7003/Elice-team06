@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { ToastContainer } from "react-toastify";
@@ -53,9 +53,11 @@ function wrapPromise(promise) {
 const App = () => {
     const [onModal, setOnModal] = useRecoilState(ModalState);
     const [error] = useRecoilState(errorRecoil);
-    const [darkMode] = useRecoilState(DarkMode);
+    const [darkMode2] = useRecoilState(DarkMode);
+    // console.log(darkMode);
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    let darkMode = sessionStorage.getItem("DarkMode");
 
     const [state, reload] = useRefresh();
 
