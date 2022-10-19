@@ -114,9 +114,9 @@ userRoute.post(
         res.status(200).send(result);
     })
 );
-//Id,이메일 인증//
+//Id,이메일 인증 => 비밀번호 찾기//
 userRoute.post(
-    "/auth/id",
+    "/auth/user",
     asyncHandler(async (req, res) => {
         const { id, email } = req.body;
         const result = await userService.authId({ id, email });

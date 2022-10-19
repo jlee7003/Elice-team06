@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+import bcrypt, { hash } from "bcrypt";
 import Token from "../services/tokenService";
 import { generateToken } from "../authentication/jwt-util";
+import generator from "generate-password";
 
 const prisma = new PrismaClient();
 
@@ -242,13 +243,23 @@ class userService {
         }
         const userData = await prisma.User.findMany({
             where: { AND: [{ id }, { email }] },
+            select: { password: true },
         });
+
         if (userData.length === 0) {
             const message = "존재하지 않는 유저입니다.";
             return { result: false, message };
         }
-        console.log(userData);
-        return { result: true };
+        const pw = generator.generate({ length: 8, numbers: true });
+
+        const hashPw = await bcrypt.hash(pw, 10);
+
+        await prisma.User.update({
+            where: { id },
+            data: { password: hashPw },
+        });
+
+        return { result: true, password: pw };
     }
 
     static async comparePassword({ nickname, password }) {
