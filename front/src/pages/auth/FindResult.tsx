@@ -1,8 +1,17 @@
 import { useEffect, MouseEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Logo } from "@/styles/common";
-import { Main, Form, Label, Input, Result, SubmitButton } from "@/styles/pages/auth-style";
-import { MenuLink } from "@/styles/pages/login-style";
+import {
+    Main,
+    Form,
+    Label,
+    Input,
+    Result,
+    SubmitButton,
+    ResultWrap,
+    MenuLink,
+} from "@/styles/pages/auth-style";
+// import { MenuLink } from "@/styles/pages/login-style";
 import { ROUTES } from "@/routes";
 import sendToast from "@/lib/sendToast";
 
@@ -30,10 +39,14 @@ const FindResult = () => {
                 <Logo />
                 <Form>
                     <Label>아이디</Label>
-                    <Result>{locationState.result}</Result>
+                    <ResultWrap>
+                        <Result>{locationState.result}</Result>
+                        <button onClick={onClick}>
+                            <i className="ri-file-copy-line"></i>
+                        </button>
+                    </ResultWrap>
+                    <MenuLink to={ROUTES.Login.path}>로그인하기</MenuLink>
                 </Form>
-                <button onClick={onClick}>복사</button>
-                <MenuLink to={ROUTES.Login.path}>로그인하기</MenuLink>
             </section>
         </Main>
     );

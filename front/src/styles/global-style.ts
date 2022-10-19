@@ -75,8 +75,8 @@ const GlobalStyle = createGlobalStyle<Props>`
     }
 
     body{
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         ${(props) =>
             props.mode == "Light"
                 ? css`

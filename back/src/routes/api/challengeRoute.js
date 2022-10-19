@@ -50,7 +50,6 @@ challengeRoute.post(
     "/",
     authToken,
     asyncHandler(async (req, res) => {
-        console.log(3333);
         try {
             const { nickname } = req.nickname;
             const input = req.body;
@@ -97,6 +96,7 @@ challengeRoute.post(
     "/:id/join",
     authToken,
     asyncHandler(async (req, res) => {
+        console.log("join");
         try {
             const { nickname } = req.nickname;
             const joinChallenge = await challengeService.joinChallenge({

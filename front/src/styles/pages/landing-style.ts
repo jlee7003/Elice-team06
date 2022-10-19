@@ -16,8 +16,8 @@ interface StyleProps {
 }
 
 export const ContainerWrap = styled.div`
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     overflow: hidden;
     position: relative;
 `;
@@ -564,6 +564,7 @@ export const SectionTitle = styled.h2`
     margin-top: 100px;
 `;
 
+const potatoImg = assets("potato.png");
 const boyImg = assets("boy.png");
 const girlImg = assets("girl.png");
 
@@ -626,7 +627,7 @@ export const Section5Box = styled.ul`
 
         &:nth-child(1) {
             p {
-                background-image: url(${boyImg});
+                background-image: url(${potatoImg});
                 position: relative;
             }
         }

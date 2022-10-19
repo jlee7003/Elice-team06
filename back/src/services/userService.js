@@ -98,7 +98,6 @@ class userService {
         const accessToken = generateToken({ nickname: userData.nickname }, "accessToken");
         let refreshToken = generateToken({}, "refreshToken");
 
-        await prisma.User.update({ where: { nickname }, data: { token: null } });
         await prisma.User.update({ where: { nickname }, data: { token: refreshToken } });
 
         await prisma.$disconnect();
@@ -147,6 +146,26 @@ class userService {
         await prisma.$disconnect();
         return userData;
     }
+
+    static async getAbout() {
+        const userCount = await prisma.User.aggregate({
+            _count: true,
+        });
+        const challengerCount = await prisma.User.findMany({
+            select: { Challenge: true },
+        });
+        let count = 0;
+        challengerCount.forEach((user) => {
+            if (user.Challenge.length > 0) {
+                count += 1;
+            }
+        });
+
+        const result = { users: userCount._count, challenger: count };
+
+        return result;
+    }
+
     static async getInfo({ nickname }) {
         const userData = await prisma.Profile.findUnique({
             where: {
@@ -261,6 +280,34 @@ class userService {
         });
         await prisma.$disconnect();
         return "회원 탈퇴";
+    }
+    //유저 이미지 관련//
+    static async getImage({ nickname }) {
+        const image = await prisma.Profile.findUnique({
+            where: { nickname },
+            select: { profile_image: true },
+        });
+        await prisma.$disconnect();
+        return image;
+    }
+
+    static async updateImage({ nickname, filename }) {
+        const updatedImage = await prisma.Profile.update({
+            where: { nickname },
+            data: { profile_image: filename },
+            select: { profile_image: true },
+        });
+        await prisma.$disconnect();
+        return updatedImage;
+    }
+
+    static async deleteImage({ nickname }) {
+        await prisma.Profile.update({
+            where: { nickname },
+            data: { profile_image: null },
+        });
+        await prisma.$disconnect();
+        return { result: true, message: "삭제 됐습니다" };
     }
 }
 

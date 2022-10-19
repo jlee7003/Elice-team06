@@ -2,6 +2,7 @@ import { Router } from "express";
 import asyncHandler from "../../lib/util/asyncHandler";
 import authToken from "../../middlewares/authToken";
 import userService from "../../services/userService.js";
+import { upload } from "../../middlewares/imageUpload";
 
 const userRoute = Router();
 
@@ -58,6 +59,15 @@ userRoute.get(
         const userData = await userService.getUser({ refreshtoken });
 
         res.status(200).send({ accessToken: req.nickname, ...userData });
+    })
+);
+
+//총 이용자 수, 챌린지 가입자 수
+userRoute.get(
+    "/about",
+    asyncHandler(async (req, res) => {
+        const result = await userService.getAbout();
+        res.status(200).send(result);
     })
 );
 
@@ -158,6 +168,41 @@ userRoute.put(
         const { nickname } = req.nickname;
         const result = await userService.withdrawal({ nickname });
         res.status(200).send(result);
+    })
+);
+//유저 이미지 얻기//
+userRoute.get(
+    "/image",
+    authToken,
+    asyncHandler(async (req, res) => {
+        const { nickname } = req.nickname;
+        const profileImage = await userService.getImage({ nickname });
+
+        res.status(200).send(profileImage);
+    })
+);
+//유저 이미지 수정//
+userRoute.put(
+    "/image",
+    authToken,
+    upload.single("userImage"),
+    asyncHandler(async (req, res) => {
+        const { nickname } = req.nickname;
+        const { path, filename } = req.file;
+        const updatedImage = await userService.updateImage({ nickname, filename });
+
+        res.status(200).send(updatedImage);
+    })
+);
+//유저 이미지 삭제//
+userRoute.delete(
+    "/image",
+    authToken,
+    asyncHandler(async (req, res) => {
+        const { nickname } = req.nickname;
+        const deletedImage = await userService.deleteImage({ nickname });
+
+        res.status(200).send(deletedImage);
     })
 );
 
