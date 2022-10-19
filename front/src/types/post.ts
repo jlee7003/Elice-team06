@@ -41,6 +41,6 @@ export interface PageDataProps {
     end: number;
 }
 export interface PostProps {
-    PostList: PostLists;
+    PostList: PostLists | null;
     PageData: PageData;
 }
