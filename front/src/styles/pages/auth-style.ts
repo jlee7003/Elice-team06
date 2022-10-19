@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import cssUnit from "@/lib/cssUnit";
 import { Link } from "react-router-dom";
 
@@ -73,13 +73,20 @@ export const Label = styled.label`
     font-weight: bold;
 `;
 
-export const Input = styled.input<Props>`
+const commonInputStyle = css`
     width: 100%;
     height: 62px;
 
     margin-bottom: 30px;
     padding: 10px;
+`;
 
+export const IDInput = styled.input`
+    ${commonInputStyle}
+`;
+
+export const EmailInput = styled.input<Props>`
+    ${commonInputStyle}
     border: ${(props) => {
         if (props.invalid === true) {
             return "1px solid red;";
