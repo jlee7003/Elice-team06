@@ -33,34 +33,41 @@ const ReqPage = () => {
     //url, modal
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [onModal, setOnModal] = useRecoilState(ModalState);
-    //현재 패이지 정보와 데이터 핸들링용 useState
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [postList, setPostList] = useState<PostLists | null>(null);
-
-    const { id } = useParams();
 
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
+
+    //현재 패이지 정보와 데이터 핸들링용 useState
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [currentRange, setCurrentRange] = useState<number>(0);
+    const [postList, setPostList] = useState<PostLists | null>(null);
+    //console.log("현재 페이지 수 : ", currentPage);
+    //const { id } = useParams();
 
     /**
      * start: 한 range의 시작점(숫자)
      * end: 한 range의 끝점(숫자)
      * count: 한 range에 몇개의 post를 셋팅할 것인가
      */
+
+    //현재 페이지: currentPage
+    //현재 range: currentRange
+
     const pageData = {
-        start: currentPage, //1
+        start: 5 * currentRange + 1, //1
         range: 5,
         count: 5, //한 페이지에 5개의 포스트를 보여줄 것
-        end: currentPage + 5 - 1,
+        end: 5 * (currentRange + 1),
     };
     //query를 만들어 useEffect 내부의 함수에서 사용한다.
     const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
+    console.log("Reqpage의 쿼리", query);
     useEffect(() => {
         //API로 정보 받아오기
         const getAllPosts = async (param: string) => {
             const result = await API.get<PostLists>(["board", param]);
-            //응답이 null 경우 체크(1)
+            //응답이 null 경우 체크()
             if (result === null) {
                 navigate(ROUTES.ErrorPage.path);
                 return; //to alret
@@ -84,12 +91,20 @@ const ReqPage = () => {
     };
 
     //function for currnet page handling
-    const settingCurrentPage = (id: number) => {
-        if (id === undefined) {
+    const settingCurrentPage = (num: number) => {
+        if (num === undefined) {
             navigate(ROUTES.ErrorPage.path);
             return; //to alret
         }
-        setCurrentPage(id);
+        setCurrentPage(num);
+    };
+
+    const settingCurrentRange = (num: number) => {
+        if (num === undefined) {
+            navigate(ROUTES.ErrorPage.path);
+            return;
+        }
+        setCurrentRange(num);
     };
 
     console.log("checking PostList in ReqPage", postList);
@@ -102,7 +117,7 @@ const ReqPage = () => {
                         {postList ? (
                             <>
                                 <Section>
-                                    <ReqeustCards postLists={postList} currentPage={currentPage} />
+                                    <ReqeustCards postLists={postList} currentPage={currentRange} />
                                     <ButtonContianer>
                                         <button onClick={() => setOnModal("challenge")}>
                                             글쓰기
@@ -118,6 +133,9 @@ const ReqPage = () => {
                                 <Paginations
                                     value={PostProps}
                                     setCurrentPage={settingCurrentPage}
+                                    setCurrentRange={settingCurrentRange}
+                                    currentPageNumber={currentPage}
+                                    currentRangeNumber={currentRange}
                                 />
                             </>
                         ) : (
