@@ -56,6 +56,7 @@ class boardService {
     static async getPost({ postId }) {
         const postData = await prisma.Board.findUnique({
             where: { id: Number(postId) },
+            include: { Comment: { select: { author: true, description: true } } },
         });
         await prisma.$disconnect();
         return postData;

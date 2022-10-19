@@ -1,8 +1,9 @@
 /*lib*/
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-/*data*/
+import urlCheck from "@/recoil/urlCheck";
+
 /*styles*/
 import {
     GridContainer,
@@ -10,61 +11,121 @@ import {
     Main,
     Section,
     ButtonContianer,
-    Nav,
-    NavLink,
-    NaviLink,
 } from "@/styles/pages/reqpage-style";
-/*boards*/
+
+import { SectionSkele, NavSkele } from "@/styles/reqpage-skele-style";
+/*boards/components*/
 import ReqeustCards from "@/components/RequestCards";
 import { Banner } from "@/styles/banner";
-import { postsSelector } from "@/recoil/requestPosts";
-import { useEffect } from "react";
 //pagination
-//import Pagination from "@/components/pagination";
-import urlCheck from "@/recoil/urlCheck";
-//dummies
-import post from "@/lib/dummyPosts";
+import { Paginations } from "@/components/Paginations";
 //Modal
 import ModalState from "@/recoil/modalState";
 import ChallengeRequestModal from "@/modal/ChallengeRequestModal";
-import { Pagination } from "@/components/PagiantionNav";
-//get data by API
-import { AllPostList } from "@/api/postList";
-
-import { PaginationReal } from "@/components/PaginationReal";
+//data interface
+import { PostLists } from "@/types/post";
+//API import
+import API from "@/api/.";
+//error handling
+import { ROUTES } from "@/routes/.";
 
 const ReqPage = () => {
+    const navigate = useNavigate();
+
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [onModal, setOnModal] = useRecoilState(ModalState);
+
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [postList, setPostList] = useState<PostLists | null>(null);
+
+    const { id } = useParams();
+
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
 
-    // const getPosts = async () => {
-    //     const result = await AllPostList();
-    //     console.log("result는?", result);
-    // };
+    /**
+     * start: 한 range의 시작점(숫자)
+     * end: 한 range의 끝점(숫자)
+     * count: 한 range에 몇개의 post를 셋팅할 것인가
+     */
 
-    // getPosts();
+    const pageData = {
+        start: currentPage, //1
+        range: 5,
+        count: 5, //한 페이지에 5개의 포스트를 보여줄 것
+        end: currentPage + 5 - 1,
+    };
+    const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
+
+    useEffect(() => {
+        const getAllPosts = async (param: string) => {
+            const result = await API.get<PostLists>(["board", param]);
+            if (result === null) {
+                navigate(ROUTES.ErrorPage.path);
+                return; //to alret
+            }
+            return result.data;
+        };
+        getAllPosts(query).then((res) => {
+            if (res === undefined) {
+                navigate(ROUTES.ErrorPage.path);
+                return; //to alret
+            }
+            console.log("useEffect(API) is running in ReqPage");
+            setPostList(res);
+        });
+    }, []);
+
+    const PostProps = {
+        PostList: postList,
+        PageData: pageData,
+    };
+
+    const settingCurrentPage = (id: number) => {
+        if (id === undefined) {
+            navigate(ROUTES.ErrorPage.path);
+            return; //to alret
+        }
+        setCurrentPage(id);
+    };
+
+    console.log("checking PostList in ReqPage", postList);
 
     return (
         <Container>
             <Banner />
             <GridContainer>
                 <Main>
-                    <Section>
-                        <ReqeustCards value={post} />
-                        <ButtonContianer>
-                            <button onClick={() => setOnModal("challenge")}>글쓰기</button>
-                            {onModal == "challenge" && (
-                                <ChallengeRequestModal
-                                    setOnModal={setOnModal}
-                                    addfunction={alert}
-                                ></ChallengeRequestModal>
-                            )}
-                        </ButtonContianer>
-                    </Section>
-                    <PaginationReal value={post} />
+                    <>
+                        {postList ? (
+                            <>
+                                <Section>
+                                    <ReqeustCards postLists={postList} currentPage={currentPage} />
+                                    <ButtonContianer>
+                                        <button onClick={() => setOnModal("challenge")}>
+                                            글쓰기
+                                        </button>
+                                        {onModal == "challenge" && (
+                                            <ChallengeRequestModal
+                                                setOnModal={setOnModal}
+                                                addfunction={alert}
+                                            ></ChallengeRequestModal>
+                                        )}
+                                    </ButtonContianer>
+                                </Section>
+                                <Paginations
+                                    value={PostProps}
+                                    setCurrentPage={settingCurrentPage}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <SectionSkele />
+                                <NavSkele />
+                            </>
+                        )}
+                    </>
                 </Main>
             </GridContainer>
         </Container>
@@ -72,89 +133,3 @@ const ReqPage = () => {
 };
 
 export default ReqPage;
-
-//공부중...
-// return (
-//     <>
-//         <div>
-//             <h1> currentPage : {page}</h1>
-//             <button onClick={handlePageUp}>page up</button>
-//             <div>
-//                 {posts.map((post) => {
-//                     return (
-//                         <div key={post.id}>
-//                             <h2>{post.title}</h2>
-//                         </div>
-//                     );
-//                 })}
-//             </div>
-//         </div>
-//     </>
-// );
-
-// const [page, setPage] = useState(0);
-//     const posts = useRecoilValue(postsSelector(page));
-
-//     useEffect(() => {
-//         console.log("pageATOM : ", page);
-//     }, [page]);
-
-//     useEffect(() => {
-//         setPage(1);
-//     }, []);
-
-//     useEffect(() => {
-//         console.log("posts : ", posts);
-//     }, [posts]);
-
-//     const handlePageUp = () => {
-//         setPage((oldPage) => {
-//             return oldPage + 1;
-//         });
-//     };
-
-/*테스트요 임시로 옮겨둠*
-
-
- <Container>
-                <Main>
-                    <Section>
-                        <ReqeustCards />
-                        <ReqeustCards />
-                        <ReqeustCards />
-                        <ReqeustCards />
-                        <ReqeustCards />
-                        <ButtonContianer>
-                            <button>글쓰기</button>
-                        </ButtonContianer>
-                    </Section>
-                    <Nav>
-                        <ul>
-                            <NavLink to="/reqboard/1">
-                                <span>&lt;</span>
-                            </NavLink>
-                            <NavLink to="/reqboard/1">1</NavLink>
-                            <NavLink to="/reqboard/2">2</NavLink>
-                            <NavLink to="/reqboard/3">3</NavLink>
-                            <NavLink to="/reqboard/4">4</NavLink>
-                            <NavLink to="/reqboard/5">5</NavLink>
-                            <NavLink to="/reqboard/5">
-                                <span>&gt; </span>
-                            </NavLink>
-                        </ul>
-                    </Nav>
-                </Main>
-            </Container>
-
-
-            */
-
-//Storage
-
-{
-    /* <NavLink to="/reqboard/1">{startNum}</NavLink>
-<NavLink to="/reqboard/2">{startNum + 1}</NavLink>
-<NavLink to="/reqboard/3">{startNum + 2}</NavLink>
-<NavLink to="/reqboard/4">{startNum + 3}</NavLink>
-<NavLink to="/reqboard/5">{startNum + 4}</NavLink> */
-}

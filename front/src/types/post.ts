@@ -26,3 +26,21 @@ export interface Post {
     createdAt: string;
     updateAt: string;
 }
+
+type PageData = {
+    start: number;
+    range: number;
+    count: number;
+    end: number;
+};
+
+export interface PageDataProps {
+    start: number;
+    range: number;
+    count: number;
+    end: number;
+}
+export interface PostProps {
+    PostList: PostLists | null;
+    PageData: PageData;
+}
