@@ -22,12 +22,11 @@ const useRefresh = () => {
         }
 
         const data = result.data;
-        console.log(data?.Profile[0].introduce);
-
+        // console.log("data:", data?.Profile[0]);
         API.setAccessToken(data?.accessToken);
         setUser({
             nickname: data?.nickname,
-            introduce: data?.Profile[0].introduce,
+            introduce: data?.Profile[0]?.introduce,
         });
     };
 

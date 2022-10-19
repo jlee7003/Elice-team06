@@ -8,6 +8,7 @@ import {
 } from "@/types/challengesData";
 import { Comments } from "@/recoil/commentState";
 import { ChallengeBoardModel } from "@/recoil/ChallengeBoardRecoil";
+import { ChallengeListModel } from "@/recoil/ChallengeListRecoil";
 
 export const challenge = async (challengeData: challengeData) => {
     const result = await API.post<challengeResult>(["challenge"], challengeData);
@@ -46,5 +47,13 @@ export const getComment = async (
 };
 export const getChallengeBoard = async (challengeId: number) => {
     const result = await API.get<ChallengeBoardModel>(["challenge", challengeId.toString()]);
+    return result;
+};
+
+export const getChallengeList = async (start: number, end: number, count: number) => {
+    const result = await API.get<ChallengeListModel>([
+        "challenge",
+        `all?start=${start}&end=${end}&count=${count}`,
+    ]);
     return result;
 };

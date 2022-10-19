@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import * as _ from "lodash";
 import { getMonth, getYear } from "date-fns";
 
-const ReactDatePicker = () => {
+const ReactDatePicker = ({ setStart, setEnd }: any) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     console.log(startDate, 1111);
@@ -13,7 +13,10 @@ const ReactDatePicker = () => {
         <>
             <DatePicker
                 selected={startDate}
-                onChange={(date: Date) => setStartDate(date)}
+                onChange={(date: Date) => {
+                    setStart(date);
+                    setStartDate(date);
+                }}
                 startDate={startDate}
                 renderCustomHeader={({
                     date,
@@ -82,7 +85,10 @@ const ReactDatePicker = () => {
             <span style={{ margin: "0px 20px" }}>~</span>
             <DatePicker
                 selected={endDate}
-                onChange={(date: Date) => setEndDate(date)}
+                onChange={(date: Date) => {
+                    setEnd(date);
+                    setEndDate(date);
+                }}
                 startDate={endDate}
                 renderCustomHeader={({
                     date,

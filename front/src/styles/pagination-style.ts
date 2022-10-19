@@ -80,4 +80,12 @@ export const PageBtn = styled.button`
         border-radius: 30px;
         transform: translateY(-2px);
     }
+    &[aria-current] {
+        background-color: #75c6a0;
+        font-weight: bold;
+        cursor: revert;
+        transform: revert;
+        opacity: 1;
+        border-radius: 30px;
+    }
 `;
