@@ -11,19 +11,19 @@ export const CenterContainer = styled.div`
     display: flex;
     place-items: start center;
     width: 1275px;
-    padding-bottom: 120px;
+    padding-bottom: 50px;
     /* height: 100vh; */
 `;
 export const Main = styled.div`
     display: grid;
     border: 0px solid black;
     width: 65%;
-    height: 50vh;
+    height: 70vh;
 `;
 export const Sub = styled.div`
     border: 0px solid black;
     width: 35%;
-    /* height: 100vh; */
+    height: 70vh;
     padding: 15px;
 `;
 export const FlexBox = styled.div`
@@ -36,7 +36,7 @@ export const Title = styled.div`
 `;
 export const SubTitle = styled.div`
     font-size: 20px;
-    margin: 15px 0px;
+    margin: 25px 0px;
     font-weight: bold;
     & > span {
         /* font-size: 12px; */
@@ -48,7 +48,7 @@ export const SubTitle = styled.div`
 `;
 export const CommentContainer = styled.div`
     height: 40%;
-    position: relative;
+    position: block;
 `;
 export const TargetLabel = styled.div`
     font-size: ${cssUnit.fontSize.normal};
@@ -65,7 +65,38 @@ export const Contents = styled.div`
     font-size: ${cssUnit.fontSize.normal};
     margin: 15px 15px 100px 0;
     white-space: pre-wrap;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
     line-height: 35px;
+    max-height: 300px;
+    width: 815px;
+`;
+export const NoComments = styled.div`
+    /* margin-top: 100px; */
+    /* font-size: ${cssUnit.fontSize.medium}; */
+    /* padding-top: 80px; */
+    font-size: 28px;
+    /* margin: 15px 15px 100px 0; */
+    white-space: pre-wrap;
+    display: flex;
+    justify-content: center;
+    color: #888888;
+    align-items: center;
+    height: 270px;
+    width: 90%;
+`;
+export const OnComments = styled.div`
+    /* margin-top: 100px; */
+    /* font-size: ${cssUnit.fontSize.medium}; */
+    font-size: 28px;
+    /* margin: 15px 15px 100px 0; */
+    white-space: pre-wrap;
+    display: flex;
+    justify-content: center;
+    color: #888888;
+    align-items: center;
+    height: 200px;
     width: 90%;
 `;
 export const CommentBox = styled.div`
@@ -113,10 +144,10 @@ export const OKButton = styled.button`
 `;
 export const Input = styled.input`
     width: ${cssUnit.unit.formWidth};
-    height: 62px;
+    height: 102px;
     border: 1px solid #d9d9d9;
     background-color: #fbfbfb;
-    margin: 20px 0px 0px 0px;
+    margin: 30px 0px 10px 0px;
     padding: 10px;
     &::placeholder {
         font-size: ${cssUnit.fontSize.normal};

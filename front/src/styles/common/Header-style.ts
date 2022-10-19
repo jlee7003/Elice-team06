@@ -8,7 +8,8 @@ export const HeaderContainer = styled.header`
     align-items: center;
     justify-content: space-between;
     max-width: ${cssUnit.unit.width};
-    min-width: 560px;
+    /* min-width: 560px; */
+    width: 100%;
     height: 80px;
     margin: auto;
 `;
@@ -19,7 +20,7 @@ export const HeaderSticky = styled.header<Props>`
     width: 100%;
     height: 80px;
     margin: auto;
-    background-color: #fff;
+    /* background-color: #fff; */
     /* box-shadow: 0 5px 10px rgb(0 0 0 / 20%); */
 
     z-index: 10;
@@ -27,25 +28,25 @@ export const HeaderSticky = styled.header<Props>`
     ${(props) =>
         props.mode == "Light"
             ? css`
-                  background-color: white;
+                  /* background-color: white; */
                   color: black;
-                  border-bottom: 1px solid #eee;
                   label {
                       background-color: #282828;
                   }
                   label > div {
                       background-color: #cccccc;
+                      /* transform: translateX(20px); */
                   }
               `
             : css`
-                  background-color: #282828;
+                  /* background-color: #282828; */
                   color: white;
-                  border-bottom: 1px solid #3a3a3a;
                   label {
                       background-color: white;
                   }
                   label > div {
                       background-color: #838383;
+                      /* transform: translateX(20px); */
                   }
               `}
 `;

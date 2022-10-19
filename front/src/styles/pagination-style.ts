@@ -5,10 +5,10 @@ export const ListPagenationWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 350px;
+    /* position: absolute; */
+    /* top: 350px;
     width: 100%;
-    height: 50%;
+    height: 50%; */
     margin: 0px 0px 38px 0px;
 `;
 

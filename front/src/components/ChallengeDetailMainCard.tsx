@@ -12,6 +12,8 @@ import {
     Input,
     CommentButton,
     CommentContainer,
+    NoComments,
+    OnComments,
 } from "@/styles/pages/challengedetail-style";
 import { ChallengeBoardWriter } from "@/recoil/ChallengeBoardRecoil";
 import { useRef, useState, useEffect } from "react";
@@ -99,6 +101,9 @@ const ChallengeDetailMainCard = () => {
             return;
         }
         console.log(commentsRef.current.value);
+        if (commentsRef.current.value == "") {
+            alert("댓글을 입력하세요");
+        }
         addCommentData = {
             description: commentsRef.current?.value,
         };
@@ -132,7 +137,7 @@ const ChallengeDetailMainCard = () => {
         <>
             {!token && <DidLoginModal setOnModal={setOnModal}>로그인을 해주세요</DidLoginModal>}
             <Main>
-                <div>
+                <div style={{ height: "580px" }}>
                     <Title>{userData?.title}</Title>
                     <SubTitle>
                         😊 챌린지 기간
@@ -141,7 +146,7 @@ const ChallengeDetailMainCard = () => {
                             {startDate}~{endDate}
                         </span>
                     </SubTitle>
-                    <SubTitle style={{ marginBottom: "50px" }}>
+                    <SubTitle style={{ marginBottom: "30px" }}>
                         😊 총 참가 인원
                         <span> {userData?.Challenger.length}</span>
                     </SubTitle>
@@ -149,16 +154,23 @@ const ChallengeDetailMainCard = () => {
                 </div>
                 <CommentContainer>
                     <SubTitle>챌린저스의 한마디</SubTitle>
-                    {Object.values(comments)
-                        .reverse()
-                        .slice(offset, offset + limit)
-                        .map((comment) => (
-                            <CommentBox key={comment[0].id}>
-                                <div>작성자</div>
-                                <div>{comment[0].author}</div>
-                                <div>{comment[0].description}</div>
-                            </CommentBox>
-                        ))}
+
+                    {Object.values(comments).length != 0 ? (
+                        <div style={{ height: "300px" }}>
+                            {Object.values(comments)
+                                .reverse()
+                                .slice(offset, offset + limit)
+                                .map((comment: any) => (
+                                    <CommentBox key={comment[0].id}>
+                                        <div>작성자</div>
+                                        <div>{comment[0].author}</div>
+                                        <div>{comment[0].description}</div>
+                                    </CommentBox>
+                                ))}
+                        </div>
+                    ) : (
+                        <NoComments>첫 댓글을 달아주세요 !</NoComments>
+                    )}
                     <Pagination
                         limit={limit}
                         page={page}

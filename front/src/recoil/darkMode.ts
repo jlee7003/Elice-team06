@@ -4,7 +4,7 @@ import { atom, selector } from "recoil";
 
 const darkMode = atom({
     key: "Mode",
-    default: "Light",
+    default: "Light" || "Dark",
 });
 
 export default darkMode;

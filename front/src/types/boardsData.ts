@@ -1,30 +1,18 @@
-import { User } from "./user";
-
-// interface token {
-//     accessToken: string;
-//     refreshToken: string;
-// }
-
-export interface challengeData {
+export interface WriteBoardData {
     title: string;
     description: string;
-    goal: string;
-    start_date: string;
-    due_date: string;
 }
 
-export type challengeResult = {
+export type WriteBoardResult = {
     id: number;
     title: string;
     description: string;
-    goal: string;
-    level: string;
-    start_date: string;
-    due_date: string;
-    proposer: string;
+    author: string;
+    view: string;
     createdAt: string;
     updatedAt: string;
 };
+
 export interface addCommentData {
     description: string;
 }

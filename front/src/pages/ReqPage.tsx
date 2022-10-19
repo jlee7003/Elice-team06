@@ -21,6 +21,7 @@ import { Paginations } from "@/components/Paginations";
 //Modal
 import ModalState from "@/recoil/modalState";
 import ChallengeRequestModal from "@/modal/ChallengeRequestModal";
+import BoardModal from "@/modal/BoardModal";
 //data interface
 import { PostLists } from "@/types/post";
 //API import
@@ -112,6 +113,14 @@ const ReqPage = () => {
                                                 setOnModal={setOnModal}
                                                 addfunction={alert}
                                             ></ChallengeRequestModal>
+                                        )}
+
+                                        <button onClick={() => setOnModal("board")}>계시글</button>
+                                        {onModal == "board" && (
+                                            <BoardModal
+                                                setOnModal={setOnModal}
+                                                addfunction={alert}
+                                            ></BoardModal>
                                         )}
                                     </ButtonContianer>
                                 </Section>

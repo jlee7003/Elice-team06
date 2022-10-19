@@ -1,9 +1,8 @@
 import { createGlobalStyle, css } from "styled-components";
 import { Props } from "../App";
+// import { Props } from "@/components/common/Header";
 
 const font = css`
-    /**/
-
     @font-face {
         font-family: "Noto Sans KR";
         font-style: normal;
@@ -58,6 +57,7 @@ const font = css`
             url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format("opentype");
     }
 `;
+
 const GlobalStyle = createGlobalStyle<Props>` 
     * {
         font-family: "Noto Sans KR", sans-serif;
@@ -80,40 +80,64 @@ const GlobalStyle = createGlobalStyle<Props>`
         ${(props) =>
             props.mode == "Light"
                 ? css`
+                      background-color: #282828;
+                      color: white;
+                  `
+                : css`
                       background-color: white;
                       color: black;
                       input {
                           background-color: #fbfbfb;
                       }
+                  `}
+    }
+    label > div {
+        ${(props) =>
+            props.mode == "Light"
+                ? css`
+                      color: black;
+                      label {
+                          background-color: #282828;
+                      }
+                      label > div {
+                          background-color: #cccccc;
+                      }
                   `
                 : css`
-                      background-color: #282828;
                       color: white;
+                      label {
+                          background-color: white;
+                      }
+                      label > div {
+                          background-color: blue;
+                          transform: translateX(20px);
+                      }
+                  `}
+    }
+    header{
+        ${(props) =>
+            props.mode == "Light"
+                ? css`
+                      color: white;
+                      background-color: #282828;
+                      label {
+                          background-color: #282828;
+                      }
+                      label > div {
+                          background-color: #cccccc;
+                      }
+                  `
+                : css`
+                      color: black;
+                      background-color: white;
+                      label {
+                          background-color: white;
+                      }
+                      label > div {
+                          background-color: blue;
+                          transform: translateX(20px);
+                      }
                   `}
     }
 `;
 export default GlobalStyle;
-
-/* ${(props) =>
-    props.mode == "Light"
-        ? css`
-              background-color: white;
-              color: black;
-              input {
-                  background-color: #fbfbfb;
-              }
-          `
-        : props.mode == "Dark"
-        ? css`
-              background-color: #282828;
-              color: white;
-          `
-        : props.mode == "Common"
-        ? css`
-              background-color: transparent;
-              color: white;
-          `
-        : css`
-              background-color: transparent;
-              color: black;
-          `} */
