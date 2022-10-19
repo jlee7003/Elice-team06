@@ -35,7 +35,7 @@ export const Header = styled.header`
     justify-content: space-between;
     align-items: center;
     background-color: transparent;
-    p {
+    & > p {
         background-color: transparent;
         padding-left: 10px;
     }
@@ -87,7 +87,7 @@ export const SectionNav = styled.ul`
     justify-content: space-between;
     background-color: transparent;
     align-items: flex-end;
-    li {
+    & > li {
         width: 100%;
         height: 20px;
 
@@ -127,7 +127,7 @@ export const Section = styled.div<StyleProps>`
     background-size: cover;
     overflow: hidden;
 
-    h3 {
+    & > h3 {
         width: 100%;
         text-align: center;
         font-size: 30px;
@@ -200,7 +200,7 @@ export const Section1Box = styled.div`
     flex-direction: column;
     justify-content: space-between;
     background-color: transparent;
-    div {
+    & > div {
         background-color: transparent;
         h2 {
             font-size: 60px;
@@ -275,7 +275,7 @@ export const Section3Box = styled.div`
     text-align: center;
     background-color: transparent;
 
-    div {
+    & > div {
         background-color: transparent;
         h2 {
             background-color: transparent;
@@ -300,7 +300,7 @@ export const Section3Content = styled.div`
     display: flex;
     justify-content: space-between;
     position: relative;
-    ul {
+    & > ul {
         width: 30%;
         height: 100%;
         li {
@@ -367,6 +367,7 @@ export const Section3Content = styled.div`
 
         .show {
             opacity: 1 !important;
+            z-index: 5;
         }
 
         .graphs {
@@ -374,6 +375,7 @@ export const Section3Content = styled.div`
             position: absolute;
             right: 34px;
             top: 5px;
+            background-color: #fff;
             transition: all 0.5s ease-in-out;
         }
     }
@@ -456,7 +458,7 @@ export const SlideContent = styled.div`
     overflow: hidden;
     position: relative;
 
-    ul {
+    & > ul {
         white-space: nowrap;
 
         ${SlideList} {
@@ -524,7 +526,7 @@ export const ChallengeCurrent = styled.div`
     display: flex;
     align-items: center;
 
-    div {
+    & > div {
         width: 50%;
         display: flex;
         justify-content: space-evenly;
