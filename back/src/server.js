@@ -16,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/img", express.static("userImages"));
+
 app.use("/user", userRoute);
 app.use("/board", boardRoute);
 app.use("/comment", commentPostRoute);
