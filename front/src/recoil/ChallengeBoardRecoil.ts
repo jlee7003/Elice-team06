@@ -1,3 +1,18 @@
+// import { atom, selector } from "recoil";
+// // import { ChallengeBoardModel } from "@/types/ChallengeBoardModel";
+// export interface ChallengeListModel {
+//     id: string | null;
+//     title: string | null;
+//     due_date: string | number | Date | any;
+//     start_date: string | number | Date | any;
+//     level: string | null;
+//     _count: [Challenger: number] | any;
+// }
+// export const ChallengeList = atom<ChallengeListModel | null>({
+//     key: "ChallengeList",
+//     default: null,
+// });
+
 import { atom, selector } from "recoil";
 // import { ChallengeBoardModel } from "@/types/ChallengeBoardModel";
 export interface ChallengeBoardModel {
@@ -6,8 +21,8 @@ export interface ChallengeBoardModel {
     createdAt: string | null;
     updatedAt: string | null;
     proposer: string | null;
-    due_date: string | null;
-    start_date: string | null;
+    due_date: string | number | Date | any;
+    start_date: string | number | Date | any;
     goal: string | null;
     level: string | null;
     description: string | null;

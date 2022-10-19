@@ -66,6 +66,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
             start_date: startDate.toDateString(),
             due_date: endDate.toDateString(),
         };
+        console.log("formdata:", formData);
         const result = await challenge(formData);
         console.log("요청완료");
     };
@@ -92,7 +93,12 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                                 <FlexBox>
                                     <AllCenterBox>
                                         <FlexBox>
-                                            <ReactDatePicker />
+                                            <ReactDatePicker
+                                                setStart={setStartDate}
+                                                // startDate={startDate}
+                                                setEnd={setEndDate}
+                                                // endDate={endDate}
+                                            />
                                         </FlexBox>
                                     </AllCenterBox>
                                     <Input

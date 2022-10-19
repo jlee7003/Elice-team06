@@ -23,7 +23,7 @@ import userState from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import DidLoginModal from "@/modal/DidLoginModals";
-
+import { useLocation } from "react-router-dom";
 const ChallengeDetailMainCard = () => {
     const [limit, setLimit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
     const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
@@ -33,12 +33,12 @@ const ChallengeDetailMainCard = () => {
     const [counts, setCounts] = useState(0); // 데이터의 총 개수를 setCounts 에 저장해서 사용
     const setError = useSetRecoilState(errorRecoil);
     const user = useRecoilValue(userState);
-
+    const location = useLocation();
     const [userData, setUserData] = useRecoilState(ChallengeBoardWriter);
     const commentsRef = useRef<HTMLInputElement>(null);
     const [onModal, setOnModal] = useRecoilState(ModalState);
 
-    let challengeId = 1;
+    let challengeId = location.state.id;
     let start = 1;
     let end = 100000;
     let count = 1;
@@ -48,6 +48,10 @@ const ChallengeDetailMainCard = () => {
             writer: "테스트",
         },
     ]);
+    var d = new Date(userData?.start_date);
+    var e = new Date(userData?.due_date);
+    const startDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    const endDate = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()}`;
     const getComments = async () => {
         await getComment(challengeId, start, end, count).then((res) => {
             if (res === null) {
@@ -58,24 +62,21 @@ const ChallengeDetailMainCard = () => {
             setCounts(count);
         });
     };
-
     const getBoardData = async () => {
         await getChallengeBoard(challengeId).then((res) => {
             if (res === null) {
                 return;
             }
-            console.log("getChallengeBoard", res.data);
+
             setUserData(res.data);
         });
     };
-    console.log(userData);
 
     let addCommentData = {
         description: "",
     };
     async function addjoiner() {
         const result: any = await challengeJoin(challengeId);
-        console.log(result);
         getBoardData();
         setJoiner((prev: { writer: any }[]) => {
             let joiners = [];
@@ -103,7 +104,6 @@ const ChallengeDetailMainCard = () => {
         };
         const result: any = await addComment(addCommentData, challengeId);
         if (result?.response?.status != undefined) {
-            console.log(result?.response?.data);
             setError({
                 isError: true,
                 message: result?.response?.data?.message,
@@ -112,7 +112,6 @@ const ChallengeDetailMainCard = () => {
         }
 
         setCounts((prev: number) => {
-            console.log("count", Object.keys(comments).length, count);
             return (prev = Object.keys(comments).length);
         });
         commentsRef.current.value = "";
@@ -139,7 +138,7 @@ const ChallengeDetailMainCard = () => {
                         😊 챌린지 기간
                         <span>
                             {" "}
-                            {userData?.start_date}~{userData?.due_date}
+                            {startDate}~{endDate}
                         </span>
                     </SubTitle>
                     <SubTitle style={{ marginBottom: "50px" }}>

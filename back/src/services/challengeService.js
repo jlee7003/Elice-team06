@@ -33,6 +33,7 @@ class challengeService {
         });
         challenges = chunk(challenges, start, Number(count));
         await prisma.$disconnect();
+        console.log(challenges);
         return challenges;
     }
 

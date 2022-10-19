@@ -18,8 +18,12 @@ import { useNavigate } from "react-router-dom";
 type Level = "beginner" | "intermediate" | "advanced" | "default";
 
 export interface Props {
+    id?: number;
     level?: Level;
     grade?: true;
+    title?: string;
+    date?: string;
+    count?: number;
 }
 
 export interface Props {
@@ -34,21 +38,26 @@ const ChallengeCard = (props: Props) => {
     return (
         <Card
             onClick={() => {
-                navigate("/challenge/challengedetail");
+                // navigate("/challenge/challengedetail", props.id);
+                navigate("/challenge/challengedetail", {
+                    state: {
+                        id: props.id,
+                    },
+                });
             }}
         >
             <CardUpper level={props.level ?? "default"} />
             <CardLower>
-                <CardTitle mode={darkMode ?? "Light"}>자전거 이용하기</CardTitle>
+                <CardTitle mode={darkMode ?? "Light"}>{props.title}</CardTitle>
                 <CardInfo>
                     <ChallengeDetail>
                         <p>
                             <CalendarIcon></CalendarIcon>
-                            <span>10/01~11/10</span>
+                            <span>{props.date}</span>
                         </p>
                         <p>
                             <PeopleIcon></PeopleIcon>
-                            <span>1,000명의 도전자</span>
+                            <span>{props.count}명의 도전자</span>
                         </p>
                     </ChallengeDetail>
                     <ChallengeGrade>
