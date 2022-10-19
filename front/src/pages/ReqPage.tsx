@@ -14,9 +14,8 @@ import {
 } from "@/styles/pages/reqpage-style";
 
 import { SectionSkele, NavSkele } from "@/styles/reqpage-skele-style";
-/*boards/components*/
+/*components*/
 import ReqeustCards from "@/components/RequestCards";
-import { Banner } from "@/styles/banner";
 //pagination
 import { Paginations } from "@/components/Paginations";
 //Modal
@@ -31,10 +30,10 @@ import { ROUTES } from "@/routes/.";
 
 const ReqPage = () => {
     const navigate = useNavigate();
-
+    //url, modal
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [onModal, setOnModal] = useRecoilState(ModalState);
-
+    //현재 패이지 정보와 데이터 핸들링용 useState
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [postList, setPostList] = useState<PostLists | null>(null);
 
@@ -49,25 +48,27 @@ const ReqPage = () => {
      * end: 한 range의 끝점(숫자)
      * count: 한 range에 몇개의 post를 셋팅할 것인가
      */
-
     const pageData = {
         start: currentPage, //1
         range: 5,
         count: 5, //한 페이지에 5개의 포스트를 보여줄 것
         end: currentPage + 5 - 1,
     };
+    //query를 만들어 useEffect 내부의 함수에서 사용한다.
     const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
-
     useEffect(() => {
+        //API로 정보 받아오기
         const getAllPosts = async (param: string) => {
             const result = await API.get<PostLists>(["board", param]);
+            //응답이 null 경우 체크(1)
             if (result === null) {
                 navigate(ROUTES.ErrorPage.path);
                 return; //to alret
             }
             return result.data;
-        };
+        }; //promise로 받는 것을 핸들링
         getAllPosts(query).then((res) => {
+            //응답이 undefined 경우 체크(2)
             if (res === undefined) {
                 navigate(ROUTES.ErrorPage.path);
                 return; //to alret
@@ -76,12 +77,13 @@ const ReqPage = () => {
             setPostList(res);
         });
     }, []);
-
+    //묶어서 보내줄 객체 생성
     const PostProps = {
         PostList: postList,
         PageData: pageData,
     };
 
+    //function for currnet page handling
     const settingCurrentPage = (id: number) => {
         if (id === undefined) {
             navigate(ROUTES.ErrorPage.path);
@@ -94,7 +96,6 @@ const ReqPage = () => {
 
     return (
         <Container>
-            <Banner />
             <GridContainer>
                 <Main>
                     <>
