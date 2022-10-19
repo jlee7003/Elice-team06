@@ -8,10 +8,12 @@ import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
 import ErrorPage from "@/pages/ErrorPage";
 import Mypage from "@/pages/Mypage";
 import Landing from "@/pages/Landing";
-import Auth from "@/pages/Auth";
 import Challenges from "@/pages/Challenges";
 import FindID from "@/pages/auth/FindID";
+import FindPassword from "@/pages/auth/FindPassword";
 import FindResult from "@/pages/auth/FindResult";
+import MyPosts from "@/pages/MyPosts";
+import MyChallengeList from "@/pages/MyChallengeList";
 
 interface route {
     path: string;
@@ -55,9 +57,21 @@ export const ROUTES: routeWrap = {
         path: "/mypage",
         Component: Mypage,
     },
+    MyChallengeList: {
+        path: "/MyChallengeList",
+        Component: MyChallengeList,
+    },
+    MyPosts: {
+        path: "/MyPosts",
+        Component: MyPosts,
+    },
     FindID: {
         path: "/auth/email",
         Component: FindID,
+    },
+    FindPassword: {
+        path: "/auth/user",
+        Component: FindPassword,
     },
     FindResult: {
         path: "/find/result",

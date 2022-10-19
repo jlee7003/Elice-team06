@@ -53,6 +53,7 @@ const Landing = () => {
     const [sealevelData, setSealevelData] = useState([]); //rechart data 01
     const [temperatureData, setTemperatureData] = useState([]); //rechart data 01
     const [emissionData, setEmissionData] = useState([]); //rechart data 01
+    const [challengerCount, setChallengerCount] = useState({});
 
     const section = useRef<HTMLDivElement>(null); //section
     const navRefs = useRef<HTMLLIElement[]>([]); //section navigation //HTMLLIElement[] | null
@@ -115,6 +116,11 @@ const Landing = () => {
 
             setEmissionData(res.data);
             console.log("Emission", res.data);
+        });
+
+        API.get(["user", "about"]).then((res) => {
+            console.log("user/about", res.data);
+            setChallengerCount(res.data);
         });
     }, []);
 
@@ -530,6 +536,24 @@ const Landing = () => {
                                                 stroke="#34c759"
                                                 fill="#34c759"
                                             />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="USA"
+                                                stroke="#8034c7"
+                                                fill="#8034c7"
+                                            />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="EU"
+                                                stroke="#3434c7"
+                                                fill="#3434c7"
+                                            />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="China"
+                                                stroke="#7a2626"
+                                                fill="#7a2626"
+                                            />
                                         </AreaChart>
                                     </ResponsiveContainer>
                                 </CarbonGraph>
@@ -623,6 +647,24 @@ const Landing = () => {
                                                 stroke="#34c759"
                                                 fill="#34c759"
                                             />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="USA"
+                                                stroke="#8034c7"
+                                                fill="#8034c7"
+                                            />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="EU"
+                                                stroke="#3434c7"
+                                                fill="#3434c7"
+                                            />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="China"
+                                                stroke="#7a2626"
+                                                fill="#7a2626"
+                                            />
                                         </AreaChart>
                                     </ResponsiveContainer>
                                 </CarbonGraph>
@@ -689,11 +731,13 @@ const Landing = () => {
                             <ChallengeCurrent>
                                 <div>
                                     <p>챌린지 참여 현황</p>
-                                    <span ref={challengersRefs}>56</span>
+                                    <span ref={challengersRefs}>{challengerCount.users}</span>
                                 </div>
                                 <div>
                                     <p>챌린저 가입 수</p>
-                                    <span ref={challengerJoinRefs}>1,000</span>
+                                    <span ref={challengerJoinRefs}>
+                                        {challengerCount.challenger}
+                                    </span>
                                 </div>
                             </ChallengeCurrent>
                         </div>

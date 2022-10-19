@@ -2,18 +2,20 @@ import { useRef, useState, ChangeEvent, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "@/api/.";
 import { Logo } from "@/styles/common";
-import { Main, Form, Label, EmailInput, SubmitButton } from "@/styles/pages/auth-style";
+import { Main, Form, Label, IDInput, EmailInput, SubmitButton } from "@/styles/pages/auth-style";
 import { ROUTES } from "@/routes";
 
 const EMAIL_REG = /^[\w-\.]+@([\w-]+\.)+com$/;
 
 const FindID = () => {
+    const IDRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const [validation, setValidation] = useState(false);
 
     const navigate = useNavigate();
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name } = e.target as any;
         if (emailRef.current === null) {
             return;
         }
@@ -28,22 +30,23 @@ const FindID = () => {
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        if (!validation || emailRef.current === null) {
+        if (!validation || IDRef.current === null || emailRef.current === null) {
             return;
         }
 
-        API.post<{ id: string }>(["user", "find", "id"], { email: emailRef.current.value }).then(
-            (res: any) => {
-                if (res.status !== 200) {
-                    console.log("hihihi");
-                    return;
-                }
-
-                navigate(ROUTES.FindResult.path, {
-                    state: { labelName: "아이디", result: res.data.id },
-                });
+        API.post<{ id: string }>(["user", "auth", "user"], {
+            id: IDRef.current.value,
+            email: emailRef.current.value,
+        }).then((res: any) => {
+            if (res.status !== 200) {
+                console.log("hihihi");
+                return;
             }
-        );
+            console.log(res);
+            navigate(ROUTES.FindResult.path, {
+                state: { labelName: "비밀번호", result: res.data.password },
+            });
+        });
     };
 
     return (
@@ -51,8 +54,11 @@ const FindID = () => {
             <section>
                 <Logo />
                 <Form>
+                    <Label>아이디</Label>
+                    <IDInput name="ID" placeholder="아이디를 입력해주세요." ref={IDRef} />
                     <Label>이메일</Label>
                     <EmailInput
+                        name="email"
                         placeholder="이메일을 입력해주세요."
                         ref={emailRef}
                         onChange={onChange}

@@ -96,7 +96,7 @@ export const ButtonContianer = styled.div`
     flex-direction: row-reverse;
 
     width: 1200px;
-    height: 30px;
+    height: 40px;
 
     margin-top: 10px;
     margin-left: 30px;
@@ -143,7 +143,7 @@ export const NaviLink = styled.button`
     display: inline;
     margin: 10px;
 
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none;
     cursor: pointer;
 
@@ -152,6 +152,10 @@ export const NaviLink = styled.button`
         margin: 10px;
         font-weight: bolder;
         cursor: pointer;
+    }
+    &:hover {
+        font-weight: bold;
+        color: #61be92;
     }
 `;
 /*

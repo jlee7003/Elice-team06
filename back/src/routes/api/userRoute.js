@@ -62,6 +62,15 @@ userRoute.get(
     })
 );
 
+//총 이용자 수, 챌린지 가입자 수
+userRoute.get(
+    "/about",
+    asyncHandler(async (req, res) => {
+        const result = await userService.getAbout();
+        res.status(200).send(result);
+    })
+);
+
 //유저 닉네임,소개글 가져오기//
 userRoute.get(
     "/myInfo",
@@ -105,9 +114,9 @@ userRoute.post(
         res.status(200).send(result);
     })
 );
-//Id,이메일 인증//
+//Id,이메일 인증 => 비밀번호 찾기//
 userRoute.post(
-    "/auth/id",
+    "/auth/user",
     asyncHandler(async (req, res) => {
         const { id, email } = req.body;
         const result = await userService.authId({ id, email });

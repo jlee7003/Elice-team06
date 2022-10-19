@@ -45,15 +45,6 @@ const Login = () => {
         };
 
         setLogin(loginData);
-        // try {
-        //     console.log(1111);
-        // } catch (err: any) {
-        //     console.log(err);
-        //     setError({
-        //         isError: true,
-        //         message: err.response.data,
-        //     });
-        // }
     };
 
     return (
@@ -69,9 +60,9 @@ const Login = () => {
                     <SubmitButton onClick={onClick}>입력</SubmitButton>
                 </Form>
                 <Menu>
-                    <MenuLink to="/auth/email">비밀번호 찾기</MenuLink>
+                    <MenuLink to="/auth/email">아이디 찾기</MenuLink>
                     <div>|</div>
-                    <MenuLink to="/auth/password">이메일 찾기</MenuLink>
+                    <MenuLink to="/auth/user">비밀번호 찾기</MenuLink>
                 </Menu>
                 <Menu>
                     <MenuButton as="div">아직 회원이 아니신가요?</MenuButton>

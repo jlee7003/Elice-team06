@@ -8,6 +8,7 @@ export const Article = styled.article`
     display: absolute;
     flex-direction: column;
 
+    width: 100%;
     height: 190px;
 
     margin: 5px auto;
