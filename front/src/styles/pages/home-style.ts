@@ -60,6 +60,7 @@ export const CategoryTitle = styled.h2`
 export const CategoryContent = styled.div`
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     width: 100%;
 `;

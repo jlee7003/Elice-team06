@@ -179,29 +179,42 @@ const Home = () => {
                 <Category>
                     <CategoryTitle>
                         <p>이런 챌린지가 있어요</p>
-                    </CategoryTitle>
-
-                    <CategoryContent>
-                        <ChallengeCard level="beginner" grade={true} />
-                        <ChallengeCard level="intermediate" grade={true} />
-                        <ChallengeCard level="advanced" grade={true} />
-                        <ChallengeCard grade={true} />
-                    </CategoryContent>
-                </Category>
-                <Category>
-                    <CategoryTitle>
-                        <p>유저들이 선택한 챌린지</p>
                         <p className="more">
                             <a>더보기 &gt;</a>
                         </p>
                     </CategoryTitle>
+
+                    <CategoryContent>
+                        <ChallengeCard level="beginner" grade={true} mode={darkMode ?? "Light"} />
+                        <ChallengeCard
+                            level="intermediate"
+                            grade={true}
+                            mode={darkMode ?? "Light"}
+                        />
+                        <ChallengeCard level="advanced" grade={true} mode={darkMode ?? "Light"} />
+                        <ChallengeCard grade={true} />
+                        <ChallengeCard level="beginner" grade={true} mode={darkMode ?? "Light"} />
+                        <ChallengeCard
+                            level="intermediate"
+                            grade={true}
+                            mode={darkMode ?? "Light"}
+                        />
+                        <ChallengeCard level="advanced" grade={true} mode={darkMode ?? "Light"} />
+                        <ChallengeCard grade={true} />
+                    </CategoryContent>
+                </Category>
+                {/* <Category>
+                    <CategoryTitle>
+                        <p>유저들이 선택한 챌린지</p>
+                        
+                    </CategoryTitle>
                     <CategoryContent>
                         <ChallengeCard />
                         <ChallengeCard />
                         <ChallengeCard />
                         <ChallengeCard />
                     </CategoryContent>
-                </Category>
+                </Category> */}
             </Main>
         </HomeContainer>
     );
