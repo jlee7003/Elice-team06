@@ -15,7 +15,7 @@ import {
 } from "@/styles/ChallengeCard-style";
 import DarkMode from "@/recoil/darkMode";
 import { useNavigate } from "react-router-dom";
-type Level = "beginner" | "intermediate" | "advanced" | "default";
+export type Level = "beginner" | "intermediate" | "advanced" | "default";
 
 export interface Props {
     id?: number;

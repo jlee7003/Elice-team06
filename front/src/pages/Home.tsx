@@ -26,6 +26,8 @@ import assets from "@/lib/assets";
 import icons from "@/lib/icons";
 import { getChallengeList } from "@/api/challenge";
 import Skeleton from "@mui/material/Skeleton";
+import { Link } from "react-router-dom";
+import { ROUTES } from "@/routes";
 
 export interface Props {
     mode?: string;
@@ -221,7 +223,7 @@ const Home = () => {
                     <CategoryTitle>
                         <p>이런 챌린지가 있어요</p>
                         <p className="more">
-                            <a>더보기 &gt;</a>
+                            <Link to="/challengelist/all">더보기 &gt;</Link>
                         </p>
                     </CategoryTitle>
 
@@ -229,8 +231,8 @@ const Home = () => {
                         {isLoaded
                             ? Object.values(boardList)
                                   .slice(0, 9)
-                                  .map((comment) => (
-                                      <div>
+                                  .map((comment, idx) => (
+                                      <div key={idx}>
                                           <ChallengeCard
                                               id={comment[0].id}
                                               level="beginner"
@@ -242,9 +244,9 @@ const Home = () => {
                                           />
                                       </div>
                                   ))
-                            : contentsLength.map(() => {
+                            : contentsLength.map((_, idx) => {
                                   return (
-                                      <SkeletonContent>
+                                      <SkeletonContent key={idx}>
                                           <div>
                                               <Skeleton
                                                   variant="rounded"
@@ -283,28 +285,6 @@ const Home = () => {
                         <ChallengeCard grade={true} /> */}
                     </CategoryContent>
                 </Category>
-                {/* <Category>
-                    <CategoryTitle>
-                        <p>유저들이 선택한 챌린지</p>
-                        
-                    </CategoryTitle>
-                    <CategoryContent>
-                        {Object.values(boardList)
-                            .slice(4, 9)
-                            .map((comment) => (
-                                <div>
-                                    <ChallengeCard
-                                        id={comment[0].id}
-                                        // level="beginner"
-                                        grade={true}
-                                        title={comment[0].title}
-                                        date={startDate + "~" + endDate}
-                                        count={comment[0]._count.Challenger}
-                                    />
-                                </div>
-                            ))}
-                    </CategoryContent>
-                </Category> */}
             </Main>
         </HomeContainer>
     );

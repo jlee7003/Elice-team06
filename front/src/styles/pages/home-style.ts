@@ -24,18 +24,11 @@ export const Category = styled.div`
 
     margin: auto;
 
-    & + div {
-        margin-top: 100px;
-    }
-
     /* & > p {
         grid-area: title;
         width: 100%;
         height: 53px;
     } */
-
-    & > div {
-    }
 `;
 
 export const CategoryTitle = styled.h2`

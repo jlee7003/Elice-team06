@@ -125,12 +125,8 @@ const ChallengeDetailMainCard = () => {
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            getComments();
-            getBoardData();
-        }, 0);
-
-        return () => clearTimeout(timer);
+        getComments();
+        getBoardData();
     }, []);
 
     return (

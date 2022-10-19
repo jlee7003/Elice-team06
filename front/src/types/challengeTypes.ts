@@ -1,10 +1,3 @@
-import { User } from "./user";
-
-// interface token {
-//     accessToken: string;
-//     refreshToken: string;
-// }
-
 export interface challengeData {
     title: string;
     description: string;
@@ -47,14 +40,3 @@ export interface ChallengeJoinResult {
     challenge_id: string;
     nickname: string;
 }
-
-// export interface ChangeMyInfoData {
-//     nickname: string;
-//     updateData: {
-//         age?: string;
-//         region?: string;
-//         gender?: string;
-//         profile_image?: string;
-//         introduce?: string;
-//     };
-// }

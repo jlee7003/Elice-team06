@@ -21,35 +21,6 @@ export interface Props {
     mode?: string;
 }
 
-function wrapPromise(promise) {
-    let status = "pending";
-    let response;
-
-    const suspender = promise.then(
-        (res) => {
-            status = "success";
-            response = res;
-        },
-        (err) => {
-            status = "error";
-            response = err;
-        }
-    );
-
-    const read = () => {
-        switch (status) {
-            case "pending":
-                throw suspender;
-            case "error":
-                throw response;
-            default:
-                return response;
-        }
-    };
-
-    return { read };
-}
-
 const App = () => {
     const [onModal, setOnModal] = useRecoilState(ModalState);
     const [error] = useRecoilState(errorRecoil);
@@ -59,14 +30,11 @@ const App = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     let darkMode = sessionStorage.getItem("DarkMode");
 
-    const [state, reload] = useRefresh();
+    const reload = useRefresh();
 
-    const sample = () => {
-        return wrapPromise(reload());
-    };
-
-    sample.read();
-    useEffect(() => {}, []);
+    useEffect(() => {
+        reload();
+    }, []);
 
     useEffect(() => {
         setVisible((prev) => {

@@ -1,20 +1,19 @@
 import { atom, selector } from "recoil";
-import Api from "../api";
-
-const accessToken = atom({
-    key: "accessToken",
-    default: "null",
-});
+import API from "@/api/.";
+import { refresh } from "@/api/user";
 
 const token = selector({
     key: "token",
-    get: ({ get }) => {
-        const jwt = get(accessToken);
+    get: async () => {
+        API.setAccessToken("refreshed");
 
-        return jwt;
-    },
-    set: ({ set }, newToken) => {
-        set(accessToken, newToken);
+        const result = await refresh();
+
+        if (result === null) {
+            return null;
+        }
+
+        return result.data;
     },
 });
 

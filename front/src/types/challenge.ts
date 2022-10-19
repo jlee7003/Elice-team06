@@ -1,19 +1,12 @@
 export interface ChallengeCard {
-    title: string;
-    startDate: string;
-    dueData: string;
-    challengerCount: string;
-    level: string;
+    id: string | null;
+    title: string | null;
+    due_date: string | number | Date | any;
+    start_date: string | number | Date | any;
+    level: string | null;
+    _count: [Challenger: number] | any;
 }
 
 export interface ChallengeCardList {
-    data: ChallengeCardList | undefined;
     [key: number]: ChallengeCard[];
-}
-
-export interface Challenge {
-    title: String;
-    description: String;
-    goal: String;
-    level: String;
 }
