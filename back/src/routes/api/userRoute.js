@@ -116,7 +116,7 @@ userRoute.post(
 );
 //Id,이메일 인증//
 userRoute.post(
-    "/auth/id",
+    "/auth/user",
     asyncHandler(async (req, res) => {
         const { id, email } = req.body;
         const result = await userService.authId({ id, email });

@@ -1,17 +1,7 @@
 import { useEffect, MouseEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Logo } from "@/styles/common";
-import {
-    Main,
-    Form,
-    Label,
-    Input,
-    Result,
-    SubmitButton,
-    ResultWrap,
-    MenuLink,
-} from "@/styles/pages/auth-style";
-// import { MenuLink } from "@/styles/pages/login-style";
+import { Main, Form, Label, Result, ResultWrap, MenuLink } from "@/styles/pages/auth-style";
 import { ROUTES } from "@/routes";
 import sendToast from "@/lib/sendToast";
 
@@ -38,7 +28,7 @@ const FindResult = () => {
             <section>
                 <Logo />
                 <Form>
-                    <Label>아이디</Label>
+                    <Label>{locationState.labelName}</Label>
                     <ResultWrap>
                         <Result>{locationState.result}</Result>
                         <button onClick={onClick}>

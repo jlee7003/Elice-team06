@@ -62,7 +62,7 @@ const Login = () => {
                 <Menu>
                     <MenuLink to="/auth/email">아이디 찾기</MenuLink>
                     <div>|</div>
-                    <MenuLink to="/auth/password">비밀번호 찾기</MenuLink>
+                    <MenuLink to="/auth/user">비밀번호 찾기</MenuLink>
                 </Menu>
                 <Menu>
                     <MenuButton as="div">아직 회원이 아니신가요?</MenuButton>

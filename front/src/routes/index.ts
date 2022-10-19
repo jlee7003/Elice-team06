@@ -8,9 +8,9 @@ import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
 import ErrorPage from "@/pages/ErrorPage";
 import Mypage from "@/pages/Mypage";
 import Landing from "@/pages/Landing";
-import Auth from "@/pages/Auth";
 import Challenges from "@/pages/Challenges";
 import FindID from "@/pages/auth/FindID";
+import FindPassword from "@/pages/auth/FindPassword";
 import FindResult from "@/pages/auth/FindResult";
 
 interface route {
@@ -58,6 +58,10 @@ export const ROUTES: routeWrap = {
     FindID: {
         path: "/auth/email",
         Component: FindID,
+    },
+    FindPassword: {
+        path: "/auth/user",
+        Component: FindPassword,
     },
     FindResult: {
         path: "/find/result",
