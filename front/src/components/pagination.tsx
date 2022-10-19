@@ -119,19 +119,6 @@ const Pagination = ({
             >
                 &gt;&gt;
             </MoveToLastPage>
-
-            <style jsx>
-                {`
-                    .pageBtn[aria-current] {
-                        background-color: #75c6a0;
-                        font-weight: bold;
-                        cursor: revert;
-                        transform: revert;
-                        opacity: 1;
-                        border-radius: 30px;
-                    }
-                `}
-            </style>
         </ListPagenationWrapper>
     );
 };

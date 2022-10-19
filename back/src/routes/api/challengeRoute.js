@@ -10,6 +10,8 @@ challengeRoute.get(
     "/all",
     asyncHandler(async (req, res) => {
         try {
+            console.log(6666);
+            console.log(req.query);
             const pagination = req.query;
             const challenges = await challengeService.getChallenges(pagination);
             res.status(200).send(challenges);
