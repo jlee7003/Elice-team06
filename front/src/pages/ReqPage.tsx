@@ -1,6 +1,6 @@
 /*lib*/
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 /*data*/
 /*styles*/
@@ -33,12 +33,80 @@ import { AllPostList } from "@/api/postList";
 
 import { PaginationReal } from "@/components/PaginationReal";
 
+//useState이식중
+//real data
+import { PostLists } from "@/types/post";
+import { Post } from "@/types/post";
+//API import
+import API from "@/api/.";
+import { ROUTES } from "@/routes/.";
+
 const ReqPage = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [onModal, setOnModal] = useRecoilState(ModalState);
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
+    //---------------------------------------------------
+    //Usenavigate
+    const navigate = useNavigate();
+
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const postList = useRef<PostLists | []>([]);
+    //const [postList, setPostList] = useState<PostLists | []>([]);
+    const { id } = useParams();
+
+    const settingCurrentPage = (id: number) => {
+        if (id === undefined) {
+            navigate(ROUTES.ErrorPage.path);
+            return; //to alret
+        }
+        setCurrentPage(id);
+    };
+
+    const pageData = {
+        start: currentPage, //1
+        range: 5,
+        count: 5, //한 페이지에 5개의 포스트를 보여줄 것
+        end: currentPage + 5,
+    };
+    const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
+    const PostProps = {
+        PostList: postList.current, //postList,
+        PageData: pageData,
+    };
+
+    useEffect(() => {
+        const getAllPosts = async (param: string) => {
+            const result = await API.get<PostLists>(["board", param]);
+            if (result === null) {
+                navigate(ROUTES.ErrorPage.path);
+                //console.log(result);
+                return; //to alret
+            }
+            return result.data;
+        };
+        getAllPosts(query).then((res) => {
+            if (res === undefined) {
+                navigate(ROUTES.ErrorPage.path);
+                return; //to alret
+            }
+
+            //PostProps.PostList = postList.current;
+
+            //console.log("useEffect 내부의 postList.current: ", postList.current);
+            //console.log("postList.current의 타입: ", typeof postList.current);
+            //console.log("내부의", PostProps.PostList);
+            console.log("useEffect실행됨");
+            //setPostList(res);
+            postList.current = res;
+        });
+    }, []);
+    //console.log("외부의PostProps.PostList", PostProps.PostList);
+    console.log("외부의realPostList", postList.current);
+    //console.log("currentPage", currentPage);
+    //console.log("바깥쪽 postList.current: ", postList.current);
+    //console.log("PostProps", PostProps.PostList);
 
     // const getPosts = async () => {
     //     const result = await AllPostList();
@@ -53,7 +121,11 @@ const ReqPage = () => {
             <GridContainer>
                 <Main>
                     <Section>
-                        <ReqeustCards value={post} />
+                        <ReqeustCards
+                            value={post}
+                            postLists={postList.current}
+                            currentPage={currentPage}
+                        />
                         <ButtonContianer>
                             <button onClick={() => setOnModal("challenge")}>글쓰기</button>
                             {onModal == "challenge" && (
@@ -64,7 +136,7 @@ const ReqPage = () => {
                             )}
                         </ButtonContianer>
                     </Section>
-                    <PaginationReal value={post} />
+                    <PaginationReal value={PostProps} setCurrentPage={settingCurrentPage} />
                 </Main>
             </GridContainer>
         </Container>
@@ -72,6 +144,8 @@ const ReqPage = () => {
 };
 
 export default ReqPage;
+
+//<ReqeustCards value={PostProps} currentPageNum={currentPage} />
 
 //공부중...
 // return (
