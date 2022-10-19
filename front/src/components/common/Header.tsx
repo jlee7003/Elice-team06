@@ -35,7 +35,7 @@ function Header() {
     const onClickLogout = () => {
         setLogout();
     };
-
+    console.log(user);
     return (
         <HeaderSticky mode={darkMode ?? "Light"}>
             <HeaderContainer>

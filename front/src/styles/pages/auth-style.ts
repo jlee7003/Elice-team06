@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
 
+interface Props {
+    invalid: boolean;
+}
+
 export const Main = styled.main`
     display: grid;
     place-items: center;
@@ -30,7 +34,7 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-    width: ${cssUnit.unit.formWidth};
+    width: 500px;
 
     margin-bottom: 15px;
 
@@ -38,14 +42,32 @@ export const Label = styled.label`
     font-weight: bold;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<Props>`
     width: 100%;
     height: 62px;
 
     margin-bottom: 30px;
     padding: 10px;
 
-    border: 1px solid #d9d9d9;
+    border: ${(props) => {
+        if (props.invalid === true) {
+            return "1px solid red;";
+        }
+    }};
+
+    outline: none;
+`;
+
+export const Result = styled.div`
+    width: 100%;
+    height: 62px;
+
+    margin-bottom: 30px;
+    padding: 10px;
+
+    font-size: ${cssUnit.fontSize.medium};
+
+    outline: none;
 `;
 
 export const SubmitButton = styled.button`
@@ -61,6 +83,14 @@ export const SubmitButton = styled.button`
     background-color: ${cssUnit.color.green};
 
     text-align: center;
+`;
+
+export const FormFooter = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 500px;
 `;
 
 export const Menu = styled.div`
@@ -81,7 +111,7 @@ export const Menu = styled.div`
 `;
 
 export const MenuButton = styled.button`
-    /* margin: 15px; */
+    width: fit-content;
 
     margin-top: 30px;
     margin-bottom: 40px;

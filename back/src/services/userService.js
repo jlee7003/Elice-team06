@@ -262,6 +262,34 @@ class userService {
         await prisma.$disconnect();
         return "회원 탈퇴";
     }
+    //유저 이미지 관련//
+    static async getImage({ nickname }) {
+        const image = await prisma.Profile.findUnique({
+            where: { nickname },
+            select: { profile_image: true },
+        });
+        await prisma.$disconnect();
+        return image;
+    }
+
+    static async updateImage({ nickname, filename }) {
+        const updatedImage = await prisma.Profile.update({
+            where: { nickname },
+            data: { profile_image: filename },
+            select: { profile_image: true },
+        });
+        await prisma.$disconnect();
+        return updatedImage;
+    }
+
+    static async deleteImage({ nickname }) {
+        await prisma.Profile.update({
+            where: { nickname },
+            data: { profile_image: null },
+        });
+        await prisma.$disconnect();
+        return { result: true, message: "삭제 됐습니다" };
+    }
 }
 
 export default userService;

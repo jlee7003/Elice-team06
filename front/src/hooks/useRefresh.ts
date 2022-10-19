@@ -20,11 +20,14 @@ const useRefresh = () => {
         if (result === null) {
             return;
         }
-        const data = (result as any).data;
+
+        const data = result.data;
+        console.log(data?.Profile[0].introduce);
+
         API.setAccessToken(data?.accessToken);
         setUser({
             nickname: data?.nickname,
-            introduce: data?.Profile.introduce,
+            introduce: data?.Profile[0].introduce,
         });
     };
 
