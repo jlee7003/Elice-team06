@@ -26,12 +26,10 @@ const ReqeustCards = (prop: { value: Posts; postLists: PostLists; currentPage: n
     const postlist = prop.postLists;
     console.log("postlist", postlist);
 
-    // }
+    const currentPageNum = prop.currentPage;
+    const postLists = prop.postLists;
 
-    //const currentPageNum = prop.currentPage;
-    //const postLists = prop.postLists.PostList;
-
-    //console.log("requestcads의 postLists", postLists);
+    console.log("requestcads의 postLists", postLists);
 
     //const currentPosts = postLists[currentPageNum];
     //console.log("requestcards의 currentPosts", currentPosts);

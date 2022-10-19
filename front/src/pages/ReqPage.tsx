@@ -52,8 +52,8 @@ const ReqPage = () => {
     const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const postList = useRef<PostLists | []>([]);
-    //const [postList, setPostList] = useState<PostLists | []>([]);
+    //const postList = useRef<PostLists | []>([]);
+    const [postList, setPostList] = useState<PostLists | []>([]);
     const { id } = useParams();
 
     const settingCurrentPage = (id: number) => {
@@ -71,10 +71,6 @@ const ReqPage = () => {
         end: currentPage + 5,
     };
     const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
-    const PostProps = {
-        PostList: postList.current, //postList,
-        PageData: pageData,
-    };
 
     useEffect(() => {
         const getAllPosts = async (param: string) => {
@@ -98,12 +94,17 @@ const ReqPage = () => {
             //console.log("postList.current의 타입: ", typeof postList.current);
             //console.log("내부의", PostProps.PostList);
             console.log("useEffect실행됨");
-            //setPostList(res);
-            postList.current = res;
+            setPostList(res);
+            //postList.current = res;
         });
     }, []);
+    const PostProps = {
+        PostList: postList, //postList.current, //
+        PageData: pageData,
+    };
+
     //console.log("외부의PostProps.PostList", PostProps.PostList);
-    console.log("외부의realPostList", postList.current);
+    console.log("외부의realPostList", postList);
     //console.log("currentPage", currentPage);
     //console.log("바깥쪽 postList.current: ", postList.current);
     //console.log("PostProps", PostProps.PostList);
@@ -121,11 +122,7 @@ const ReqPage = () => {
             <GridContainer>
                 <Main>
                     <Section>
-                        <ReqeustCards
-                            value={post}
-                            postLists={postList.current}
-                            currentPage={currentPage}
-                        />
+                        <ReqeustCards value={post} postLists={postList} currentPage={currentPage} />
                         <ButtonContianer>
                             <button onClick={() => setOnModal("challenge")}>글쓰기</button>
                             {onModal == "challenge" && (
