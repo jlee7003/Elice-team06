@@ -98,7 +98,6 @@ class userService {
         const accessToken = generateToken({ nickname: userData.nickname }, "accessToken");
         let refreshToken = generateToken({}, "refreshToken");
 
-        await prisma.User.update({ where: { nickname }, data: { token: null } });
         await prisma.User.update({ where: { nickname }, data: { token: refreshToken } });
 
         await prisma.$disconnect();

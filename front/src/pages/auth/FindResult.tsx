@@ -1,11 +1,20 @@
 import { useEffect, MouseEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Logo } from "@/styles/common";
-import { Main, Form, Label, Input, Result, SubmitButton } from "@/styles/pages/auth-style";
-import { MenuLink } from "@/styles/pages/login-style";
+import {
+    Main,
+    Form,
+    Label,
+    Input,
+    Result,
+    SubmitButton,
+    ResultWrap,
+    MenuLink,
+} from "@/styles/pages/auth-style";
+// import { MenuLink } from "@/styles/pages/login-style";
 import { ROUTES } from "@/routes";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import sendToast from "@/lib/sendToast";
+
 const FindResult = () => {
     const locationState = useLocation().state;
     const navigate = useNavigate();
@@ -18,16 +27,8 @@ const FindResult = () => {
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        toast.success("대충 내용", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-            theme: "light",
-        });
+
+        sendToast("클립보드에 복사되었습니다.", "success");
 
         navigator.clipboard.writeText(locationState.result);
     };
@@ -38,10 +39,14 @@ const FindResult = () => {
                 <Logo />
                 <Form>
                     <Label>아이디</Label>
-                    <Result>{locationState.result}</Result>
+                    <ResultWrap>
+                        <Result>{locationState.result}</Result>
+                        <button onClick={onClick}>
+                            <i className="ri-file-copy-line"></i>
+                        </button>
+                    </ResultWrap>
+                    <MenuLink to={ROUTES.Login.path}>로그인하기</MenuLink>
                 </Form>
-                <button onClick={onClick}>복사</button>
-                <MenuLink to={ROUTES.Login.path}>로그인하기</MenuLink>
             </section>
         </Main>
     );

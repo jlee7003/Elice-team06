@@ -62,6 +62,7 @@ userRoute.get(
     })
 );
 
+//총 이용자 수, 챌린지 가입자 수
 userRoute.get(
     "/about",
     asyncHandler(async (req, res) => {
