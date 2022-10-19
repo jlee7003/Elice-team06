@@ -5,7 +5,7 @@ const authToken = async (req, res, next) => {
     try {
         let accessToken = req.headers.authorization?.split(" ")[1] ?? null;
         let refreshToken = req.headers.refreshtoken;
-
+        console.log(accessToken, refreshToken);
         if (accessToken === null || refreshToken === null || typeof refreshToken !== "string") {
             throw new Error("no accessToken or refreshToken in header");
         }

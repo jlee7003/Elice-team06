@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import userState from "@/recoil/user";
 import { refresh } from "@/api/user";
 import API from "@/api/.";
 
-const useRefresh = () => {
+export type State = "loading" | "done";
+
+const useRefresh = (): [State, () => Promise<void>] => {
     const setUser = useSetRecoilState(userState);
+    const [state, setState] = useState<State>("done");
 
     const reload = async () => {
         const refreshToken = sessionStorage.getItem("refresh");
@@ -12,6 +16,8 @@ const useRefresh = () => {
         if (refreshToken === null) {
             return;
         }
+
+        setState("loading");
 
         API.setAccessToken("refreshed");
 
@@ -28,9 +34,12 @@ const useRefresh = () => {
             nickname: data?.nickname,
             introduce: data?.Profile[0]?.introduce,
         });
+
+        setState("done");
+        return result;
     };
 
-    return reload;
+    return [state, reload];
 };
 
 export default useRefresh;

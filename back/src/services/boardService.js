@@ -48,6 +48,16 @@ class boardService {
         const allPosts = await prisma.Board.findMany({
             take: count * (end - start + 1),
             skip: (start - 1) * count,
+            select: {
+                id: true,
+                author: true,
+                title: true,
+                description: true,
+                view: true,
+                createdAt: true,
+                updatedAt: true,
+                _count: { select: { VotePost: true } },
+            },
         });
         const result = pagination(allPosts, start, end, count);
         await prisma.$disconnect();

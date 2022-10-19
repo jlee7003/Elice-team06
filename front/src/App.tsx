@@ -21,6 +21,35 @@ export interface Props {
     mode?: string;
 }
 
+function wrapPromise(promise) {
+    let status = "pending";
+    let response;
+
+    const suspender = promise.then(
+        (res) => {
+            status = "success";
+            response = res;
+        },
+        (err) => {
+            status = "error";
+            response = err;
+        }
+    );
+
+    const read = () => {
+        switch (status) {
+            case "pending":
+                throw suspender;
+            case "error":
+                throw response;
+            default:
+                return response;
+        }
+    };
+
+    return { read };
+}
+
 const App = () => {
     const [onModal, setOnModal] = useRecoilState(ModalState);
     const [error] = useRecoilState(errorRecoil);
@@ -28,10 +57,14 @@ const App = () => {
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
 
-    const reload = useRefresh();
-    useEffect(() => {
-        reload();
-    }, []);
+    const [state, reload] = useRefresh();
+
+    const sample = () => {
+        return wrapPromise(reload());
+    };
+
+    sample.read();
+    useEffect(() => {}, []);
 
     useEffect(() => {
         setVisible((prev) => {
@@ -53,6 +86,7 @@ const App = () => {
     function onClickLogout() {
         console.log("함수 실행 내용");
     }
+
     return (
         <>
             <GlobalStyle mode={darkMode ?? "Light"} />

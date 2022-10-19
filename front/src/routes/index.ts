@@ -25,8 +25,12 @@ interface routeWrap {
 }
 
 export const ROUTES: routeWrap = {
-    Home: {
+    Landing: {
         path: "/",
+        Component: Landing,
+    },
+    Home: {
+        path: "/home",
         Component: Home,
     },
     Login: {
@@ -44,10 +48,6 @@ export const ROUTES: routeWrap = {
     ReqPage: {
         path: "/reqpage/pages/:id",
         Component: ReqPage,
-    },
-    Landing: {
-        path: "/landing",
-        Component: Landing,
     },
     ChallengeDetail: {
         path: "/challenge/challengedetail",
@@ -78,7 +78,7 @@ export const ROUTES: routeWrap = {
         Component: FindResult,
     },
     Challenges: {
-        path: "/challenges/:target",
+        path: "/challengelist/:target",
         Component: Challenges,
     },
 

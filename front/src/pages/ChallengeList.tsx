@@ -14,30 +14,17 @@ const ChallengeList = () => {
     useEffect(() => {
         switch (target) {
             case "my":
-                getChallengeData(target).then((data) => {
-                    if (data === null) {
-                        navigate(ROUTES.Home.path);
-                        return;
-                    }
-                    console.log(data);
-                    cardListRef.current = data;
+                API.get(["challenge", "my"]).then((res) => {
+                    console.log(res);
                 });
                 break;
             case "all":
-                getChallengeData(target).then((data) => {
-                    if (data === null) {
-                        navigate(ROUTES.Home.path);
-                        return;
-                    }
-
-                    cardListRef.current = data;
-                });
                 break;
             default:
                 navigate(ROUTES.ErrorPage.path);
         }
-    }, [cardListRef]);
-    console.log(cardListRef.current);
+    }, []);
+
     return (
         <Main>
             <CardSection>

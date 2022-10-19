@@ -35,7 +35,6 @@ const FindID = () => {
         API.post<{ id: string }>(["user", "find", "id"], { email: emailRef.current.value }).then(
             (res: any) => {
                 if (res.status !== 200) {
-                    console.log("hihihi");
                     return;
                 }
 
