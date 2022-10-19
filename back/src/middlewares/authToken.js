@@ -21,6 +21,12 @@ const authToken = async (req, res, next) => {
             }
         }
 
+        //session storage에 있는 토큰값과 db 토큰값 비교
+        let checkRefresh = await Token.checkToken(refreshToken);
+        if (!checkRefresh) {
+            throw new Error("중복 로그인 중");
+        }
+
         let accessPayload = verifyToken(accessToken);
         const refreshPayload = verifyToken(refreshToken);
 
