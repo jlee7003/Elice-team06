@@ -11,17 +11,27 @@ const ChallengeCardBgImg = assets("challengeCard_bgImg.png");
 const calendarIcon = icons("calendar_icon.png");
 const peopleIcon = icons("people_icon.png");
 
-export const Card = styled.article`
+export const Card = styled.article<Props>`
     display: flex;
     flex-direction: column;
 
-    width: 303px;
+    /* width: 303px; */
+    width: 298px;
     height: 285px;
 
+    margin-top: 30px;
     border: 1px solid #eeeeee;
     border-radius: 24px;
     overflow: hidden;
-    background-color: #fff;
+
+    ${(props) =>
+        props.mode == "Light"
+            ? css`
+                  background-color: #fff;
+              `
+            : css`
+                  background-color: #ffffffba;
+              `};
 `;
 
 export const CardUpper = styled.div<Props>`

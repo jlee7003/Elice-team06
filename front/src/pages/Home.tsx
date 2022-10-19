@@ -213,11 +213,14 @@ const Home = () => {
                 <Category>
                     <CategoryTitle>
                         <p>이런 챌린지가 있어요</p>
+                        <p className="more">
+                            <a>더보기 &gt;</a>
+                        </p>
                     </CategoryTitle>
 
                     <CategoryContent>
                         {Object.values(boardList)
-                            .slice(0, 4)
+                            .slice(0, 9)
                             .map((comment) => (
                                 <div>
                                     <ChallengeCard
@@ -227,6 +230,7 @@ const Home = () => {
                                         title={comment[0].title}
                                         date={startDate + "~" + endDate}
                                         count={comment[0]._count.Challenger}
+                                        mode={darkMode ?? "Light"}
                                     />
                                 </div>
                             ))}
@@ -240,12 +244,10 @@ const Home = () => {
                         <ChallengeCard grade={true} /> */}
                     </CategoryContent>
                 </Category>
-                <Category>
+                {/* <Category>
                     <CategoryTitle>
                         <p>유저들이 선택한 챌린지</p>
-                        <p className="more">
-                            <a>더보기 &gt;</a>
-                        </p>
+                        
                     </CategoryTitle>
                     <CategoryContent>
                         {Object.values(boardList)
@@ -263,7 +265,7 @@ const Home = () => {
                                 </div>
                             ))}
                     </CategoryContent>
-                </Category>
+                </Category> */}
             </Main>
         </HomeContainer>
     );

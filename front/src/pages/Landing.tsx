@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState, PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
     ContainerWrap,
     Container,
@@ -29,8 +29,6 @@ import {
     ButtonLink,
     Name,
 } from "@/styles/pages/landing-style";
-import assets from "@/lib/assets";
-import urlCheck from "@/recoil/urlCheck";
 import {
     AreaChart,
     Area,
@@ -43,10 +41,22 @@ import {
     Legend,
     Bar,
 } from "recharts";
+import assets from "@/lib/assets";
+import urlCheck from "@/recoil/urlCheck";
+import userState from "@/recoil/user";
+import ModalState from "@/recoil/modalState";
+import LoginModal from "@/modal/LoginModal";
+import useLogout from "@/hooks/useLogout";
 import API from "@/api/.";
 
 const Landing = () => {
+    //-----useRecoilValue----
+    const user = useRecoilValue(userState);
+    //-------useRecoilState --------
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+    const [onModal, setOnModal] = useRecoilState(ModalState);
+
+    //-------useState --------
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
     const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
     const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
@@ -55,6 +65,7 @@ const Landing = () => {
     const [emissionData, setEmissionData] = useState([]); //rechart data 01
     const [challengerCount, setChallengerCount] = useState({});
 
+    //-------useRef --------
     const section = useRef<HTMLDivElement>(null); //section
     const navRefs = useRef<HTMLLIElement[]>([]); //section navigation //HTMLLIElement[] | null
     const carbonListRefs = useRef<HTMLLIElement[]>([]);
@@ -63,6 +74,12 @@ const Landing = () => {
     const graphs01Ref = useRef<HTMLDivElement>(null);
     const graphs02Ref = useRef<HTMLDivElement>(null);
     const graphs03Ref = useRef<HTMLDivElement>(null);
+
+    //Logout
+    const setLogout = useLogout();
+    const onClickLogout = () => {
+        setLogout();
+    };
 
     //section nav list
     const nav = ["탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개"];
@@ -294,41 +311,10 @@ const Landing = () => {
         }
     };
 
-    //recharts data
-    const dangerData = [
-        {
-            name: "Page A",
-            uv: 4000,
-            pv: 2400,
-            amt: 2400,
-        },
-        {
-            name: "Page B",
-            uv: 3000,
-            pv: 1398,
-            amt: 2210,
-        },
-        {
-            name: "Page C",
-            uv: 2000,
-            pv: 9800,
-            amt: 2290,
-        },
-        {
-            name: "Page D",
-            uv: 2780,
-            pv: 3908,
-            amt: 2000,
-        },
-    ];
-
     /**
      * 각 List 클릭 시, 각 List CSS 적용
      * @param e list index 값
      */
-    // if (graphs01Ref.current != null) {
-    //     graphs01Ref.current.classList.add("show");
-    // }
 
     const onTabClick = (e: number) => {
         for (let i = 0; i < 3; i++) {
@@ -388,15 +374,43 @@ const Landing = () => {
             navRefs.current[i].style.border = "1px solid #868686";
         }
 
-        if (!navRefs.current) {
-            return;
-        }
         navRefs.current[1].style.backgroundColor = "#000";
         navRefs.current[1].style.color = "#fff";
         navRefs.current[1].style.fontSize = "18px";
         navRefs.current[1].style.width = "125px";
         navRefs.current[1].style.padding = "5px";
         navRefs.current[1].style.border = "1px solid #000";
+    };
+
+    //사이드 네비 클릭 시 section 이동
+    const onMoveSection = (i: number) => {
+        if (!section.current) {
+            return;
+        }
+        section.current.style.top = `-${innerHeight * i}px`;
+        section.current.style.transition = "all 0.7s ease-in-out";
+
+        if (!navRefs.current) {
+            return;
+        }
+        for (let i = 0; i < 5; i++) {
+            if (!navRefs.current) {
+                return;
+            }
+            navRefs.current[i].style.backgroundColor = "#fff";
+            navRefs.current[i].style.color = "#000";
+            navRefs.current[i].style.fontSize = "14px";
+            navRefs.current[i].style.width = "95px";
+            navRefs.current[i].style.padding = "5px";
+            navRefs.current[i].style.border = "1px solid #868686";
+        }
+
+        navRefs.current[i].style.backgroundColor = "#000";
+        navRefs.current[i].style.color = "#fff";
+        navRefs.current[i].style.fontSize = "18px";
+        navRefs.current[i].style.width = "125px";
+        navRefs.current[i].style.padding = "5px";
+        navRefs.current[i].style.border = "1px solid #000";
     };
 
     return (
@@ -409,7 +423,19 @@ const Landing = () => {
                 <Nav>
                     <Link to={ROUTES.Home.path}>챌린지</Link>
                     <Link to={ROUTES.ReqPage.path}>커뮤니티</Link>
-                    <Link to={ROUTES.Login.path}>로그인</Link>
+                    {user === null ? (
+                        <Link to={ROUTES.Login.path}>로그인</Link>
+                    ) : (
+                        <>
+                            <button onClick={() => setOnModal("login")}>로그아웃</button>
+                            {onModal == "login" && (
+                                <LoginModal
+                                    setOnModal={setOnModal}
+                                    logout={onClickLogout}
+                                ></LoginModal>
+                            )}
+                        </>
+                    )}
                 </Nav>
             </Header>
             <SectionNav>
@@ -424,6 +450,9 @@ const Landing = () => {
                                 backgroundColor: "#fff",
                                 fontSize: "14px",
                                 border: "1px solid #868686",
+                            }}
+                            onClick={() => {
+                                onMoveSection(i);
                             }}
                         >
                             {item}
@@ -459,7 +488,7 @@ const Landing = () => {
                             <AreaChart
                                 width={500}
                                 height={400}
-                                data={sealevelData}
+                                data={emissionData}
                                 margin={{
                                     top: 10,
                                     right: 30,
@@ -473,9 +502,27 @@ const Landing = () => {
                                 <Tooltip />
                                 <Area
                                     type="monotone"
-                                    dataKey="sea_level"
+                                    dataKey="World"
                                     stroke="#34c759"
                                     fill="#34c759"
+                                />
+                                <Area
+                                    type="monotone"
+                                    dataKey="USA"
+                                    stroke="#8034c7"
+                                    fill="#8034c7"
+                                />
+                                <Area
+                                    type="monotone"
+                                    dataKey="EU"
+                                    stroke="#3434c7"
+                                    fill="#3434c7"
+                                />
+                                <Area
+                                    type="monotone"
+                                    dataKey="China"
+                                    stroke="#7a2626"
+                                    fill="#7a2626"
                                 />
                             </AreaChart>
                         </ResponsiveContainer>
@@ -589,35 +636,6 @@ const Landing = () => {
                                         </AreaChart>
                                     </ResponsiveContainer>
                                 </CarbonGraph>
-                                {/* <CarbonGraph
-                                    className="graphs"
-                                    ref={graphs03Ref}
-                                    width="90%"
-                                    height="90%"
-                                    margin="20px auto"
-                                >
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart
-                                            width={500}
-                                            height={300}
-                                            data={temperatureData}
-                                            margin={{
-                                                top: 5,
-                                                right: 30,
-                                                left: 20,
-                                                bottom: 5,
-                                            }}
-                                        >
-                                            <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="year" />
-                                            <YAxis />
-                                            <Tooltip />
-                                            <Legend />
-                                            <Bar dataKey="World" fill="#8884d8" />
-                                            <Bar dataKey="USA" fill="#82ca9d" />
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </CarbonGraph> */}
                                 <CarbonGraph
                                     className="graphs"
                                     ref={graphs03Ref}
@@ -731,13 +749,11 @@ const Landing = () => {
                             <ChallengeCurrent>
                                 <div>
                                     <p>챌린지 참여 현황</p>
-                                    <span ref={challengersRefs}>{challengerCount.users}</span>
+                                    <span ref={challengersRefs}>{challengerCount.challenger}</span>
                                 </div>
                                 <div>
                                     <p>챌린저 가입 수</p>
-                                    <span ref={challengerJoinRefs}>
-                                        {challengerCount.challenger}
-                                    </span>
+                                    <span ref={challengerJoinRefs}>{challengerCount.users}</span>
                                 </div>
                             </ChallengeCurrent>
                         </div>
