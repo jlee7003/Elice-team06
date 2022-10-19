@@ -5,6 +5,7 @@ import {
     Category,
     CategoryTitle,
     CategoryContent,
+    SkeletonContent,
 } from "@/styles/pages/home-style";
 // import {
 //     ChallengeSlide,
@@ -24,6 +25,8 @@ import urlCheck from "@/recoil/urlCheck";
 import assets from "@/lib/assets";
 import icons from "@/lib/icons";
 import { getChallengeList } from "@/api/challenge";
+import Skeleton from "@mui/material/Skeleton";
+
 export interface Props {
     mode?: string;
 }
@@ -34,6 +37,7 @@ const Home = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [resizeWidth, setResizeWidth] = useState(window.innerWidth); //리사이징 화면 높이 값
     const [innerWidth, setInnerWidth] = useState(window.innerWidth); // 초기 랜더링 시 화면 높이 값
+    const [isLoaded, setIsLoaded] = useState(false); //카드 데이터 로딩 상태 값
     // const [bannerCount, setBannerCount] = useState(0);
     let start = 1;
     let end = 8;
@@ -51,17 +55,19 @@ const Home = () => {
                 return;
             }
             setBoardList(res.data);
+
             console.log(234324, res.data, boardList);
             d = new Date(boardList[0]?.start_date);
             e = new Date(boardList[0]?.due_date);
         });
+        setIsLoaded(true);
     };
 
     // const startDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
     // const endDate = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()}`;
     const startDate = `${d.getMonth() + 1}-${d.getDate()}`;
     const endDate = `${e.getMonth() + 1}-${e.getDate()}`;
-    console.log(boardList);
+    console.log("boardListLength", Object.values(boardList).length);
     console.log(boardList[0]?.start_date);
     useEffect(() => {
         setCurrentUrl(window.location.href);
@@ -174,6 +180,7 @@ const Home = () => {
     };
 
     const leftArrow = icons("arrow_side_icon.png");
+    const contentsLength = [0, 1, 2, 3, 4, 5, 6, 7];
 
     return (
         <HomeContainer>
@@ -213,23 +220,59 @@ const Home = () => {
                 <Category>
                     <CategoryTitle>
                         <p>이런 챌린지가 있어요</p>
+                        <p className="more">
+                            <a>더보기 &gt;</a>
+                        </p>
                     </CategoryTitle>
 
                     <CategoryContent>
-                        {Object.values(boardList)
-                            .slice(0, 4)
-                            .map((comment) => (
-                                <div>
-                                    <ChallengeCard
-                                        id={comment[0].id}
-                                        level="beginner"
-                                        grade={true}
-                                        title={comment[0].title}
-                                        date={startDate + "~" + endDate}
-                                        count={comment[0]._count.Challenger}
-                                    />
-                                </div>
-                            ))}
+                        {isLoaded
+                            ? Object.values(boardList)
+                                  .slice(0, 9)
+                                  .map((comment) => (
+                                      <div>
+                                          <ChallengeCard
+                                              id={comment[0].id}
+                                              level="beginner"
+                                              grade={true}
+                                              title={comment[0].title}
+                                              date={startDate + "~" + endDate}
+                                              count={comment[0]._count.Challenger}
+                                              mode={darkMode ?? "Light"}
+                                          />
+                                      </div>
+                                  ))
+                            : contentsLength.map(() => {
+                                  return (
+                                      <SkeletonContent>
+                                          <div>
+                                              <Skeleton
+                                                  variant="rounded"
+                                                  width={298}
+                                                  height={113}
+                                              />
+                                          </div>
+                                          <div>
+                                              <Skeleton variant="rounded" width={298} height={21} />
+                                          </div>
+                                          <div
+                                              style={{
+                                                  display: "flex",
+                                                  justifyContent: "space-between",
+                                              }}
+                                          >
+                                              <Skeleton variant="rounded" width={100} height={21} />
+                                              <Skeleton variant="rounded" width={86} height={20} />
+                                          </div>
+                                          <div>
+                                              <Skeleton variant="rounded" width={100} height={21} />
+                                          </div>
+                                          <div>
+                                              <Skeleton variant="rounded" width={298} height={38} />
+                                          </div>
+                                      </SkeletonContent>
+                                  );
+                              })}
                         {/* {boardList?.}dvsvd
                         {boardList?.due_date}dvsvd
                         {boardList?.level}dvsvd
@@ -240,12 +283,10 @@ const Home = () => {
                         <ChallengeCard grade={true} /> */}
                     </CategoryContent>
                 </Category>
-                <Category>
+                {/* <Category>
                     <CategoryTitle>
                         <p>유저들이 선택한 챌린지</p>
-                        <p className="more">
-                            <a>더보기 &gt;</a>
-                        </p>
+                        
                     </CategoryTitle>
                     <CategoryContent>
                         {Object.values(boardList)
@@ -263,7 +304,7 @@ const Home = () => {
                                 </div>
                             ))}
                     </CategoryContent>
-                </Category>
+                </Category> */}
             </Main>
         </HomeContainer>
     );

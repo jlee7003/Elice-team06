@@ -19,10 +19,7 @@ import { PostLists } from "@/types/post";
 const ReqeustCards = (prop: { postLists: PostLists | null; currentPage: number }) => {
     const [like, setLike] = useState(0);
     const postlist = prop.postLists;
-    const currentPageNum = prop.currentPage;
-    //console.log("postlist", postlist);
-
-    //postlist가 null인지 체크한다.
+    const currentPageNum = prop.currentPage + 1;
 
     return (
         <>

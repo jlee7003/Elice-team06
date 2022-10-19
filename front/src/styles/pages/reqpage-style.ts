@@ -147,6 +147,11 @@ export const NaviLink = styled.button`
     text-decoration: none;
     cursor: pointer;
 
+    &.active {
+        font-weight: bold;
+        color: #61be92;
+    }
+
     & > span {
         display: inline;
         margin: 10px;

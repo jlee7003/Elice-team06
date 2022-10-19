@@ -100,6 +100,7 @@ export const SectionNav = styled.ul`
         padding: 0px 5px;
         box-sizing: content-box;
         transition: all 0.7s;
+        cursor: pointer;
     }
 `;
 
@@ -377,6 +378,20 @@ export const Section3Content = styled.div`
             top: 5px;
             background-color: #fff;
             transition: all 0.5s ease-in-out;
+        }
+
+        //.recharts-tooltip-cursor.recharts-curve
+        .recharts-tooltip-wrapper {
+            & > div {
+                width: 100px !important;
+                height: 100px !important;
+
+                & > ul {
+                    li {
+                        height: 50px;
+                    }
+                }
+            }
         }
     }
 `;
