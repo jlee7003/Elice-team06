@@ -13,43 +13,49 @@ import {
     CommentButton,
     CommentContainer,
 } from "@/styles/pages/challengedetail-style";
-import challengeBoardWriterData from "@/recoil/challengeBoardWriter";
+import { ChallengeBoardWriter } from "@/recoil/ChallengeBoardRecoil";
 import { useRef, useState, useEffect } from "react";
 import Pagination from "./pagination";
-import { addComment } from "@/api/challenge";
-import { getComment } from "@/api/challenge";
-import { useNavigate } from "react-router-dom";
+import {
+    addComment,
+    getComment,
+    challengeJoin,
+    getChallengeBoard,
+    challenge,
+} from "@/api/challenge";
 import { commentState } from "@/recoil/commentState";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import userState from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
-import { ROUTES } from "@/routes";
+import ModalState from "@/recoil/modalState";
+import DidLoginModal from "@/modal/DidLoginModals";
+
 const ChallengeDetailMainCard = () => {
     const [limit, setLimit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
     const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
     const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
     const offset = (page - 1) * limit;
     const [comments, setComments] = useRecoilState(commentState);
+    const [boardContents, setBoardContents] = useRecoilState(commentState);
     const [counts, setCounts] = useState(0); // 데이터의 총 개수를 setCounts 에 저장해서 사용
     const setError = useSetRecoilState(errorRecoil);
     const user = useRecoilValue(userState);
-    const navigate = useNavigate();
-    const [userData, setUserData] = useRecoilState(challengeBoardWriterData);
+
+    const [userData, setUserData] = useRecoilState(ChallengeBoardWriter);
     const commentsRef = useRef<HTMLInputElement>(null);
+    const [onModal, setOnModal] = useRecoilState(ModalState);
+
     let challengeId = 1;
     let start = 1;
     let end = 100000;
     let count = 1;
+    const token = sessionStorage.getItem("refresh");
     const [joiner, setJoiner] = useState([
         {
             writer: "테스트",
         },
     ]);
     const getComments = async () => {
-        if (!sessionStorage.getItem("refresh")) {
-            navigate(ROUTES.Home.path);
-            return;
-        }
         await getComment(challengeId, start, end, count).then((res) => {
             if (res === null) {
                 return;
@@ -60,10 +66,24 @@ const ChallengeDetailMainCard = () => {
         });
     };
 
+    const getBoardData = async () => {
+        await getChallengeBoard(challengeId).then((res) => {
+            if (res === null) {
+                return;
+            }
+            console.log("getChallengeBoard", res.data);
+            setUserData(res.data);
+        });
+    };
+    console.log(userData);
+
     let addCommentData = {
         description: "",
     };
-    function addjoiner() {
+    async function addjoiner() {
+        const result: any = await challengeJoin(challengeId);
+        console.log(result);
+        getBoardData();
         setJoiner((prev: { writer: any }[]) => {
             let joiners = [];
             if (prev.some((v) => v.writer === user?.nickname)) {
@@ -110,6 +130,7 @@ const ChallengeDetailMainCard = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             getComments();
+            getBoardData();
         }, 0);
 
         return () => clearTimeout(timer);
@@ -117,18 +138,22 @@ const ChallengeDetailMainCard = () => {
 
     return (
         <>
+            {!token && <DidLoginModal setOnModal={setOnModal}>로그인을 해주세요</DidLoginModal>}
             <Main>
                 <div>
                     <Title>{userData?.title}</Title>
                     <SubTitle>
                         😊 챌린지 기간
-                        <span> {userData?.date}</span>
+                        <span>
+                            {" "}
+                            {userData?.start_date}~{userData?.due_date}
+                        </span>
                     </SubTitle>
                     <SubTitle style={{ marginBottom: "50px" }}>
                         😊 총 참가 인원
-                        <span> {userData?.participants}</span>
+                        <span> {userData?.Challenger.length}</span>
                     </SubTitle>
-                    <Contents>{userData?.contents}</Contents>
+                    <Contents>{userData?.description}</Contents>
                 </div>
                 <CommentContainer>
                     <SubTitle>챌린저스의 한마디</SubTitle>
@@ -154,25 +179,24 @@ const ChallengeDetailMainCard = () => {
             </Main>
             <Sub>
                 <SubTitle>챌린지 목표</SubTitle>
-                <TargetLabel>{`소나무 100개 심어서 
-공기를 정화시키자`}</TargetLabel>
+                <TargetLabel>{userData?.goal}</TargetLabel>
                 <SubTitle>챌린지 실천에 따른 효과</SubTitle>
                 <Graph>graph</Graph>
                 <SubTitle>참여중인 사람들</SubTitle>
                 <div style={{ display: "flex" }}>
-                    {joiner.length <= 4 ? (
-                        joiner.map((comment) => (
-                            <TargetLabel key={comment.writer} style={{ marginRight: "20px" }}>
-                                {comment.writer}
+                    {userData?.Challenger.length <= 4 ? (
+                        userData?.Challenger.map((proposer: any) => (
+                            <TargetLabel key={proposer.nickname} style={{ marginRight: "20px" }}>
+                                {proposer.nickname}
                             </TargetLabel>
                         ))
                     ) : (
                         <FlexBox>
-                            <TargetLabel>{joiner[0].writer}</TargetLabel>
-                            <TargetLabel>{joiner[1].writer}</TargetLabel>
-                            <TargetLabel>{joiner[2].writer}</TargetLabel>
-                            <TargetLabel>{joiner[3].writer}</TargetLabel>
-                            <TargetLabel>...외 {joiner.length - 4}명</TargetLabel>
+                            <TargetLabel>{userData?.Challenger[0]}</TargetLabel>
+                            <TargetLabel>{userData?.Challenger[1]}</TargetLabel>
+                            <TargetLabel>{userData?.Challenger[2]}</TargetLabel>
+                            <TargetLabel>{userData?.Challenger[3]}</TargetLabel>
+                            <TargetLabel>...외 {userData?.Challenger.length - 4}명</TargetLabel>
                         </FlexBox>
                     )}
                 </div>
