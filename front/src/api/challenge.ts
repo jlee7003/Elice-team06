@@ -41,6 +41,7 @@ export const getComment = async (
         challengeId.toString(),
         `comment?start=${start}&end=${end}&count=${count}`,
     ]);
+    console.log("result", result);
     return result;
 };
 export const getChallengeBoard = async (challengeId: number) => {
