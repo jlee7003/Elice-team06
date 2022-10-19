@@ -151,17 +151,12 @@ class userService {
         const userCount = await prisma.User.aggregate({
             _count: true,
         });
-        const challengerCount = await prisma.User.findMany({
-            select: { Challenge: true },
-        });
-        let count = 0;
-        challengerCount.forEach((user) => {
-            if (user.Challenge.length > 0) {
-                count += 1;
-            }
+
+        const challenger = await prisma.Challenger.groupBy({
+            by: ["nickname"],
         });
 
-        const result = { users: userCount._count, challenger: count };
+        const result = { users: userCount._count, challenger: challenger.length };
 
         return result;
     }
