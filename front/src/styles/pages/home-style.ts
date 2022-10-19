@@ -64,3 +64,17 @@ export const CategoryContent = styled.div`
 
     width: 100%;
 `;
+
+export const SkeletonContent = styled.div`
+    width: 298px;
+    height: 285px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+
+    & > div {
+        & + div {
+            margin-top: 10px;
+        }
+    }
+`;
