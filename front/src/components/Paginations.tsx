@@ -21,6 +21,7 @@ export const Paginations = (props: { value: PostProps; setCurrentPage: any }) =>
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         const { name } = e.target as HTMLButtonElement;
+        const limit = Object.keys(postList).length;
         if (name === "prev") {
             if (pageData.start - pageData.range < 0) {
                 pageData.start = 1;
@@ -29,17 +30,14 @@ export const Paginations = (props: { value: PostProps; setCurrentPage: any }) =>
             return navigate(`/reqpage/pages/1`);
         }
         if (name === "next") {
-            const limit = Object.keys(postList).length - 1;
             if (pageData.end + pageData.range > limit) {
-                pageData.start = limit - pageData.range;
+                return navigate(`/reqpage/pages/${limit}`);
             }
-            pageData.start = pageData.start + pageData.range; //start
-            console.log("pageData.end", pageData.end);
-            return navigate(`/reqpage/pages/${limit}`);
+            pageData.start = pageData.start + pageData.range - 1; //start
+            return navigate(`/reqpage/pages/${pageData.start}`);
         }
-        console.log("parseInt(name)", parseInt(name));
         setCurrentPage(parseInt(name));
-        return navigate(`/reqpage/pages/${name}`);
+        return navigate(`/reqpage/pages/${parseInt(name)}`);
     };
 
     return (
@@ -55,7 +53,7 @@ export const Paginations = (props: { value: PostProps; setCurrentPage: any }) =>
                         </NaviLink>
                     );
                 })}
-                <NaviLink name="next " onClick={onClick}>
+                <NaviLink name="next" onClick={onClick}>
                     <span>&gt; </span>
                 </NaviLink>
             </ul>

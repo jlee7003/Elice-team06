@@ -1,3 +1,4 @@
+import { useState } from "react";
 /*styles*/
 import {
     ArtContainer,
@@ -11,10 +12,17 @@ import {
 
 //real data interface
 import { PostLists } from "@/types/post";
-
+/**
+ * postList: 각 페이지당 갖고 있는 포스트들 데이터 (부모에서 받음)
+ * currentPage: 현재 페이지 위치
+ */
 const ReqeustCards = (prop: { postLists: PostLists | null; currentPage: number }) => {
+    const [like, setLike] = useState(0);
     const postlist = prop.postLists;
     const currentPageNum = prop.currentPage;
+    //console.log("postlist", postlist);
+
+    //postlist가 null인지 체크한다.
 
     return (
         <>
