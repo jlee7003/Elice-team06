@@ -10,7 +10,7 @@ export const ModalContainer = styled.div`
     height: 115%;
 
     background-color: rgba(0, 0, 0, 0.4);
-    z-index: 2;
+    z-index: 11;
 `;
 
 export const FlexBox = styled.div`

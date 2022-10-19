@@ -15,7 +15,6 @@ import {
 } from "@/styles/ChallengeCard-style";
 import DarkMode from "@/recoil/darkMode";
 import { useNavigate } from "react-router-dom";
-
 type Level = "beginner" | "intermediate" | "advanced" | "default";
 
 export interface Props {
@@ -30,9 +29,14 @@ export interface Props {
 const ChallengeCard = (props: Props) => {
     const [darkMode] = useRecoilState(DarkMode);
     const navigate = useNavigate();
+    const token = sessionStorage.getItem("refresh");
 
     return (
-        <Card onClick={() => navigate("/challenge/challengedetail")}>
+        <Card
+            onClick={() => {
+                navigate("/challenge/challengedetail");
+            }}
+        >
             <CardUpper level={props.level ?? "default"} />
             <CardLower>
                 <CardTitle mode={darkMode ?? "Light"}>자전거 이용하기</CardTitle>

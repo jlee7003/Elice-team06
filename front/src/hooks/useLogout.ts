@@ -14,7 +14,7 @@ const useLogout = () => {
                 navigate(ROUTES.ErrorPage.path);
             } else {
                 resetUser();
-
+                sessionStorage.removeItem("refresh");
                 navigate(ROUTES.Home.path);
             }
         });

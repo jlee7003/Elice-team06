@@ -21,6 +21,7 @@ import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
 import urlCheck from "@/recoil/urlCheck";
 import assets from "@/lib/assets";
+import icons from "@/lib/icons";
 
 export interface Props {
     mode?: string;
@@ -31,7 +32,7 @@ const Home = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [resizeWidth, setResizeWidth] = useState(window.innerWidth); //리사이징 화면 높이 값
     const [innerWidth, setInnerWidth] = useState(window.innerWidth); // 초기 랜더링 시 화면 높이 값
-    // const [num, setNum] = useState(0);
+    // const [bannerCount, setBannerCount] = useState(0);
 
     const bannerRef = useRef<HTMLDivElement[]>([]);
 
@@ -63,44 +64,25 @@ const Home = () => {
         };
     }, [innerWidth]);
 
-    const bannerArray = ["banner1", "banner2", "banner3"];
+    const bannerArray = [
+        "건강도 지키는 자전거 타기",
+        "외출 시엔 대중교통 사용",
+        "한 달에 한번 나무 심기",
+    ];
 
     let num = 0;
-
-    // setInterval(() => {
-    //     if (num === 2) {
-    //         num = -1;
-    //     }
-    //     num += 1;
-
-    //     console.log(num);
-    // }, 5000);
-
-    // if (num === 0) {
-    //     bannerRef.current[0].style.opacity = `1`;
-    //     bannerRef.current[1].style.opacity = `0`;
-    //     bannerRef.current[2].style.opacity = `0`;
-    // }
-    // if (num === 1) {
-    //     bannerRef.current[0].style.opacity = `0`;
-    //     bannerRef.current[1].style.opacity = `1`;
-    //     bannerRef.current[2].style.opacity = `0`;
-    // }
-    // if (num === 2) {
-    //     bannerRef.current[0].style.opacity = `0`;
-    //     bannerRef.current[1].style.opacity = `0`;
-    //     bannerRef.current[2].style.opacity = `1`;
-    // }
-    /*
-        num useState 상태관리하면서 하자.....
-    */
 
     const onSlideBannerLeft = () => {
         if (num === 0) {
             num = 3;
         }
         num -= 1;
-        console.log(num);
+        // setBannerCount((prev) => {
+        //     console.log(bannerCount);
+        //     return prev === 0 ? (prev = 2) : (prev -= 1);
+        //     // return (prev -= 1);
+        // });
+
         if (bannerRef.current === null) {
             return;
         }
@@ -129,7 +111,13 @@ const Home = () => {
 
         num += 1;
 
-        console.log(num);
+        // setBannerCount((prev) => {
+        //     console.log(bannerCount);
+        //     return prev === 2 ? (prev = 0) : (prev += 1);
+        //     // return (prev += 1);
+        // });
+
+        // console.log(num);
         if (bannerRef.current === null) {
             return;
         }
@@ -151,60 +139,11 @@ const Home = () => {
         }
     };
 
+    const leftArrow = icons("arrow_side_icon.png");
+
     return (
         <HomeContainer>
-            {/* <Banner mode={darkMode ?? "Light"} /> */}
-            {/* <ChallengeSlide>
-                <input type="radio" name="slide" id="slide01" defaultChecked />
-                <input type="radio" name="slide" id="slide02" />
-                <input type="radio" name="slide" id="slide03" />
-                <SlideContent>
-                    <ul>
-                        <SlideList slideBgImg={assets("bus_img.png")}>
-                            <a>
-                                <span>대중교통 타기</span>
-                            </a>
-                        </SlideList>
-                        <SlideList slideBgImg={assets("plant_tree_img.png")}>
-                            <a>
-                                <span>한달에 한번 식물 심기</span>
-                            </a>
-                        </SlideList>
-                        <SlideList slideBgImg={assets("recycle_img.png")}>
-                            <a>
-                                <span>재활용 잘하기</span>
-                            </a>
-                        </SlideList>
-                    </ul>
-                    <SlideControl>
-                        <Control className="control01">
-                            <label htmlFor="slide03" className="left">
-                                <ArrowIcon />
-                            </label>
-                            <label htmlFor="slide02" className="right">
-                                <ArrowIcon rotate="rotate(180deg)" />
-                            </label>
-                        </Control>
-                        <Control className="control02">
-                            <label htmlFor="slide01" className="left">
-                                <ArrowIcon />
-                            </label>
-                            <label htmlFor="slide03" className="right">
-                                <ArrowIcon rotate="rotate(180deg)" />
-                            </label>
-                        </Control>
-                        <Control className="control03">
-                            <label htmlFor="slide02" className="left">
-                                <ArrowIcon />
-                            </label>
-                            <label htmlFor="slide01" className="right">
-                                <ArrowIcon rotate="rotate(180deg)" />
-                            </label>
-                        </Control>
-                    </SlideControl>
-                </SlideContent>
-            </ChallengeSlide> */}
-            <HomeBanners>
+            <HomeBanners mode={darkMode ?? "Light"}>
                 {bannerArray.map((item, index) => {
                     return (
                         <Banner
@@ -213,14 +152,26 @@ const Home = () => {
                                 bannerRef.current[index] = el;
                             }}
                         >
-                            <p>{item}</p>
+                            <p>
+                                <span>{item}</span>
+                            </p>
                         </Banner>
                     );
                 })}
                 <ControlBanner>
                     <div>
-                        <p onClick={onSlideBannerLeft}>left</p>
-                        <p onClick={onSlideBannerRight}>right</p>
+                        <p onClick={onSlideBannerLeft}>
+                            {/* <img src={leftArrow} alt="leftArrow" /> */}
+                            <i className="ri-arrow-left-s-line"></i>
+                        </p>
+                        <p onClick={onSlideBannerRight}>
+                            {/* <img
+                                src={leftArrow}
+                                alt="rightArrow"
+                                style={{ transform: "rotate(180deg)" }}
+                            /> */}
+                            <i className="ri-arrow-right-s-line"></i>
+                        </p>
                     </div>
                 </ControlBanner>
             </HomeBanners>

@@ -9,32 +9,12 @@ interface StyleProps {
 }
 
 const bannerImg = assets("banner_img.jpg");
+const bannerCycleImg = assets("banner_cycle.png");
+const bannerBusImg = assets("banner_bus.png");
+const bannerPlantImg = assets("banner_plant.png");
 
-// export const Banner = styled.div<Props>`
-//     padding: 80px;
-//     width: 100%;
-//     /* height: 100px; */
-//     height: 280px;
-
-//     background-color: #eee;
-//     background-image: url(${bannerImg});
-//     background-position: center bottom;
-//     background-size: cover;
-//     background-repeat: no-repeat;
-//     ${(props) =>
-//         props.mode == "Light"
-//             ? css`
-//                   opacity: 1;
-//               `
-//             : css`
-//                   opacity: 0.3;
-//               `};
-// `;
-// 350px
-//-------------------------------------------------
 export const ControlBanner = styled.div`
     margin: 0 auto;
-    border: 3px solid blue;
     height: 100%;
     max-width: 1275px;
     display: flex;
@@ -43,22 +23,45 @@ export const ControlBanner = styled.div`
     div {
         display: flex;
         justify-content: center;
+        padding-bottom: 20px;
         p {
-            background-color: #fff;
+            /* background-color: #fff; */
+            /* background-color: #00000082; */
+            background-color: #ffffff82;
             color: #000;
             padding: 20px;
             cursor: pointer;
-            & + p {
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* & + p {
                 border-left: 1px solid #000;
+            } */
+
+            &:hover {
+                i {
+                    color: #fff;
+                }
+            }
+            img {
+                width: 17px;
+                height: 17px;
+            }
+
+            i {
+                transition: all 0.3s ease-in-out;
+                font-size: 26px;
+                /* color: #c6c6c6; */
+                color: #000;
             }
         }
     }
 `;
 
 export const Banner = styled.div`
-    /* max-width: 1275px; */
     width: 100vw;
-    border: 1px solid #000;
     height: 100%;
     position: absolute;
     left: 0;
@@ -67,13 +70,41 @@ export const Banner = styled.div`
     transition: all 0.3s ease-in-out;
 
     &:nth-child(1) {
-        background-color: pink;
+        background: linear-gradient(45deg, #61be92, #56676e, black);
+
+        P {
+            background-image: url(${bannerCycleImg});
+            background-position: right center;
+            background-size: 800px;
+            background-repeat: no-repeat;
+            color: #fff;
+        }
     }
     &:nth-child(2) {
         background-color: teal;
+        background: linear-gradient(45deg, #61be92, #63433e, black);
+
+        P {
+            background-image: url(${bannerBusImg});
+            background-position: right center;
+            background-size: 800px;
+            background-repeat: no-repeat;
+            color: #fff;
+        }
     }
     &:nth-child(3) {
         background-color: tomato;
+        /* background-color: #56676e; */
+        /* background-image: url(${bannerCycleImg}); */
+        background: linear-gradient(45deg, #61be92, #cab8b4, black);
+
+        P {
+            background-image: url(${bannerPlantImg});
+            background-position: right center;
+            background-size: 800px;
+            background-repeat: no-repeat;
+            color: #fff;
+        }
     }
     p {
         max-width: 1275px;
@@ -81,127 +112,27 @@ export const Banner = styled.div`
         margin: 0 auto;
         font-size: 30px;
         font-weight: 600;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        span {
+            display: block;
+            padding-bottom: 40px;
+        }
     }
 `;
 
-export const HomeBanners = styled.div`
+export const HomeBanners = styled.div<Props>`
     height: 280px;
     width: 100%;
     position: relative;
     overflow: hidden;
+    ${(props) =>
+        props.mode == "Light"
+            ? css`
+                  opacity: 1;
+              `
+            : css`
+                  opacity: 0.3;
+              `};
 `;
-//-------------------------------------------------
-
-// const arrow = icons("arrow_side_icon.png");
-
-// export const ArrowIcon = styled.img.attrs({
-//     src: arrow,
-//     alt: "arro_icon",
-// })<StyleProps>`
-//     cursor: pointer;
-//     position: absolute;
-//     width: 20px;
-//     height: 30px;
-//     top: 10px;
-//     left: 15px;
-//     transform: ${(props) => props.rotate};
-// `;
-
-// export const Control = styled.div`
-//     width: 100%;
-//     height: 100%;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     display: none;
-//     label {
-//         width: 50px;
-//         height: 50px;
-//         cursor: pointer;
-//         border-radius: 100px;
-//         position: relative;
-//         ${ArrowIcon}
-//     }
-// `;
-
-// export const SlideControl = styled.div`
-//     width: 100%;
-//     height: 100%;
-//     position: absolute;
-//     left: 0;
-//     top: 0;
-// `;
-
-// const slideImg01 = assets("bus_img.png");
-
-// export const SlideImg = styled.img.attrs({ src: slideImg01, alt: "bus img" })``;
-
-// export const SlideList = styled.li<StyleProps>`
-//     background-image: url(${(props) => props.slideBgImg});
-//     background-size: cover;
-// `;
-
-// // https://m.blog.naver.com/co-nam/222084570760
-// export const SlideContent = styled.div`
-//     width: 100%;
-//     overflow: hidden;
-//     position: relative;
-
-//     ul {
-//         white-space: nowrap;
-
-//         ${SlideList} {
-//             display: inline-block;
-//             /* vertical-align: middle; */
-//             width: 100%;
-//             transition: all 0.5s;
-
-//             a {
-//                 display: block;
-//                 position: relative;
-//                 width: 100%;
-//                 height: 400px;
-//                 span {
-//                     color: transparent;
-//                 }
-//             }
-//         }
-//     }
-// `;
-
-// export const ChallengeSlide = styled.div`
-//     height: 400px;
-//     width: 100%;
-//     background-color: #3c3c3c;
-//     color: #fff;
-//     text-align: center;
-//     line-height: 400px;
-
-//     input {
-//         display: none;
-
-//         //각 input checked 될 때 li 위치 이동
-//         &[id="slide01"]:checked ~ ${SlideContent} ul li {
-//             transform: translateX(0%);
-//         }
-//         &[id="slide02"]:checked ~ ${SlideContent} ul li {
-//             transform: translateX(-100%);
-//         }
-//         &[id="slide03"]:checked ~ ${SlideContent} ul li {
-//             transform: translateX(-200%);
-//         }
-
-//         //각 section 이동 시, 각 nav 만 보이도록 설정
-//         &[id="slide01"]:checked ~ ${SlideContent} ${SlideControl} .control01 {
-//             display: flex;
-//         }
-
-//         &[id="slide02"]:checked ~ ${SlideContent} ${SlideControl} .control02 {
-//             display: flex;
-//         }
-
-//         &[id="slide03"]:checked ~ ${SlideContent} ${SlideControl} .control03 {
-//             display: flex;
-//         }
-//     }
-// `;
