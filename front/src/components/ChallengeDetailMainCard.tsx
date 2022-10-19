@@ -16,13 +16,7 @@ import {
 import { ChallengeBoardWriter } from "@/recoil/ChallengeBoardRecoil";
 import { useRef, useState, useEffect } from "react";
 import Pagination from "./pagination";
-import {
-    addComment,
-    getComment,
-    challengeJoin,
-    getChallengeBoard,
-    challenge,
-} from "@/api/challenge";
+import { addComment, getComment, challengeJoin, getChallengeBoard } from "@/api/challenge";
 import { commentState } from "@/recoil/commentState";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import userState from "@/recoil/user";
@@ -36,7 +30,6 @@ const ChallengeDetailMainCard = () => {
     const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
     const offset = (page - 1) * limit;
     const [comments, setComments] = useRecoilState(commentState);
-    const [boardContents, setBoardContents] = useRecoilState(commentState);
     const [counts, setCounts] = useState(0); // 데이터의 총 개수를 setCounts 에 저장해서 사용
     const setError = useSetRecoilState(errorRecoil);
     const user = useRecoilValue(userState);
