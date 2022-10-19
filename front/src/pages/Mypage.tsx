@@ -1,4 +1,6 @@
 import { Banner } from "@/styles/banner";
+import { MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
 //styles
 import {
     Container,
@@ -29,11 +31,17 @@ import post from "@/lib/dummyPosts";
 const Mypage = () => {
     // const [user, setUser] = useRecoilState(userState);
     const user = useRecoilValue(userState);
+    const navigate = useNavigate();
     console.log("user:", user);
+
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+        const { name } = e.target as HTMLButtonElement;
+        const url = `/${name}`;
+        navigate(url);
+    };
 
     return (
         <div>
-            <Banner />
             <Container>
                 <SideBar>
                     <MySec>
@@ -46,22 +54,22 @@ const Mypage = () => {
                     <MenuContainer>
                         <Menu>
                             <span>마이페이지</span>
-                            <Buttons>
+                            <Buttons name="MyChallengeList" onClick={onClick}>
                                 <ChallengeIcon />
                                 도전한 챌린지
                             </Buttons>
-                            <Buttons>
+                            <Buttons name="MyPosts" onClick={onClick}>
                                 <ChallengeIcon />
                                 투표한 챌린지
                             </Buttons>
                         </Menu>
                         <Menu>
                             <span>회원정보</span>
-                            <Buttons>
+                            <Buttons name="editMyInfo" onClick={onClick}>
                                 <UserIcon />
                                 회원정보 변경
                             </Buttons>
-                            <Buttons>
+                            <Buttons name="withdrawal" onClick={onClick}>
                                 <UserIcon />
                                 회원정보 탈퇴
                             </Buttons>
