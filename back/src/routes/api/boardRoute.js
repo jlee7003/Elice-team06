@@ -11,7 +11,6 @@ boardRoute.get(
     asyncHandler(async (req, res) => {
         const { start, end, count } = req.query;
         const result = await boardService.getPosts({ start, end, count });
-
         res.status(200).send(result);
     })
 );
@@ -27,18 +26,30 @@ boardRoute.get(
     })
 );
 
-//자신이 투표한 게시글 목록//
+//자신이 투표한 게시글 목록
 boardRoute.get(
     "/likePost",
     authToken,
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
+        const result = await boardService.getLikePost({ nickname });
+        res.status(200).send(result);
+    })
+);
+
+//자신이 투표한 게시글 목록//--pagination
+boardRoute.get(
+    "/likePost/pagination",
+    authToken,
+    asyncHandler(async (req, res) => {
+        const { nickname } = req.nickname;
         const { start, end, count } = req.query;
-        const result = await boardService.getLikePost({ nickname, start, end, count });
+        const result = await boardService.getLikePagination({ nickname, start, end, count });
 
         res.status(200).send(result);
     })
 );
+
 //특정 게시글 상세//
 boardRoute.get(
     "/:postId",
