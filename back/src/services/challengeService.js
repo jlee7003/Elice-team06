@@ -57,9 +57,9 @@ class challengeService {
                 skip: Number((start - 1) * count),
                 take: Number((end - start + 1) * count),
                 select: {
-                    challenge_id: true,
                     Challenge: {
                         select: {
+                            id: true,
                             title: true,
                             start_date: true,
                             due_date: true,
@@ -69,7 +69,11 @@ class challengeService {
                     },
                 },
             });
-            findChallenges = chunk(findChallenges, start, Number(count));
+            let array = [];
+            findChallenges.forEach(function (element) {
+                array.push(element.Challenge);
+            });
+            findChallenges = chunk(array, start, Number(count));
         }
         await prisma.$disconnect();
         return findChallenges;

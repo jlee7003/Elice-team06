@@ -55,7 +55,7 @@ function Header() {
                     <></>
                 )}
                 <HeaderMenuContainer>
-                    <HeaderMenuItem to={"/reqpage/pages/1"}>요청 게시판</HeaderMenuItem>
+                    <HeaderMenuItem to={"/boardPage/pages/1"}>요청 게시판</HeaderMenuItem>
                     {user === null ? (
                         <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
                     ) : (
