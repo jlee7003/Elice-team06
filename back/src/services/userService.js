@@ -100,9 +100,11 @@ class userService {
         let refreshToken = generateToken({}, "refreshToken");
 
         await prisma.User.update({ where: { nickname }, data: { token: refreshToken } });
-
+        if (userData.role === "ADMIN") {
+            return { nickname, introduce, accessToken, refreshToken, admin: true };
+        }
         await prisma.$disconnect();
-        return { nickname, introduce, accessToken, refreshToken };
+        return { nickname, introduce, accessToken, refreshToken, admin: false };
     }
     static async logoutUser(token) {
         const value = Token.removeToken(token);
