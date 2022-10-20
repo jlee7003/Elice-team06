@@ -90,6 +90,7 @@ const Home = () => {
             d = new Date(boardList[0]?.start_date);
             e = new Date(boardList[0]?.due_date);
         });
+
         setIsLoaded(true);
     };
     const onSlideBannerLeft = () => {
