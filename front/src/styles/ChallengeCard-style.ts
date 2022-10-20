@@ -24,6 +24,14 @@ export const Card = styled.article<Props>`
     border-radius: 24px;
     overflow: hidden;
 
+    & + article {
+        margin-left: 20px;
+    }
+
+    &:nth-child(5) {
+        margin-left: 0px;
+    }
+
     ${(props) =>
         props.mode == "Light"
             ? css`

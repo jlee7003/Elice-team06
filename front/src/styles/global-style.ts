@@ -119,6 +119,7 @@ const GlobalStyle = createGlobalStyle<Props>`
                   ${(props) =>
                       props.mode == "Light"
                           ? css`
+                                background-color: #282828;
                                 color: white;
                                 label {
                                     background-color: white;
@@ -128,6 +129,7 @@ const GlobalStyle = createGlobalStyle<Props>`
                                 }
                             `
                           : css`
+                                background-color: white;
                                 color: black;
                                 label {
                                     background-color: #282828;
