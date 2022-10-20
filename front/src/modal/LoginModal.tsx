@@ -10,57 +10,57 @@ type Props = {
 const LoginModal: React.FC<Props> = ({ setOnModal, logout }: Props) => {
     return (
         <ModalPortal>
-            <ModalContainer>
-                <Draggable>
-                    <ModalBody>
-                        <div
-                            style={{
-                                height: "60%",
-                                display: "block",
-                            }}
-                        >
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                <div
-                                    style={{
-                                        fontWeight: "bold",
-                                        fontSize: "26px",
-                                        color: "black",
-                                    }}
-                                >
-                                    로그아웃
-                                </div>
-                                <button
-                                    style={{
-                                        fontSize: "28px",
-                                    }}
-                                    className="close"
-                                    onClick={() => setOnModal("false")}
-                                >
-                                    ❌
-                                </button>
+            {/* <ModalContainer> */}
+            <Draggable>
+                <ModalBody>
+                    <div
+                        style={{
+                            height: "60%",
+                            display: "block",
+                        }}
+                    >
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <div
+                                style={{
+                                    fontWeight: "bold",
+                                    fontSize: "24px",
+                                    color: "black",
+                                }}
+                            >
+                                로그아웃
                             </div>
-                            <FlexBox style={{ height: "100%", color: "black", fontSize: "20px" }}>
-                                로그아웃 하시겠습니까?
-                            </FlexBox>
-                            <FlexBox style={{ height: "50%" }}>
-                                <Button
-                                    className="close"
-                                    onClick={() => {
-                                        setOnModal("false");
-                                        logout();
-                                    }}
-                                >
-                                    O
-                                </Button>
-
-                                <Button className="close" onClick={() => setOnModal("false")}>
-                                    X
-                                </Button>
-                            </FlexBox>
+                            <button
+                                style={{
+                                    fontSize: "28px",
+                                }}
+                                className="close"
+                                onClick={() => setOnModal("false")}
+                            >
+                                <i className="ri-close-line"></i>
+                            </button>
                         </div>
-                    </ModalBody>
-                </Draggable>
-            </ModalContainer>
+                        <FlexBox style={{ height: "100%", color: "black", fontSize: "20px" }}>
+                            로그아웃 하시겠습니까?
+                        </FlexBox>
+                        <FlexBox style={{ height: "50%" }}>
+                            <Button
+                                className="close"
+                                onClick={() => {
+                                    setOnModal("false");
+                                    logout();
+                                }}
+                            >
+                                <i className="ri-checkbox-blank-circle-line"></i>
+                            </Button>
+
+                            <Button className="close" onClick={() => setOnModal("false")}>
+                                <i className="ri-close-line"></i>
+                            </Button>
+                        </FlexBox>
+                    </div>
+                </ModalBody>
+            </Draggable>
+            {/* </ModalContainer> */}
         </ModalPortal>
     );
 };

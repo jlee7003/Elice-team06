@@ -207,17 +207,18 @@ const Home = () => {
                             ? Object.values(boardList)
                                   .slice(0, 9)
                                   .map((comment, idx) => (
-                                      <div key={idx}>
-                                          <ChallengeCard
-                                              id={comment[0].id}
-                                              level="beginner"
-                                              //   grade={true}
-                                              title={comment[0].title}
-                                              date={startDate + "~" + endDate}
-                                              count={comment[0]._count.Challenger}
-                                              mode={darkMode ?? "Light"}
-                                          />
-                                      </div>
+                                      //   <div>
+                                      <ChallengeCard
+                                          key={idx}
+                                          id={comment[0].id}
+                                          level="beginner"
+                                          //   grade={true}
+                                          title={comment[0].title}
+                                          date={startDate + "~" + endDate}
+                                          count={comment[0]._count.Challenger}
+                                          mode={darkMode ?? "Light"}
+                                      />
+                                      //   </div>
                                   ))
                             : contentsLength.map((_, idx) => {
                                   return (

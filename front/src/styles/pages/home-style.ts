@@ -43,7 +43,8 @@ export const CategoryTitle = styled.h2`
 
 export const CategoryContent = styled.div`
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: flex-start;
     flex-wrap: wrap;
     width: 100%;
 `;
