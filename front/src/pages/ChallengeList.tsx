@@ -36,8 +36,22 @@ const ChallengeList = () => {
     useEffect(() => {
         switch (target) {
             case "my":
-                API.get(["challenge", "my"]).then((res) => {
-                    console.log(res);
+                API.get([
+                    "challenge",
+                    `my?start=${pagination.start}&end=${pagination.end}&count=${pagination.count}`,
+                ]).then((res: any) => {
+                    if (res === null) {
+                        navigate(ROUTES.ErrorPage.path);
+                        return;
+                    }
+
+                    const pages = Object.keys(res.data);
+                    pagination.start = Number(pages[0]);
+                    pagination.end = Number(pages[pages.length - 1]);
+                    pagination["pages"] = pages;
+                    setCurrent(Number(pages[0]));
+
+                    setCardList(res.data);
                 });
                 break;
             case "all":
@@ -102,7 +116,7 @@ const ChallengeList = () => {
                     // grade={true}
                     title={card.title!}
                     date={card.start_date!}
-                    count={card._count.Challenger}
+                    // count={card._count.Challenger}
                 />
             );
         });
