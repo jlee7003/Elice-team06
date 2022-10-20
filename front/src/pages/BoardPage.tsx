@@ -11,6 +11,7 @@ import {
     // Main,
     Section,
     ButtonContianer,
+    CardsHolder,
 } from "@/styles/pages/reqpage-style";
 import { Main } from "@/components/common/Main";
 
@@ -97,7 +98,7 @@ const BoardPage = () => {
         PageData: pageData,
     };
 
-    console.log("postList 체크!!!!!!!!", postList);
+    //console.log("postList 체크!!!!!!!!", postList);
 
     //function for currnet page handling
     const settingCurrentPage = (num: number) => {
@@ -138,7 +139,12 @@ const BoardPage = () => {
                         {postList ? (
                             <>
                                 <Section>
-                                    <PostCards postLists={postList} currentPage={currentPage - 1} />
+                                    <CardsHolder>
+                                        <PostCards
+                                            postLists={postList}
+                                            currentPage={currentPage - 1}
+                                        />
+                                    </CardsHolder>
                                     <ButtonContianer>
                                         <button onClick={() => setOnModal("challenge")}>
                                             글쓰기
@@ -150,7 +156,9 @@ const BoardPage = () => {
                                             ></ChallengeRequestModal>
                                         )}
 
-                                        <button onClick={() => setOnModal("board")}>계시글</button>
+                                        <button onClick={() => setOnModal("board")}>
+                                            의견 남기기
+                                        </button>
                                         {onModal == "board" && (
                                             <BoardModal
                                                 setOnModal={setOnModal}
