@@ -17,6 +17,7 @@ import urlCheck from "@/recoil/urlCheck";
 import { getChallengeList } from "@/api/challenge";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
+import assets from "@/lib/assets";
 
 export interface Props {
     mode?: string;
