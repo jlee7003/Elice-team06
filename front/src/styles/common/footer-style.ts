@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import cssUnit from "@/lib/cssUnit";
+import { Props } from "@/pages/Footer";
 
 export const TeamName = styled.span`
     margin-left: 40px;
@@ -27,7 +28,7 @@ export const LogoContainer = styled.div`
     background-color: #61be92;
 `;
 
-export const FooterBackground = styled.footer`
+export const FooterBackground = styled.footer<Props>`
     width: 100%;
     height: 100px;
     z-index: 1;
@@ -35,6 +36,14 @@ export const FooterBackground = styled.footer`
 
     /* position: absolute; */
     bottom: 0;
+    ${(props) =>
+        props.mode == "Light"
+            ? css`
+                  opacity: 1;
+              `
+            : css`
+                  opacity: 0.3;
+              `};
 `;
 
 export const FooterContainer = styled.div`

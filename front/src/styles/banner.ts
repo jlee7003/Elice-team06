@@ -1,11 +1,16 @@
 import styled, { css } from "styled-components";
 import assets from "@/lib/assets";
 import icons from "@/lib/icons";
-import { Props } from "@/pages/Home";
 
 interface StyleProps {
     rotate?: string;
     slideBgImg?: string;
+    bgImg?: string;
+    height?: string;
+    mode?: string;
+    bgColor?: string;
+    bgPosition?: string;
+    bgSize?: string;
 }
 
 const bannerImg = assets("banner_img.jpg");
@@ -60,7 +65,15 @@ export const ControlBanner = styled.div`
     }
 `;
 
-export const Banner = styled.div`
+// export const BgImg = styled.p<StyleProps>`
+//     background-image: ${(props) => props.bgImg};
+//     background-position: right center;
+//     background-size: 800px;
+//     background-repeat: no-repeat;
+//     color: #fff;
+// `;
+
+export const Banner = styled.div<StyleProps>`
     width: 100vw;
     height: 100%;
     position: absolute;
@@ -68,45 +81,10 @@ export const Banner = styled.div`
     top: 0;
     z-index: -1;
     transition: all 0.3s ease-in-out;
+    background: ${(props) => props.bgColor};
 
-    &:nth-child(1) {
-        background: linear-gradient(45deg, #61be92, #56676e, black);
-
-        P {
-            background-image: url(${bannerCycleImg});
-            background-position: right center;
-            background-size: 800px;
-            background-repeat: no-repeat;
-            color: #fff;
-        }
-    }
-    &:nth-child(2) {
-        background-color: teal;
-        background: linear-gradient(45deg, #61be92, #63433e, black);
-
-        P {
-            background-image: url(${bannerBusImg});
-            background-position: right center;
-            background-size: 800px;
-            background-repeat: no-repeat;
-            color: #fff;
-        }
-    }
-    &:nth-child(3) {
-        background-color: tomato;
-        /* background-color: #56676e; */
-        /* background-image: url(${bannerCycleImg}); */
-        background: linear-gradient(45deg, #61be92, #cab8b4, black);
-
-        P {
-            background-image: url(${bannerPlantImg});
-            background-position: right center;
-            background-size: 800px;
-            background-repeat: no-repeat;
-            color: #fff;
-        }
-    }
-    p {
+    & > p {
+        color: #fff;
         max-width: 1275px;
         height: 100%;
         margin: 0 auto;
@@ -115,6 +93,13 @@ export const Banner = styled.div`
         display: flex;
         justify-content: flex-start;
         align-items: flex-end;
+        background-image: url(${(props) => props.bgImg});
+        /* background-position: right center;
+        background-size: 800px; */
+        background-position: ${(props) => props.bgPosition};
+        background-size: ${(props) => props.bgSize};
+        background-repeat: no-repeat;
+
         span {
             display: block;
             padding-bottom: 40px;
@@ -122,8 +107,9 @@ export const Banner = styled.div`
     }
 `;
 
-export const HomeBanners = styled.div<Props>`
-    height: 280px;
+export const HomeBanners = styled.div<StyleProps>`
+    /* height: 280px; */
+    height: ${(props) => props.height};
     width: 100%;
     position: relative;
     overflow: hidden;

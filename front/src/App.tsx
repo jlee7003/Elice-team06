@@ -37,7 +37,7 @@ const App = () => {
 
     useEffect(() => {
         setVisible((prev) => {
-            if (currentUrl.split("/").includes("landing")) {
+            if (currentUrl.split("/")[3] === "") {
                 return (prev = false);
             }
             return (prev = true);
