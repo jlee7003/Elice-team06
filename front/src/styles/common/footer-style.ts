@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import cssUnit from "@/lib/cssUnit";
-import { Props } from "@/pages/Footer";
+import { Props } from "@/components/common/Footer";
 
 export const TeamName = styled.span`
     margin-left: 40px;
@@ -39,10 +39,10 @@ export const FooterBackground = styled.footer<Props>`
     ${(props) =>
         props.mode == "Light"
             ? css`
-                  opacity: 1;
+                  opacity: 0.3;
               `
             : css`
-                  opacity: 0.3;
+                  opacity: 1;
               `};
 `;
 
