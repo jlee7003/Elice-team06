@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, MouseEvent } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import API from "@/api/index";
 import { ChallengeCardList } from "@/types/challenge";
 import { ROUTES } from "@/routes";
@@ -32,11 +32,17 @@ const ChallengeList = () => {
     const [current, setCurrent] = useState(1);
 
     const { target } = useParams();
+    const locationState = useLocation();
+
     const navigate = useNavigate();
 
     useEffect(() => {
         switch (target) {
             case "my":
+                if (locationState.state !== "authuser") {
+                    navigate(ROUTES.ErrorPage.path);
+                }
+
                 API.get([
                     "challenge",
                     `my?start=${pagination.start}&end=${pagination.end}&count=${pagination.count}`,
