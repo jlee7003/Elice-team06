@@ -2,7 +2,7 @@ import React from "react";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import ReqPage from "@/pages/ReqPage";
+import BoardPage from "@/pages/BoardPage";
 import Post from "@/pages/challenge/Post";
 import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
 import ErrorPage from "@/pages/ErrorPage";
@@ -45,9 +45,9 @@ export const ROUTES: routeWrap = {
         path: "/challenge/posts",
         Component: Post,
     },
-    ReqPage: {
-        path: "/reqpage/pages/:id",
-        Component: ReqPage,
+    BoardPage: {
+        path: "/boardPage/pages/:id",
+        Component: BoardPage,
     },
     ChallengeDetail: {
         path: "/challenge/challengedetail",
