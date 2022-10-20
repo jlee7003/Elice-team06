@@ -385,15 +385,23 @@ export const Section3Content = styled.div`
         //.recharts-tooltip-cursor.recharts-curve
         .recharts-tooltip-wrapper {
             & > div {
-                width: 100px !important;
-                height: 100px !important;
+                /* width: 100px !important;
+                height: 100px !important; */
+                width: auto;
+                height: auto;
+                line-height: 30px;
+                display: flex;
 
                 & > ul {
                     li {
-                        height: 50px;
+                        /* height: 50px; */
                     }
                 }
             }
+        }
+
+        .recharts-tooltip-label {
+            display: none;
         }
     }
 `;
