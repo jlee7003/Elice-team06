@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 /*styles*/
 import {
@@ -22,19 +22,37 @@ import { ROUTES } from "@/routes/.";
  * currentPage: 현재 페이지 위치
  */
 const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) => {
-    const navigate = useNavigate();
-    const [like, setLike] = useState(0);
+    const navigate=useNavigate();
     const postlist = prop.postLists;
     const currentPageNum = prop.currentPage + 1;
+    const [like, setLike]=useState(0);
 
-    const getVoteNums = async () => {
-        const result = await API.get(["vote"]);
-        if (result === null) {
-            navigate(ROUTES.ErrorPage.path);
-            return; //to alret
+    useEffect(()=>{
+        const putLike=async(params)
+    },[])
+
+    //이미 투표했는지 체크
+    useEffect(()=>{
+        const getLikedData=async(params:string)=>{
+            const result=await API.get([]);
+            //응답이 null 경우 체크()
+            if (result === null) {
+                navigate(ROUTES.ErrorPage.path);
+                return; //to alret
+            }
+            return result.data;
         }
-        return result.data;
-    };
+    })
+
+    const onClick=()=>{
+        //클릭을하면 아이디 소유자가 추천을 했는지 확인을 해봐야 함
+
+        
+        if()
+        setLike(like+1)
+    }
+
+    
     return (
         <>
             {postlist ? (
@@ -44,10 +62,10 @@ const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) =
                             <ArtContainer>
                                 <Contents>
                                     <h3>{post.title}</h3>
-                                    <p>{post.dsscription}</p>
+                                    <p>{post.description}</p>
                                 </Contents>
                                 <Box>
-                                    <button>post.like</button>
+                                    <button onClick={}>{post._count.VotePost}</button>
                                     <span>post.vote</span>
                                 </Box>
                             </ArtContainer>

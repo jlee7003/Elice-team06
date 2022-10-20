@@ -6,10 +6,13 @@ type post = {
     id: number;
     author: string;
     title: string;
-    dsscription: string;
+    description: string;
     view: string;
     createdAt: string;
     updateAt: string;
+    _count: {
+        VotePost: number;
+    };
 };
 
 //post의 뭉치, 받아올 바로 그 post의 리스트의 interface
@@ -21,7 +24,7 @@ export interface PostLists {
 //변수명 수정 해야 함, 주의
 export interface Post {
     title: string;
-    dsscription: string;
+    description: string;
     view: string;
     createdAt: string;
     updateAt: string;
