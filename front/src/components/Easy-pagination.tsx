@@ -16,7 +16,7 @@ const EasyPagination = (props: Props) => {
             <ControlButton onClick={prevButton}>&lt;</ControlButton>
             {pages.map((page, idx) => {
                 return (
-                    <NumberButton className="hihi" key={idx} name={page} onClick={currentButton}>
+                    <NumberButton key={idx} name={page} onClick={currentButton}>
                         {page}
                     </NumberButton>
                 );
