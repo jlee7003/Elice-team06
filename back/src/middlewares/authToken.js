@@ -21,15 +21,6 @@ const authToken = async (req, res, next) => {
             }
         }
 
-        //session storage에 있는 토큰값과 db 토큰값 비교
-        let checkRefresh = await Token.checkToken(refreshToken);
-        if (!checkRefresh) {
-            throw new Error("중복 로그인 중");
-        }
-
-        let accessPayload = verifyToken(accessToken);
-        const refreshPayload = verifyToken(refreshToken);
-
         // accessToken 하고 refreshToken 둘다 만료된 경우
         if (accessPayload === null && refreshPayload === null) {
             throw new Error("expires accessToken and refreshToken");
@@ -43,6 +34,14 @@ const authToken = async (req, res, next) => {
                 accessToken = generateToken({ nickname: token.nickname }, "accessToken");
             }
         }
+        //session storage에 있는 토큰값과 db 토큰값 비교
+        let checkRefresh = await Token.checkToken(refreshToken);
+        if (!checkRefresh) {
+            throw new Error("중복 로그인 중");
+        }
+
+        let accessPayload = verifyToken(accessToken);
+        const refreshPayload = verifyToken(refreshToken);
 
         // accessToken 가 유효하고, refreshToken이 무효한 경우
         if (accessPayload !== null && refreshPayload === null) {

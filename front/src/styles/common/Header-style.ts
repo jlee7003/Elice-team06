@@ -7,9 +7,8 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: ${cssUnit.unit.width};
-    /* min-width: 560px; */
     width: 100%;
+    max-width: ${cssUnit.unit.width};
     height: 80px;
     margin: auto;
 `;
@@ -20,33 +19,26 @@ export const HeaderSticky = styled.header<Props>`
     width: 100%;
     height: 80px;
     margin: auto;
-    /* background-color: #fff; */
-    /* box-shadow: 0 5px 10px rgb(0 0 0 / 20%); */
-
     z-index: 10;
 
     ${(props) =>
         props.mode == "Light"
             ? css`
-                  /* background-color: white; */
                   color: black;
                   label {
                       background-color: #282828;
                   }
                   label > div {
                       background-color: #cccccc;
-                      /* transform: translateX(20px); */
                   }
               `
             : css`
-                  /* background-color: #282828; */
                   color: white;
                   label {
                       background-color: white;
                   }
                   label > div {
                       background-color: #838383;
-                      /* transform: translateX(20px); */
                   }
               `}
 `;
@@ -62,15 +54,15 @@ export const HeaderMenuContainer = styled.div`
 
 export const HeaderMenuItem = styled(Link)`
     display: flex;
-    cursor: pointer;
+    justify-content: center;
     align-items: Center;
+    margin-right: 54px;
     height: 59px;
     font-size: ${cssUnit.fontSize.tittle};
     font-weight: normal;
-    justify-content: center;
-    text-align: center;
-    margin-right: 54px;
     font-size: 18px;
+    text-align: center;
+    cursor: pointer;
 `;
 
 export const FlexBox = styled.div`
@@ -82,18 +74,18 @@ export const FlexBox = styled.div`
 `;
 
 export const HeaderSpace = styled.div`
+    justify-content: center;
+    align-items: Center;
     width: 83px;
     height: 59px;
-    align-items: Center;
     font-size: ${cssUnit.fontSize.small};
-    justify-content: center;
     text-align: center;
 `;
 
 export const HeaderAdminMenuItem = styled.div`
-    width: 33%;
-    align-items: Center;
-    font-size: ${cssUnit.fontSize.tittle};
     justify-content: center;
+    align-items: Center;
+    width: 33%;
+    font-size: ${cssUnit.fontSize.tittle};
     text-align: center;
 `;

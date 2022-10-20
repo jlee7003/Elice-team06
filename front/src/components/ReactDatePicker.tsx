@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "@/styles/react-datepicker.css";
 import * as _ from "lodash";
 import { getMonth, getYear } from "date-fns";
 
@@ -82,7 +83,7 @@ const ReactDatePicker = ({ setStart, setEnd }: any) => {
                     );
                 }}
             />
-            <span style={{ margin: "0px 20px" }}>~</span>
+            <div style={{ margin: "0px 20px", display: "flex", alignItems: "center" }}>~</div>
             <DatePicker
                 selected={endDate}
                 onChange={(date: Date) => {

@@ -14,13 +14,7 @@ import {
     AllCenterBox,
     TitleBOx,
 } from "@/styles/challengeRequestModal-style";
-import "react-datepicker/dist/react-datepicker.css";
-import "@/styles/react-datepicker.css";
-import DatePicker from "react-datepicker";
-import { useState } from "react";
-import ReactDatePicker from "@/components/ReactDatePicker";
 import * as _ from "lodash";
-import { getMonth, getYear } from "date-fns";
 import { writeboard } from "@/api/board";
 type Props = {
     setOnModal: (state: string) => void;
@@ -28,27 +22,14 @@ type Props = {
 };
 
 const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
-    // const [startDate, setStartDate] = useState(new Date());
-    // const [endDate, setEndDate] = useState(new Date());
     const title = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
-    // const goal = useRef<HTMLInputElement>(null);
-    // const level = useRef<HTMLInputElement>(null);
-    // const proposer = useRef<HTMLInputElement>(null);
 
-    // console.log("startDate:", startDate);
-    // console.log("endDate:", endDate);
     let formData = {
         title: "",
         description: "",
-        // goal: "",
-        // level: "",
-        // start_date: "",
-        // due_date: "",
-        // proposer: "",
-        // createdAt: "",
-        // updatedAt: "",
     };
+
     const buttonClick = async () => {
         if (title.current == null || description.current == null) {
             return;
@@ -56,9 +37,6 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
         formData = {
             title: title.current?.value,
             description: description.current?.value,
-            // goal: goal.current?.value,
-            // start_date: startDate.toDateString(),
-            // due_date: endDate.toDateString(),
         };
         console.log("formdata:", formData);
         const result = await writeboard(formData);

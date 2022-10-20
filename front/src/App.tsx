@@ -24,8 +24,7 @@ export interface Props {
 const App = () => {
     const [onModal, setOnModal] = useRecoilState(ModalState);
     const [error] = useRecoilState(errorRecoil);
-    const [darkMode2] = useRecoilState(DarkMode);
-    // console.log(darkMode);
+    const [darkModeState] = useRecoilState(DarkMode); // DarkMode의 recoilState를 가지고 옴 지우면 안됌
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     let darkMode = sessionStorage.getItem("DarkMode");
@@ -38,20 +37,11 @@ const App = () => {
 
     useEffect(() => {
         setVisible((prev) => {
-            if (currentUrl.split("/").includes("landing")) {
+            if (currentUrl.split("/")[3] === "") {
                 return (prev = false);
             }
             return (prev = true);
         });
-        // setThemeMode((prev: string) => {
-        //     if (currentUrl.split("/").includes("landing")) {
-        //         console.log("prev 뭐 담고 있니?", prev);
-        //         return (prev = "Light");
-        //     }
-        //     console.log("prev 뭐 담고 있니?", prev);
-
-        //     return (prev = prev);
-        // });
     }, [currentUrl]);
     function onClickLogout() {
         console.log("함수 실행 내용");
