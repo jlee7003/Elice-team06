@@ -6,13 +6,14 @@ export const HomeContainer = styled.div`
     height: auto !important;
 `;
 
-export const Main = styled.main`
-    width: ${cssUnit.unit.width};
-    height: auto;
-    padding-top: 70px;
-    padding-bottom: 120px;
-    margin: auto;
-`;
+// export const Main = styled.main`
+//     width: ${cssUnit.unit.width};
+//     height: auto;
+//     min-height: 1000px;
+//     padding-top: 70px;
+//     padding-bottom: 120px;
+//     margin: auto;
+// `;
 
 export const Category = styled.div`
     display: flex;

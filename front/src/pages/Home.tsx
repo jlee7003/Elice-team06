@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import {
     HomeContainer,
-    Main,
+    // Main,
     Category,
     CategoryTitle,
     CategoryContent,
     SkeletonContent,
 } from "@/styles/pages/home-style";
+import { Main } from "@/components/common/Main";
 import { HomeBanners, ControlBanner, Banner } from "@/styles/banner";
 import ChallengeCard from "@/components/ChallengeCard";
 
@@ -76,7 +77,7 @@ const Home = () => {
     const bannerArray = [
         "건강도 지키는 자전거 타기",
         "외출 시엔 대중교통 사용",
-        "한 달에 한번 나무 심기",
+        "한 달에 한 번 나무 심기",
     ];
 
     const getBoardData = async () => {
@@ -210,7 +211,7 @@ const Home = () => {
                                           <ChallengeCard
                                               id={comment[0].id}
                                               level="beginner"
-                                              grade={true}
+                                              //   grade={true}
                                               title={comment[0].title}
                                               date={startDate + "~" + endDate}
                                               count={comment[0]._count.Challenger}

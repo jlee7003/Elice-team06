@@ -3,6 +3,7 @@ import { Container, CenterContainer } from "../../styles/pages/challengedetail-s
 import { Logo } from "@/styles/common";
 
 import { HomeBanners, Banner } from "@/styles/banner";
+import { Main } from "@/components/common/Main";
 import MainCard from "@/components/ChallengeDetailMainCard";
 // import SubCard from "@/components/ChallengeDetailSubCard";
 import assets from "@/lib/assets";
@@ -24,11 +25,11 @@ const ChallengeDetail = () => {
                     </p>
                 </Banner>
             </HomeBanners>
-            <Container>
+            <Main>
                 <CenterContainer>
                     <MainCard></MainCard>
                 </CenterContainer>
-            </Container>
+            </Main>
         </>
     );
 };
