@@ -34,7 +34,7 @@ export const refresh = async () => {
 };
 
 export const changePassword = async (changePasswordData: ChangePasswordData) => {
-    const result = await API.put<any>(["api", "changePassword"], changePasswordData);
+    const result = await API.put<any>(["user", "changePassword"], changePasswordData);
 
     return result;
 };
@@ -42,25 +42,25 @@ export const changePassword = async (changePasswordData: ChangePasswordData) => 
 // todo: add response type
 
 export const myInfo = async () => {
-    const result = await API.get(["api", "myInfo"]);
+    const result = await API.get(["user", "myInfo"]);
 
     return result;
 };
 
 export const changeMyInfo = async (changeMyInfoData: ChangeMyInfoData) => {
-    const result = await API.put(["api", "myInfo"], changeMyInfoData);
+    const result = await API.put(["user", "myInfo"], changeMyInfoData);
 
     return result;
 };
 
 export const authPassword = async (password: string) => {
-    const result = await API.post(["api", "myInfo", "auth"], password);
+    const result = await API.post(["user", "myInfo", "auth"], password);
 
     return result;
 };
 
 export const withdrawal = async () => {
-    const result = await API.put(["api", "myInfo", "withdrawal"], "");
+    const result = await API.put(["user", "myInfo", "withdrawal"], "");
 
     return result;
 };
