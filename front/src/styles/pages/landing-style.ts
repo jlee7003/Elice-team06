@@ -13,6 +13,8 @@ interface StyleProps {
     width?: string;
     height?: string;
     margin?: string;
+    bgPosition?: string;
+    bgSize?: string;
 }
 
 export const ContainerWrap = styled.div`
@@ -383,15 +385,23 @@ export const Section3Content = styled.div`
         //.recharts-tooltip-cursor.recharts-curve
         .recharts-tooltip-wrapper {
             & > div {
-                width: 100px !important;
-                height: 100px !important;
+                /* width: 100px !important;
+                height: 100px !important; */
+                width: auto;
+                height: auto;
+                line-height: 30px;
+                display: flex;
 
                 & > ul {
                     li {
-                        height: 50px;
+                        /* height: 50px; */
                     }
                 }
             }
+        }
+
+        .recharts-tooltip-label {
+            display: none;
         }
     }
 `;
@@ -463,8 +473,31 @@ const slideImg01 = assets("bus_img.png");
 export const SlideImg = styled.img.attrs({ src: slideImg01, alt: "bus img" })``;
 
 export const SlideList = styled.li<StyleProps>`
-    background-image: url(${(props) => props.slideBgImg});
-    background-size: cover;
+    position: relative;
+    background: ${(props) => props.bgColor};
+    /* background-size: cover; */
+
+    & > a {
+        background-repeat: no-repeat;
+        background-image: url(${(props) => props.slideBgImg});
+        background-position: ${(props) => props.bgPosition};
+        background-size: ${(props) => props.bgSize};
+        opacity: 0.3;
+    }
+    & > p {
+        position: absolute;
+        /* top: 100px; */
+        left: 14%;
+        font-weight: 600;
+        line-height: 200px;
+        /* font-size: 30px; */
+        line-height: 60px;
+        text-align: left;
+        font-size: 40px;
+        color: #fbfbfb;
+        top: 140px;
+        text-shadow: 0 0 10px rgb(0 0 0 / 50%);
+    }
 `;
 
 // https://m.blog.naver.com/co-nam/222084570760

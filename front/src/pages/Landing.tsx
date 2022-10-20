@@ -702,20 +702,47 @@ const Landing = () => {
                                 <input type="radio" name="slide" id="slide03" />
                                 <SlideContent>
                                     <ul>
-                                        <SlideList slideBgImg={assets("bus_img.png")}>
+                                        <SlideList
+                                            slideBgImg={assets("banner_bus.png")}
+                                            bgColor="linear-gradient(45deg, #35614c, #56676e, black)"
+                                            bgPosition="right center"
+                                            bgSize="800px"
+                                        >
                                             <a>
-                                                <span>대중교통 타기</span>
+                                                <span>외출 시엔 대중교통 사용</span>
                                             </a>
+                                            <p>
+                                                외출 시엔 <br />
+                                                대중교통 사용
+                                            </p>
                                         </SlideList>
-                                        <SlideList slideBgImg={assets("plant_tree_img.png")}>
+                                        <SlideList
+                                            slideBgImg={assets("banner_cycle.png")}
+                                            bgColor="linear-gradient(45deg, #35614c, #63433e, black)"
+                                            bgPosition="right center"
+                                            bgSize="800px"
+                                        >
                                             <a>
-                                                <span>한달에 한번 식물 심기</span>
+                                                <span>건강도 지키는 자전거 타기</span>
                                             </a>
+                                            <p>
+                                                건강도 지키는 <br />
+                                                자전거 타기
+                                            </p>
                                         </SlideList>
-                                        <SlideList slideBgImg={assets("recycle_img.png")}>
+                                        <SlideList
+                                            slideBgImg={assets("banner_plant.png")}
+                                            bgColor="linear-gradient(45deg, #35614c, #af9c93, black)"
+                                            bgPosition="right center"
+                                            bgSize="800px"
+                                        >
                                             <a>
-                                                <span>재활용 잘하기</span>
+                                                <span>한 달에 한 번 나무 심기</span>
                                             </a>
+                                            <p>
+                                                한 달에 한 번 <br />
+                                                나무 심기
+                                            </p>
                                         </SlideList>
                                     </ul>
                                     <SlideControl>

@@ -1,7 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
 import { Props } from "../App";
 // import { Props } from "@/components/common/Header";
-import reset from "styled-reset";
 
 const font = css`
     @font-face {
@@ -60,7 +59,6 @@ const font = css`
 `;
 
 const GlobalStyle = createGlobalStyle<Props>` 
-    ${reset};
     * {
         font-family: "Noto Sans KR", sans-serif;
         margin: 0;
@@ -117,29 +115,27 @@ const GlobalStyle = createGlobalStyle<Props>`
                   `}
     }
     header{
-        ${(props) =>
-            props.mode == "Light"
-                ? css`
-                      color: white;
-                      background-color: #282828;
-                      label {
-                          background-color: #282828;
-                      }
-                      label > div {
-                          background-color: #cccccc;
-                      }
-                  `
-                : css`
-                      color: black;
-                      background-color: white;
-                      label {
-                          background-color: white;
-                      }
-                      label > div {
-                          background-color: blue;
-                          transform: translateX(20px);
-                      }
-                  `}
+       
+                  ${(props) =>
+                      props.mode == "Light"
+                          ? css`
+                                color: white;
+                                label {
+                                    background-color: white;
+                                }
+                                label > div {
+                                    background-color: #838383;
+                                }
+                            `
+                          : css`
+                                color: black;
+                                label {
+                                    background-color: #282828;
+                                }
+                                label > div {
+                                    background-color: #cccccc;
+                                }
+                            `}
     }
 `;
 export default GlobalStyle;

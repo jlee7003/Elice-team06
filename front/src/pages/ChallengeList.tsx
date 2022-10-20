@@ -6,7 +6,8 @@ import { ROUTES } from "@/routes";
 import ChallengeCard, { Level } from "@/components/ChallengeCard";
 import EasyPagination from "@/components/Easy-pagination";
 
-import { Main, Category, CategoryTitle, CategoryContent } from "@/styles/pages/home-style";
+import { Category, CategoryTitle, CategoryContent } from "@/styles/pages/home-style";
+import { Main } from "@/components/common/Main";
 
 interface Pagination {
     start: number;

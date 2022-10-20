@@ -7,13 +7,14 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
     const [darkMode, setDarkMode] = useRecoilState(DarkMode);
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (darkMode == "Light") {
-            sessionStorage.setItem("DarkMode", "Light");
+            localStorage.setItem("DarkMode", "Light");
             setDarkMode("Dark");
         } else {
-            sessionStorage.setItem("DarkMode", "Dark");
+            localStorage.setItem("DarkMode", "Dark");
             setDarkMode("Light");
         }
     }
+
     return (
         <>
             <div style={{ display: "flex" }}>
@@ -21,7 +22,7 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
                     type="checkbox"
                     id="chk"
                     onChange={handleChange}
-                    checked={sessionStorage.getItem("DarkMode") === "Dark"}
+                    checked={darkMode == "Light" ? true : false}
                 />
                 <Label>
                     <div></div>
