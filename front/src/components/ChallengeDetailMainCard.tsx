@@ -13,13 +13,22 @@ import {
     CommentButton,
     CommentContainer,
     NoComments,
-    OnComments,
 } from "@/styles/pages/challengedetail-style";
-import { ChallengeBoardWriter } from "@/recoil/ChallengeBoardRecoil";
+import {
+    challengeData,
+    challengeResult,
+    addCommentData,
+    addCommentResult,
+    ChallengeJoinResult,
+    ChallengeBoardModel,
+} from "@/types/challengeTypes";
+// import { ChallengeBoardModel } from "@/recoil/ChallengeRecoil";
+import API from "@/api/index";
+import { ChallengeBoardWriter } from "@/recoil/ChallengeRecoil";
 import { useRef, useState, useEffect } from "react";
 import Pagination from "./pagination";
-import { addComment, getComment, challengeJoin, getChallengeBoard } from "@/api/challenge";
-import { commentState } from "@/recoil/commentState";
+import { getComment } from "@/api/challenge";
+import { commentState } from "@/recoil/ChallengeRecoil";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import userState from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
@@ -27,7 +36,7 @@ import ModalState from "@/recoil/modalState";
 import DidLoginModal from "@/modal/DidLoginModals";
 import { useLocation } from "react-router-dom";
 const ChallengeDetailMainCard = () => {
-    const [limit, setLimit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
+    const [limit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
     const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
     const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
     const offset = (page - 1) * limit;
@@ -38,20 +47,16 @@ const ChallengeDetailMainCard = () => {
     const location = useLocation();
     const [userData, setUserData] = useRecoilState(ChallengeBoardWriter);
     const commentsRef = useRef<HTMLInputElement>(null);
-    const [onModal, setOnModal] = useRecoilState(ModalState);
+    const setOnModal = useSetRecoilState(ModalState);
 
     let challengeId = location.state.id;
     let start = 1;
     let end = 100000;
     let count = 1;
     const token = sessionStorage.getItem("refresh");
-    const [joiner, setJoiner] = useState([
-        {
-            writer: "테스트",
-        },
-    ]);
-    var d = new Date(userData?.start_date);
-    var e = new Date(userData?.due_date);
+
+    let d = new Date(userData?.start_date);
+    let e = new Date(userData?.due_date);
     const startDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
     const endDate = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()}`;
     const getComments = async () => {
@@ -65,49 +70,42 @@ const ChallengeDetailMainCard = () => {
         });
     };
     const getBoardData = async () => {
-        await getChallengeBoard(challengeId).then((res) => {
-            if (res === null) {
-                return;
-            }
+        await await API.get<ChallengeBoardModel>(["challenge", challengeId.toString()]).then(
+            (res) => {
+                if (res === null) {
+                    return;
+                }
 
-            setUserData(res.data);
-        });
+                setUserData(res.data);
+            }
+        );
     };
 
     let addCommentData = {
         description: "",
     };
     async function addjoiner() {
-        const result: any = await challengeJoin(challengeId);
+        await API.post<ChallengeJoinResult>(
+            ["challenge", challengeId.toString(), "join"],
+            challengeId
+        );
         getBoardData();
-        setJoiner((prev: { writer: any }[]) => {
-            let joiners = [];
-            if (prev.some((v) => v.writer === user?.nickname)) {
-                joiners = [...prev];
-            } else {
-                joiners = [
-                    ...prev,
-                    {
-                        writer: user?.nickname,
-                    },
-                ];
-            }
-            return joiners;
-        });
     }
 
     const addComments = async () => {
         if (commentsRef.current == null) {
             return;
         }
-        console.log(commentsRef.current.value);
         if (commentsRef.current.value == "") {
             alert("댓글을 입력하세요");
         }
         addCommentData = {
             description: commentsRef.current?.value,
         };
-        const result: any = await addComment(addCommentData, challengeId);
+        const result: any = await API.post<addCommentResult>(
+            [`challenge/${challengeId.toString()}/comment`],
+            addCommentData
+        );
         if (result?.response?.status != undefined) {
             setError({
                 isError: true,

@@ -38,7 +38,6 @@ export const Paginations = (props: {
 
         // << 를 눌렀을 때
         if (name === "prev") {
-            console.log("왼쪽을 눌렸음");
             if (currentRangeNumber - 1 <= 0) {
                 return settingCurrentRange(1);
             }
@@ -50,7 +49,6 @@ export const Paginations = (props: {
         // >> 를 눌렀을 때
         if (name === "next") {
             if (5 * (currentRangeNumber + 1) < limit) {
-                console.log("여기 지나갔어!");
                 return settingCurrentRange((crr: number) => {
                     return crr + 1;
                 });

@@ -33,7 +33,6 @@ class challengeService {
         });
         challenges = chunk(challenges, start, Number(count));
         await prisma.$disconnect();
-        console.log(challenges);
         return challenges;
     }
 
@@ -73,7 +72,6 @@ class challengeService {
         input.due_date = new Date(input.due_date);
         try {
             const newChallenge = await prisma.Challenge.create({ data: { ...input } });
-            console.log("=======", newChallenge);
             await prisma.$disconnect();
             return newChallenge;
         } catch (err) {

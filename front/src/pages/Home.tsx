@@ -7,79 +7,45 @@ import {
     CategoryContent,
     SkeletonContent,
 } from "@/styles/pages/home-style";
-// import {
-//     ChallengeSlide,
-//     SlideContent,
-//     SlideControl,
-//     Control,
-//     ArrowIcon,
-//     SlideList,
-// } from "@/styles/banner";
 import { HomeBanners, ControlBanner, Banner } from "@/styles/banner";
 import ChallengeCard from "@/components/ChallengeCard";
 
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
-import { ChallengeList } from "@/recoil/ChallengeListRecoil";
+import { ChallengeList } from "@/recoil/ChallengeRecoil";
 import urlCheck from "@/recoil/urlCheck";
-import assets from "@/lib/assets";
-import icons from "@/lib/icons";
 import { getChallengeList } from "@/api/challenge";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
-import { ROUTES } from "@/routes";
 
 export interface Props {
     mode?: string;
 }
 
 const Home = () => {
-    const [darkMode] = useRecoilState(DarkMode);
+    const [resizeWidth, setResizeWidth] = useState(window.innerWidth); //리사이징 화면 높이 값
     const [boardList, setBoardList] = useRecoilState(ChallengeList);
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
-    const [resizeWidth, setResizeWidth] = useState(window.innerWidth); //리사이징 화면 높이 값
+    const [darkMode] = useRecoilState(DarkMode);
     const [innerWidth, setInnerWidth] = useState(window.innerWidth); // 초기 랜더링 시 화면 높이 값
     const [isLoaded, setIsLoaded] = useState(false); //카드 데이터 로딩 상태 값
-    // const [bannerCount, setBannerCount] = useState(0);
-    let start = 1;
-    let end = 8;
-    let count = 1;
-    var d = new Date();
-    var e = new Date();
     const bannerRef = useRef<HTMLDivElement[]>([]);
-
-    // setCurrentUrl(window.location.href);
-    console.log("Home URL", window.location.href);
-
-    const getBoardData = async () => {
-        await getChallengeList(start, end, count).then((res) => {
-            if (res === null) {
-                return;
-            }
-            setBoardList(res.data);
-
-            console.log(234324, res.data, boardList);
-            d = new Date(boardList[0]?.start_date);
-            e = new Date(boardList[0]?.due_date);
-        });
-        setIsLoaded(true);
-    };
-
-    // const startDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-    // const endDate = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()}`;
+    let d = new Date();
+    let e = new Date();
     const startDate = `${d.getMonth() + 1}-${d.getDate()}`;
     const endDate = `${e.getMonth() + 1}-${e.getDate()}`;
-    console.log("boardListLength", Object.values(boardList).length);
-    console.log(boardList[0]?.start_date);
+    const start = 1;
+    const end = 8;
+    const count = 1;
+    let num = 0;
+
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            // getComments();
             getBoardData();
-            // console.log("boardList", boardList);
         }, 0);
 
         return () => clearTimeout(timer);
@@ -112,18 +78,23 @@ const Home = () => {
         "한 달에 한번 나무 심기",
     ];
 
-    let num = 0;
+    const getBoardData = async () => {
+        await getChallengeList(start, end, count).then((res) => {
+            if (res === null) {
+                return;
+            }
+            setBoardList(res.data);
 
+            d = new Date(boardList[0]?.start_date);
+            e = new Date(boardList[0]?.due_date);
+        });
+        setIsLoaded(true);
+    };
     const onSlideBannerLeft = () => {
         if (num === 0) {
             num = 3;
         }
         num -= 1;
-        // setBannerCount((prev) => {
-        //     console.log(bannerCount);
-        //     return prev === 0 ? (prev = 2) : (prev -= 1);
-        //     // return (prev -= 1);
-        // });
 
         if (bannerRef.current === null) {
             return;
@@ -153,13 +124,6 @@ const Home = () => {
 
         num += 1;
 
-        // setBannerCount((prev) => {
-        //     console.log(bannerCount);
-        //     return prev === 2 ? (prev = 0) : (prev += 1);
-        //     // return (prev += 1);
-        // });
-
-        // console.log(num);
         if (bannerRef.current === null) {
             return;
         }
@@ -181,7 +145,6 @@ const Home = () => {
         }
     };
 
-    const leftArrow = icons("arrow_side_icon.png");
     const contentsLength = [0, 1, 2, 3, 4, 5, 6, 7];
 
     return (
@@ -204,15 +167,9 @@ const Home = () => {
                 <ControlBanner>
                     <div>
                         <p onClick={onSlideBannerLeft}>
-                            {/* <img src={leftArrow} alt="leftArrow" /> */}
                             <i className="ri-arrow-left-s-line"></i>
                         </p>
                         <p onClick={onSlideBannerRight}>
-                            {/* <img
-                                src={leftArrow}
-                                alt="rightArrow"
-                                style={{ transform: "rotate(180deg)" }}
-                            /> */}
                             <i className="ri-arrow-right-s-line"></i>
                         </p>
                     </div>
@@ -275,14 +232,6 @@ const Home = () => {
                                       </SkeletonContent>
                                   );
                               })}
-                        {/* {boardList?.}dvsvd
-                        {boardList?.due_date}dvsvd
-                        {boardList?.level}dvsvd
-                        {boardList?.start_date}dvsvd */}
-                        {/* <ChallengeCard level="beginner" grade={true} />
-                        <ChallengeCard level="intermediate" grade={true} />
-                        <ChallengeCard level="advanced" grade={true} />
-                        <ChallengeCard grade={true} /> */}
                     </CategoryContent>
                 </Category>
             </Main>

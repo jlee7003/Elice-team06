@@ -40,3 +40,16 @@ export interface ChallengeJoinResult {
     challenge_id: string;
     nickname: string;
 }
+export interface ChallengeBoardModel {
+    id: string | null;
+    title: string | null;
+    createdAt: string | null;
+    updatedAt: string | null;
+    proposer: string | null;
+    due_date: string | number | Date | any;
+    start_date: string | number | Date | any;
+    goal: string | null;
+    level: string | null;
+    description: string | null;
+    Challenger: [nickname: string] | any;
+}

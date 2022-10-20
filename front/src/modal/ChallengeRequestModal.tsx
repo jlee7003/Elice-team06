@@ -1,6 +1,3 @@
-import { useRef } from "react";
-import ModalPortal from "./ModalPortal";
-import Draggable from "react-draggable";
 import {
     ModalContainer,
     ModalBody,
@@ -14,14 +11,16 @@ import {
     AllCenterBox,
     TitleBOx,
 } from "@/styles/challengeRequestModal-style";
+import { useRef } from "react";
+import ModalPortal from "./ModalPortal";
+import Draggable from "react-draggable";
 import "react-datepicker/dist/react-datepicker.css";
-import "@/styles/react-datepicker.css";
-import DatePicker from "react-datepicker";
 import { useState } from "react";
 import ReactDatePicker from "@/components/ReactDatePicker";
 import * as _ from "lodash";
-import { getMonth, getYear } from "date-fns";
-import { challenge } from "@/api/challenge";
+import { challengeResult } from "@/types/challengeTypes";
+import API from "@/api/index";
+
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
@@ -33,21 +32,14 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
     const title = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
     const goal = useRef<HTMLInputElement>(null);
-    const level = useRef<HTMLInputElement>(null);
-    // const proposer = useRef<HTMLInputElement>(null);
+    // const level = useRef<HTMLInputElement>(null);
 
-    console.log("startDate:", startDate);
-    console.log("endDate:", endDate);
     let formData = {
         title: "",
         description: "",
         goal: "",
-        // level: "",
         start_date: "",
         due_date: "",
-        // proposer: "",
-        // createdAt: "",
-        // updatedAt: "",
     };
     const buttonClick = async () => {
         if (title.current == null || description.current == null || goal.current == null) {
@@ -61,7 +53,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
             due_date: endDate.toDateString(),
         };
         console.log("formdata:", formData);
-        const result = await challenge(formData);
+        await API.post<challengeResult>(["challenge"], formData);
         console.log("요청완료");
     };
 
@@ -89,9 +81,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                                         <FlexBox>
                                             <ReactDatePicker
                                                 setStart={setStartDate}
-                                                // startDate={startDate}
                                                 setEnd={setEndDate}
-                                                // endDate={endDate}
                                             />
                                         </FlexBox>
                                     </AllCenterBox>

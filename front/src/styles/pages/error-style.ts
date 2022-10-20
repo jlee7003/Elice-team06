@@ -10,22 +10,22 @@ export const Container = styled.div`
 `;
 
 export const LoadingBox = styled.div`
-    width: 230px;
-    height: auto;
-    position: absolute;
-    left: 50%;
-    margin-left: -115px;
-    margin-top: -50px;
-    top: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 230px;
+    height: auto;
+    margin-left: -115px;
+    margin-top: -50px;
 `;
 
 export const LoadingText = styled.p`
-    text-align: center;
+    padding-top: 20px;
     font-size: 20px;
     line-height: 27px;
-    padding-top: 20px;
     color: #343434;
+    text-align: center;
 `;

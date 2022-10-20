@@ -8,43 +8,33 @@ export const HomeContainer = styled.div`
 
 export const Main = styled.main`
     width: ${cssUnit.unit.width};
-    /* height: 70vh; */
     height: auto;
-    margin: auto;
     padding-top: 70px;
     padding-bottom: 120px;
+    margin: auto;
 `;
 
 export const Category = styled.div`
     display: flex;
     flex-wrap: wrap;
-
-    // width: 80%;
     width: 100%;
-
     margin: auto;
-
-    /* & > p {
-        grid-area: title;
-        width: 100%;
-        height: 53px;
-    } */
 `;
 
 export const CategoryTitle = styled.h2`
-    width: 100%;
-    height: 53px;
-    padding-bottom: 28px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-weight: ${cssUnit.fontWeight.bold};
+    width: 100%;
+    height: 53px;
+    padding-bottom: 28px;
     font-size: ${cssUnit.fontSize.medium};
+    font-weight: ${cssUnit.fontWeight.bold};
 
     p {
         &.more {
-            font-size: 16px;
             margin-left: 25px;
+            font-size: 16px;
             color: #a5a5a5;
         }
     }
@@ -54,17 +44,15 @@ export const CategoryContent = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-
     width: 100%;
 `;
 
 export const SkeletonContent = styled.div`
-    width: 298px;
-    height: 285px;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
-
+    width: 298px;
+    height: 285px;
     & > div {
         & + div {
             margin-top: 10px;

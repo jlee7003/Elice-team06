@@ -10,8 +10,6 @@ challengeRoute.get(
     "/all",
     asyncHandler(async (req, res) => {
         try {
-            console.log(6666);
-            console.log(req.query);
             const pagination = req.query;
             const challenges = await challengeService.getChallenges(pagination);
             res.status(200).send(challenges);
@@ -56,7 +54,6 @@ challengeRoute.post(
             const { nickname } = req.nickname;
             const input = req.body;
             input.proposer = nickname;
-            console.log(input);
             const newChallenge = await challengeService.addChallenge(input);
             res.status(201).send(newChallenge);
         } catch (error) {
@@ -98,7 +95,6 @@ challengeRoute.post(
     "/:id/join",
     authToken,
     asyncHandler(async (req, res) => {
-        console.log("join");
         try {
             const { nickname } = req.nickname;
             const joinChallenge = await challengeService.joinChallenge({

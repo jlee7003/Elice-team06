@@ -40,11 +40,9 @@ class API {
         this.setRefreshToken();
 
         const url = params.join("?");
-        console.log(url);
 
         try {
             const response = await this.instance.get<T>(url);
-            console.log(response);
 
             return response;
         } catch (err) {
