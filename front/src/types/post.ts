@@ -47,3 +47,16 @@ export interface PostProps {
     PostList: PostLists | null;
     PageData: PageData;
 }
+
+type likedPost = {
+    id: number;
+    voter: string;
+    posted_id: string;
+    createdAt: string;
+    updateAt: string;
+};
+export interface LikedPostsLists {
+    [key: number]: likedPost;
+}
+
+//export type likeResult={}
