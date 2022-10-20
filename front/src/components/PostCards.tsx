@@ -15,6 +15,8 @@ import {
 //real data interface
 import { PostLists, LikedPostsLists } from "@/types/post";
 import userState from "@/recoil/user";
+//import Modal
+import AlertModal from "@/modal/AlertModal";
 //API import
 import API from "@/api/.";
 //error handling
@@ -36,6 +38,13 @@ const PostCards = (prop: {
     const currentPageNum = prop.currentPage + 1;
     //관리자 모드에서 삭제하기 기능?
     //const deleteModeOn = prop.deleteMode;
+
+    //삭제 모달, 삭제
+    const [onModal, setOnModal] = useState(false);
+    const [deleteTrigger, setDeleteTrigger] = useState(false);
+
+    const [targetPost, setTargetPost] = useState("");
+
     const [likesList, setLikesList] = useState(0);
     const [like, setLike] = useState(0);
     //const [userLiked, setUserLiked] = useState<LikedPostsLists | null>(null);
@@ -92,6 +101,14 @@ const PostCards = (prop: {
         return result;
     };
 
+    const onClickDelete = (name: string) => {
+        console.log("여기왔니?");
+        //const { name } = e.target as HTMLButtonElement;
+        deletingPost(name);
+    };
+
+    //const triggerOn=onClickDelete();
+
     console.log("handlieLikeNum", handlieLikeNum);
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -144,15 +161,29 @@ const PostCards = (prop: {
                                     <button name={`${post.id}`} onClick={onClick}>
                                         {post._count.VotePost + handlieLikeNum}
                                     </button>
-                                    <span
+                                    <button
+                                        name={`${post.id}`}
                                         onClick={() => {
+                                            //console.log("클릭했니?/onModal", onModal);
                                             if (user?.nickname === post.author) {
-                                                deletingPost(`${post.id}`);
+                                                setOnModal(true);
+                                                //console.log("통과햇니?/onModal", onModal);
+                                                //console.log("deleteTrigger:  ", deleteTrigger);
+                                                if (deleteTrigger) {
+                                                    () => onClickDelete;
+                                                }
                                             }
                                         }}
                                     >
                                         삭제
-                                    </span>
+                                        {onModal == true && (
+                                            <AlertModal
+                                                name={`${post.id}`}
+                                                setOnModal={setOnModal}
+                                                trigger={onClickDelete}
+                                            ></AlertModal>
+                                        )}
+                                    </button>
                                     {/* {deleteModeOn ? (
                                         <>
                                             <span>

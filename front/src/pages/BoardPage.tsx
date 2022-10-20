@@ -190,9 +190,9 @@ const BoardPage = () => {
                             <>
                                 {/* <SectionSkele />
                                 <NavSkele /> */}
-                                {[0, 1, 2, 3, 4].map(() => {
+                                {[0, 1, 2, 3, 4].map((i) => {
                                     return (
-                                        <SkeletonContent>
+                                        <SkeletonContent key={i}>
                                             <Skeleton variant="rounded" width={1265} height={190} />
                                         </SkeletonContent>
                                     );
