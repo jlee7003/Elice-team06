@@ -7,6 +7,7 @@ class reportPostService {
             where: { post_id: Number(boardId) },
             _count: true,
         });
+        await prisma.$disconnect();
         return reportData;
     }
     static async report({ boardId, nickname, description }) {
@@ -18,6 +19,7 @@ class reportPostService {
             await prisma.ReportPost.deleteMany({
                 where: { reporter: nickname, post_id: Number(boardId) },
             });
+            await prisma.$disconnect();
             return "신고 취소";
         }
 
@@ -32,6 +34,7 @@ class reportPostService {
                 },
             },
         });
+        await prisma.$disconnect();
         return result;
     }
 }
