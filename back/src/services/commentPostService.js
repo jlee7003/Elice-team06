@@ -27,6 +27,7 @@ class commentPostService {
                 },
             },
         });
+        await prisma.$disconnect();
         return result;
     }
     static async getComments({ boardId, start, end, count }) {
@@ -36,12 +37,14 @@ class commentPostService {
             skip: (start - 1) * count,
         });
         const result = pagination(allComments, start, end, count);
+        await prisma.$disconnect();
         return result;
     }
     static async getMyComments({ nickname }) {
         const result = await prisma.CommentPost.findMany({
             where: { author: nickname },
         });
+        await prisma.$disconnect();
         return result;
     }
     static async updateComment({ commentId, description }) {
@@ -51,12 +54,14 @@ class commentPostService {
             },
             data: { description },
         });
+        await prisma.$disconnect();
         return result;
     }
     static async removeComment({ commentId }) {
         await prisma.CommentPost.delete({
             where: { id: Number(commentId) },
         });
+        await prisma.$disconnect();
         return "댓글 삭제";
     }
 }
