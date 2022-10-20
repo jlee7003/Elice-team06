@@ -61,8 +61,8 @@ export const Paginations = (props: {
             }
             return;
         }
-        navigate(`/boardPage/pages/${parseInt(name)}`);
         settingCurrentPage(parseInt(name));
+        navigate(`/boardPage/pages/${parseInt(name)}`);
     };
     //교훈: button위에 span을 놓지 말자.
     return (

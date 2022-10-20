@@ -18,6 +18,7 @@ import {
     UserIcon,
 } from "@/styles/pages/mypage-style";
 import { CategoryTitle } from "@/styles/pages/home-style";
+import { Main } from "@/components/common/Main";
 //components
 import ChallengeCard from "@/components/ChallengeCard";
 import PostCards from "@/components/PostCards";
@@ -66,7 +67,7 @@ const Mypage = () => {
     };
 
     return (
-        <div>
+        <Main>
             <Container>
                 <SideBar>
                     <MySec>
@@ -119,7 +120,7 @@ const Mypage = () => {
                     </LikeChallenges>
                 </ChallengeContainter>
             </Container>
-        </div>
+        </Main>
     );
 };
 
