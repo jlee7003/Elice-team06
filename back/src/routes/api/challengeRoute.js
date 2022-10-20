@@ -10,8 +10,6 @@ challengeRoute.get(
     "/all",
     asyncHandler(async (req, res) => {
         try {
-            console.log(6666);
-            console.log(req.query);
             const pagination = req.query;
             const challenges = await challengeService.getChallenges(pagination);
             res.status(200).send(challenges);
@@ -27,7 +25,9 @@ challengeRoute.get(
     asyncHandler(async (req, res) => {
         try {
             const { nickname } = req.nickname;
-            const myChallenges = await challengeService.findChallenge({ nickname });
+            const pagination = req.query;
+
+            const myChallenges = await challengeService.findChallenge({ nickname, pagination });
             res.status(200).send(myChallenges);
         } catch (error) {
             res.status(504).send(error);
@@ -56,12 +56,11 @@ challengeRoute.post(
             const { nickname } = req.nickname;
             const input = req.body;
             input.proposer = nickname;
-            console.log(input);
+
             const newChallenge = await challengeService.addChallenge(input);
             res.status(201).send(newChallenge);
         } catch (error) {
             res.status(504).send(error);
-            console.log(error);
         }
     })
 );
@@ -98,7 +97,6 @@ challengeRoute.post(
     "/:id/join",
     authToken,
     asyncHandler(async (req, res) => {
-        console.log("join");
         try {
             const { nickname } = req.nickname;
             const joinChallenge = await challengeService.joinChallenge({

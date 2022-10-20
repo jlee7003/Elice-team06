@@ -33,12 +33,16 @@ class challengeService {
         });
         challenges = chunk(challenges, start, Number(count));
         await prisma.$disconnect();
-        console.log(challenges);
         return challenges;
     }
 
-    static async findChallenge({ nickname, challengeId = null }) {
+    static async findChallenge({
+        nickname,
+        challengeId = null,
+        pagination = { start: 1, end: 5, count: 4 },
+    }) {
         let findChallenges;
+        const { start, end, count } = pagination;
 
         if (challengeId) {
             findChallenges = await prisma.Challenge.findUniqueOrThrow({
@@ -50,6 +54,8 @@ class challengeService {
         } else {
             findChallenges = await prisma.Challenger.findMany({
                 where: { nickname },
+                skip: Number((start - 1) * count),
+                take: Number((end - start + 1) * count),
                 select: {
                     challenge_id: true,
                     Challenge: {
@@ -63,6 +69,7 @@ class challengeService {
                     },
                 },
             });
+            findChallenges = chunk(findChallenges, start, Number(count));
         }
         await prisma.$disconnect();
         return findChallenges;
@@ -73,11 +80,10 @@ class challengeService {
         input.due_date = new Date(input.due_date);
         try {
             const newChallenge = await prisma.Challenge.create({ data: { ...input } });
-            console.log("=======", newChallenge);
             await prisma.$disconnect();
             return newChallenge;
         } catch (err) {
-            console.log("err ", err);
+            throw new Error("DB에 접근할 수 없습니다");
         }
     }
 
