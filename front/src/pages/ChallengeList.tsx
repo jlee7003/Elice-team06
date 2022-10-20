@@ -44,7 +44,7 @@ const ChallengeList = () => {
                         navigate(ROUTES.ErrorPage.path);
                         return;
                     }
-
+                    console.log("hi");
                     const pages = Object.keys(res.data);
                     pagination.start = Number(pages[0]);
                     pagination.end = Number(pages[pages.length - 1]);
