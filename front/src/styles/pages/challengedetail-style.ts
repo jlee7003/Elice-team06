@@ -124,13 +124,13 @@ export const Graph = styled.div`
     background-color: #ffffff;
     margin: 10px;
 `;
-export const TopImage = styled.span`
-    display: block;
-    width: 100%;
-    height: 181px;
-    background-color: gray;
-    padding: 10px 50px;
-`;
+// export const TopImage = styled.span`
+//     display: block;
+//     width: 100%;
+//     height: 181px;
+//     background-color: gray;
+//     padding: 10px 50px;
+// `;
 export const OKButton = styled.button`
     all: unset;
     text-align: center;

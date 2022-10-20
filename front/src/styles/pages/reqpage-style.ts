@@ -20,7 +20,8 @@ export const GridContainer = styled.div`
     justify-content: center;
     justify-items: start;
 
-    height: 1600px;
+    /* height: 1600px; */
+    height: 1300px;
     margin: 0;
     padding: 0;
 
