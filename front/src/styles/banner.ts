@@ -116,9 +116,9 @@ export const HomeBanners = styled.div<StyleProps>`
     ${(props) =>
         props.mode == "Light"
             ? css`
-                  opacity: 1;
+                  opacity: 0.3;
               `
             : css`
-                  opacity: 0.3;
+                  opacity: 1;
               `};
 `;

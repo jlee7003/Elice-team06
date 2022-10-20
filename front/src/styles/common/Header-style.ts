@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import cssUnit from "@/lib/cssUnit";
 import { Link } from "react-router-dom";
-import { Props } from "@/components/common/Header";
 
 export const HeaderContainer = styled.header`
     display: flex;
@@ -13,34 +12,13 @@ export const HeaderContainer = styled.header`
     margin: auto;
 `;
 
-export const HeaderSticky = styled.header<Props>`
+export const HeaderSticky = styled.header`
     position: sticky;
     top: 0;
     width: 100%;
     height: 80px;
     margin: auto;
     z-index: 10;
-
-    ${(props) =>
-        props.mode == "Light"
-            ? css`
-                  color: black;
-                  label {
-                      background-color: #282828;
-                  }
-                  label > div {
-                      background-color: #cccccc;
-                  }
-              `
-            : css`
-                  color: white;
-                  label {
-                      background-color: white;
-                  }
-                  label > div {
-                      background-color: #838383;
-                  }
-              `}
 `;
 
 export const HeaderMenuContainer = styled.div`
