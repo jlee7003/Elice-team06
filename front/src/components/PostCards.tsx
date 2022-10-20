@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 /*styles*/
 import {
     ArtContainer,
@@ -12,15 +13,28 @@ import {
 
 //real data interface
 import { PostLists } from "@/types/post";
+//API import
+import API from "@/api/.";
+//error handling
+import { ROUTES } from "@/routes/.";
 /**
  * postList: 각 페이지당 갖고 있는 포스트들 데이터 (부모에서 받음)
  * currentPage: 현재 페이지 위치
  */
-const ReqeustCards = (prop: { postLists: PostLists | null; currentPage: number }) => {
+const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) => {
+    const navigate = useNavigate();
     const [like, setLike] = useState(0);
     const postlist = prop.postLists;
     const currentPageNum = prop.currentPage + 1;
 
+    const getVoteNums = async () => {
+        const result = await API.get(["vote"]);
+        if (result === null) {
+            navigate(ROUTES.ErrorPage.path);
+            return; //to alret
+        }
+        return result.data;
+    };
     return (
         <>
             {postlist ? (
@@ -64,4 +78,4 @@ const ReqeustCards = (prop: { postLists: PostLists | null; currentPage: number }
     );
 };
 
-export default ReqeustCards;
+export default PostCards;

@@ -15,7 +15,7 @@ import {
 
 import { SectionSkele, NavSkele } from "@/styles/reqpage-skele-style";
 /*components*/
-import ReqeustCards from "@/components/RequestCards";
+import PostCards from "@/components/PostCards";
 //pagination
 import { Paginations } from "@/components/Paginations";
 //Modal
@@ -29,7 +29,7 @@ import API from "@/api/.";
 //error handling
 import { ROUTES } from "@/routes/.";
 
-const ReqPage = () => {
+const BoardPage = () => {
     const navigate = useNavigate();
     //url, modal
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
@@ -63,7 +63,7 @@ const ReqPage = () => {
     };
     //query를 만들어 useEffect 내부의 함수에서 사용한다.
     const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
-    console.log("Reqpage의 쿼리", query);
+    //console.log("Reqpage의 쿼리", query);
     useEffect(() => {
         //API로 정보 받아오기
         const getAllPosts = async (param: string) => {
@@ -118,7 +118,7 @@ const ReqPage = () => {
                         {postList ? (
                             <>
                                 <Section>
-                                    <ReqeustCards postLists={postList} currentPage={currentRange} />
+                                    <PostCards postLists={postList} currentPage={currentRange} />
                                     <ButtonContianer>
                                         <button onClick={() => setOnModal("challenge")}>
                                             글쓰기
@@ -160,4 +160,4 @@ const ReqPage = () => {
     );
 };
 
-export default ReqPage;
+export default BoardPage;

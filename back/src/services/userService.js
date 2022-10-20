@@ -158,7 +158,7 @@ class userService {
         });
 
         const result = { users: userCount._count, challenger: challenger.length };
-
+        await prisma.$disconnect();
         return result;
     }
 
@@ -190,6 +190,7 @@ class userService {
             //닉네임 중복 확인
             if (searchNickname && searchNickname.nickname !== nickname) {
                 const message = "이미 존재하는 닉네임입니다.";
+                await prisma.$disconnect();
                 return { result: false, message };
             }
             const { age, region, gender, profile_image, introduce } = updateData;
@@ -248,6 +249,7 @@ class userService {
 
         if (userData.length === 0) {
             const message = "존재하지 않는 유저입니다.";
+            await prisma.$disconnect();
             return { result: false, message };
         }
         const pw = generator.generate({ length: 8, numbers: true });
@@ -258,7 +260,7 @@ class userService {
             where: { id },
             data: { password: hashPw },
         });
-
+        await prisma.$disconnect();
         return { result: true, password: pw };
     }
 

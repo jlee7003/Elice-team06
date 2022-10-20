@@ -25,7 +25,9 @@ challengeRoute.get(
     asyncHandler(async (req, res) => {
         try {
             const { nickname } = req.nickname;
-            const myChallenges = await challengeService.findChallenge({ nickname });
+            const pagination = req.query;
+
+            const myChallenges = await challengeService.findChallenge({ nickname, pagination });
             res.status(200).send(myChallenges);
         } catch (error) {
             res.status(504).send(error);
@@ -54,11 +56,11 @@ challengeRoute.post(
             const { nickname } = req.nickname;
             const input = req.body;
             input.proposer = nickname;
+
             const newChallenge = await challengeService.addChallenge(input);
             res.status(201).send(newChallenge);
         } catch (error) {
             res.status(504).send(error);
-            console.log(error);
         }
     })
 );

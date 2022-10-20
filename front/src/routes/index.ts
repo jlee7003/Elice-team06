@@ -2,7 +2,7 @@ import React from "react";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import ReqPage from "@/pages/ReqPage";
+import BoardPage from "@/pages/BoardPage";
 import Post from "@/pages/challenge/Post";
 import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
 import ErrorPage from "@/pages/ErrorPage";
@@ -13,7 +13,6 @@ import FindID from "@/pages/auth/FindID";
 import FindPassword from "@/pages/auth/FindPassword";
 import FindResult from "@/pages/auth/FindResult";
 import MyPosts from "@/pages/MyPosts";
-import MyChallengeList from "@/pages/MyChallengeList";
 
 interface route {
     path: string;
@@ -45,9 +44,9 @@ export const ROUTES: routeWrap = {
         path: "/challenge/posts",
         Component: Post,
     },
-    ReqPage: {
-        path: "/reqpage/pages/:id",
-        Component: ReqPage,
+    BoardPage: {
+        path: "/boardPage/pages/:id",
+        Component: BoardPage,
     },
     ChallengeDetail: {
         path: "/challenge/challengedetail",
@@ -56,10 +55,6 @@ export const ROUTES: routeWrap = {
     Mypage: {
         path: "/mypage",
         Component: Mypage,
-    },
-    MyChallengeList: {
-        path: "/MyChallengeList",
-        Component: MyChallengeList,
     },
     MyPosts: {
         path: "/MyPosts",
@@ -81,7 +76,6 @@ export const ROUTES: routeWrap = {
         path: "/challengelist/:target",
         Component: ChallengeList,
     },
-
     ErrorPage: {
         path: "*",
         Component: ErrorPage,

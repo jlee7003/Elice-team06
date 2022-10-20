@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, LoadingBox, LoadingText } from "@/styles/pages/error-style";
 import { Loading } from "@/styles/common";
+import { ROUTES } from "@/routes";
 
 const ErrorPage = () => {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ const ErrorPage = () => {
     /* 3초 뒤 리다이렉트 코드 */
     useEffect(() => {
         setTimeout(() => {
-            navigate("/", { replace: true });
+            navigate(ROUTES.Home.path, { replace: true });
         }, 3000);
     });
 

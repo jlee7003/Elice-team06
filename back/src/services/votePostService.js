@@ -8,6 +8,7 @@ class votePostService {
             _count: true,
         });
         const result = { count: voteData._count };
+        await prisma.$disconnect();
         return result;
     }
     static async vote({ boardId, nickname }) {
@@ -19,6 +20,7 @@ class votePostService {
             await prisma.VotePost.deleteMany({
                 where: { voter: nickname, post_id: Number(boardId) },
             });
+            await prisma.$disconnect();
             return "투표 취소";
         }
 
@@ -32,6 +34,7 @@ class votePostService {
                 },
             },
         });
+        await prisma.$disconnect();
         return result;
     }
 }
