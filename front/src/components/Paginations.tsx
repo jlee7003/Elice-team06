@@ -32,7 +32,7 @@ export const Paginations = (props: {
 
     //null checking
     if (postList === null) {
-        return;
+        return null;
     }
     if (Object.keys(postList).length > 0) {
         const limit = Object.keys(postList).length - 1;

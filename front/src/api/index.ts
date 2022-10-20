@@ -1,12 +1,9 @@
 import axios, { AxiosInstance } from "axios";
-import errorRecoil from "@/recoil/errorRecoil";
-import { constSelector, useRecoilState } from "recoil";
-class API {
-    private instance: AxiosInstance;
 
-    public errorset() {
-        const [error, setError] = useRecoilState(errorRecoil);
-    }
+class API {
+    // private instance: AxiosInstance;
+    public instance: AxiosInstance;
+
     public constructor() {
         this.instance = axios.create({
             baseURL: "http://" + window.location.hostname + ":" + "3001" + "/",

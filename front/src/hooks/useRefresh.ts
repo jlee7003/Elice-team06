@@ -24,8 +24,6 @@ const useRefresh = () => {
             return;
         }
 
-        API.setAccessToken(data.accessToken);
-
         setUser({
             nickname: data?.nickname,
             introduce: data?.Profile[0]?.introduce,

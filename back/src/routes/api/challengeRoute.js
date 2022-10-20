@@ -25,6 +25,7 @@ challengeRoute.get(
     asyncHandler(async (req, res) => {
         try {
             const { nickname } = req.nickname;
+
             const pagination = req.query;
 
             const myChallenges = await challengeService.findChallenge({ nickname, pagination });
