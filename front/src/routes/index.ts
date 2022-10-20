@@ -12,6 +12,7 @@ import ChallengeList from "@/pages/ChallengeList";
 import FindID from "@/pages/auth/FindID";
 import FindPassword from "@/pages/auth/FindPassword";
 import FindResult from "@/pages/auth/FindResult";
+import Auth from "@/pages/auth/Auth";
 import MyPosts from "@/pages/MyPosts";
 import Admin from "@/pages/Admin";
 import UserInfo from "@/pages/UserInfo";
@@ -73,6 +74,10 @@ export const ROUTES: routeWrap = {
     FindResult: {
         path: "/find/result",
         Component: FindResult,
+    },
+    Auth: {
+        path: "/auth",
+        Component: Auth,
     },
     ChallengeList: {
         path: "/challengelist/:target",

@@ -58,6 +58,7 @@ class boardService {
                 updatedAt: true,
                 _count: { select: { VotePost: true } },
             },
+            orderBy: [{ id: "desc" }],
         });
         const result = pagination(allPosts, start, end, count);
         await prisma.$disconnect();

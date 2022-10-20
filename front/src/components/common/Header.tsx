@@ -61,7 +61,13 @@ function Header() {
                         <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
                     ) : (
                         <>
-                            <HeaderMenuItem to={ROUTES.Mypage.path}>마이 페이지</HeaderMenuItem>
+                            {user.admin ? (
+                                <HeaderMenuItem to={ROUTES.Admin.path}>
+                                    어드민 페이지
+                                </HeaderMenuItem>
+                            ) : (
+                                <HeaderMenuItem to={ROUTES.Mypage.path}>마이 페이지</HeaderMenuItem>
+                            )}
                             <HeaderMenuItem as="div">
                                 <button onClick={() => setOnModal("login")}>로그아웃</button>
                                 {onModal == "login" && (
@@ -76,19 +82,6 @@ function Header() {
                     <FlexBox>
                         <ThemeWrapper />
                     </FlexBox>
-
-                    {/* 관리자일 경우  */}
-                    {/* <HeaderMenuItem>요청 게시판</HeaderMenuItem>
-                <HeaderAdminMenuItem>
-                    <span
-                        style={{
-                            background: "#8000807d",
-                        }}
-                    >
-                        마이 페이지
-                    </span>
-                </HeaderAdminMenuItem>
-                <HeaderMenuItem>로그아웃</HeaderMenuItem> */}
                 </HeaderMenuContainer>
             </HeaderContainer>
         </HeaderSticky>

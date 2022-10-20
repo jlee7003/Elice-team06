@@ -128,7 +128,7 @@ userRoute.post(
 );
 
 //유저 비밀번호 인증//
-userRoute.get(
+userRoute.post(
     "/auth/password",
     authToken,
     asyncHandler(async (req, res) => {

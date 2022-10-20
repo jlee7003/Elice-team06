@@ -111,7 +111,6 @@ const ChallengeList = () => {
 
     const currentPageCards = useMemo(() => {
         if (Object.keys(cardList).length === 0) {
-            console.log("===========");
             return null;
         }
         console.log("cardList: ", cardList);
@@ -132,8 +131,6 @@ const ChallengeList = () => {
         return cards;
     }, [cardList, current]);
 
-    console.log("cardList", cardList);
-    console.log("pages", pagination.pages);
     return (
         <Main>
             {Object.keys(cardList).length !== 0 && (

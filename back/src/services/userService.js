@@ -270,6 +270,7 @@ class userService {
                 nickname,
             },
         });
+        console.log(userData);
         const result = await bcrypt.compare(password, userData.password);
 
         if (!result) {
