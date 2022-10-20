@@ -45,7 +45,8 @@ export const Main = styled.main`
     display: flex;
     flex-direction: column;
     width: ${cssUnit.unit.width};
-    height: 1200px;
+    /* height: 1200px; */
+    height: auto;
     padding-bottom: 200px;
     z-index: 5;
 `;

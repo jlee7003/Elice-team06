@@ -8,10 +8,11 @@ import urlCheck from "@/recoil/urlCheck";
 import {
     GridContainer,
     Container,
-    Main,
+    // Main,
     Section,
     ButtonContianer,
 } from "@/styles/pages/reqpage-style";
+import { Main } from "@/components/common/Main";
 
 import { HomeBanners, Banner } from "@/styles/banner";
 

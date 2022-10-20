@@ -20,7 +20,7 @@ export type Level = "beginner" | "intermediate" | "advanced" | "default";
 export interface Props {
     id?: number;
     level?: Level;
-    grade?: true;
+    // grade?: true;
     title?: string;
     date?: string;
     count?: number;
@@ -61,11 +61,11 @@ const ChallengeCard = (props: Props) => {
                         </p>
                     </ChallengeDetail>
                     <ChallengeGrade>
-                        {props.grade && (
-                            <ChallengeGradeLabel level={props.level ?? "default"}>
-                                초급 도전
-                            </ChallengeGradeLabel>
-                        )}
+                        {/* {props.grade && ( */}
+                        <ChallengeGradeLabel level={props.level ?? "default"}>
+                            초급 도전
+                        </ChallengeGradeLabel>
+                        {/* )} */}
                     </ChallengeGrade>
                 </CardInfo>
                 <ChallengeButtonBox>
