@@ -13,6 +13,8 @@ import {
     ButtonContianer,
 } from "@/styles/pages/reqpage-style";
 
+import { HomeBanners, Banner } from "@/styles/banner";
+
 import { SectionSkele, NavSkele } from "@/styles/reqpage-skele-style";
 /*components*/
 import PostCards from "@/components/PostCards";
@@ -28,8 +30,11 @@ import { PostLists } from "@/types/post";
 import API from "@/api/.";
 //error handling
 import { ROUTES } from "@/routes/.";
+import assets from "@/lib/assets";
+import DarkMode from "@/recoil/darkMode";
 
 const BoardPage = () => {
+    const [darkMode] = useRecoilState(DarkMode);
     const navigate = useNavigate();
     //url, modal
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
@@ -112,6 +117,18 @@ const BoardPage = () => {
 
     return (
         <Container>
+            <HomeBanners mode={darkMode ?? "Light"} height="190px">
+                <Banner
+                    bgImg={assets("chat_img.png")}
+                    bgColor="linear-gradient(45deg,#61be92,#4e6af0,#868686)"
+                    bgPosition="left 10px"
+                    bgSize="542px"
+                >
+                    <p>
+                        <span>탄소 궁시렁</span>
+                    </p>
+                </Banner>
+            </HomeBanners>
             <GridContainer>
                 <Main>
                     <>

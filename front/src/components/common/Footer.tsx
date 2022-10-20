@@ -8,9 +8,17 @@ import {
 } from "@/styles/common/footer-style";
 import { LogoWhite } from "@/styles/common";
 import { GoMarkGithub } from "react-icons/go";
+import { useRecoilState } from "recoil";
+import DarkMode from "@/recoil/darkMode";
+
+export interface Props {
+    mode?: string;
+}
+
 const Footer = () => {
+    const [darkMode] = useRecoilState(DarkMode);
     return (
-        <FooterBackground>
+        <FooterBackground mode={darkMode ?? "Light"}>
             <FooterContainer>
                 <LogoContainer>
                     <LogoWhite />

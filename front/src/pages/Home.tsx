@@ -147,9 +147,21 @@ const Home = () => {
 
     const contentsLength = [0, 1, 2, 3, 4, 5, 6, 7];
 
+    const bgImgArray = [
+        assets("banner_cycle.png"),
+        assets("banner_bus.png"),
+        assets("banner_plant.png"),
+    ];
+
+    const bgColorArray = [
+        "linear-gradient(45deg, #61be92, #56676e, black)",
+        "linear-gradient(45deg, #61be92, #63433e, black)",
+        "linear-gradient(45deg, #61be92, #cab8b4, black)",
+    ];
+
     return (
         <HomeContainer>
-            <HomeBanners mode={darkMode ?? "Light"}>
+            <HomeBanners mode={darkMode ?? "Light"} height="280px">
                 {bannerArray.map((item, index) => {
                     return (
                         <Banner
@@ -157,6 +169,10 @@ const Home = () => {
                             ref={(el: HTMLDivElement) => {
                                 bannerRef.current[index] = el;
                             }}
+                            bgImg={bgImgArray[index]}
+                            bgColor={bgColorArray[index]}
+                            bgPosition="right center"
+                            bgSize="800px"
                         >
                             <p>
                                 <span>{item}</span>
