@@ -35,7 +35,7 @@ function Header() {
     const onClickLogout = () => {
         setLogout();
     };
-    console.log("*User checking in Haeder: ", user);
+    //console.log("*User checking in Haeder: ", user);
     return (
         <HeaderSticky mode={darkMode ?? "Light"}>
             <HeaderContainer>
@@ -55,7 +55,7 @@ function Header() {
                     <></>
                 )}
                 <HeaderMenuContainer>
-                    <HeaderMenuItem to={"/boardPage/pages/1"}>요청 게시판</HeaderMenuItem>
+                    <HeaderMenuItem to={"/boardPage/pages/1"}>커뮤니티</HeaderMenuItem>
                     {user === null ? (
                         <HeaderMenuItem to={ROUTES.Login.path}>로그인/회원가입</HeaderMenuItem>
                     ) : (

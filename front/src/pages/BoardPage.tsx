@@ -49,7 +49,7 @@ const BoardPage = () => {
     const [currentRange, setCurrentRange] = useState<number>(0);
     const [postList, setPostList] = useState<PostLists | null>(null);
     //console.log("현재 페이지 수 : ", currentPage);
-    //const { id } = useParams();
+    const { id } = useParams();
 
     /**
      * start: 한 range의 시작점(숫자)
@@ -86,7 +86,7 @@ const BoardPage = () => {
                 navigate(ROUTES.ErrorPage.path);
                 return; //to alret
             }
-            console.log("useEffect(API) is running in ReqPage");
+            //console.log("useEffect(API) is running in ReqPage");
             setPostList(res);
         });
     }, []);
@@ -95,6 +95,8 @@ const BoardPage = () => {
         PostList: postList,
         PageData: pageData,
     };
+
+    console.log("postList 체크!!!!!!!!", postList);
 
     //function for currnet page handling
     const settingCurrentPage = (num: number) => {
@@ -113,7 +115,7 @@ const BoardPage = () => {
         setCurrentRange(num);
     };
 
-    console.log("checking PostList in ReqPage", postList);
+    //console.log("checking PostList in ReqPage", postList);
 
     return (
         <Container>
@@ -135,7 +137,7 @@ const BoardPage = () => {
                         {postList ? (
                             <>
                                 <Section>
-                                    <PostCards postLists={postList} currentPage={currentRange} />
+                                    <PostCards postLists={postList} currentPage={currentPage - 1} />
                                     <ButtonContianer>
                                         <button onClick={() => setOnModal("challenge")}>
                                             글쓰기
