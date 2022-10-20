@@ -24,6 +24,14 @@ export const Card = styled.article<Props>`
     border-radius: 24px;
     overflow: hidden;
 
+    & + article {
+        margin-left: 20px;
+    }
+
+    &:nth-child(5) {
+        margin-left: 0px;
+    }
+
     ${(props) =>
         props.mode == "Light"
             ? css`
@@ -150,7 +158,9 @@ export const ChallengeButton = styled.div`
     /* box-shadow: 0 0 12px rgba(0, 0, 0, 0.2); */
 
     &:hover {
-        background-color: #000;
+        /* background-color: #000; */
+        background-color: #61be92;
+        border-color: #61be92;
         color: #fff;
     }
 `;

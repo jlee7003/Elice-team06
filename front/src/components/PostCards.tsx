@@ -138,7 +138,7 @@ const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) =
                                 <Details>
                                     <li>
                                         <span>작성자</span>
-                                        {post.author}
+                                        <span>{post.author}</span>
                                     </li>
                                     <li>
                                         <i></i>

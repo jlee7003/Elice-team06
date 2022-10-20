@@ -2,7 +2,15 @@ import { useRef, useState, ChangeEvent, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "@/api/.";
 import { Logo } from "@/styles/common";
-import { Main, Form, Label, IDInput, EmailInput, SubmitButton } from "@/styles/pages/auth-style";
+import {
+    FindInfoWrap,
+    Form,
+    Label,
+    IDInput,
+    EmailInput,
+    SubmitButton,
+} from "@/styles/pages/auth-style";
+import { Main } from "@/components/common/Main";
 import { ROUTES } from "@/routes";
 
 const EMAIL_REG = /^[\w-\.]+@([\w-]+\.)+com$/;
@@ -51,7 +59,7 @@ const FindID = () => {
 
     return (
         <Main>
-            <section>
+            <FindInfoWrap>
                 <Logo />
                 <Form>
                     <Label>아이디</Label>
@@ -66,7 +74,7 @@ const FindID = () => {
                     />
                     <SubmitButton onClick={onClick}>인증</SubmitButton>
                 </Form>
-            </section>
+            </FindInfoWrap>
         </Main>
     );
 };

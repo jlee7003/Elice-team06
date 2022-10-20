@@ -36,16 +36,7 @@ const ChallengeCard = (props: Props) => {
     const token = sessionStorage.getItem("refresh");
 
     return (
-        <Card
-            onClick={() => {
-                // navigate("/challenge/challengedetail", props.id);
-                navigate("/challenge/challengedetail", {
-                    state: {
-                        id: props.id,
-                    },
-                });
-            }}
-        >
+        <Card>
             <CardUpper level={props.level ?? "default"} />
             <CardLower>
                 <CardTitle mode={darkMode ?? "Light"}>{props.title}</CardTitle>
@@ -69,7 +60,18 @@ const ChallengeCard = (props: Props) => {
                     </ChallengeGrade>
                 </CardInfo>
                 <ChallengeButtonBox>
-                    <ChallengeButton>도전하기</ChallengeButton>
+                    <ChallengeButton
+                        onClick={() => {
+                            // navigate("/challenge/challengedetail", props.id);
+                            navigate("/challenge/challengedetail", {
+                                state: {
+                                    id: props.id,
+                                },
+                            });
+                        }}
+                    >
+                        도전하기
+                    </ChallengeButton>
                 </ChallengeButtonBox>
             </CardLower>
         </Card>

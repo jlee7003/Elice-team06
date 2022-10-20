@@ -11,6 +11,7 @@ import {
     // Main,
     Section,
     ButtonContianer,
+    SkeletonContent,
     CardsHolder,
 } from "@/styles/pages/reqpage-style";
 import { Main } from "@/components/common/Main";
@@ -34,6 +35,9 @@ import API from "@/api/.";
 import { ROUTES } from "@/routes/.";
 import assets from "@/lib/assets";
 import DarkMode from "@/recoil/darkMode";
+
+//skeleton
+import Skeleton from "@mui/material/Skeleton";
 
 const BoardPage = () => {
     const [darkMode] = useRecoilState(DarkMode);
@@ -89,6 +93,7 @@ const BoardPage = () => {
                 return; //to alret
             }
             //console.log("useEffect(API) is running in ReqPage");
+
             setPostList(res);
         });
     }, []);
@@ -177,8 +182,15 @@ const BoardPage = () => {
                             </>
                         ) : (
                             <>
-                                <SectionSkele />
-                                <NavSkele />
+                                {/* <SectionSkele />
+                                <NavSkele /> */}
+                                {[0, 1, 2, 3, 4].map(() => {
+                                    return (
+                                        <SkeletonContent>
+                                            <Skeleton variant="rounded" width={1265} height={190} />
+                                        </SkeletonContent>
+                                    );
+                                })}
                             </>
                         )}
                     </>

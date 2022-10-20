@@ -3,7 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
 import useLogin from "@/hooks/useLogin";
 import {
-    Main,
+    // Main,
+    LoginWrap,
     Form,
     Label,
     ErrorInfo,
@@ -13,6 +14,7 @@ import {
     MenuButton,
     MenuLink,
 } from "@/styles/pages/login-style";
+import { Main } from "@/components/common/Main";
 import { Logo } from "@/styles/common";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import urlCheck from "@/recoil/urlCheck";
@@ -49,7 +51,7 @@ const Login = () => {
 
     return (
         <Main>
-            <section>
+            <LoginWrap>
                 <Logo />
                 {isError && <ErrorInfo>아이디 또는 비밀번호가 틀렸습니다.</ErrorInfo>}
                 <Form>
@@ -70,7 +72,7 @@ const Login = () => {
                         <Link to={ROUTES.Signup.path}>회원가입</Link>
                     </MenuButton>
                 </Menu>
-            </section>
+            </LoginWrap>
         </Main>
     );
 };
