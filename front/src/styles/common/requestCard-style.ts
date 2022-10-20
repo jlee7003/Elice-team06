@@ -14,11 +14,14 @@ export const Article = styled.article`
     margin: 5px auto;
     padding: 10px;
 
-    border: 2px solid #eeeeee;
-    &:hover {
+    border: 1px solid #eeeeee;
+    box-shadow: 0 0 3px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    padding: 20px;
+    /* &:hover {
         background-color: ${cssUnit.color.gray};
         box-shadow: 3px 3px 10px 2px ${cssUnit.color.darkergray};
-    }
+    } */
 `;
 
 /*
@@ -63,7 +66,8 @@ export const Contents = styled.div`
     & > h3 {
         margin-bottom: 5px;
 
-        font-size: 20px;
+        /* font-size: 20px; */
+        font-size: 23px;
         text-align: left;
     }
     & > p {
@@ -71,8 +75,11 @@ export const Contents = styled.div`
         width: 100%;
         margin: 2px;
 
-        font-size: 15px;
+        /* font-size: 15px; */
+        font-size: 18px;
+        color: #515151;
         text-align: left;
+        padding-top: 7px;
     }
 `;
 
@@ -103,6 +110,8 @@ export const Box = styled.div`
         font-size: 14px;
         writing-mode: horizontal-tb;
         text-align: center;
+        font-size: 18px;
+        font-weight: 600;
     }
     & > span {
         height: 10px;
@@ -167,6 +176,10 @@ export const Details = styled.ul`
         font-weight: 600;
 
         vertical-align: middle;
+        &:last-child {
+            /* font-size: 13px; */
+            color: #979797;
+        }
     }
 `;
 export const Time = styled.span`

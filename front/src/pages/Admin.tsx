@@ -18,6 +18,7 @@ import {
     AdminBoxNavButton,
     AdminTitle,
     AdminButton,
+    DataWrap,
     DataBox,
     DataLow,
     Background,
@@ -84,7 +85,9 @@ const Admin = () => {
                         <AdminBox>
                             <AdminBoxHeader>
                                 <AdminTitle>환경 데이터</AdminTitle>
-                                <AdminButton onClick={onClickOpenModal}>챌린지 추가</AdminButton>
+                                <AdminButton onClick={onClickOpenModal}>
+                                    <i className="ri-add-line"></i>챌린지 추가
+                                </AdminButton>
                             </AdminBoxHeader>
                             <AdmintBoxNav>
                                 <AdminBoxNavButton name="sealevel" onClick={onClick}>
@@ -97,7 +100,7 @@ const Admin = () => {
                                     5개국 온도 변화량
                                 </AdminBoxNavButton>
                             </AdmintBoxNav>
-                            <DataBox>{low}</DataBox>
+                            <DataWrap>{low}</DataWrap>
                         </AdminBox>
                     </Background>
                 </AdminContainer>
