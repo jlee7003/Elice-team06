@@ -78,7 +78,18 @@ class boardService {
         await prisma.$disconnect();
         return postData;
     }
-    static async getLikePost({ nickname, start, end, count }) {
+    static async getLikePost({ nickname }) {
+        const postData = await prisma.User.findUnique({
+            where: { nickname },
+            select: {
+                VotePost: true,
+            },
+        });
+        await prisma.$disconnect();
+        return postData.VotePost;
+    }
+
+    static async getLikePagination({ nickname, start, end, count }) {
         const postData = await prisma.User.findUnique({
             where: { nickname },
             select: {
@@ -90,6 +101,7 @@ class boardService {
         await prisma.$disconnect();
         return result;
     }
+
     static async updatePost({ postId, title, description }) {
         const postUpdate = await prisma.Board.update({
             where: { id: Number(postId) },

@@ -1,6 +1,7 @@
 import { createGlobalStyle, css } from "styled-components";
 import { Props } from "../App";
 // import { Props } from "@/components/common/Header";
+import reset from "styled-reset";
 
 const font = css`
     @font-face {
@@ -59,6 +60,7 @@ const font = css`
 `;
 
 const GlobalStyle = createGlobalStyle<Props>` 
+    ${reset};
     * {
         font-family: "Noto Sans KR", sans-serif;
         margin: 0;

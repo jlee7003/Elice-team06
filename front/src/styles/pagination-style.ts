@@ -5,28 +5,8 @@ export const ListPagenationWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    /* position: absolute; */
-    /* top: 350px;
-    width: 100%;
-    height: 50%; */
     margin: 0px 0px 38px 0px;
 `;
-
-// export const flexbox = styled.div<Props>`
-//     width: 100%;
-//     height: 40%;
-
-//     border-radius: 24px 24px 0 0;
-
-//     ${(props) =>
-//         props.level == "beginner"
-//             ? cssUnit.color.green
-//             : props.level == "intermediate"
-//             ? cssUnit.color.blue
-//             : props.level == "advanced"
-//             ? cssUnit.color.purple
-//             : cssUnit.color.gray}
-// `;
 
 export const MoveToPreviousPage = styled.button`
     color: #5a5a5a;

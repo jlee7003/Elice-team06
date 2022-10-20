@@ -14,19 +14,12 @@ import {
     CommentContainer,
     NoComments,
 } from "@/styles/pages/challengedetail-style";
-import {
-    challengeData,
-    challengeResult,
-    addCommentData,
-    addCommentResult,
-    ChallengeJoinResult,
-    ChallengeBoardModel,
-} from "@/types/challengeTypes";
-// import { ChallengeBoardModel } from "@/recoil/ChallengeRecoil";
+import { addCommentResult, ChallengeJoinResult, ChallengeBoardModel } from "@/types/challengeTypes";
 import API from "@/api/index";
 import { ChallengeBoardWriter } from "@/recoil/ChallengeRecoil";
 import { useRef, useState, useEffect } from "react";
 import Pagination from "./pagination";
+import { ROUTES } from "@/routes";
 import { getComment } from "@/api/challenge";
 import { commentState } from "@/recoil/ChallengeRecoil";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
@@ -34,7 +27,8 @@ import userState from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import DidLoginModal from "@/modal/DidLoginModals";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
 const ChallengeDetailMainCard = () => {
     const [limit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
     const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
@@ -42,57 +36,67 @@ const ChallengeDetailMainCard = () => {
     const offset = (page - 1) * limit;
     const [comments, setComments] = useRecoilState(commentState);
     const [counts, setCounts] = useState(0); // 데이터의 총 개수를 setCounts 에 저장해서 사용
+
+    const [userData, setUserData] = useRecoilState(ChallengeBoardWriter);
+    const token = sessionStorage.getItem("refresh");
+    const setOnModal = useSetRecoilState(ModalState);
     const setError = useSetRecoilState(errorRecoil);
     const user = useRecoilValue(userState);
     const location = useLocation();
-    const [userData, setUserData] = useRecoilState(ChallengeBoardWriter);
-    const commentsRef = useRef<HTMLInputElement>(null);
-    const setOnModal = useSetRecoilState(ModalState);
-
+    const navigate = useNavigate();
     let challengeId = location.state.id;
-    let start = 1;
-    let end = 100000;
-    let count = 1;
-    const token = sessionStorage.getItem("refresh");
+    const commentsRef = useRef<HTMLInputElement>(null);
 
     let d = new Date(userData?.start_date);
     let e = new Date(userData?.due_date);
     const startDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
     const endDate = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()}`;
+
     const getComments = async () => {
+        let start = 1;
+        let end = 100000;
+        let count = 1;
         await getComment(challengeId, start, end, count).then((res) => {
             if (res === null) {
-                return;
+                navigate(ROUTES.ErrorPage.path);
+            } else {
+                setComments(res.data);
+                const count = Object.keys(res.data).length;
+                setCounts(count);
             }
-            setComments(res.data);
-            const count = Object.keys(res.data).length;
-            setCounts(count);
         });
     };
+
     const getBoardData = async () => {
         await await API.get<ChallengeBoardModel>(["challenge", challengeId.toString()]).then(
             (res) => {
                 if (res === null) {
-                    return;
+                    navigate(ROUTES.ErrorPage.path);
+                } else {
+                    setUserData(res.data);
                 }
-
-                setUserData(res.data);
             }
         );
     };
 
-    let addCommentData = {
-        description: "",
-    };
     async function addjoiner() {
         await API.post<ChallengeJoinResult>(
             ["challenge", challengeId.toString(), "join"],
             challengeId
-        );
-        getBoardData();
+        ).then((result) => {
+            if (result === null) {
+                navigate(ROUTES.ErrorPage.path);
+            } else {
+                getBoardData();
+            }
+        });
     }
 
     const addComments = async () => {
+        let addCommentData = {
+            description: "",
+        };
+
         if (commentsRef.current == null) {
             return;
         }

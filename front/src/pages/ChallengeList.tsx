@@ -27,7 +27,7 @@ const title = {
 };
 
 const ChallengeList = () => {
-    const [cardList, setCardList] = useState<ChallengeCardList | null>(null);
+    const [cardList, setCardList] = useState<ChallengeCardList | {}>({});
     const [current, setCurrent] = useState(1);
 
     const { target } = useParams();
@@ -44,7 +44,7 @@ const ChallengeList = () => {
                         navigate(ROUTES.ErrorPage.path);
                         return;
                     }
-                    console.log("hi");
+
                     const pages = Object.keys(res.data);
                     pagination.start = Number(pages[0]);
                     pagination.end = Number(pages[pages.length - 1]);
@@ -103,10 +103,11 @@ const ChallengeList = () => {
     };
 
     const currentPageCards = useMemo(() => {
-        if (cardList === null) {
+        if (Object.keys(cardList).length === 0) {
+            console.log("===========");
             return null;
         }
-
+        console.log("cardList: ", cardList);
         const cards = cardList[current].map((card, idx) => {
             return (
                 <ChallengeCard
@@ -124,9 +125,11 @@ const ChallengeList = () => {
         return cards;
     }, [cardList, current]);
 
+    console.log("cardList", cardList);
+    console.log("pages", pagination.pages);
     return (
         <Main>
-            {cardList && (
+            {Object.keys(cardList).length !== 0 && (
                 <>
                     <Category>
                         <CategoryTitle>{title[target]}</CategoryTitle>
@@ -136,7 +139,7 @@ const ChallengeList = () => {
                         prevButton={prevButton}
                         nextButton={nextButton}
                         currentButton={currentButton}
-                        pages={pagination.pages!}
+                        pages={pagination.pages ?? []}
                     />
                 </>
             )}
