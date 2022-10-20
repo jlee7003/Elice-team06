@@ -41,7 +41,6 @@ const Signup = () => {
     };
     function isvalidationtrue() {
         if (
-            // user_email.current == null ||
             email.current == null ||
             introduce.current == null ||
             password.current == null ||
@@ -56,8 +55,6 @@ const Signup = () => {
         }
         if (
             email.current?.value == "" ||
-            // user_email.current?.value == "" ||
-
             introduce.current?.value == "" ||
             password.current?.value == "" ||
             passwordok.current?.value == "" ||
@@ -158,7 +155,6 @@ const Signup = () => {
                                     placeholder="이메일을 입력하세요."
                                     name="email"
                                     ref={email}
-                                    // ref={user_email}
                                 />
                                 <Label>닉네임</Label>
                                 <Input
@@ -169,11 +165,9 @@ const Signup = () => {
                                 />
                                 <Label>인사말</Label>
                                 <Input
-                                    // type="email"
                                     placeholder="인사말을 입력하세요."
                                     name="introduce"
                                     ref={introduce}
-                                    // ref={user_email}
                                 />
                                 <Label>성별</Label>
                                 <div>
@@ -219,13 +213,11 @@ const Signup = () => {
                                     maxLength={8}
                                 />
                                 <Label>나이</Label>
-                                {/* <Select defaultValue="1" name="age"> */}
                                 <Select defaultValue="1" ref={age} name="age">
                                     {selectnum()}
                                 </Select>
                                 <Label>지역</Label>
                                 <Select defaultValue="해당없음" name="local" ref={region}>
-                                    {/* <Select defaultValue="해당없음" name="local"> */}
                                     <option value="해당없음">해당없음</option>
                                     <option value="서울">서울</option>
                                     <option value="경기도">경기도</option>
@@ -234,12 +226,6 @@ const Signup = () => {
                                     <option value="경상도">경상도</option>
                                     <option value="전라도">전라도</option>
                                 </Select>
-                                {/* <Label>아이디</Label>
-                                <Input
-                                    placeholder="아이디"
-                                    name="passwordhint"
-                                    ref={id}
-                                /> */}
                                 {ValidationCheck ? (
                                     <OKButton onClick={onClick} onMouseEnter={validationTrue}>
                                         회원 가입하기

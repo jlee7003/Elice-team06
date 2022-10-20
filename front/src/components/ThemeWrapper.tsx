@@ -1,8 +1,7 @@
 import React from "react";
-import { Theme, ThemeContextType } from "@/styles/theme";
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
-import { CheckBox, Label, Sun, Moon } from "@/styles/pages/toggleButton-style";
+import { CheckBox, Label } from "@/styles/pages/toggleButton-style";
 const ThemeWrapper: React.FC = ({ children }: any) => {
     const chk = document.getElementById("chk");
     const [darkMode, setDarkMode] = useRecoilState(DarkMode);
@@ -25,7 +24,6 @@ const ThemeWrapper: React.FC = ({ children }: any) => {
                     checked={sessionStorage.getItem("DarkMode") === "Dark"}
                 />
                 <Label>
-                    {/* ball */}
                     <div></div>
                 </Label>
             </div>

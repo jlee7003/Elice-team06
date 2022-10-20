@@ -18,7 +18,6 @@ export const FlexBox = styled.div`
 `;
 export const AllCenterBox = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
     width: 50%;
 `;

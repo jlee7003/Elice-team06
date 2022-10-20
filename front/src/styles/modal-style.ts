@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import cssUnit from "@/lib/cssUnit";
-// ---------------------------login-----------------------------------
 export const ModalContainer = styled.div`
     position: absolute;
     top: 0;
@@ -54,5 +52,3 @@ export const Button = styled.button`
 export const Flexbox = styled.div`
     display: flex;
 `;
-
-// ---------------------------chalangeRequest-----------------------------------
