@@ -15,10 +15,10 @@ export const Article = styled.article`
     padding: 10px;
 
     border: 2px solid #eeeeee;
-    &:hover {
+    /* &:hover {
         background-color: ${cssUnit.color.gray};
         box-shadow: 3px 3px 10px 2px ${cssUnit.color.darkergray};
-    }
+    } */
 `;
 
 /*
