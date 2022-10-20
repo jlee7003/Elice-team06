@@ -16,6 +16,7 @@ import GlobalStyle from "@/styles/global-style";
 import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import ErrorModal from "@/modal/ErrorModal";
+import Shadow from "@/components/common/Shadow";
 
 export interface Props {
     mode?: string;
@@ -27,6 +28,9 @@ const App = () => {
     const [darkModeState] = useRecoilState(DarkMode); // DarkMode의 recoilState를 가지고 옴 지우면 안됌
     const [visible, setVisible] = useRecoilState(visibleCommonComponent);
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
+
+    const [bodyStyle, setBodyStyle] = useState("");
+
     let darkMode = sessionStorage.getItem("DarkMode");
 
     const reload = useRefresh();
@@ -43,6 +47,17 @@ const App = () => {
             return (prev = true);
         });
     }, [currentUrl]);
+
+    useEffect(() => {
+        if (onModal === "login") {
+            setBodyStyle("hidden");
+            document.body.style.overflow = `${bodyStyle}`;
+        } else {
+            setBodyStyle("auto");
+            document.body.style.overflow = `${bodyStyle}`;
+        }
+    }, [onModal, bodyStyle]);
+
     function onClickLogout() {
         console.log("함수 실행 내용");
     }
@@ -63,6 +78,7 @@ const App = () => {
                 theme="light"
             />
             <Router>
+                {onModal == "login" && <Shadow />}
                 {error?.isError ? (
                     <ErrorModal setOnModal={setOnModal} logout={onClickLogout}>
                         {error?.message as string}

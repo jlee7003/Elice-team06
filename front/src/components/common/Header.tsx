@@ -10,6 +10,7 @@ import {
     HeaderSticky,
     FlexBox,
 } from "@/styles/common/Header-style";
+import Shadow from "./Shadow";
 import { Logo } from "@/styles/common";
 import ThemeWrapper from "@/components/ThemeWrapper";
 import ModalState from "@/recoil/modalState";

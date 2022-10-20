@@ -2,19 +2,27 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import cssUnit from "@/lib/cssUnit";
 
-export const Main = styled.main`
-    display: grid;
-    place-items: center;
-    width: 100vw;
+// export const Main = styled.main`
+//     display: grid;
+//     place-items: center;
+//     width: 100vw;
+//     height: 100vh;
+//     & > section > img {
+//         margin-bottom: 30px;
+//     }
+//     & > section {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//     }
+// `;
+
+export const LoginWrap = styled.section`
     height: 100vh;
-    & > section > img {
-        margin-bottom: 30px;
-    }
-    & > section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const Form = styled.form`
