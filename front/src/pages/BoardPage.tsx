@@ -46,6 +46,8 @@ const BoardPage = () => {
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [onModal, setOnModal] = useRecoilState(ModalState);
 
+    const [deleteMode, setDeleteMode] = useState(false);
+
     useEffect(() => {
         setCurrentUrl(window.location.href);
     }, [currentUrl]);
@@ -148,6 +150,7 @@ const BoardPage = () => {
                                         <PostCards
                                             postLists={postList}
                                             currentPage={currentPage - 1}
+                                            deleteMode={deleteMode}
                                         />
                                     </CardsHolder>
                                     <ButtonContianer>
@@ -164,6 +167,9 @@ const BoardPage = () => {
                                         <button onClick={() => setOnModal("board")}>
                                             의견 남기기
                                         </button>
+                                        {/* <button onClick={() => setDeleteMode((prev) => !prev)}>
+                                            삭제하기
+                                        </button> */}
                                         {onModal == "board" && (
                                             <BoardModal
                                                 setOnModal={setOnModal}

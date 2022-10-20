@@ -24,11 +24,18 @@ import { ROUTES } from "@/routes/.";
  * currentPage: 현재 페이지 위치
  */
 
-const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) => {
+const PostCards = (prop: {
+    postLists: PostLists | null;
+    currentPage: number;
+    deleteMode: boolean;
+}) => {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
+    console.log("user?", user);
     const postlist = prop.postLists;
     const currentPageNum = prop.currentPage + 1;
+    //관리자 모드에서 삭제하기 기능?
+    //const deleteModeOn = prop.deleteMode;
     const [likesList, setLikesList] = useState(0);
     const [like, setLike] = useState(0);
     //const [userLiked, setUserLiked] = useState<LikedPostsLists | null>(null);
@@ -71,11 +78,17 @@ const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) =
             //const checking = likesList.includes(18);
             //console.log(checking);
         });
+    }, []);
 
-        //좋아요 관련
+    //좋아요 관련
 
     const puttingLike = async (param: string, data: any) => {
         const result = await API.post<number>(["vote", param], data);
+        return result;
+    };
+
+    const deletingPost = async (param: string) => {
+        const result = await API.delete<number>(["board", param]);
         return result;
     };
 
@@ -131,7 +144,24 @@ const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) =
                                     <button name={`${post.id}`} onClick={onClick}>
                                         {post._count.VotePost + handlieLikeNum}
                                     </button>
-                                    <span>post.vote</span>
+                                    <span
+                                        onClick={() => {
+                                            if (user?.nickname === post.author) {
+                                                deletingPost(`${post.id}`);
+                                            }
+                                        }}
+                                    >
+                                        삭제
+                                    </span>
+                                    {/* {deleteModeOn ? (
+                                        <>
+                                            <span>
+                                                <input type="checkbox" name={`${post.id}`}></input>
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )} */}
                                 </Box>
                             </ArtContainer>
                             <DetailContainer>
