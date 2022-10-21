@@ -32,6 +32,10 @@ const Auth = () => {
                 navigate(ROUTES.UserInfo.path, {
                     state: { labelName: "아이디", result: res.data.id },
                 });
+            } else if (location.state.id == "withdrawal") {
+                navigate(ROUTES.WithDrawalPage.path, {
+                    state: { labelName: "아이디", result: res.data.id },
+                });
             } else {
                 navigate(ROUTES.ChangePasswordPage.path, {
                     state: { labelName: "아이디", result: res.data.id },

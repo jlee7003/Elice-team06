@@ -16,17 +16,21 @@ import {
 } from "../styles/pages/userInfo-style";
 import { withdrawal } from "@/api/user";
 import { Logo } from "@/styles/common";
+import { userState } from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
-import { useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import useLogout from "@/hooks/useLogout";
 import sendToast from "@/lib/sendToast";
 const WithDrawalPage = () => {
     const password = useRef<HTMLInputElement>(null);
+    const user = useRecoilValue(userState);
     const [ValidationCheck, setValidationCheck] = useState(false);
     const setError = useSetRecoilState(errorRecoil);
     const navigate = useNavigate();
     const setLogout = useLogout();
-
+    if (user == null) {
+        navigate(ROUTES.ErrorPage.path);
+    }
     function isvalidationtrue() {
         if (password.current == null) {
             return;

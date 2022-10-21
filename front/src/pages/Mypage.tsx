@@ -19,6 +19,17 @@ import {
     CategoryContent,
     Input,
 } from "@/styles/pages/mypage-style";
+import {
+    ArtContainer,
+    Article,
+    Contents,
+    Details,
+    Box,
+    Time,
+    DetailContainer,
+    DeleteButton,
+    LikeButton,
+} from "@/styles/common/requestCard-style";
 import { CategoryTitle } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
 //components
@@ -30,10 +41,7 @@ import { MyChallengeList } from "@/recoil/ChallengeRecoil";
 import { userState } from "@/recoil/user";
 //API import
 import API from "@/api/.";
-import post from "@/lib/dummyPosts";
 import { myInfo } from "@/api/user";
-import { changeMyInfo } from "../api/user";
-import { Info } from "@/recoil/user";
 //error handling
 import { ROUTES } from "@/routes/.";
 //현재 post는 전체 게시글 데이터를 받아오는 더미데이터로 향후 특정유저의 포스트만 모아놓는 더미데이터와 유저 더미데이터를 만들어서 사용할 예정
@@ -44,6 +52,7 @@ const Mypage = () => {
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
     const [myChallengeList, setMyChallengeList] = useRecoilState(MyChallengeList);
+    const [myBoardPostList, setmyBoardPostList] = useState(null);
 
     const [userInfo, setUserInfo] = useState<{
         nickname?: string;
@@ -54,26 +63,27 @@ const Mypage = () => {
         profile_image?: string | null;
     } | null>(null);
 
-    // useEffect(() => {
-    //     //API로 정보 받아오기
-    //     const getAllPosts = async (param: string) => {
-    //         const result = await API.get<PostLists>(["board", "myPost"]);
-    //         //응답이 null 경우 체크()
-    //         if (result === null) {
-    //             navigate(ROUTES.ErrorPage.path);
-    //             return; //to alret
-    //         }
-    //         return result.data;
-    //     }; //promise로 받는 것을 핸들링
-    //     getAllPosts(query).then((res) => {
-    //         //응답이 undefined 경우 체크(2)
-    //         if (res === undefined) {
-    //             navigate(ROUTES.ErrorPage.path);
-    //             return; //to alret
-    //         }
-    //         setPostList(res);
-    //     });
-    // }, []);
+    //내가 등록한 정보 받아오기
+    useEffect(() => {
+        const getAllMyPosts = async () => {
+            const result = await API.get(["board", "myPost"]);
+            if (result === null) {
+                navigate(ROUTES.ErrorPage.path);
+                return;
+            }
+            return result.data;
+        };
+        getAllMyPosts().then((res) => {
+            if (res === undefined) {
+                navigate(ROUTES.ErrorPage.path);
+                return;
+            }
+            setmyBoardPostList(res); //정보 받아옴
+        });
+    }, []);
+
+    console.log(myBoardPostList);
+    //console.log(Object.entries(myBoardPostList));
 
     const getUserInfo = async () => {
         await myInfo().then((res) => {
@@ -90,10 +100,6 @@ const Mypage = () => {
             });
         });
     };
-
-    useEffect(() => {
-        getUserInfo();
-    }, []);
 
     useEffect(() => {
         API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
@@ -154,7 +160,16 @@ const Mypage = () => {
                                 <UserIcon />
                                 비밀번호 변경
                             </Buttons>
-                            <Buttons name="withdrawal" onClick={onClick}>
+                            <Buttons
+                                name="withdrawal"
+                                onClick={() =>
+                                    navigate("/Auth", {
+                                        state: {
+                                            id: "withdrawal",
+                                        },
+                                    })
+                                }
+                            >
                                 <UserIcon />
                                 회원정보 탈퇴
                             </Buttons>
@@ -198,9 +213,7 @@ const Mypage = () => {
                     </MyChallenges>
                     <LikeChallenges>
                         <CategoryTitle>내가 등록한 게시글 목록</CategoryTitle>
-                        <BoardsContainer>
-                            <PostCards postLists={null} currentPage={1} deleteMode={false} />
-                        </BoardsContainer>
+                        <BoardsContainer></BoardsContainer>
                     </LikeChallenges>
                 </ChallengeContainter>
             </Container>

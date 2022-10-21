@@ -28,6 +28,7 @@ import { userState } from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import { useLocation, useNavigate } from "react-router-dom";
+import sendToast from "@/lib/sendToast";
 
 const ChallengeDetailMainCard = () => {
     const [limit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
@@ -44,8 +45,12 @@ const ChallengeDetailMainCard = () => {
     const user = useRecoilValue(userState);
     const location = useLocation();
     const navigate = useNavigate();
-    let challengeId = location.state.id;
     const commentsRef = useRef<HTMLInputElement>(null);
+    let challengeId = location?.state?.id;
+
+    if (challengeId == null) {
+        navigate(ROUTES.ErrorPage.path);
+    }
 
     let d = new Date(userData?.start_date);
     let e = new Date(userData?.due_date);
@@ -102,7 +107,7 @@ const ChallengeDetailMainCard = () => {
             return;
         }
         if (commentsRef.current.value == "") {
-            alert("댓글을 입력하세요");
+            sendToast("댓글을 입력하세요.", "error");
             return;
         }
         addCommentData = {

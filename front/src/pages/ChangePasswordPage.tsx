@@ -1,4 +1,4 @@
-import { useState, useRef, MouseEvent, useEffect } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/routes";
 import {
@@ -12,41 +12,26 @@ import {
     TopImage,
     SecondContainer,
     SecondContainer1,
-    Select,
 } from "../styles/pages/userInfo-style";
-import { signup, myInfo } from "@/api/user";
 import { Logo } from "@/styles/common";
 import errorRecoil from "@/recoil/errorRecoil";
-import { Info } from "@/recoil/user";
-import { useSetRecoilState, useRecoilState } from "recoil";
-import { changePassword, changeMyInfo } from "../api/user";
-import { red } from "@mui/material/colors";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { changePassword } from "../api/user";
+import { userState } from "@/recoil/user";
+import sendToast from "@/lib/sendToast";
 const ChangePasswordPage = () => {
     // const [userInfo, setUserInfo] = useRecoilState(userInfoData);
-    const nickname = useRef<HTMLInputElement>(null);
-    const introduce = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
     const new_password = useRef<HTMLInputElement>(null);
     const password_hint = useRef<HTMLInputElement>(null);
-    const region = useRef<HTMLSelectElement>(null);
-    const age = useRef<HTMLSelectElement>(null);
-    const gender = useRef<HTMLInputElement>(null);
     const [ValidationCheck, setValidationCheck] = useState(false);
-    const [inputStatus, setInputStatus] = useState("");
     const setError = useSetRecoilState(errorRecoil);
     const navigate = useNavigate();
-    // const changePassword = async () => {
-    //     await changePassword(passwordData).then((res) => {
-    //         if (res === null) {
-    //             return;
-    //         }
-    //         setUserInfo(res.data);
-    //     });
-    // };
+    const user = useRecoilValue(userState);
 
-    const handleClickRadioButton = (radioBtnName: string) => {
-        setInputStatus(radioBtnName);
-    };
+    if (user == null) {
+        navigate(ROUTES.ErrorPage.path);
+    }
     function isvalidationtrue() {
         if (
             password.current == null ||
@@ -79,7 +64,9 @@ const ChangePasswordPage = () => {
     };
     const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
+        if (password.current?.value != new_password.current?.value) {
+            sendToast("비밀번호와 확인 비밀번호가 일치하지 않습니다.", "error");
+        }
         if (
             password.current == null ||
             new_password.current == null ||
@@ -105,13 +92,6 @@ const ChangePasswordPage = () => {
         navigate(ROUTES.Home.path);
     };
 
-    function selectnum() {
-        var num = [];
-        for (var i = 20; i <= 60; i += 10) {
-            num.push(<option value={i + "대"}>{i}대</option>);
-        }
-        return num;
-    }
     return (
         <>
             <TopImage />

@@ -16,7 +16,7 @@ import {
     XButton,
 } from "@/styles/challengeRequestModal-style";
 import * as _ from "lodash";
-import { reWriteBoard } from "@/api/board";
+import { rewriteBoard } from "@/api/board";
 type Props = {
     modalOpen: number;
     closeModal: any;
@@ -64,7 +64,7 @@ const BoardEditModal: React.FC<Props> = ({
         }
         closeModal();
         trigger(modalOpen);
-        const result = await reWriteBoard(postId, inputText);
+        const result = await rewriteBoard(postId, inputText);
         setpostId(null); //필요없을지도?
         window.location.reload(); //for refresh
     };
