@@ -10,14 +10,14 @@ type Props = {
     children: string;
     setOnModal: (state: string) => void;
 };
-const Draggable1: any = Draggable;
+const DragContainer: any = Draggable;
 const ErrorModal: React.FC<Props> = ({ setOnModal, children }: Props) => {
     const [error, setError] = useRecoilState(errorRecoil);
     const navigate = useNavigate();
     return (
         <ModalPortal>
             <ModalContainer>
-                <Draggable1>
+                <DragContainer>
                     <ModalBody>
                         <div
                             style={{
@@ -50,7 +50,7 @@ const ErrorModal: React.FC<Props> = ({ setOnModal, children }: Props) => {
                             </FlexBox>
                         </div>
                     </ModalBody>
-                </Draggable1>
+                </DragContainer>
             </ModalContainer>
         </ModalPortal>
     );

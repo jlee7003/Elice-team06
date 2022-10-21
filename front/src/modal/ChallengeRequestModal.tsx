@@ -27,7 +27,7 @@ type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
 };
-const Draggable1: any = Draggable;
+const DragContainer: any = Draggable;
 const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -69,7 +69,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
     return (
         <ModalPortal>
             <ModalContainer>
-                <Draggable1>
+                <DragContainer>
                     <ModalBody>
                         <div>
                             <TitleBOx>
@@ -145,7 +145,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                             </FlexBox>
                         </div>
                     </ModalBody>
-                </Draggable1>
+                </DragContainer>
             </ModalContainer>
         </ModalPortal>
     );
