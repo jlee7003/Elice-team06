@@ -33,7 +33,8 @@ const PostCards = (prop: {
 }) => {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
-    console.log("user?", user);
+
+    //console.log("user?", user);
     const postlist = prop.postLists;
     const currentPageNum = prop.currentPage + 1;
     //관리자 모드에서 삭제하기 기능?
@@ -61,32 +62,35 @@ const PostCards = (prop: {
 
     //이미 투표했는지 체크
     useEffect(() => {
-        const getLikedData = async () => {
-            const result = await API.get(["board", "likePost"]);
-            //응답이 null 경우 체크()
-            if (result === null) {
-                navigate(ROUTES.ErrorPage.path);
-                return; //to alret
-            }
-            return result.data;
-        };
-        getLikedData().then((res: any) => {
-            //응답이 undefined 경우 체크(2)
-            if (res === undefined) {
-                navigate(ROUTES.ErrorPage.path);
-                return; //to alret
-            }
-            //console.log("res", res);
-            const likedPostslist = res.map((likedpost: any) => {
-                return likedpost.post_id;
-            });
-            //console.log("타입 likedlists", typeof likedPostslist);
-            //console.log("테스트", likedPostslist[0]);
-            setLikesList(likedPostslist);
+        if (user) {
+            const getLikedData = async () => {
+                const result = await API.get(["board", "likePost"]);
+                //응답이 null 경우 체크()
+                if (result === null) {
+                    navigate(ROUTES.ErrorPage.path);
+                    return; //to alret
+                }
+                return result.data;
+            };
+            getLikedData().then((res: any) => {
+                //응답이 undefined 경우 체크(2)
+                if (res === undefined) {
+                    navigate(ROUTES.ErrorPage.path);
+                    return; //to alret
+                }
+                //console.log("res", res);
+                const likedPostslist = res.map((likedpost: any) => {
+                    return likedpost.post_id;
+                });
+                //console.log("타입 likedlists", typeof likedPostslist);
+                //console.log("테스트", likedPostslist[0]);
+                setLikesList(likedPostslist);
 
-            //const checking = likesList.includes(18);
-            //console.log(checking);
-        });
+                //const checking = likesList.includes(18);
+                //console.log(checking);
+            });
+        }
+        return;
     }, []);
 
     //좋아요 관련
