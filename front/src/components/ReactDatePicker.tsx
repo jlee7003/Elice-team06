@@ -8,8 +8,6 @@ import { getMonth, getYear } from "date-fns";
 const ReactDatePicker = ({ setStart, setEnd }: any) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    console.log(startDate, 1111);
-    console.log(endDate, 2222);
     return (
         <>
             <DatePicker
@@ -27,7 +25,6 @@ const ReactDatePicker = ({ setStart, setEnd }: any) => {
                     increaseMonth,
                 }) => {
                     const years = _.range(2022, getYear(new Date()) + 5, 1);
-                    // const years = range(1990, getYear(new Date()) + 1, 1);
                     const months = [
                         "01",
                         "02",

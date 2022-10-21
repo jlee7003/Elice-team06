@@ -162,7 +162,18 @@ const ChallengeDetailMainCard = () => {
                                 .map((comment: any) => (
                                     <CommentBox key={comment[0].id}>
                                         <div>작성자</div>
-                                        <div>{comment[0].author}</div>
+                                        <div
+                                            style={{
+                                                fontSize: "1em",
+                                                height: "24px",
+                                                width: "137px",
+                                                whiteSpace: "nowrap",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                            }}
+                                        >
+                                            {comment[0].author}
+                                        </div>
                                         <div>{comment[0].description}</div>
                                     </CommentBox>
                                 ))}

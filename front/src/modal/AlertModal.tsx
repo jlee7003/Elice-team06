@@ -10,12 +10,12 @@ type Props = {
     trigger: any; //React.Dispatch<React.SetStateAction<boolean>>;
     name: string;
 };
-
+const Draggable1: any = Draggable;
 const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
     return (
         <ModalPortal>
             {/* <ModalContainer> */}
-            <Draggable>
+            <Draggable1>
                 <ModalBody>
                     <div
                         style={{
@@ -85,7 +85,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                         </FlexBox>
                     </div>
                 </ModalBody>
-            </Draggable>
+            </Draggable1>
             {/* </ModalContainer> */}
         </ModalPortal>
     );

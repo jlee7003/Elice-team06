@@ -6,12 +6,11 @@ type Props = {
     setOnModal: (state: string) => void;
     logout: (state: void) => void;
 };
-
+const Draggable1: any = Draggable;
 const LoginModal: React.FC<Props> = ({ setOnModal, logout }: Props) => {
     return (
         <ModalPortal>
-            {/* <ModalContainer> */}
-            <Draggable>
+            <Draggable1>
                 <ModalBody>
                     <div
                         style={{
@@ -59,7 +58,7 @@ const LoginModal: React.FC<Props> = ({ setOnModal, logout }: Props) => {
                         </FlexBox>
                     </div>
                 </ModalBody>
-            </Draggable>
+            </Draggable1>
             {/* </ModalContainer> */}
         </ModalPortal>
     );

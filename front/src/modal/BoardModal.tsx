@@ -22,7 +22,7 @@ type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
 };
-
+const Draggable1: any = Draggable;
 const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
     const title = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
@@ -71,7 +71,7 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
     return (
         <ModalPortal>
             <ModalContainer>
-                <Draggable>
+                <Draggable1>
                     <ModalBody>
                         <div>
                             <TitleBOx>
@@ -123,7 +123,7 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
                             </FlexBox>
                         </div>
                     </ModalBody>
-                </Draggable>
+                </Draggable1>
             </ModalContainer>
         </ModalPortal>
     );
