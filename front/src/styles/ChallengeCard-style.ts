@@ -3,13 +3,9 @@ import { Props } from "@/components/ChallengeCard";
 import cssUnit from "@/lib/cssUnit";
 import assets from "@/lib/assets";
 import icons from "@/lib/icons";
-
-//assets
-const ChallengeCardBgImg = assets("challengeCard_bgImg.png");
-
-//icons
-const calendarIcon = icons("calendar_icon.png");
-const peopleIcon = icons("people_icon.png");
+import ChallengeCardBg_Img from "@/assets/challengeCard_bgImg.png";
+import calendarIcon from "@/assets/icons/calendar_icon.png";
+import peopleIcon from "@/assets/icons/people_icon.png";
 
 export const Card = styled.article<Props>`
     display: flex;
@@ -56,7 +52,7 @@ export const CardUpper = styled.div<Props>`
             ? cssUnit.color.purple
             : cssUnit.color.gray}; */
     background-color: #eee;
-    background-image: url(${ChallengeCardBgImg});
+    background-image: url(${ChallengeCardBg_Img});
     background-position: center 10px;
     background-size: 150px;
     background-repeat: no-repeat;

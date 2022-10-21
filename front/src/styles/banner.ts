@@ -1,7 +1,10 @@
 import styled, { css } from "styled-components";
 import assets from "@/lib/assets";
 import icons from "@/lib/icons";
-
+import banner_img from "@/assets/banner_img.png";
+import banner_cycle from "@/assets/banner_cycle.png";
+import banner_bus from "@/assets/banner_bus.png";
+import banner_plant from "@/assets/banner_plant.png";
 interface StyleProps {
     rotate?: string;
     slideBgImg?: string;
@@ -12,11 +15,6 @@ interface StyleProps {
     bgPosition?: string;
     bgSize?: string;
 }
-
-const bannerImg = assets("banner_img.jpg");
-const bannerCycleImg = assets("banner_cycle.png");
-const bannerBusImg = assets("banner_bus.png");
-const bannerPlantImg = assets("banner_plant.png");
 
 export const ControlBanner = styled.div`
     margin: 0 auto;
