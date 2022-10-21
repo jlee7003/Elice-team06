@@ -154,7 +154,16 @@ const Mypage = () => {
                                 <UserIcon />
                                 비밀번호 변경
                             </Buttons>
-                            <Buttons name="withdrawal" onClick={onClick}>
+                            <Buttons
+                                name="withdrawal"
+                                onClick={() =>
+                                    navigate("/Auth", {
+                                        state: {
+                                            id: "withdrawal",
+                                        },
+                                    })
+                                }
+                            >
                                 <UserIcon />
                                 회원정보 탈퇴
                             </Buttons>

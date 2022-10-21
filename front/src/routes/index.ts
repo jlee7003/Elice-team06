@@ -91,11 +91,11 @@ export const ROUTES: routeWrap = {
         Component: Admin,
     },
     UserInfo: {
-        path: "/mypage/UserInfo",
+        path: "/mypage/userinfo",
         Component: UserInfo,
     },
     ChangePasswordPage: {
-        path: "/mypage/ChangePasswordPage",
+        path: "/mypage/changepasswordpage",
         Component: ChangePasswordPage,
     },
     WithDrawalPage: {
