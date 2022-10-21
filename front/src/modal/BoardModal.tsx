@@ -72,26 +72,24 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
                     <ModalBody>
                         <div>
                             <TitleBOx>
-                                <div>나만의 챌린지 요청하기</div>
+                                <h1>게시글 작성</h1>
                                 <button className="close" onClick={() => setOnModal("false")}>
                                     ❌
                                 </button>
                             </TitleBOx>
                             <NonFlexBox style={{ marginTop: "60px" }}>
-                                <Label>챌린지 제목</Label>
-                                <Input ref={title} placeholder="챌린지 제목을 입력하세요." />
-                                <div style={{ display: "flex", width: "100%" }}>
-                                    <Label>기간</Label>
-                                    <Label>목표량</Label>
-                                </div>
+                                <Label>
+                                    <h2>제목</h2>
+                                </Label>
+                                <Input ref={title} placeholder="글 제목을 입력하세요." />
+                                <div style={{ display: "flex", width: "100%" }}></div>
                                 <FlexBox>
                                     <AllCenterBox></AllCenterBox>
                                 </FlexBox>
-                                <Label>내용</Label>
-                                <LongInput
-                                    ref={description}
-                                    placeholder="챌린지 내용을 입력하세요."
-                                />
+                                <Label>
+                                    <h2>내용</h2>
+                                </Label>
+                                <LongInput ref={description} placeholder="내용을 입력하세요." />
                                 <div style={{ marginBottom: "30px" }}>
                                     부적절한 제목이나 내용 작성 시, 운영자 또는 신고에 의해 삭제될
                                     수 있습니다
