@@ -1,7 +1,7 @@
 import { Banner } from "@/styles/banner";
 import { MouseEvent, useRef } from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //styles
 import {
     Container,
@@ -163,14 +163,22 @@ const Mypage = () => {
                 </SideBar>
                 <ChallengeContainter>
                     <MyChallenges>
-                        <CategoryTitle>내가 도전한 챌린지</CategoryTitle>
+                        <CategoryTitle>
+                            내가 도전한 챌린지
+                            <Link
+                                to="/challengelist/my"
+                                style={{ fontSize: "16px", color: "#a5a5a5", paddingLeft: "20px" }}
+                            >
+                                더보기 &gt;
+                            </Link>
+                        </CategoryTitle>
                         <CategoryContent>
                             {/* <ChallengeCard level="beginner" />
                             <ChallengeCard level="intermediate" />
                             <ChallengeCard level="advanced" />
                             <ChallengeCard /> */}
                             {Object.values(myChallengeList)
-                                .slice(0, 8)
+                                .slice(0, 3)
                                 .map((comment, idx) => (
                                     <ChallengeCard
                                         key={idx}
