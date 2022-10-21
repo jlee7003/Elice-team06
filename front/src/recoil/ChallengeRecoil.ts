@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { ChallengeCardList } from "@/types/challenge";
+import { ChallengeCardList, MyChallengeCard } from "@/types/challenge";
 export interface ChallengeBoardModel {
     id: string | null;
     title: string | null;
@@ -20,6 +20,11 @@ export const ChallengeBoardWriter = atom<ChallengeBoardModel | null>({
 
 export const ChallengeList = atom<ChallengeCardList>({
     key: "ChallengeList",
+    default: [],
+});
+
+export const MyChallengeList = atom<MyChallengeCard | []>({
+    key: "MyChallengeList",
     default: [],
 });
 
