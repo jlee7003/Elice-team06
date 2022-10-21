@@ -18,7 +18,6 @@ import { Main } from "@/components/common/Main";
 
 import { HomeBanners, Banner } from "@/styles/banner";
 
-import { SectionSkele, NavSkele } from "@/styles/reqpage-skele-style";
 /*components*/
 import PostCards from "@/components/PostCards";
 //pagination
@@ -131,7 +130,7 @@ const BoardPage = () => {
                     bgSize="542px"
                 >
                     <p>
-                        <span>탄소 궁시렁</span>
+                        <span>커뮤니티</span>
                     </p>
                 </Banner>
             </HomeBanners>
