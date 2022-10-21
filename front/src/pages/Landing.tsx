@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, PureComponent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -457,10 +457,16 @@ const Landing = () => {
         navRefs.current[i].style.border = "1px solid #000";
     };
 
+    //logo 경로 추가
+    const navigate = useNavigate();
+    const onClickLogo = () => {
+        navigate(ROUTES.Home.path);
+    };
+
     return (
         <ContainerWrap>
             <Header>
-                <Logo>
+                <Logo onClick={onClickLogo}>
                     <LogoImg />
                 </Logo>
 
