@@ -8,6 +8,7 @@ import {
     SignupData,
     SignupResult,
 } from "@/types/auth";
+import { Info } from "@/recoil/user";
 
 export const login = async (loginData: LoginData) => {
     console.log("login");
@@ -42,7 +43,7 @@ export const changePassword = async (changePasswordData: ChangePasswordData) => 
 // todo: add response type
 
 export const myInfo = async () => {
-    const result = await API.get(["user", "myInfo"]);
+    const result = await API.get<Info>(["user", "myInfo"]);
 
     return result;
 };

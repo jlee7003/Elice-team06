@@ -14,7 +14,7 @@ import {
 
 //real data interface
 import { PostLists, LikedLists } from "@/types/post";
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 //API import
 import API from "@/api/.";
 //error handling

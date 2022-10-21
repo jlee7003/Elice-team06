@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 import { refresh } from "@/api/user";
 import API from "@/api/.";
 import token from "@/recoil/token";

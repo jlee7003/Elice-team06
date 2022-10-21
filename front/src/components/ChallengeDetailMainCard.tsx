@@ -23,7 +23,7 @@ import { ROUTES } from "@/routes";
 import { getComment } from "@/api/challenge";
 import { commentState } from "@/recoil/ChallengeRecoil";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import DidLoginModal from "@/modal/DidLoginModals";
@@ -102,6 +102,7 @@ const ChallengeDetailMainCard = () => {
         }
         if (commentsRef.current.value == "") {
             alert("댓글을 입력하세요");
+            return;
         }
         addCommentData = {
             description: commentsRef.current?.value,

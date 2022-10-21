@@ -24,7 +24,7 @@ import ChallengeCard from "@/components/ChallengeCard";
 import PostCards from "@/components/PostCards";
 //user's data
 import { useRecoilState, useRecoilValue } from "recoil";
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 //API import
 import API from "@/api/.";
 import post from "@/lib/dummyPosts";

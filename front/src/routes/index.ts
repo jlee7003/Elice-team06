@@ -14,6 +14,7 @@ import FindPassword from "@/pages/auth/FindPassword";
 import FindResult from "@/pages/auth/FindResult";
 import MyPosts from "@/pages/MyPosts";
 import UserInfo from "@/pages/UserInfo";
+import ChangePasswordPage from "@/pages/ChangePasswordPage";
 
 interface route {
     path: string;
@@ -77,9 +78,13 @@ export const ROUTES: routeWrap = {
         path: "/challengelist/:target",
         Component: ChallengeList,
     },
-    Profile: {
+    UserInfo: {
         path: "/mypage/UserInfo",
         Component: UserInfo,
+    },
+    ChangePasswordPage: {
+        path: "/mypage/ChangePasswordPage",
+        Component: ChangePasswordPage,
     },
     ErrorPage: {
         path: "*",
