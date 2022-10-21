@@ -125,6 +125,10 @@ const Mypage = () => {
     };
 
     useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    useEffect(() => {
         API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
             return setMyChallengeList(res.data);
         });
@@ -234,10 +238,10 @@ const Mypage = () => {
                 <SideBar>
                     <MySec>
                         <div>
-                            <p>{userInfo?.nickname}</p>
+                            <p style={{ fontSize: "20px" }}>{userInfo?.nickname}</p>
                         </div>
                         <div>
-                            <p>{userInfo?.introduce}</p>
+                            <p style={{ fontSize: "16px" }}>{userInfo?.introduce}</p>
                         </div>
                     </MySec>
                     <MenuContainer>
@@ -261,7 +265,16 @@ const Mypage = () => {
                                 <UserIcon />
                                 비밀번호 변경
                             </Buttons>
-                            <Buttons name="withdrawal" onClick={onClick}>
+                            <Buttons
+                                name="withdrawal"
+                                onClick={() =>
+                                    navigate("/Auth", {
+                                        state: {
+                                            id: "withdrawal",
+                                        },
+                                    })
+                                }
+                            >
                                 <UserIcon />
                                 회원정보 탈퇴
                             </Buttons>
@@ -274,6 +287,7 @@ const Mypage = () => {
                             내가 도전한 챌린지
                             <Link
                                 to="/challengelist/my"
+                                state={"authuser"}
                                 style={{ fontSize: "16px", color: "#a5a5a5", paddingLeft: "20px" }}
                             >
                                 더보기 &gt;

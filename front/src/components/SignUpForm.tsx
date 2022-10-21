@@ -12,8 +12,11 @@ import {
     Select,
 } from "../styles/pages/signup-style";
 import { signup } from "@/api/user";
+import { User } from "@/types/user";
 import sendToast from "@/lib/sendToast";
-
+import { userState } from "@/recoil/user";
+import { useSetRecoilState } from "recoil";
+import useLogin from "@/hooks/useLogin";
 const SignUpForm = () => {
     const nickname = useRef<HTMLInputElement>(null);
     const introduce = useRef<HTMLInputElement>(null);
@@ -26,6 +29,8 @@ const SignUpForm = () => {
     const gender = useRef<HTMLInputElement>(null);
     const [ValidationCheck, setValidationCheck] = useState(false);
     const [inputStatus, setInputStatus] = useState("");
+    const setLogin = useLogin("/");
+    const setUser = useSetRecoilState(userState);
 
     const navigate = useNavigate();
 
@@ -60,6 +65,9 @@ const SignUpForm = () => {
         ) {
             setValidationCheck(false);
             return;
+        }
+        if (password.current?.value != passwordok.current?.value) {
+            sendToast("비밀번호와 확인 비밀번호가 일치하지 않습니다.", "error");
         }
         setValidationCheck(true);
     }
@@ -114,6 +122,14 @@ const SignUpForm = () => {
             sendToast(result?.response?.data?.message, "error");
             return;
         }
+
+        const user: User = {
+            nickname: nickname.current?.value,
+            introduce: introduce.current?.value,
+            admin: false,
+        };
+
+        setUser(user);
         navigate(ROUTES.Home.path);
     };
 

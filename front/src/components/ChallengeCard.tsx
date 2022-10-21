@@ -40,7 +40,7 @@ const ChallengeCard = (props: Props) => {
 
     return (
         <Card>
-            <CardUpper level={props.level ?? "default"} />
+            <CardUpper level={props.level ?? "default"}>{props.level}</CardUpper>
             <CardLower>
                 <CardTitle mode={darkMode ?? "Light"}>{props.title}</CardTitle>
                 <CardInfo>

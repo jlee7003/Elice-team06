@@ -1,13 +1,13 @@
 import API from "./index";
-import { WriteBoardData, WriteBoardResult } from "@/types/boardsData";
+import { writeBoardData, writeBoardResult } from "@/types/boardsData";
 
-export const writeboard = async (WriteBoardData: WriteBoardData) => {
-    const result = await API.post<WriteBoardResult>(["board"], WriteBoardData);
+export const writeBoard = async (writeBoardData: writeBoardData) => {
+    const result = await API.post<writeBoardResult>(["board"], writeBoardData);
     window.location.reload(); //for refresh
     return result;
 };
 
-export const reWriteBoard = async (param: string | null, WriteBoardData: WriteBoardData) => {
-    const result = await API.put<WriteBoardResult>(["board", param], WriteBoardData);
+export const rewriteBoard = async (param: string | null, writeBoardData: writeBoardData) => {
+    const result = await API.put<writeBoardResult>(["board", param], writeBoardData);
     return result;
 };
