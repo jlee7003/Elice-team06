@@ -32,20 +32,14 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
         title: "",
         description: "",
     };
-    const setting=async(preData)=>{
-        formData=await
-    }
-   
 
+    //const title = useRef<HTMLInputElement>(null);
+    //const description = useRef<HTMLInputElement>(null);
     const [ValidationCheck, setValidationCheck] = useState(false);
-    const [inputText, setInputText] = useState({
-        title: preData.title,
-        description: preData.description,
-    });
+    const [inputText, setInputText] = useState(preData);
 
     console.log("inputText", inputText);
 
-    
     const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         isvalidationtrue();
@@ -87,93 +81,87 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
 
     return (
         <>
-            {preData ? (
-                <>
-                    <ModalPortal>
-                        <ModalContainer
-                            style={{ visibility: modalOpen !== 0 ? "visible" : "hidden" }}
-                        >
-                            <DragContainer>
-                                <ModalBody>
-                                    <div>
-                                        <TitleBOx>
-                                            <h1>게시글 수정</h1>
-                                            <button
-                                                className="close"
-                                                onClick={() => {
-                                                    closeModal();
-                                                }}
-                                            >
-                                                ❌
-                                            </button>
-                                        </TitleBOx>
-                                        <NonFlexBox style={{ marginTop: "60px" }}>
-                                            <Label>
-                                                <h2>제목</h2>
-                                            </Label>
-                                            <Input
-                                                name="title"
-                                                // ref={title}
-                                                value={inputText.title}
-                                                onChange={onChange}
-                                            />
-                                            <div style={{ display: "flex", width: "100%" }}></div>
-                                            <FlexBox>
-                                                <AllCenterBox></AllCenterBox>
-                                            </FlexBox>
-                                            <Label>
-                                                <h2>내용</h2>
-                                            </Label>
-                                            <LongInput
-                                                name="description"
-                                                // ref={description}
-                                                value={inputText.description}
-                                                onChange={onChange}
-                                            />
-                                            <div style={{ marginBottom: "30px" }}>
-                                                부적절한 제목이나 내용 작성 시, 운영자 또는 신고에
-                                                의해 삭제될 수 있습니다
-                                            </div>
-                                        </NonFlexBox>
-
-                                        <FlexBox style={{ justifyContent: "center" }}>
-                                            <GrayButton
-                                                className="close"
-                                                onClick={() => {
-                                                    closeModal();
-                                                }}
-                                            >
-                                                돌아가기
-                                            </GrayButton>
-
-                                            {ValidationCheck ? (
-                                                <OKButton
-                                                    onClick={() => {
-                                                        buttonClick;
-                                                        closeModal();
-                                                        trigger(modalOpen);
-                                                    }}
-                                                    onMouseEnter={validationTrue}
-                                                >
-                                                    수정하기
-                                                </OKButton>
-                                            ) : (
-                                                <XButton
-                                                    onClick={onClickPrevent}
-                                                    onMouseEnter={validationTrue}
-                                                >
-                                                    수정하기
-                                                </XButton>
-                                            )}
+            {preData && (
+                <ModalPortal>
+                    <ModalContainer style={{ visibility: modalOpen !== 0 ? "visible" : "hidden" }}>
+                        <DragContainer>
+                            <ModalBody>
+                                <div>
+                                    <TitleBOx>
+                                        <h1>게시글 수정</h1>
+                                        <button
+                                            className="close"
+                                            onClick={() => {
+                                                closeModal();
+                                            }}
+                                        >
+                                            ❌
+                                        </button>
+                                    </TitleBOx>
+                                    <NonFlexBox style={{ marginTop: "60px" }}>
+                                        <Label>
+                                            <h2>제목</h2>
+                                        </Label>
+                                        <Input
+                                            name="title"
+                                            // ref={title}
+                                            value={inputText.title}
+                                            onChange={onChange}
+                                        />
+                                        <div style={{ display: "flex", width: "100%" }}></div>
+                                        <FlexBox>
+                                            <AllCenterBox></AllCenterBox>
                                         </FlexBox>
-                                    </div>
-                                </ModalBody>
-                            </DragContainer>
-                        </ModalContainer>
-                    </ModalPortal>
-                </>
-            ) : (
-                <></>
+                                        <Label>
+                                            <h2>내용</h2>
+                                        </Label>
+                                        <LongInput
+                                            name="description"
+                                            // ref={description}
+                                            value={inputText.description}
+                                            onChange={onChange}
+                                        />
+                                        <div style={{ marginBottom: "30px" }}>
+                                            부적절한 제목이나 내용 작성 시, 운영자 또는 신고에 의해
+                                            삭제될 수 있습니다
+                                        </div>
+                                    </NonFlexBox>
+
+                                    <FlexBox style={{ justifyContent: "center" }}>
+                                        <GrayButton
+                                            className="close"
+                                            onClick={() => {
+                                                closeModal();
+                                            }}
+                                        >
+                                            돌아가기
+                                        </GrayButton>
+
+                                        {ValidationCheck ? (
+                                            <OKButton
+                                                onClick={() => {
+                                                    buttonClick;
+                                                    closeModal();
+                                                    trigger(modalOpen);
+                                                }}
+                                                onMouseEnter={validationTrue}
+                                            >
+                                                수정하기
+                                            </OKButton>
+                                        ) : (
+                                            <XButton
+                                                onClick={onClickPrevent}
+                                                onMouseEnter={validationTrue}
+                                            >
+                                                수정하기
+                                            </XButton>
+                                        )}
+                                    </FlexBox>
+                                </div>
+                            </ModalBody>
+                        </DragContainer>
+                    </ModalContainer>
+                </ModalPortal>
             )}
         </>
     );
