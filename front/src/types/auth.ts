@@ -28,6 +28,7 @@ export type SignupResult = token & User;
 export interface RefreshResult {
     accessToken: string;
     nickname: string;
+    admin: boolean;
     Profile: [
         {
             introduce: string;

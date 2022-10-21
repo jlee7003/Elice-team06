@@ -35,7 +35,7 @@ import { ROUTES } from "@/routes/.";
 const PostCards = (prop: {
     postLists: PostLists | null;
     currentPage: number;
-    deleteMode: boolean;
+    deleteMode?: boolean;
 }) => {
     const navigate = useNavigate();
     //user handling
@@ -118,26 +118,21 @@ const PostCards = (prop: {
         if (user) {
             //해당 게시글의 id(post_id 가져오기)
             const { name } = e.target as HTMLButtonElement;
+
             puttingLike(name, "");
             const isAlreadyLiked = likesList.includes(name);
-            //console.log("과거에 이미 추천? ", isAlreadyLiked);
-            //console.log("현재 페이지에서 추천?:", isUserLike);
+
             //이미 추천했으면 아무것도 안 함
             if (isAlreadyLiked) {
-                //console.log("이미 추천했어요! 추천하면 안돼!!");
-                //console.log("과거에 이미 추천했니? ", isAlreadyLiked);
-                //console.log("현재 페이지에서 추천했었니?:", isUserLike);
                 return;
             }
             //아직 추천을 안 했고 지금 추천상태인지 체크
             //기존 데이터에 따르면 추천 안 했는데 현재 페이지에서 추천을 했는데 클릭한 거니까 1) 추천상태를 false로 바꾸고 2. 더한 값을 빼줘야 함
             if (isUserLike) {
-                //console.log("현재 페이지에서 추천했는데 뺐어요!!");
                 setIsUserLike(false);
                 return sethandlieLikeNum(0);
             }
             //기존 데이터에서 추천도 안했고 현재 상태도 추천을 안했다 그러면 추천해야지
-            //console.log("불러온 데이터에도 이력이 없고 이 화면에서도 추천취소든or처음이든 암튼 추천해요!");
             setIsUserLike(true);
             sethandlieLikeNum(1);
             return;
@@ -236,9 +231,3 @@ const PostCards = (prop: {
 };
 
 export default PostCards;
-
-/**
- *
- *원본
- *
- */

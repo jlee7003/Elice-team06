@@ -69,7 +69,7 @@ const AlertModal: React.FC<Props> = ({ modalOpen, closeModal, trigger }: Props) 
                         </FlexBox>
                     </div>
                 </ModalBody>
-            </Draggable>
+            </Draggable1>
             {/* </ModalContainer> */}
         </ModalPortal>
     );

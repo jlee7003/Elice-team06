@@ -10,6 +10,7 @@ import {
     NonFlexBox,
     AllCenterBox,
     TitleBOx,
+    Select,
 } from "@/styles/challengeRequestModal-style";
 import { useRef } from "react";
 import ModalPortal from "./ModalPortal";
@@ -20,18 +21,20 @@ import ReactDatePicker from "@/components/ReactDatePicker";
 import * as _ from "lodash";
 import { challengeResult } from "@/types/challengeTypes";
 import API from "@/api/index";
+import { min } from "lodash";
 
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
 };
-
+const Draggable1: any = Draggable;
 const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const title = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
     const goal = useRef<HTMLInputElement>(null);
+    const level = useRef<HTMLInputElement>(null);
     // const level = useRef<HTMLInputElement>(null);
 
     let formData = {
@@ -40,9 +43,15 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
         goal: "",
         start_date: "",
         due_date: "",
+        level: "",
     };
     const buttonClick = async () => {
-        if (title.current == null || description.current == null || goal.current == null) {
+        if (
+            title.current == null ||
+            description.current == null ||
+            goal.current == null ||
+            level.current.value == null
+        ) {
             return;
         }
         formData = {
@@ -51,16 +60,16 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
             goal: goal.current?.value,
             start_date: startDate.toDateString(),
             due_date: endDate.toDateString(),
+            level: level.current.value,
         };
-        console.log("formdata:", formData);
+
         await API.post<challengeResult>(["challenge"], formData);
-        console.log("요청완료");
     };
 
     return (
         <ModalPortal>
             <ModalContainer>
-                <Draggable>
+                <Draggable1>
                     <ModalBody>
                         <div>
                             <TitleBOx>
@@ -87,11 +96,23 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                                     </AllCenterBox>
                                     <Input
                                         ref={goal}
-                                        style={{ width: "50%" }}
+                                        style={{ width: "50%", marginLeft: "20px" }}
                                         placeholder="목표량을 입력하세요."
                                     />
                                 </FlexBox>
-                                <Label>내용</Label>
+                                <div style={{ display: "flex", width: "100%" }}>
+                                    <Label style={{ marginBottom: "20px" }}>레벨</Label>
+                                </div>
+                                <Select name="local" ref={level}>
+                                    <option value="beginner">beginner</option>
+                                    <option value="intermediate">intermediate</option>
+                                    <option value="advanced">advanced</option>
+                                    <option value="default">default</option>
+                                </Select>
+
+                                <div>
+                                    <Label>내용</Label>
+                                </div>
                                 <LongInput
                                     ref={description}
                                     placeholder="챌린지 내용을 입력하세요."
@@ -124,7 +145,7 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
                             </FlexBox>
                         </div>
                     </ModalBody>
-                </Draggable>
+                </Draggable1>
             </ModalContainer>
         </ModalPortal>
     );

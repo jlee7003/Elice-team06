@@ -83,7 +83,7 @@ export const CommentBox = styled.div`
     display: grid;
     grid-template-columns: 10% 1fr 4fr;
     width: 782px;
-    height: 44px;
+    min-height: 44px;
     padding: 10px;
     margin: 15px 15px 15px 15px;
     border: 1px solid #e8e8e8;

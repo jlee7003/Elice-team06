@@ -54,7 +54,7 @@ const ChallengeCard = (props: Props) => {
                     <ChallengeGrade>
                         {/* {props.grade && ( */}
                         <ChallengeGradeLabel level={props.level ?? "default"}>
-                            초급 도전
+                            {props.level}
                         </ChallengeGradeLabel>
                         {/* )} */}
                     </ChallengeGrade>

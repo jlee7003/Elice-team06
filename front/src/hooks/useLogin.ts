@@ -4,9 +4,11 @@ import { userState } from "@/recoil/user";
 import { LoginData } from "@/types/auth";
 import { login } from "@/api/user";
 import { User } from "@/types/user";
+import { ROUTES } from "@/routes";
 import API from "@/api/.";
+import sendToast from "@/lib/sendToast";
 
-const useLogin = (errorFunction: any, redirectURL: string) => {
+const useLogin = (redirectURL: string) => {
     const setUser = useSetRecoilState(userState);
     const navigate = useNavigate();
 
@@ -14,11 +16,8 @@ const useLogin = (errorFunction: any, redirectURL: string) => {
         const result: any = await login(loginFormData);
 
         if (result?.response?.status != undefined) {
-            console.log(result?.response?.data);
-            errorFunction({
-                isError: true,
-                message: result?.response?.data?.message,
-            });
+            sendToast(result?.response?.data?.message, "error");
+
             return;
         }
         const data = (result as any).data;
@@ -29,11 +28,12 @@ const useLogin = (errorFunction: any, redirectURL: string) => {
         const user: User = {
             nickname: data?.nickname,
             introduce: data?.introduce,
+            admin: data?.admin,
         };
 
         setUser(user);
 
-        navigate(redirectURL);
+        navigate(ROUTES.Home.path);
     };
 
     return setLogin;

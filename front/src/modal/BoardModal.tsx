@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, MouseEvent, useState } from "react";
 import ModalPortal from "./ModalPortal";
 import Draggable from "react-draggable";
 import {
@@ -13,6 +13,8 @@ import {
     NonFlexBox,
     AllCenterBox,
     TitleBOx,
+    OKButton,
+    XButton,
 } from "@/styles/challengeRequestModal-style";
 import * as _ from "lodash";
 import { writeboard } from "@/api/board";
@@ -20,16 +22,34 @@ type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
 };
-
+const Draggable1: any = Draggable;
 const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
     const title = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
+    const [ValidationCheck, setValidationCheck] = useState(false);
 
     let formData = {
         title: "",
         description: "",
     };
-
+    const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        isvalidationtrue();
+    };
+    const onClickPrevent = (e: MouseEvent<HTMLButtonElement>) => {
+        alert("빈 값이 있습니다.");
+        e.preventDefault();
+    };
+    function isvalidationtrue() {
+        if (title.current == null || description.current == null) {
+            return;
+        }
+        if (title.current?.value == "" || description.current?.value == "") {
+            setValidationCheck(false);
+            return;
+        }
+        setValidationCheck(true);
+    }
     const buttonClick = async () => {
         if (title.current == null || description.current == null) {
             return;
@@ -38,16 +58,17 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
             title: title.current?.value,
             description: description.current?.value,
         };
-        console.log("formdata:", formData);
+        if (title.current.value == "" || description.current.value == "") {
+            alert("내용을 채워주세요");
+            return;
+        }
         const result = await writeboard(formData);
-        console.log(result);
-        console.log("요청완료");
     };
 
     return (
         <ModalPortal>
             <ModalContainer>
-                <Draggable>
+                <Draggable1>
                     <ModalBody>
                         <div>
                             <TitleBOx>
@@ -87,19 +108,19 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
                                     돌아가기
                                 </GrayButton>
 
-                                <GreenButton
-                                    className="close"
-                                    onClick={() => {
-                                        buttonClick();
-                                        setOnModal("false");
-                                    }}
-                                >
-                                    챌린지 요청하기
-                                </GreenButton>
+                                {ValidationCheck ? (
+                                    <OKButton onClick={buttonClick} onMouseEnter={validationTrue}>
+                                        챌린지 요청하기
+                                    </OKButton>
+                                ) : (
+                                    <XButton onClick={onClickPrevent} onMouseEnter={validationTrue}>
+                                        챌린지 요청하기
+                                    </XButton>
+                                )}
                             </FlexBox>
                         </div>
                     </ModalBody>
-                </Draggable>
+                </Draggable1>
             </ModalContainer>
         </ModalPortal>
     );

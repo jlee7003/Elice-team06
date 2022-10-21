@@ -30,19 +30,19 @@ export const HeaderSticky = styled.header<Props>`
             ? css`
                   background-color: #282828;
                   label {
-                      background-color: #282828;
+                      background-color: white;
                   }
                   label > div {
-                      background-color: #cccccc;
+                      background-color: #838383;
                   }
               `
             : css`
                   background-color: white;
                   label {
-                      background-color: white;
+                      background-color: #282828;
                   }
                   label > div {
-                      background-color: #838383;
+                      background-color: #cccccc;
                   }
               `}
 `;

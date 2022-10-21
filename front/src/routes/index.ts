@@ -2,13 +2,11 @@ import React from "react";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import BoardPage from "@/pages/BoardPage";
 import Post from "@/pages/challenge/Post";
 import ChallengeDetail from "@/pages/challenge/ChallengeDetail";
 import ErrorPage from "@/pages/ErrorPage";
 import Mypage from "@/pages/Mypage";
 import Landing from "@/pages/Landing";
-import ChallengeList from "@/pages/ChallengeList";
 import FindID from "@/pages/auth/FindID";
 import FindPassword from "@/pages/auth/FindPassword";
 import FindResult from "@/pages/auth/FindResult";
@@ -17,6 +15,10 @@ import MyPosts from "@/pages/MyPosts";
 import Admin from "@/pages/Admin";
 import UserInfo from "@/pages/UserInfo";
 import ChangePasswordPage from "@/pages/ChangePasswordPage";
+import WithDrawalPage from "@/pages/WithDrawalPage";
+
+const ChallengeList = React.lazy(() => import("@/pages/ChallengeList"));
+const BoardPage = React.lazy(() => import("@/pages/BoardPage"));
 
 interface route {
     path: string;
@@ -95,6 +97,10 @@ export const ROUTES: routeWrap = {
     ChangePasswordPage: {
         path: "/mypage/ChangePasswordPage",
         Component: ChangePasswordPage,
+    },
+    WithDrawalPage: {
+        path: "/withdrawal",
+        Component: WithDrawalPage,
     },
     ErrorPage: {
         path: "*",

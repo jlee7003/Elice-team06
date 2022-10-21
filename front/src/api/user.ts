@@ -11,8 +11,8 @@ import {
 import { Info } from "@/recoil/user";
 
 export const login = async (loginData: LoginData) => {
-    console.log("login");
     const result = await API.post<LoginResult>(["user", "login"], loginData);
+
     return result;
 };
 
@@ -61,7 +61,7 @@ export const authPassword = async (password: string) => {
 };
 
 export const withdrawal = async () => {
-    const result = await API.put(["user", "myInfo", "withdrawal"], "");
+    const result = await API.put(["user", "withdrawal"], "");
 
     return result;
 };

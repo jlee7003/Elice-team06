@@ -16,6 +16,7 @@ import {
     Menu,
     ChallengeIcon,
     UserIcon,
+    CategoryContent,
 } from "@/styles/pages/mypage-style";
 import { CategoryTitle } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
@@ -24,6 +25,7 @@ import ChallengeCard from "@/components/ChallengeCard";
 import PostCards from "@/components/PostCards";
 //user's data
 import { useRecoilState, useRecoilValue } from "recoil";
+import { MyChallengeList } from "@/recoil/ChallengeRecoil";
 import { userState } from "@/recoil/user";
 //API import
 import API from "@/api/.";
@@ -31,12 +33,13 @@ import post from "@/lib/dummyPosts";
 //error handling
 import { ROUTES } from "@/routes/.";
 //현재 post는 전체 게시글 데이터를 받아오는 더미데이터로 향후 특정유저의 포스트만 모아놓는 더미데이터와 유저 더미데이터를 만들어서 사용할 예정
+import dateFormat from "@/lib/dateFormat";
 
 const Mypage = () => {
     // const [user, setUser] = useRecoilState(userState);
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
-    console.log("user:", user);
+    const [myChallengeList, setMyChallengeList] = useRecoilState(MyChallengeList);
 
     // useEffect(() => {
     //     //API로 정보 받아오기
@@ -55,15 +58,33 @@ const Mypage = () => {
     //             navigate(ROUTES.ErrorPage.path);
     //             return; //to alret
     //         }
-    //         console.log("useEffect(API) is running in boardPage");
     //         setPostList(res);
     //     });
     // }, []);
 
+    useEffect(() => {
+        API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
+            return setMyChallengeList(res.data);
+        });
+    }, [myChallengeList]);
+
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         const { name } = e.target as HTMLButtonElement;
-        const url = `/${name}`;
-        navigate(url);
+        let url = `/${name}`;
+        if (name == "changePassword") {
+            url = `/Auth`;
+            navigate(url, {
+                state: {
+                    id: name,
+                },
+            });
+        }
+
+        navigate(url, {
+            state: {
+                id: name,
+            },
+        });
     };
 
     return (
@@ -91,9 +112,13 @@ const Mypage = () => {
                         </Menu>
                         <Menu>
                             <span>회원정보</span>
-                            <Buttons name="editMyInfo" onClick={onClick}>
+                            <Buttons name="Auth" onClick={onClick}>
                                 <UserIcon />
                                 회원정보 변경
+                            </Buttons>
+                            <Buttons name="changePassword" onClick={onClick}>
+                                <UserIcon />
+                                비밀번호 변경
                             </Buttons>
                             <Buttons name="withdrawal" onClick={onClick}>
                                 <UserIcon />
@@ -105,17 +130,34 @@ const Mypage = () => {
                 <ChallengeContainter>
                     <MyChallenges>
                         <CategoryTitle>내가 도전한 챌린지</CategoryTitle>
-                        <div>
-                            <ChallengeCard level="beginner" />
+                        <CategoryContent>
+                            {/* <ChallengeCard level="beginner" />
                             <ChallengeCard level="intermediate" />
                             <ChallengeCard level="advanced" />
-                            <ChallengeCard />
-                        </div>
+                            <ChallengeCard /> */}
+                            {Object.values(myChallengeList)
+                                .slice(0, 8)
+                                .map((comment, idx) => (
+                                    <ChallengeCard
+                                        key={idx}
+                                        id={comment[0].id}
+                                        level="beginner"
+                                        //   grade={true}
+                                        title={comment[0].title}
+                                        date={dateFormat(
+                                            comment[0].start_date,
+                                            comment[0].due_date
+                                        )}
+                                        count={comment[0]._count.Challenger}
+                                        // mode={darkMode ?? "Light"}
+                                    />
+                                ))}
+                        </CategoryContent>
                     </MyChallenges>
                     <LikeChallenges>
                         <CategoryTitle>내가 등록한 게시글 목록</CategoryTitle>
                         <BoardsContainer>
-                            <PostCards postLists={null} currentPage={1} />
+                            <PostCards postLists={null} currentPage={1} deleteMode={false} />
                         </BoardsContainer>
                     </LikeChallenges>
                 </ChallengeContainter>

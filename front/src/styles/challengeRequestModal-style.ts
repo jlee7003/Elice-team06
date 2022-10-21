@@ -16,6 +16,13 @@ export const ModalContainer = styled.div`
 export const FlexBox = styled.div`
     display: flex;
 `;
+export const Select = styled.select`
+    width: 411px;
+    height: 62px;
+    border: 1px solid #d9d9d9;
+    margin-bottom: 30px;
+    padding: 10px;
+`;
 export const AllCenterBox = styled.div`
     display: flex;
     align-items: center;
@@ -114,6 +121,26 @@ export const Label = styled.label`
     width: 100%;
     font-size: ${cssUnit.fontSize.normal};
     font-weight: ${cssUnit.fontWeight.bold};
-    /* margin: 0px 15px; */
 `;
-// ---------------------------chalangeRequest-----------------------------------
+export const OKButton = styled.button`
+    all: unset;
+    height: 70px;
+    width: 215px;
+    margin: 0px 10px;
+    border: 0px solid #293e49;
+    border-radius: 10px;
+    background-color: #61be92;
+    color: white;
+    text-align: center;
+`;
+export const XButton = styled.button`
+    all: unset;
+    height: 70px;
+    margin: 0px 10px;
+    width: 215px;
+    border: 0px solid #293e49;
+    border-radius: 10px;
+    background-color: #ececec;
+    color: #939393;
+    text-align: center;
+`;

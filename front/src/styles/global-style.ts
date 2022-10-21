@@ -122,7 +122,7 @@ const GlobalStyle = createGlobalStyle<Props>`
                                 background-color: #282828;
                                 color: white;
                                 label {
-                                    background-color: white;
+                                    background-color: #282828;
                                 }
                                 label > div {
                                     background-color: #838383;
@@ -132,7 +132,7 @@ const GlobalStyle = createGlobalStyle<Props>`
                                 background-color: white;
                                 color: black;
                                 label {
-                                    background-color: #282828;
+                                    background-color: white;
                                 }
                                 label > div {
                                     background-color: #cccccc;

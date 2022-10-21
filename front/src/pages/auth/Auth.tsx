@@ -1,5 +1,5 @@
 import { useRef, MouseEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import API from "@/api/.";
 import { Logo } from "@/styles/common";
 import { FindInfoWrap, Form, Label, IDInput, SubmitButton } from "@/styles/pages/auth-style";
@@ -9,7 +9,7 @@ import sendToast from "@/lib/sendToast";
 
 const Auth = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
-
+    const location = useLocation();
     const navigate = useNavigate();
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -28,9 +28,15 @@ const Auth = () => {
 
             sendToast("인증에 성공했습니다.", "success");
 
-            // navigate(ROUTES.FindResult.path, {
-            //     state: { labelName: "아이디", result: res.data.id },
-            // });
+            if (location.state.id == "Auth") {
+                navigate(ROUTES.UserInfo.path, {
+                    state: { labelName: "아이디", result: res.data.id },
+                });
+            } else {
+                navigate(ROUTES.ChangePasswordPage.path, {
+                    state: { labelName: "아이디", result: res.data.id },
+                });
+            }
         });
     };
 
