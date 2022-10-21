@@ -46,10 +46,6 @@ export const ROUTES: routeWrap = {
         path: "/signup",
         Component: Signup,
     },
-    Post: {
-        path: "/challenge/posts",
-        Component: Post,
-    },
     BoardPage: {
         path: "/boardPage/pages/:id",
         Component: BoardPage,
