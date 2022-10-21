@@ -28,7 +28,7 @@ const Login = () => {
     const setError = useSetRecoilState(errorRecoil);
     const navigate = useNavigate();
     const [isError, setIsError] = useState(false);
-    const setLogin = useLogin(setError, "/");
+    const setLogin = useLogin("/");
 
     useEffect(() => {
         setCurrentUrl(window.location.href);
@@ -53,7 +53,6 @@ const Login = () => {
         <Main>
             <LoginWrap>
                 <Logo />
-                {isError && <ErrorInfo>아이디 또는 비밀번호가 틀렸습니다.</ErrorInfo>}
                 <Form>
                     <Label>아이디</Label>
                     <Input ref={emailRef} type="email" placeholder="아이디를 입력하세요." />
