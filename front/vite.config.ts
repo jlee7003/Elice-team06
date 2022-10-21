@@ -9,7 +9,6 @@ export default defineConfig(({ command, mode }) => {
         server: {
             port: 8080,
         },
-        assetsInclude: ["**/*.png", "**/*.jpg"],
         resolve: {
             alias: [{ find: "@", replacement: path.resolve(__dirname, "./src") }],
         },
