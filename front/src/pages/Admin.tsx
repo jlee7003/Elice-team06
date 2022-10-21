@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, MouseEvent } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 import modalState from "@/recoil/modalState";
 
 import { ROUTES } from "@/routes";
