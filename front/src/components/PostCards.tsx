@@ -50,38 +50,7 @@ const PostCards = (prop: {
      */
     const [likesList, setLikesList] = useState(["0"]);
     const [likeData, setLikeData] = useState({});
-    /** initialize data before handling */
-    const initLikeData = (likedLists) => {
-        for (let page in postlist) {
-            let post = postlist[page];
-            for (let i = 0; i < post.length; i++) {
-                if (likedLists.includes(String(post[i].id))) {
-                    post[i]._count.VotePost -= 1;
-                }
-            }
-        }
-        setLikeData(
-            likedLists.reduce((ori, value) => {
-                return { ...ori, [value]: true };
-            }, {})
-        );
-    };
-    /**
-     *         //promise error occured..why??
-        likedLists.forEach((page) => {
-            let post = postlist[page];
-            post.forEach((p, idx) => {
-                if (likedLists.includes(String(p[idx].id))) {
-                    return (p[idx]._count.VotePost -= 1);
-                }
-            });
-        });
-     * 
-     */
 
-    /**
-     * Delete handling
-     */
     //modal handling
     const NO_DELETE_MODAL = 0;
     const [deleteModalOpen, setDeleteModalOpen] = useState(NO_DELETE_MODAL);
@@ -89,10 +58,8 @@ const PostCards = (prop: {
     const NO_EDIT_MODAL = 0;
     const [editModalOpen, setEditModalOpen] = useState(NO_EDIT_MODAL);
 
-    const [fetchData, setFetchData] = useState<formData>({
-        title: "",
-        description: "",
-    });
+    const [fetchData, setFetchData] = useState<formData | null>(null);
+    const [postId, setpostId] = useState(null);
 
     //관리자 모드에서 삭제하기 기능?
     //const deleteModeOn = prop.deleteMode;
@@ -132,6 +99,39 @@ const PostCards = (prop: {
         return;
     }, []);
 
+    /**Like:: initialize data before handling */
+    const initLikeData = (likedLists) => {
+        for (let page in postlist) {
+            let post = postlist[page];
+            for (let i = 0; i < post.length; i++) {
+                if (likedLists.includes(String(post[i].id))) {
+                    post[i]._count.VotePost -= 1;
+                }
+            }
+        }
+        setLikeData(
+            likedLists.reduce((ori, value) => {
+                return { ...ori, [value]: true };
+            }, {})
+        );
+    };
+    /**
+     *         //promise error occured..why??
+        likedLists.forEach((page) => {
+            let post = postlist[page];
+            post.forEach((p, idx) => {
+                if (likedLists.includes(String(p[idx].id))) {
+                    return (p[idx]._count.VotePost -= 1);
+                }
+            });
+        });
+     * 
+     */
+
+    /**
+     * Delete handling
+     */
+
     /** API */
     //LIKE
     const puttingLike = async (param: string, data: any) => {
@@ -141,13 +141,6 @@ const PostCards = (prop: {
     //DELETE
     const deletingPost = async (param: string) => {
         const result = await API.delete<number>(["board", param]);
-        window.location.reload();
-        return result;
-    };
-
-    //EDIT
-    const editingPost = async (param: string, data: any) => {
-        const result = await API.put<number>(["board", param], data);
         window.location.reload();
         return result;
     };
@@ -167,28 +160,19 @@ const PostCards = (prop: {
 
     //edit
     const onClickEdit = (target: number, data: any) => {
-        console.log("타겟", target);
         gettingPost(target.toString());
-
-        //editingPost(target.toString(), data);
     };
-
     const onClickGetData = (target: number) => {
-        console.log("클릭해서 갖고오고있니? 타겟은 잘 찾았니?", target);
         gettingPost(target.toString()).then((res) => {
             const data: any = res.data;
             let formData: formData = {
                 title: "",
                 description: "",
             };
-            //console.log("타겟", typeof data.title);
             formData.title = data.title;
             formData.description = data.description;
-            //console.log("보내용~", formData);
             setFetchData(formData);
         });
-
-        //editingPost(target.toString(), data);
     };
 
     //LIKE
@@ -291,6 +275,7 @@ const PostCards = (prop: {
                                                     onClick={() => {
                                                         setEditModalOpen(post.id);
                                                         onClickGetData(post.id);
+                                                        setpostId(post.id);
                                                     }}
                                                 >
                                                     수정
@@ -320,12 +305,16 @@ const PostCards = (prop: {
                         trigger={onClickDelete}
                         closeModal={() => setDeleteModalOpen(0)}
                     ></AlertModal>
-                    <BoardEditModal
-                        modalOpen={editModalOpen}
-                        trigger={onClickEdit}
-                        closeModal={() => setEditModalOpen(0)}
-                        fetchData={fetchData}
-                    ></BoardEditModal>
+                    {fetchData && (
+                        <BoardEditModal
+                            modalOpen={editModalOpen}
+                            trigger={onClickEdit}
+                            closeModal={() => setEditModalOpen(0)}
+                            fetchData={fetchData}
+                            postId={postId}
+                            setpostId={setpostId}
+                        ></BoardEditModal>
+                    )}
                 </>
             ) : (
                 <></>

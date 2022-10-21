@@ -6,3 +6,8 @@ export const writeboard = async (WriteBoardData: WriteBoardData) => {
     window.location.reload(); //for refresh
     return result;
 };
+
+export const reWriteBoard = async (param: string | null, WriteBoardData: WriteBoardData) => {
+    const result = await API.put<WriteBoardResult>(["board", param], WriteBoardData);
+    return result;
+};

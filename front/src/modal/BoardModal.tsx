@@ -7,7 +7,6 @@ import {
     LongInput,
     FlexBox,
     GrayButton,
-    GreenButton,
     Label,
     Input,
     NonFlexBox,

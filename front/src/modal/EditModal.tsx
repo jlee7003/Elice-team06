@@ -7,7 +7,6 @@ import {
     LongInput,
     FlexBox,
     GrayButton,
-    GreenButton,
     Label,
     Input,
     NonFlexBox,
@@ -17,29 +16,26 @@ import {
     XButton,
 } from "@/styles/challengeRequestModal-style";
 import * as _ from "lodash";
-import { writeboard } from "@/api/board";
+import { reWriteBoard } from "@/api/board";
 type Props = {
     modalOpen: number;
     closeModal: any;
     trigger: any;
     fetchData: any;
+    postId: string;
+    setpostId: any;
 };
 const DragContainer: any = Draggable;
-const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preData }: Props) => {
-    console.log("preData", preData);
-    console.log(preData.title);
-    let formData = {
-        title: "",
-        description: "",
-    };
-
-    //const title = useRef<HTMLInputElement>(null);
-    //const description = useRef<HTMLInputElement>(null);
+const BoardEditModal: React.FC<Props> = ({
+    modalOpen,
+    closeModal,
+    trigger,
+    fetchData,
+    postId,
+    setpostId,
+}: Props) => {
     const [ValidationCheck, setValidationCheck] = useState(false);
     const [inputText, setInputText] = useState(fetchData);
-
-    console.log("inputText", inputText);
-
     const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         isvalidationtrue();
@@ -62,19 +58,18 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
         if (inputText.title == null || inputText.description == null) {
             return;
         }
-        // formData = {
-        //     title: title.current?.value,
-        //     description: description.current?.value,
-        // };
         if (inputText.title.value == "" || inputText.description.value == "") {
             alert("내용을 채워주세요");
             return;
         }
-        const result = await writeboard(inputText);
+        closeModal();
+        trigger(modalOpen);
+        const result = await reWriteBoard(postId, inputText);
+        setpostId(null); //필요없을지도?
+        window.location.reload(); //for refresh
     };
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log("inputText.title", inputText.title);
         const { name, value } = e.target as any;
         setInputText({ ...inputText, [name]: value });
     };
@@ -104,7 +99,6 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
                                         </Label>
                                         <Input
                                             name="title"
-                                            // ref={title}
                                             value={inputText.title}
                                             onChange={onChange}
                                         />
@@ -117,7 +111,6 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
                                         </Label>
                                         <LongInput
                                             name="description"
-                                            // ref={description}
                                             value={inputText.description}
                                             onChange={onChange}
                                         />
@@ -139,11 +132,7 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
 
                                         {ValidationCheck ? (
                                             <OKButton
-                                                onClick={() => {
-                                                    buttonClick;
-                                                    closeModal();
-                                                    trigger(modalOpen);
-                                                }}
+                                                onClick={buttonClick}
                                                 onMouseEnter={validationTrue}
                                             >
                                                 수정하기
