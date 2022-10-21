@@ -11,7 +11,7 @@ const ErrorPage = () => {
     useEffect(() => {
         setTimeout(() => {
             navigate(ROUTES.Home.path, { replace: true });
-        }, 3000);
+        }, 1000);
     });
 
     return (

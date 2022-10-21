@@ -46,7 +46,11 @@ const Auth = () => {
                 <Logo />
                 <Form>
                     <Label>비밀번호</Label>
-                    <IDInput placeholder="비밀번호를 입력해주세요." ref={passwordRef} />
+                    <IDInput
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요."
+                        ref={passwordRef}
+                    />
                     <SubmitButton onClick={onClick}>인증</SubmitButton>
                 </Form>
             </FindInfoWrap>
