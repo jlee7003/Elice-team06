@@ -143,9 +143,16 @@ class userService {
             },
             select: {
                 nickname: true,
+                role: true,
                 Profile: { select: { introduce: true } },
             },
         });
+        if (userData.role === "ADMIN"){
+            userData.admin = true
+        } else{
+            userData.admin = false
+        }
+        delete userData.role
         await prisma.$disconnect();
         return userData;
     }
