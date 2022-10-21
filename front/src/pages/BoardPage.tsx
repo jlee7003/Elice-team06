@@ -32,7 +32,7 @@ import { PostLists } from "@/types/post";
 import API from "@/api/.";
 //error handling
 import { ROUTES } from "@/routes/.";
-import assets from "@/lib/assets";
+import chat_img from "@/assets/chat_img.png";
 import DarkMode from "@/recoil/darkMode";
 
 //skeleton
@@ -124,7 +124,7 @@ const BoardPage = () => {
         <Container>
             <HomeBanners mode={darkMode ?? "Light"} height="190px">
                 <Banner
-                    bgImg={assets("chat_img.png")}
+                    bgImg={chat_img}
                     bgColor="linear-gradient(45deg,#61be92,#4e6af0,#868686)"
                     bgPosition="left 10px"
                     bgSize="542px"
