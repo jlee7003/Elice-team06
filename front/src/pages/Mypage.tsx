@@ -16,6 +16,7 @@ import {
     Menu,
     ChallengeIcon,
     UserIcon,
+    CategoryContent,
 } from "@/styles/pages/mypage-style";
 import { CategoryTitle } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
@@ -67,8 +68,6 @@ const Mypage = () => {
         API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
             return setMyChallengeList(res.data);
         });
-        console.log(myChallengeList);
-        // console.log(myChallengeList);
     }, [myChallengeList]);
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -133,7 +132,7 @@ const Mypage = () => {
                 <ChallengeContainter>
                     <MyChallenges>
                         <CategoryTitle>내가 도전한 챌린지</CategoryTitle>
-                        <div>
+                        <CategoryContent>
                             {/* <ChallengeCard level="beginner" />
                             <ChallengeCard level="intermediate" />
                             <ChallengeCard level="advanced" />
@@ -155,7 +154,7 @@ const Mypage = () => {
                                         // mode={darkMode ?? "Light"}
                                     />
                                 ))}
-                        </div>
+                        </CategoryContent>
                     </MyChallenges>
                     <LikeChallenges>
                         <CategoryTitle>내가 등록한 게시글 목록</CategoryTitle>
