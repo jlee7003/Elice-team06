@@ -94,6 +94,10 @@ export const ROUTES: routeWrap = {
         path: "/withdrawal",
         Component: WithDrawalPage,
     },
+    MyPosts: {
+        path: "/myposts",
+        Component: MyPosts,
+    },
     ErrorPage: {
         path: "*",
         Component: ErrorPage,

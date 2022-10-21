@@ -238,16 +238,6 @@ const PostCards = (prop: {
                                                 ? 1
                                                 : 0)}
                                     </LikeButton>
-
-                                    {/* {deleteModeOn ? (
-                                    <>
-                                        <span>
-                                            <input type="checkbox" name={`${post.id}`}></input>
-                                        </span>
-                                    </>
-                                ) : (
-                                    <></>
-                                )} */}
                                 </Box>
                             </ArtContainer>
                             <DetailContainer>
@@ -280,22 +270,11 @@ const PostCards = (prop: {
                                                 >
                                                     수정
                                                 </DeleteButton>
-                                                {/* <BoardEditModal setOnModal={setOnModal}>
-                                                    수정
-                                                </BoardEditModal> */}
                                             </>
                                         ) : (
                                             <></>
                                         )}
                                     </li>
-                                    {/* <li>
-                                    <i></i>
-                                    post.comments 개의 댓글
-                                </li>
-                                <li>
-                                    <i></i>
-                                    {post.view} views
-                                </li> */}
                                 </Details>
                             </DetailContainer>
                         </Article>
