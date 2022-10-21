@@ -51,10 +51,28 @@ export const CardUpper = styled.div<Props>`
             ? cssUnit.color.purple
             : cssUnit.color.gray}; */
     background-color: #eee;
-    background-image: url(${ChallengeCardBg_Img});
+    /* background-image: url(${ChallengeCardBg_Img});
     background-position: center 10px;
     background-size: 150px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-style: italic;
+    font-weight: 600;
+    color: #fff;
+
+    background-color: ${(props) =>
+        props.level === "beginner"
+            ? "#75c6a0"
+            : props.level === "default"
+            ? "#d2d2d2"
+            : props.level === "advanced"
+            ? "#8075BF"
+            : props.level === "intermediate"
+            ? "#6186BE"
+            : null};
 `;
 
 export const CardLower = styled.div`
