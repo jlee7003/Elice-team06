@@ -1,19 +1,14 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
-import icons from "@/lib/icons";
-
-const settingIcon = icons("setting_icon.png");
-const challengIcon = icons("challenges_gray_icon.png");
-const userIcon = icons("user_icon.png");
+import settingIcon from "@/assets/icons/setting_icon.png";
+import challengIcon from "@/assets/icons/challenges_gray_icon.png";
+import userIcon from "@/assets/icons/user_icon.png";
 
 export const Container = styled.div`
-    /* display: grid;
-    place-items: center; */
     display: flex;
     flex-direction: row;
     position: relative;
 
-    //width: auto;
     width: ${cssUnit.unit.width};
     height: auto;
 
@@ -44,9 +39,10 @@ export const MySec = styled.section`
         font-size: 20px;
     } */
 
-    & > span {
+    & > div {
         display: flex;
         flex-direction: row;
+        align-items: center;
 
         margin: 10px;
 
@@ -54,17 +50,17 @@ export const MySec = styled.section`
         color: ${cssUnit.color.darkergray};
     }
 
-    & > span > p {
+    & > div > p {
         width: 90%;
 
         font-size: ${cssUnit.fontSize.normal};
         color: ${cssUnit.color.black};
     }
 
-    & > span > span {
+    & > div > span {
         display: inline-block;
 
-        width: 10%;
+        width: 18%;
         height: 20px;
 
         background: url(${settingIcon}) center;
@@ -172,6 +168,7 @@ export const ChallengeContainter = styled.main`
 export const MyChallenges = styled.section`
     display: flex;
     flex-direction: column;
+    padding-bottom: 80px;
 
     & > p {
         margin-bottom: 15px;
@@ -224,4 +221,13 @@ export const LikeChallenges = styled.section`
 export const BoardsContainer = styled.section`
     width: 100%;
     height: 100%;
+`;
+
+export const Input = styled.input`
+    display: block;
+    width: 100%;
+    height: 35px;
+    border: 1px solid #cbcbcb;
+    text-indent: 10px;
+    border-radius: 3px;
 `;

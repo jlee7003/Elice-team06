@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
-import assets from "@/lib/assets";
 import { withdrawal } from "../../api/user";
+import bannerImg from "@/assets/banner_img.jpg";
 
-const bannerImg = assets("banner_img.jpg");
 export const Container = styled.div`
     display: grid;
     place-items: center;
@@ -45,6 +44,14 @@ export const Form = styled.form`
     align-items: center;
     width: 500px;
     height: 700px;
+
+    .input-readonly {
+        background-color: #dedede;
+        color: #8b8b8b;
+        &:focus {
+            outline: none;
+        }
+    }
 `;
 export const Input = styled.input`
     width: 411px;

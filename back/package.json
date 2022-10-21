@@ -4,7 +4,8 @@
     "private": true,
     "scripts": {
         "dev": "nodemon",
-        "lint": "eslint"
+        "lint": "eslint",
+	"pm2": "pm2 start src/index.js --interpreter babel-node"
     },
     "nodemonConfig": {
         "watch": [

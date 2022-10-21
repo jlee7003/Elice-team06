@@ -1,5 +1,5 @@
 import { Banner } from "@/styles/banner";
-import { MouseEvent } from "react";
+import { MouseEvent, useRef } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 //styles
@@ -17,6 +17,7 @@ import {
     ChallengeIcon,
     UserIcon,
     CategoryContent,
+    Input,
 } from "@/styles/pages/mypage-style";
 import { CategoryTitle } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
@@ -30,6 +31,9 @@ import { userState } from "@/recoil/user";
 //API import
 import API from "@/api/.";
 import post from "@/lib/dummyPosts";
+import { myInfo } from "@/api/user";
+import { changeMyInfo } from "../api/user";
+import { Info } from "@/recoil/user";
 //error handling
 import { ROUTES } from "@/routes/.";
 //현재 post는 전체 게시글 데이터를 받아오는 더미데이터로 향후 특정유저의 포스트만 모아놓는 더미데이터와 유저 더미데이터를 만들어서 사용할 예정
@@ -40,6 +44,15 @@ const Mypage = () => {
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
     const [myChallengeList, setMyChallengeList] = useRecoilState(MyChallengeList);
+
+    const [userInfo, setUserInfo] = useState<{
+        nickname?: string;
+        introduce?: string;
+        age?: string;
+        region?: string;
+        gender?: string;
+        profile_image?: string | null;
+    } | null>(null);
 
     // useEffect(() => {
     //     //API로 정보 받아오기
@@ -62,11 +75,31 @@ const Mypage = () => {
     //     });
     // }, []);
 
+    const getUserInfo = async () => {
+        await myInfo().then((res) => {
+            if (res === null) {
+                return;
+            }
+            setUserInfo({
+                age: res.data.age,
+                gender: res.data.gender,
+                introduce: res.data.introduce,
+                nickname: res.data.nickname,
+                profile_image: null,
+                region: res.data.region,
+            });
+        });
+    };
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+
     useEffect(() => {
         API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
             return setMyChallengeList(res.data);
         });
-    }, [myChallengeList]);
+    }, []);
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         const { name } = e.target as HTMLButtonElement;
@@ -92,11 +125,12 @@ const Mypage = () => {
             <Container>
                 <SideBar>
                     <MySec>
-                        <span>
-                            <p>{user?.nickname}</p>
-                            <span></span>
-                        </span>
-                        <span>{user?.introduce}</span>
+                        <div>
+                            <p>{userInfo?.nickname}</p>
+                        </div>
+                        <div>
+                            <p>{userInfo?.introduce}</p>
+                        </div>
                     </MySec>
                     <MenuContainer>
                         <Menu>

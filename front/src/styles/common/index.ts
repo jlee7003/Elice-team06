@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
-import assets from "@/lib/assets";
-
+import logo from "@/assets/logo.png";
+import logo_white from "@/assets/logo_white.png";
+import loading from "@/assets/loading.png";
 // /**
 //  * default size unit of project
 //  */
@@ -75,11 +76,9 @@ import assets from "@/lib/assets";
 /**
  * Project Logo
  */
-const logoImg = assets("logo.png");
-// const logoImg = assets("logo-removebg-preview.png");
 
 export const Logo = styled.img.attrs({
-    src: logoImg,
+    src: logo,
     alt: "logo_image1",
 })`
     /* width: 130px; */
@@ -88,9 +87,8 @@ export const Logo = styled.img.attrs({
     /* background-color: white; */
 `;
 
-const logoWhite = assets("logo_white.png");
 export const LogoWhite = styled.img.attrs({
-    src: logoWhite,
+    src: logo_white,
     alt: "logo_white",
 })`
     /* width: 130px; */
@@ -112,7 +110,6 @@ const loadingAni = keyframes`
     }
 `;
 
-const loading = assets("loading.png");
 export const Loading = styled.img.attrs({
     src: loading,
 })`

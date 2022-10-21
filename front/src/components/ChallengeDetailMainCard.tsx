@@ -13,6 +13,7 @@ import {
     CommentButton,
     CommentContainer,
     NoComments,
+    LastLabel,
 } from "@/styles/pages/challengedetail-style";
 import { addCommentResult, ChallengeJoinResult, ChallengeBoardModel } from "@/types/challengeTypes";
 import API from "@/api/index";
@@ -28,7 +29,7 @@ import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import DidLoginModal from "@/modal/DidLoginModals";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import sendToast from "@/lib/sendToast";
 const ChallengeDetailMainCard = () => {
     const [limit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
     const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
@@ -70,6 +71,7 @@ const ChallengeDetailMainCard = () => {
     const getBoardData = async () => {
         await await API.get<ChallengeBoardModel>(["challenge", challengeId.toString()]).then(
             (res) => {
+                console.log(res);
                 if (res === null) {
                     navigate(ROUTES.ErrorPage.path);
                 } else {
@@ -134,97 +136,117 @@ const ChallengeDetailMainCard = () => {
 
     return (
         <>
-            {!token && <DidLoginModal setOnModal={setOnModal}>로그인을 해주세요</DidLoginModal>}
-            <Main>
-                <div style={{ height: "580px" }}>
-                    <Title>{userData?.title}</Title>
-                    <SubTitle>
-                        😊 챌린지 기간
-                        <span>
-                            {" "}
-                            {startDate}~{endDate}
-                        </span>
-                    </SubTitle>
-                    <SubTitle style={{ marginBottom: "30px" }}>
-                        😊 총 참가 인원
-                        <span> {userData?.Challenger.length}</span>
-                    </SubTitle>
-                    <Contents>{userData?.description}</Contents>
-                </div>
-                <CommentContainer>
-                    <SubTitle>챌린저스의 한마디</SubTitle>
-
-                    {Object.values(comments).length != 0 ? (
-                        <div style={{ height: "300px" }}>
-                            {Object.values(comments)
-                                .reverse()
-                                .slice(offset, offset + limit)
-                                .map((comment: any) => (
-                                    <CommentBox key={comment[0].id}>
-                                        <div>작성자</div>
-                                        <div
-                                            style={{
-                                                fontSize: "1em",
-                                                height: "24px",
-                                                width: "137px",
-                                                whiteSpace: "nowrap",
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                            }}
-                                        >
-                                            {comment[0].author}
-                                        </div>
-                                        <div>{comment[0].description}</div>
-                                    </CommentBox>
-                                ))}
+            {userData == null ? (
+                <></>
+            ) : (
+                <>
+                    <Main>
+                        <div style={{ height: "580px" }}>
+                            <Title>{userData?.title}</Title>
+                            <SubTitle>
+                                😊 챌린지 기간
+                                <span>
+                                    {" "}
+                                    {startDate}~{endDate}
+                                </span>
+                            </SubTitle>
+                            <SubTitle style={{ marginBottom: "30px" }}>
+                                😊 총 참가 인원
+                                <span> {userData?.Challenger.length}</span>
+                            </SubTitle>
+                            <Contents>{userData?.description}</Contents>
                         </div>
-                    ) : (
-                        <NoComments>첫 댓글을 달아주세요 !</NoComments>
-                    )}
-                    <Pagination
-                        limit={limit}
-                        page={page}
-                        setPage={setPage}
-                        blockNum={blockNum}
-                        setBlockNum={setBlockNum}
-                        counts={counts}
-                    />
-                </CommentContainer>
-            </Main>
-            <Sub>
-                <SubTitle>챌린지 목표</SubTitle>
-                <TargetLabel>{userData?.goal}</TargetLabel>
-                <SubTitle>챌린지 실천에 따른 효과</SubTitle>
-                <Graph>graph</Graph>
-                <SubTitle>참여중인 사람들</SubTitle>
-                <div style={{ display: "flex" }}>
-                    {userData?.Challenger.length <= 4 ? (
-                        userData?.Challenger.map((proposer: any) => (
-                            <TargetLabel key={proposer.nickname} style={{ marginRight: "20px" }}>
-                                {proposer.nickname}
-                            </TargetLabel>
-                        ))
-                    ) : (
-                        <FlexBox>
-                            <TargetLabel>{userData?.Challenger[0]}</TargetLabel>
-                            <TargetLabel>{userData?.Challenger[1]}</TargetLabel>
-                            <TargetLabel>{userData?.Challenger[2]}</TargetLabel>
-                            <TargetLabel>{userData?.Challenger[3]}</TargetLabel>
-                            <TargetLabel>...외 {userData?.Challenger.length - 4}명</TargetLabel>
-                        </FlexBox>
-                    )}
-                </div>
-                <OKButton onClick={addjoiner}>챌린지 참여하기</OKButton>
-                <SubTitle>댓글 남기기</SubTitle>
-                <span style={{ fontSize: "16px", fontWeight: "bold", margin: "0px 10px 0px 0px" }}>
-                    작성자
-                </span>
-                <span style={{ fontSize: "16px", fontWeight: "bold", color: "#838383" }}>
-                    {user?.nickname}
-                </span>
-                <Input placeholder="댓글을 작성하세요." name="comment" ref={commentsRef} />
-                <CommentButton onClick={addComments}>댓글 등록</CommentButton>
-            </Sub>
+                        <CommentContainer>
+                            <SubTitle>챌린저스의 한마디</SubTitle>
+
+                            {Object.values(comments).length != 0 ? (
+                                <div style={{ height: "300px" }}>
+                                    {Object.values(comments)
+                                        .reverse()
+                                        .slice(offset, offset + limit)
+                                        .map((comment: any) => (
+                                            <CommentBox key={comment[0].id}>
+                                                <div>작성자</div>
+                                                <div
+                                                    style={{
+                                                        fontSize: "1em",
+                                                        height: "24px",
+                                                        width: "137px",
+                                                        whiteSpace: "nowrap",
+                                                        overflow: "hidden",
+                                                        textOverflow: "ellipsis",
+                                                    }}
+                                                >
+                                                    {comment[0].author}
+                                                </div>
+                                                <div>{comment[0].description}</div>
+                                            </CommentBox>
+                                        ))}
+                                </div>
+                            ) : (
+                                <NoComments>첫 댓글을 달아주세요 !</NoComments>
+                            )}
+                            <Pagination
+                                limit={limit}
+                                page={page}
+                                setPage={setPage}
+                                blockNum={blockNum}
+                                setBlockNum={setBlockNum}
+                                counts={counts}
+                            />
+                        </CommentContainer>
+                    </Main>
+                    <Sub>
+                        <SubTitle>챌린지 목표</SubTitle>
+                        <TargetLabel>{userData?.goal}</TargetLabel>
+                        <SubTitle>챌린지 실천에 따른 효과</SubTitle>
+                        <Graph>graph</Graph>
+                        <SubTitle>참여중인 사람들</SubTitle>
+                        <div style={{ display: "flex" }}>
+                            {userData?.Challenger.length <= 3
+                                ? userData?.Challenger.map((proposer: any) => (
+                                      <TargetLabel
+                                          key={proposer.nickname}
+                                          style={{ marginRight: "20px" }}
+                                      >
+                                          {proposer.nickname}
+                                      </TargetLabel>
+                                  ))
+                                : userData?.Challenger.slice(0, 4).map((proposer: any) => (
+                                      <TargetLabel
+                                          key={proposer.nickname}
+                                          style={{ marginRight: "20px" }}
+                                      >
+                                          {proposer.nickname}
+                                      </TargetLabel>
+                                  ))}
+                            {userData?.Challenger.length <= 4 ? (
+                                <></>
+                            ) : (
+                                <LastLabel>...외 {userData?.Challenger.length - 4}명</LastLabel>
+                            )}
+
+                            {}
+                        </div>
+                        <OKButton onClick={addjoiner}>챌린지 참여하기</OKButton>
+                        <SubTitle>댓글 남기기</SubTitle>
+                        <span
+                            style={{
+                                fontSize: "16px",
+                                fontWeight: "bold",
+                                margin: "0px 10px 0px 0px",
+                            }}
+                        >
+                            작성자
+                        </span>
+                        <span style={{ fontSize: "16px", fontWeight: "bold", color: "#838383" }}>
+                            {user?.nickname}
+                        </span>
+                        <Input placeholder="댓글을 작성하세요." name="comment" ref={commentsRef} />
+                        <CommentButton onClick={addComments}>댓글 등록</CommentButton>
+                    </Sub>
+                </>
+            )}
         </>
     );
 };

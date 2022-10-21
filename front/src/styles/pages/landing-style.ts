@@ -1,8 +1,13 @@
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 // import cssUnit from "@/cssUnit";
-import assets from "@/lib/assets";
-import icons from "@/lib/icons";
+
+import logoImg from "@/assets/logo.png";
+import potatoImg from "@/assets/potato.png";
+import boyImg from "@/assets/boy.png";
+import girlImg from "@/assets/girl.png";
+import arrow from "@/assets/icons/arrow_side_icon.png";
+import slideImg01 from "@/assets/bus_img.png";
 
 interface StyleProps {
     bgColor?: string;
@@ -42,8 +47,6 @@ export const Header = styled.header`
         padding-left: 10px;
     }
 `;
-
-const logoImg = assets("logo.png");
 
 export const LogoImg = styled.img.attrs({
     src: logoImg,
@@ -124,7 +127,7 @@ export const Section = styled.div<StyleProps>`
     color: #fff;
 
     bottom: ${(props) => props.bottom};
-    background-image: ${(props) => props.bgImg};
+    background-image: url(${(props) => props.bgImg});
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -291,10 +294,6 @@ export const Section3Box = styled.div`
     }
 `;
 
-const skull = assets("skull.png");
-const temperature = assets("temperature.png");
-const water = assets("water.png");
-
 export const Section3Content = styled.div`
     height: 400px;
     max-width: 1093px;
@@ -337,22 +336,6 @@ export const Section3Content = styled.div`
                     width: 100%;
                 }
             }
-
-            /* &:nth-child(1) {
-                background-image: url(${skull});
-                background-size: 20px;
-                background-position: 95px center;
-            }
-            &:nth-child(2) {
-                background-image: url(${water});
-                background-size: 20px;
-                background-position: 95px center;
-            }
-            &:nth-child(3) {
-                background-image: url(${temperature});
-                background-size: 20px;
-                background-position: 95px center;
-            } */
         }
     }
 
@@ -428,8 +411,6 @@ export const Section4Box = styled.div`
     }
 `;
 
-const arrow = icons("arrow_side_icon.png");
-
 export const ArrowIcon = styled.img.attrs({
     src: arrow,
     alt: "arro_icon",
@@ -467,8 +448,6 @@ export const SlideControl = styled.div`
     left: 0;
     top: 0;
 `;
-
-const slideImg01 = assets("bus_img.png");
 
 export const SlideImg = styled.img.attrs({ src: slideImg01, alt: "bus img" })``;
 
@@ -614,10 +593,6 @@ export const SectionTitle = styled.h2`
     margin-top: 100px;
 `;
 
-const potatoImg = assets("potato.png");
-const boyImg = assets("boy.png");
-const girlImg = assets("girl.png");
-
 export const Name = styled.span`
     display: inline-block;
     background-color: #fff;
@@ -634,7 +609,7 @@ export const Name = styled.span`
     transition: all 0.5s ease-in-out;
 `;
 
-export const Section5Box = styled.ul`
+export const Section5Box = styled.div`
     height: 70vh;
     max-width: 1093px;
     width: 60%;
@@ -642,7 +617,7 @@ export const Section5Box = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    li {
+    a {
         list-style: none;
         display: flex;
         flex-direction: column;

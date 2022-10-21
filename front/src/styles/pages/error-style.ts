@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import assets from "@/lib/assets";
 import cssUnit from "@/lib/cssUnit";
+import erorr_img from "@/assets/error_image.png";
 
-const errorImg = assets("error_image.png");
 export const Container = styled.div`
     width: ${cssUnit.unit.width};
     height: calc(100vh - 180px) !important;
-    background: url(${errorImg}) no-repeat center bottom -45px / 1300px;
+    background: url(${erorr_img}) no-repeat center bottom -45px / 1300px;
 `;
 
 export const LoadingBox = styled.div`

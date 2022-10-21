@@ -53,7 +53,19 @@ export const TargetLabel = styled.div`
     font-size: ${cssUnit.fontSize.normal};
     font-weight: bold;
     color: #888888;
-    white-space: pre-wrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    & > span {
+        font-size: 12px;
+    }
+`;
+export const LastLabel = styled.div`
+    margin: 15px 0px;
+    margin-right: 20px;
+    font-size: ${cssUnit.fontSize.normal};
+    font-weight: bold;
+    color: #888888;
     & > span {
         font-size: 12px;
     }

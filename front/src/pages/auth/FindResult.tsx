@@ -6,6 +6,25 @@ import { Main } from "@/components/common/Main";
 import { ROUTES } from "@/routes";
 import sendToast from "@/lib/sendToast";
 
+const copy = (text: string) => {
+    if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+    } else {
+        let textArea = document.createElement("textarea");
+        textArea.value = text;
+
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+    }
+};
+
 const FindResult = () => {
     const locationState = useLocation().state;
     const navigate = useNavigate();
@@ -21,7 +40,7 @@ const FindResult = () => {
 
         sendToast("클립보드에 복사되었습니다.", "success");
 
-        navigator.clipboard.writeText(locationState.result);
+        copy(locationState.result);
     };
 
     return (

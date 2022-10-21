@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
-import assets from "@/lib/assets";
+import bannerImg from "@/assets/banner_img.jpg";
 
-const bannerImg = assets("banner_img.jpg");
 export const Container = styled.div`
     display: grid;
     place-items: center;

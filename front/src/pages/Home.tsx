@@ -18,7 +18,9 @@ import urlCheck from "@/recoil/urlCheck";
 import { getChallengeList } from "@/api/challenge";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
-import assets from "@/lib/assets";
+import banner_cycle from "@/assets/banner_cycle.png";
+import banner_bus from "@/assets/banner_bus.png";
+import banner_plant from "@/assets/banner_plant.png";
 
 export interface Props {
     mode?: string;
@@ -150,11 +152,7 @@ const Home = () => {
 
     const contentsLength = [0, 1, 2, 3, 4, 5, 6, 7];
 
-    const bgImgArray = [
-        assets("banner_cycle.png"),
-        assets("banner_bus.png"),
-        assets("banner_plant.png"),
-    ];
+    const bgImgArray = [banner_cycle, banner_bus, banner_plant];
 
     const bgColorArray = [
         "linear-gradient(45deg, #61be92, #56676e, black)",

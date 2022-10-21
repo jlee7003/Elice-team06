@@ -41,13 +41,23 @@ import {
     Legend,
     Bar,
 } from "recharts";
-import assets from "@/lib/assets";
 import urlCheck from "@/recoil/urlCheck";
 import { userState } from "@/recoil/user";
 import ModalState from "@/recoil/modalState";
 import LoginModal from "@/modal/LoginModal";
 import useLogout from "@/hooks/useLogout";
 import API from "@/api/.";
+
+//위로!
+import landing_bgImage from "@/assets/landing_bgImage.png";
+import curve_bgImage from "@/assets/curve_bgImage.png";
+import pollution_bgImage from "@/assets/pollution_bgImage.jpg";
+import banner_bus from "@/assets/banner_bus.png";
+import banner_cycle from "@/assets/banner_cycle.png";
+import banner_plant from "@/assets/banner_plant.png";
+import skull from "@/assets/skull.png";
+import temperature from "@/assets/temperature.png";
+import water from "@/assets/water.png";
 
 const Landing = () => {
     //-----useRecoilValue----
@@ -111,13 +121,10 @@ const Landing = () => {
     //section nav list
     const nav = ["탄소발자국", "배출 현황", "탄소 문제", "챌린지 소개", "팀원 소개"];
 
-    const skull = assets("skull.png");
-    const temperature = assets("temperature.png");
-    const water = assets("water.png");
     const carbonArray = [
-        { icon: skull, text: "국가별 배출량" },
-        { icon: temperature, text: "해수면" },
-        { icon: water, text: "국가별 온도" },
+        { icon: `${skull}`, text: "국가별 배출량" },
+        { icon: `${temperature}`, text: "해수면" },
+        { icon: `${water}`, text: "국가별 온도" },
     ];
 
     useEffect(() => {
@@ -465,7 +472,7 @@ const Landing = () => {
                 })}
             </SectionNav>
             <Container onWheel={onWheel} ref={section} style={{ top: 0, transition: "all 0.7s" }}>
-                <Section bgColor="#8FACBD" bgImg="url('src/assets/landing_bgImage.png')">
+                <Section bgColor="#8FACBD" bgImg={landing_bgImage}>
                     <Section1Box>
                         <div>
                             <h2>
@@ -485,7 +492,7 @@ const Landing = () => {
                         </p>
                     </Section1Box>
                 </Section>
-                <Section bgColor="#fff" bgImg="url('src/assets/curve_bgImage.png')">
+                <Section bgColor="#fff" bgImg={curve_bgImage}>
                     <h3>탄소 배출 현황</h3>
                     <CarbonGraph width="60%" height="50%" margin="100px auto 0">
                         <ResponsiveContainer width="100%" height="100%">
@@ -532,7 +539,7 @@ const Landing = () => {
                         </ResponsiveContainer>
                     </CarbonGraph>
                 </Section>
-                <Section bgImg="url('src/assets/pollution_bgImage.jpg')">
+                <Section bgImg={pollution_bgImage}>
                     <Section3Box>
                         <div>
                             <h2>심각한 탄소 문제</h2>
@@ -707,7 +714,7 @@ const Landing = () => {
                                 <SlideContent>
                                     <ul>
                                         <SlideList
-                                            slideBgImg={assets("banner_bus.png")}
+                                            slideBgImg={banner_bus}
                                             bgColor="linear-gradient(45deg, #35614c, #56676e, black)"
                                             bgPosition="right center"
                                             bgSize="800px"
@@ -721,7 +728,7 @@ const Landing = () => {
                                             </p>
                                         </SlideList>
                                         <SlideList
-                                            slideBgImg={assets("banner_cycle.png")}
+                                            slideBgImg={banner_cycle}
                                             bgColor="linear-gradient(45deg, #35614c, #63433e, black)"
                                             bgPosition="right center"
                                             bgSize="800px"
@@ -735,7 +742,7 @@ const Landing = () => {
                                             </p>
                                         </SlideList>
                                         <SlideList
-                                            slideBgImg={assets("banner_plant.png")}
+                                            slideBgImg={banner_plant}
                                             bgColor="linear-gradient(45deg, #35614c, #af9c93, black)"
                                             bgPosition="right center"
                                             bgSize="800px"
@@ -793,30 +800,32 @@ const Landing = () => {
                 <Section bgColor="#343434">
                     <SectionTitle>함께한 팀원들</SectionTitle>
                     <Section5Box>
-                        <li>
+                        <a href="https://github.com/DL-Berkey">
                             <p></p>
                             <Name>김영준</Name>
-                        </li>
-                        <li>
+                        </a>
+                        <a>
                             <p></p>
                             <Name>이지원</Name>
-                        </li>
-                        <li>
+                        </a>
+                        <a href="https://github.com/jlee7003">
                             <p></p>
                             <Name>이안토니의호</Name>
-                        </li>
-                        <li>
+                        </a>
+
+                        <a href="https://github.com/fbwldbs93">
                             <p></p>
                             <Name>류지윤</Name>
-                        </li>
-                        <li>
+                        </a>
+
+                        <a href="https://github.com/baabguui">
                             <p></p>
                             <Name>임지원</Name>
-                        </li>
-                        <li>
+                        </a>
+                        <a href="https://github.com/KongTi">
                             <p></p>
                             <Name>홍지민</Name>
-                        </li>
+                        </a>
                     </Section5Box>
                 </Section>
             </Container>
