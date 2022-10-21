@@ -33,7 +33,7 @@ export const ModalBody = styled.div`
 
     text-align: center;
 
-    background-color: rgb(255, 255, 255);
+ rgb(255, 255, 255);
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
     /* transform: translateX(-50%) translateY(-50%); */

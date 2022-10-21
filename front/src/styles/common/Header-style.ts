@@ -28,21 +28,21 @@ export const HeaderSticky = styled.header<Props>`
     ${(props) =>
         props.mode == "Light"
             ? css`
-                  background-color: #282828;
-                  label {
-                      background-color: white;
-                  }
-                  label > div {
-                      background-color: #838383;
-                  }
-              `
-            : css`
                   background-color: white;
                   label {
                       background-color: #282828;
                   }
                   label > div {
                       background-color: #cccccc;
+                  }
+              `
+            : css`
+                  background-color: #282828;
+                  label {
+                      background-color: white;
+                  }
+                  label > div {
+                      background-color: #838383;
                   }
               `}
 `;

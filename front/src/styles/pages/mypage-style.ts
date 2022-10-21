@@ -60,7 +60,7 @@ export const MySec = styled.section`
     & > div > span {
         display: inline-block;
 
-        width: 10%;
+        width: 18%;
         height: 20px;
 
         background: url(${settingIcon}) center;

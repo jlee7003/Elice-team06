@@ -44,6 +44,14 @@ export const Form = styled.form`
     align-items: center;
     width: 500px;
     height: 700px;
+
+    .input-readonly {
+        background-color: #dedede;
+        color: #8b8b8b;
+        &:focus {
+            outline: none;
+        }
+    }
 `;
 export const Input = styled.input`
     width: 411px;
