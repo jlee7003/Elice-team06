@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Props } from "../App";
 
-const ModalPortal = ({ children }: { children: React.ReactNode }) => {
+const ModalPortal = ({ children }: { children: React.ReactNode | any }) => {
     const modalRoot = document.getElementById("modal-root") as HTMLElement;
     return ReactDOM.createPortal(children, modalRoot);
 };

@@ -17,7 +17,6 @@ import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
 import ErrorModal from "@/modal/ErrorModal";
 import Shadow from "@/components/common/Shadow";
-
 export interface Props {
     mode?: string;
 }

@@ -61,7 +61,7 @@ export const authPassword = async (password: string) => {
 };
 
 export const withdrawal = async () => {
-    const result = await API.put(["user", "myInfo", "withdrawal"], "");
+    const result = await API.put(["user", "withdrawal"], "");
 
     return result;
 };

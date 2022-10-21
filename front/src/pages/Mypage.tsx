@@ -62,8 +62,21 @@ const Mypage = () => {
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         const { name } = e.target as HTMLButtonElement;
-        const url = `/${name}`;
-        navigate(url);
+        let url = `/${name}`;
+        if (name == "changePassword") {
+            url = `/Auth`;
+            navigate(url, {
+                state: {
+                    id: name,
+                },
+            });
+        }
+
+        navigate(url, {
+            state: {
+                id: name,
+            },
+        });
     };
 
     return (
@@ -91,9 +104,13 @@ const Mypage = () => {
                         </Menu>
                         <Menu>
                             <span>회원정보</span>
-                            <Buttons name="editMyInfo" onClick={onClick}>
+                            <Buttons name="Auth" onClick={onClick}>
                                 <UserIcon />
                                 회원정보 변경
+                            </Buttons>
+                            <Buttons name="changePassword" onClick={onClick}>
+                                <UserIcon />
+                                비밀번호 변경
                             </Buttons>
                             <Buttons name="withdrawal" onClick={onClick}>
                                 <UserIcon />
