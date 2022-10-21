@@ -27,9 +27,8 @@ import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
 import ModalState from "@/recoil/modalState";
-import DidLoginModal from "@/modal/DidLoginModals";
 import { useLocation, useNavigate } from "react-router-dom";
-import sendToast from "@/lib/sendToast";
+
 const ChallengeDetailMainCard = () => {
     const [limit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
     const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
@@ -200,7 +199,7 @@ const ChallengeDetailMainCard = () => {
                         <SubTitle>챌린지 목표</SubTitle>
                         <TargetLabel>{userData?.goal}</TargetLabel>
                         <SubTitle>챌린지 실천에 따른 효과</SubTitle>
-                        <Graph>graph</Graph>
+                        <Graph></Graph>
                         <SubTitle>참여중인 사람들</SubTitle>
                         <div style={{ display: "flex" }}>
                             {userData?.Challenger.length <= 3

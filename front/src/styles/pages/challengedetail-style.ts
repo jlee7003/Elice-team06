@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
+import fixing from "@/assets/fixing.png";
+
 export const Container = styled.div`
     display: grid;
     place-items: start center;
@@ -109,8 +111,12 @@ export const BoardCard = styled.div`
     background-color: #ffffff;
     margin: 10px;
 `;
-export const Graph = styled.div`
-    width: 400px;
+
+export const Graph = styled.img.attrs({
+    src: fixing,
+    alt: "fixing",
+})`
+    width: 380px;
     height: 256px;
     border: 1px solid #dddddd;
     background-color: #ffffff;

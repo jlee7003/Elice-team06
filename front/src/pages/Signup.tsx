@@ -19,6 +19,7 @@ import { signup } from "@/api/user";
 import { Logo } from "@/styles/common";
 import errorRecoil from "@/recoil/errorRecoil";
 import { useSetRecoilState } from "recoil";
+import sendToast from "@/lib/sendToast";
 const Signup = () => {
     const nickname = useRef<HTMLInputElement>(null);
     const introduce = useRef<HTMLInputElement>(null);
@@ -117,10 +118,11 @@ const Signup = () => {
         const result: any = await signup(formData);
 
         if (result?.response?.status != undefined) {
-            setError({
-                isError: true,
-                message: result?.response?.data?.message,
-            });
+            sendToast(result?.response?.data?.message, "error");
+            // setError({
+            //     isError: true,
+            //     message: result?.response?.data?.message,
+            // });
             return;
         }
         navigate(ROUTES.Home.path);
