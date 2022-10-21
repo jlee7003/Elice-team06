@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
     Card,
     CardUpper,
@@ -15,6 +15,8 @@ import {
 } from "@/styles/ChallengeCard-style";
 import DarkMode from "@/recoil/darkMode";
 import { useNavigate } from "react-router-dom";
+import { userState } from "@/recoil/user";
+import sendToast from "@/lib/sendToast";
 export type Level = "beginner" | "intermediate" | "advanced" | "default";
 
 export interface Props {
@@ -31,6 +33,7 @@ export interface Props {
 }
 
 const ChallengeCard = (props: Props) => {
+    const user = useRecoilValue(userState);
     const [darkMode] = useRecoilState(DarkMode);
     const navigate = useNavigate();
     const token = sessionStorage.getItem("refresh");
@@ -63,11 +66,15 @@ const ChallengeCard = (props: Props) => {
                     <ChallengeButton
                         onClick={() => {
                             // navigate("/challenge/challengedetail", props.id);
-                            navigate("/challenge/challengedetail", {
-                                state: {
-                                    id: props.id,
-                                },
-                            });
+                            if (user) {
+                                navigate("/challenge/challengedetail", {
+                                    state: {
+                                        id: props.id,
+                                    },
+                                });
+                            } else {
+                                sendToast("로그인을 해주세요.", "error");
+                            }
                         }}
                     >
                         도전하기

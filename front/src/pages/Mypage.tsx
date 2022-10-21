@@ -45,16 +45,14 @@ const Mypage = () => {
     const navigate = useNavigate();
     const [myChallengeList, setMyChallengeList] = useRecoilState(MyChallengeList);
 
-    const nickNameRef = useRef<HTMLParagraphElement>(null);
-    const introduceRef = useRef<HTMLParagraphElement>(null);
-    const nickNameInputRef = useRef<HTMLInputElement>(null);
-    const introduceInputRef = useRef<HTMLInputElement>(null);
-
-    const [clicked, setClicked] = useState(false);
-    const [userInfo, setUserInfo] = useState<{ nickname?: string; introduce?: string } | null>(
-        null
-    );
-    const [isUpdated, setIsUpdated] = useState(false);
+    const [userInfo, setUserInfo] = useState<{
+        nickname?: string;
+        introduce?: string;
+        age?: string;
+        region?: string;
+        gender?: string;
+        profile_image?: string | null;
+    } | null>(null);
 
     // useEffect(() => {
     //     //API로 정보 받아오기
@@ -83,18 +81,19 @@ const Mypage = () => {
                 return;
             }
             setUserInfo({
-                nickname: res.data.nickname,
+                age: res.data.age,
+                gender: res.data.gender,
                 introduce: res.data.introduce,
+                nickname: res.data.nickname,
+                profile_image: null,
+                region: res.data.region,
             });
-            console.log(res.data);
         });
     };
 
     useEffect(() => {
         getUserInfo();
-
-        console.log("실행되니?");
-    }, [isUpdated]);
+    }, []);
 
     useEffect(() => {
         API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
@@ -121,98 +120,16 @@ const Mypage = () => {
         });
     };
 
-    let formData = {
-        updateData: {
-            nickname: "",
-            introduce: "",
-        },
-    };
-
-    //input toggle
-    const onChangeUser = async () => {
-        if (clicked === false) {
-            if (nickNameInputRef.current) {
-                nickNameInputRef.current.style.opacity = "1";
-            }
-            if (introduceInputRef.current) {
-                introduceInputRef.current.style.opacity = "1";
-            }
-
-            if (nickNameRef.current) {
-                nickNameRef.current.style.opacity = "0";
-            }
-            if (introduceRef.current) {
-                introduceRef.current.style.opacity = "0";
-            }
-
-            setClicked(true);
-            setIsUpdated(false);
-        } else if (clicked === true) {
-            if (nickNameInputRef.current) {
-                nickNameInputRef.current.style.opacity = "0";
-            }
-            if (introduceInputRef.current) {
-                introduceInputRef.current.style.opacity = "0";
-            }
-
-            if (nickNameRef.current) {
-                nickNameRef.current.style.opacity = "1";
-            }
-            if (introduceRef.current) {
-                introduceRef.current.style.opacity = "1";
-            }
-
-            formData = {
-                updateData: {
-                    nickname: nickNameInputRef.current?.value!,
-                    introduce: introduceInputRef.current?.value!,
-                },
-            };
-
-            setUserInfo(formData.updateData);
-            setIsUpdated(true);
-
-            await changeMyInfo(formData);
-
-            setClicked(false);
-        }
-    };
-
-    // const onChangeNickname = (e: any) => {
-    //     console.log(e.target.value);
-
-    //     setUserInfo({
-    //         nickname: e.target.value,
-    //     });
-    // };
-
     return (
         <Main>
             <Container>
                 <SideBar>
                     <MySec>
                         <div>
-                            <p ref={nickNameRef}>{user?.nickname}</p>
-                            <Input
-                                // type="id"
-                                placeholder="닉네임을 입력하세요."
-                                // name="nickname"
-                                style={{ opacity: "0" }}
-                                ref={nickNameInputRef}
-                                defaultValue={userInfo?.nickname}
-                            />
-                            <span onClick={onChangeUser}></span>
+                            <p>{userInfo?.nickname}</p>
                         </div>
                         <div>
-                            <p ref={introduceRef}>{user?.introduce}</p>
-                            <Input
-                                // type="id"
-                                placeholder="자기소개를 입력하세요."
-                                // name="nickname"
-                                style={{ opacity: "0" }}
-                                ref={introduceInputRef}
-                                defaultValue={userInfo?.introduce}
-                            />
+                            <p>{userInfo?.introduce}</p>
                         </div>
                     </MySec>
                     <MenuContainer>

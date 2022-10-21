@@ -39,10 +39,10 @@ export const FooterBackground = styled.footer<Props>`
     ${(props) =>
         props.mode == "Light"
             ? css`
-                  opacity: 0.3;
+                  opacity: 1;
               `
             : css`
-                  opacity: 1;
+                  opacity: 0.3;
               `};
 `;
 
