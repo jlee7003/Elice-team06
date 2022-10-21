@@ -59,7 +59,7 @@ const Signup = () => {
             passwordok.current?.value == "" ||
             id.current?.value == "" ||
             nickname.current?.value == "" ||
-            gender.current?.value == "" ||
+            inputStatus == "" ||
             age.current?.value == "" ||
             region.current?.value == "" ||
             region.current?.value == "해당없음"

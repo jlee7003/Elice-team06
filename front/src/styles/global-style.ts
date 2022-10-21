@@ -80,30 +80,21 @@ const GlobalStyle = createGlobalStyle<Props>`
         ${(props) =>
             props.mode == "Light"
                 ? css`
-                      background-color: #282828;
-                      color: white;
-                  `
-                : css`
                       background-color: white;
                       color: black;
                       input {
                           background-color: #fbfbfb;
                       }
+                  `
+                : css`
+                      background-color: #282828;
+                      color: white;
                   `}
     }
     label > div {
         ${(props) =>
             props.mode == "Light"
                 ? css`
-                      color: black;
-                      label {
-                          background-color: #282828;
-                      }
-                      label > div {
-                          background-color: #cccccc;
-                      }
-                  `
-                : css`
                       color: white;
                       label {
                           background-color: white;
@@ -112,6 +103,15 @@ const GlobalStyle = createGlobalStyle<Props>`
                           background-color: blue;
                           transform: translateX(20px);
                       }
+                  `
+                : css`
+                      color: black;
+                      label {
+                          background-color: #282828;
+                      }
+                      label > div {
+                          background-color: #cccccc;
+                      }
                   `}
     }
     header{
@@ -119,16 +119,6 @@ const GlobalStyle = createGlobalStyle<Props>`
                   ${(props) =>
                       props.mode == "Light"
                           ? css`
-                                background-color: #282828;
-                                color: white;
-                                label {
-                                    background-color: #282828;
-                                }
-                                label > div {
-                                    background-color: #838383;
-                                }
-                            `
-                          : css`
                                 background-color: white;
                                 color: black;
                                 label {
@@ -136,6 +126,16 @@ const GlobalStyle = createGlobalStyle<Props>`
                                 }
                                 label > div {
                                     background-color: #cccccc;
+                                }
+                            `
+                          : css`
+                                background-color: #282828;
+                                color: white;
+                                label {
+                                    background-color: #282828;
+                                }
+                                label > div {
+                                    background-color: #838383;
                                 }
                             `}
     }
