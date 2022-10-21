@@ -132,7 +132,7 @@ const Mypage = () => {
                     <LikeChallenges>
                         <CategoryTitle>내가 등록한 게시글 목록</CategoryTitle>
                         <BoardsContainer>
-                            <PostCards postLists={null} currentPage={1} />
+                            <PostCards postLists={null} currentPage={1} deleteMode={false} />
                         </BoardsContainer>
                     </LikeChallenges>
                 </ChallengeContainter>

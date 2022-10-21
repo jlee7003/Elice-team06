@@ -1,11 +1,6 @@
-import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "@/recoil/user";
-import { refresh } from "@/api/user";
-import API from "@/api/.";
 import token from "@/recoil/token";
-
-export type State = "loading" | "done";
 
 const useRefresh = () => {
     const getToken = useRecoilValue(token);
@@ -27,6 +22,7 @@ const useRefresh = () => {
         setUser({
             nickname: data?.nickname,
             introduce: data?.Profile[0]?.introduce,
+            admin: data?.admin,
         });
     };
 
