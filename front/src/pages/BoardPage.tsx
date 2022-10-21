@@ -55,7 +55,6 @@ const BoardPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [currentRange, setCurrentRange] = useState<number>(0);
     const [postList, setPostList] = useState<PostLists | null>(null);
-
     const { id } = useParams();
 
     /**
@@ -95,7 +94,10 @@ const BoardPage = () => {
             }
 
             setPostList(res);
+            console.log("데이터 불러왔나용?");
         });
+        //setPageReRander(false);
+        //console.log("useEffect 실행됐나용?");
     }, []);
     //묶어서 보내줄 객체 생성
     const PostProps = {
@@ -148,7 +150,7 @@ const BoardPage = () => {
                                         />
                                     </CardsHolder>
                                     <ButtonContianer>
-                                        <button onClick={() => setOnModal("challenge")}>
+                                        {/* <button onClick={() => setOnModal("challenge")}>
                                             글쓰기
                                         </button>
                                         {onModal == "challenge" && (
@@ -156,8 +158,7 @@ const BoardPage = () => {
                                                 setOnModal={setOnModal}
                                                 addfunction={alert}
                                             ></ChallengeRequestModal>
-                                        )}
-
+                                        )} */}
                                         <button onClick={() => setOnModal("board")}>
                                             의견 남기기
                                         </button>

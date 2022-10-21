@@ -27,6 +27,7 @@ export const AllCenterBox = styled.div`
     display: flex;
     align-items: center;
     width: 50%;
+    height: 50px;
 `;
 export const NonFlexBox = styled.div`
     height: 120%;
@@ -77,6 +78,11 @@ export const GrayButton = styled.button`
     background-color: #ececec;
     color: #939393;
     text-align: center;
+
+    &:hover {
+        color: white;
+        background-color: gray;
+    }
 `;
 
 export const GreenButton = styled.button`
@@ -99,6 +105,9 @@ export const Input = styled.input`
     border: 1px solid #d9d9d9;
     font-size: ${cssUnit.fontSize.normal};
 
+    vertical-align: top;
+    text-align: left;
+
     &::placeholder {
         font-size: ${cssUnit.fontSize.normal};
     }
@@ -106,11 +115,15 @@ export const Input = styled.input`
 export const LongInput = styled.input`
     width: 100%;
     height: 400px;
+
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 15px;
+
     border: 1px solid #d9d9d9;
+
     font-size: ${cssUnit.fontSize.normal};
+    vertical-align: super;
 
     &::placeholder {
         font-size: ${cssUnit.fontSize.normal};

@@ -23,15 +23,20 @@ import { userState } from "@/recoil/user";
 
 //import Modal
 import AlertModal from "@/modal/AlertModal";
+import BoardEditModal from "@/modal/EditModal";
 
 //error handling
 import { ROUTES } from "@/routes/.";
+import { forEach } from "lodash";
 
 /**
  * postList: 각 페이지당 갖고 있는 포스트들 데이터 (부모에서 받음)
  * currentPage: 현재 페이지 위치
  */
-
+type formData = {
+    title: string;
+    description: string;
+};
 const PostCards = (prop: {
     postLists: PostLists | null;
     currentPage: number;
@@ -42,17 +47,53 @@ const PostCards = (prop: {
     const user = useRecoilValue(userState);
     /**
      * Like handling
-     * 가져온 데이터에 현재 상태(추천 on/off)를 더하여 조작
      */
     const [likesList, setLikesList] = useState(["0"]);
-    const [isUserLike, setIsUserLike] = useState(false);
-    const [handlieLikeNum, sethandlieLikeNum] = useState(0);
+    const [likeData, setLikeData] = useState({});
+    /** initialize data before handling */
+    const initLikeData = (likedLists) => {
+        for (let page in postlist) {
+            let post = postlist[page];
+            for (let i = 0; i < post.length; i++) {
+                if (likedLists.includes(String(post[i].id))) {
+                    post[i]._count.VotePost -= 1;
+                }
+            }
+        }
+        setLikeData(
+            likedLists.reduce((ori, value) => {
+                return { ...ori, [value]: true };
+            }, {})
+        );
+    };
+    /**
+     *         //promise error occured..why??
+        likedLists.forEach((page) => {
+            let post = postlist[page];
+            post.forEach((p, idx) => {
+                if (likedLists.includes(String(p[idx].id))) {
+                    return (p[idx]._count.VotePost -= 1);
+                }
+            });
+        });
+     * 
+     */
+
     /**
      * Delete handling
      */
     //modal handling
-    const NO_MODAL = 0;
-    const [modalOpen, setModalOpen] = useState(NO_MODAL);
+    const NO_DELETE_MODAL = 0;
+    const [deleteModalOpen, setDeleteModalOpen] = useState(NO_DELETE_MODAL);
+    //editing
+    const NO_EDIT_MODAL = 0;
+    const [editModalOpen, setEditModalOpen] = useState(NO_EDIT_MODAL);
+
+    const [preData, setPredata] = useState<formData>({
+        title: "",
+        description: "",
+    });
+
     //관리자 모드에서 삭제하기 기능?
     //const deleteModeOn = prop.deleteMode;
 
@@ -85,6 +126,7 @@ const PostCards = (prop: {
                 //converting num->string
                 const result = likedPostslist.map((i: number) => i.toString());
                 setLikesList(result);
+                initLikeData(result);
             });
         }
         return;
@@ -99,6 +141,20 @@ const PostCards = (prop: {
     //DELETE
     const deletingPost = async (param: string) => {
         const result = await API.delete<number>(["board", param]);
+        window.location.reload();
+        return result;
+    };
+
+    //EDIT
+    const editingPost = async (param: string, data: any) => {
+        const result = await API.put<number>(["board", param], data);
+        window.location.reload();
+        return result;
+    };
+
+    //GET
+    const gettingPost = async (params: string) => {
+        const result = await API.get(["board", params]);
         return result;
     };
 
@@ -106,39 +162,64 @@ const PostCards = (prop: {
      */
     //DELETE
     const onClickDelete = (target: number) => {
-        //console.log("target", target);
         deletingPost(target.toString());
-        //const el = e.target as HTMLButtonElement;
-        //const v = el.getAttribute("data-post-id");
-        //console.log(v);
-        //deletingPost(name);
     };
+
+    //edit
+    const onClickEdit = (target: number, data: any) => {
+        console.log("타겟", target);
+        gettingPost(target.toString());
+
+        //editingPost(target.toString(), data);
+    };
+
+    const onClickGetData = (target: number) => {
+        console.log("클릭해서 갖고오고있니? 타겟은 잘 찾았니?", target);
+        gettingPost(target.toString()).then((res) => {
+            const data: any = res.data;
+            let formData: formData = {
+                title: "",
+                description: "",
+            };
+            //console.log("타겟", typeof data.title);
+            formData.title = data.title;
+            formData.description = data.description;
+            //console.log("보내용~", formData);
+            setPredata(formData);
+        });
+
+        //editingPost(target.toString(), data);
+    };
+
     //LIKE
-    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const onLikeClick = (e: MouseEvent<HTMLButtonElement>) => {
         if (user) {
-            //해당 게시글의 id(post_id 가져오기)
-            const { name } = e.target as HTMLButtonElement;
-
-            puttingLike(name, "");
-            const isAlreadyLiked = likesList.includes(name);
-
-            //이미 추천했으면 아무것도 안 함
-            if (isAlreadyLiked) {
-                return;
+            //해당 게시글의 id (post_id 가져오고 postId로 rename)
+            const { name: postId } = e.target as HTMLButtonElement;
+            // find post by post_id
+            let post;
+            for (let page in postlist) {
+                let posts = postlist[page];
+                post = posts.find((postEle) => {
+                    return String(postEle.id) === postId;
+                });
+                if (post !== undefined) break;
             }
-            //아직 추천을 안 했고 지금 추천상태인지 체크
-            //기존 데이터에 따르면 추천 안 했는데 현재 페이지에서 추천을 했는데 클릭한 거니까 1) 추천상태를 false로 바꾸고 2. 더한 값을 빼줘야 함
-            if (isUserLike) {
-                setIsUserLike(false);
-                return sethandlieLikeNum(0);
+            //put data
+            puttingLike(postId, "");
+            //post_id가 likeData에 있다면 true를 false로 바꾸고 없다면 true로 스위칭
+            if (likeData.hasOwnProperty(postId)) {
+                likeData[postId] = !likeData[postId];
+            } else {
+                likeData[postId] = true;
             }
-            //기존 데이터에서 추천도 안했고 현재 상태도 추천을 안했다 그러면 추천해야지
-            setIsUserLike(true);
-            sethandlieLikeNum(1);
-            return;
+            //값이 있다면 1을 / 없다면 0을 더한다.
+            let totalLikes = post._count.VotePost + (likeData[postId] ? 1 : 0);
+            //HTML의 요소의 innerHTML에 직접 간섭함
+            (e.target as HTMLButtonElement).innerHTML = totalLikes;
         }
-        return;
     };
+
     /**Delete action *
      * /
     /** Style */
@@ -153,6 +234,8 @@ const PostCards = (prop: {
         )}`;
     };
 
+    /**Edit action */
+
     return (
         <>
             {postlist ? (
@@ -165,8 +248,11 @@ const PostCards = (prop: {
                                     <p>{post.description}</p>
                                 </Contents>
                                 <Box>
-                                    <LikeButton name={`${post.id}`} onClick={onClick}>
-                                        {post._count.VotePost + handlieLikeNum}
+                                    <LikeButton name={post.id} onClick={onLikeClick}>
+                                        {post._count.VotePost +
+                                            (likeData.hasOwnProperty(post.id) && likeData[post.id]
+                                                ? 1
+                                                : 0)}
                                     </LikeButton>
 
                                     {/* {deleteModeOn ? (
@@ -195,11 +281,23 @@ const PostCards = (prop: {
                                                 <DeleteButton
                                                     name={`${post.id}`}
                                                     onClick={() => {
-                                                        setModalOpen(post.id);
+                                                        setDeleteModalOpen(post.id);
                                                     }}
                                                 >
                                                     삭제
                                                 </DeleteButton>
+                                                <DeleteButton
+                                                    name={`${post.id}`}
+                                                    onClick={() => {
+                                                        setEditModalOpen(post.id);
+                                                        onClickGetData(post.id);
+                                                    }}
+                                                >
+                                                    수정
+                                                </DeleteButton>
+                                                {/* <BoardEditModal setOnModal={setOnModal}>
+                                                    수정
+                                                </BoardEditModal> */}
                                             </>
                                         ) : (
                                             <></>
@@ -218,10 +316,16 @@ const PostCards = (prop: {
                         </Article>
                     ))}
                     <AlertModal
-                        modalOpen={modalOpen}
+                        modalOpen={deleteModalOpen}
                         trigger={onClickDelete}
-                        closeModal={() => setModalOpen(0)}
+                        closeModal={() => setDeleteModalOpen(0)}
                     ></AlertModal>
+                    <BoardEditModal
+                        modalOpen={editModalOpen}
+                        trigger={onClickEdit}
+                        closeModal={() => setEditModalOpen(0)}
+                        preData={preData}
+                    ></BoardEditModal>
                 </>
             ) : (
                 <></>
