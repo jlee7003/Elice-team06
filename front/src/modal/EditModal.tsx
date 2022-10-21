@@ -22,7 +22,7 @@ type Props = {
     modalOpen: number;
     closeModal: any;
     trigger: any;
-    preData: any;
+    fetchData: any;
 };
 const DragContainer: any = Draggable;
 const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preData }: Props) => {
@@ -36,7 +36,7 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
     //const title = useRef<HTMLInputElement>(null);
     //const description = useRef<HTMLInputElement>(null);
     const [ValidationCheck, setValidationCheck] = useState(false);
-    const [inputText, setInputText] = useState(preData);
+    const [inputText, setInputText] = useState(fetchData);
 
     console.log("inputText", inputText);
 
@@ -81,7 +81,7 @@ const BoardEditModal: React.FC<Props> = ({ modalOpen, closeModal, trigger, preDa
 
     return (
         <>
-            {preData && (
+            {fetchData && (
                 <ModalPortal>
                     <ModalContainer style={{ visibility: modalOpen !== 0 ? "visible" : "hidden" }}>
                         <DragContainer>

@@ -108,11 +108,11 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
 
                                 {ValidationCheck ? (
                                     <OKButton onClick={buttonClick} onMouseEnter={validationTrue}>
-                                        챌린지 요청하기
+                                        등록하기
                                     </OKButton>
                                 ) : (
                                     <XButton onClick={onClickPrevent} onMouseEnter={validationTrue}>
-                                        챌린지 요청하기
+                                        등록하기
                                     </XButton>
                                 )}
                             </FlexBox>
