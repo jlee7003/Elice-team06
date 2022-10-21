@@ -136,10 +136,10 @@ const Mypage = () => {
                 <SideBar>
                     <MySec>
                         <div>
-                            <p>{userInfo?.nickname}</p>
+                            <p style={{ fontSize: "20px" }}>{userInfo?.nickname}</p>
                         </div>
                         <div>
-                            <p>{userInfo?.introduce}</p>
+                            <p style={{ fontSize: "16px" }}>{userInfo?.introduce}</p>
                         </div>
                     </MySec>
                     <MenuContainer>
