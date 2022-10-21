@@ -472,7 +472,7 @@ const Landing = () => {
 
                 <Nav>
                     <Link to={ROUTES.Home.path}>챌린지</Link>
-                    <Link to={"/boardPage/pages/1"}>커뮤니티</Link>
+                    <Link to={"/community/pages/1"}>커뮤니티</Link>
                     {user === null ? (
                         <Link to={ROUTES.Login.path}>로그인</Link>
                     ) : (
