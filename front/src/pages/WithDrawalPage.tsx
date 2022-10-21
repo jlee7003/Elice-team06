@@ -35,14 +35,6 @@ const WithDrawalPage = () => {
     const setError = useSetRecoilState(errorRecoil);
     const navigate = useNavigate();
     const setLogout = useLogout();
-    // const changePassword = async () => {
-    //     await changePassword(passwordData).then((res) => {
-    //         if (res === null) {
-    //             return;
-    //         }
-    //         setUserInfo(res.data);
-    //     });
-    // };
 
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
@@ -79,7 +71,6 @@ const WithDrawalPage = () => {
 
         const result: any = await withdrawal();
         setLogout();
-
         if (result?.response?.status != undefined) {
             setError({
                 isError: true,
