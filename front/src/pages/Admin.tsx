@@ -52,7 +52,7 @@ const Admin = () => {
 
     useEffect(() => {
         if (user === null || user.admin === false) {
-            // navigate(ROUTES.ErrorPage.path);
+            navigate(ROUTES.ErrorPage.path);
         }
 
         API.get<{ year: number; sea_level: number }[]>(["data", currentData]).then((res) => {
