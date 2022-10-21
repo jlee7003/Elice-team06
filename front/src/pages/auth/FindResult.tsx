@@ -1,7 +1,8 @@
 import { useEffect, MouseEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Logo } from "@/styles/common";
-import { Main, Form, Label, Result, ResultWrap, MenuLink } from "@/styles/pages/auth-style";
+import { FindInfoWrap, Form, Label, Result, ResultWrap, MenuLink } from "@/styles/pages/auth-style";
+import { Main } from "@/components/common/Main";
 import { ROUTES } from "@/routes";
 import sendToast from "@/lib/sendToast";
 
@@ -25,7 +26,7 @@ const FindResult = () => {
 
     return (
         <Main>
-            <section>
+            <FindInfoWrap>
                 <Logo />
                 <Form>
                     <Label>{locationState.labelName}</Label>
@@ -37,7 +38,7 @@ const FindResult = () => {
                     </ResultWrap>
                     <MenuLink to={ROUTES.Login.path}>로그인하기</MenuLink>
                 </Form>
-            </section>
+            </FindInfoWrap>
         </Main>
     );
 };

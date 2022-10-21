@@ -88,9 +88,9 @@ const Landing = () => {
     const temperature = assets("temperature.png");
     const water = assets("water.png");
     const carbonArray = [
-        { icon: skull, text: "위험성" },
+        { icon: skull, text: "국가별 배출량" },
         { icon: temperature, text: "해수면" },
-        { icon: water, text: "온도" },
+        { icon: water, text: "국가별 온도" },
     ];
 
     console.log(carbonArray[0].icon);

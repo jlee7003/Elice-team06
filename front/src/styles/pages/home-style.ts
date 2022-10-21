@@ -43,7 +43,8 @@ export const CategoryTitle = styled.h2`
 
 export const CategoryContent = styled.div`
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: flex-start;
     flex-wrap: wrap;
     width: 100%;
 `;
@@ -54,6 +55,14 @@ export const SkeletonContent = styled.div`
     margin-top: 30px;
     width: 298px;
     height: 285px;
+    & + div {
+        margin-left: 20px;
+    }
+
+    &:nth-child(5) {
+        margin-left: 0;
+    }
+
     & > div {
         & + div {
             margin-top: 10px;

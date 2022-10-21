@@ -22,20 +22,25 @@ export const FlexBox = styled.div`
 
 export const ModalBody = styled.div`
     position: absolute;
-    top: 40%;
-    left: 45%;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
 
     width: 400px;
     height: 300px;
 
-    padding: 15px;
+    padding: 25px;
 
     text-align: center;
 
     background-color: rgb(255, 255, 255);
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
-    transform: translateX(-50%) translateY(-50%);
+    /* transform: translateX(-50%) translateY(-50%); */
+    margin-left: -200px;
+    margin-top: -150px;
+    box-sizing: border-box;
+    border-radius: 20px;
 `;
 
 export const Button = styled.button`
@@ -47,6 +52,11 @@ export const Button = styled.button`
     background-color: #61be92;
     color: white;
     text-align: center;
+    font-weight: 600;
+
+    &:last-child {
+        background-color: #aaa;
+    }
 `;
 
 export const Flexbox = styled.div`

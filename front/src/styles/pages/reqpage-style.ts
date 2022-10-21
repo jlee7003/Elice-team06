@@ -69,6 +69,12 @@ export const Section = styled.section`
     z-index: 4;
 `;
 
+export const CardsHolder = styled.div`
+    width: ${cssUnit.unit.width};
+    height: 1060px;
+    margin: 0;
+    padding: 0;
+`;
 //nav
 export const Nav = styled.nav`
     display: flex;
@@ -165,6 +171,13 @@ export const NaviLink = styled.button`
         color: #61be92;
     }
 `;
+
+export const SkeletonContent = styled.div`
+    & + div {
+        margin-top: 20px;
+    }
+`;
+
 /*
 lv 4 (divs for container,details,like)
 */

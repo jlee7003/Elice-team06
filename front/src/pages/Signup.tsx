@@ -14,6 +14,7 @@ import {
     SecondContainer1,
     Select,
 } from "../styles/pages/signup-style";
+import { Main } from "@/components/common/Main";
 import { signup } from "@/api/user";
 import { Logo } from "@/styles/common";
 import errorRecoil from "@/recoil/errorRecoil";
@@ -138,108 +139,113 @@ const Signup = () => {
     return (
         <>
             <TopImage />
-            <Container>
-                <div>
-                    <LogoContainer>
-                        <Logo />
-                    </LogoContainer>
-                    <SecondContainer>
-                        <SecondContainer1>
-                            <Form>
-                                <Label>아이디</Label>
-                                <Input placeholder="아이디" name="passwordhint" ref={id} />
+            <Main>
+                <Container>
+                    <div>
+                        <LogoContainer>
+                            <Logo />
+                        </LogoContainer>
+                        <SecondContainer>
+                            <SecondContainer1>
+                                <Form>
+                                    <Label>아이디</Label>
+                                    <Input placeholder="아이디" name="passwordhint" ref={id} />
 
-                                <Label>이메일</Label>
-                                <Input
-                                    type="email"
-                                    placeholder="이메일을 입력하세요."
-                                    name="email"
-                                    ref={email}
-                                />
-                                <Label>닉네임</Label>
-                                <Input
-                                    type="id"
-                                    placeholder="닉네임을 입력하세요."
-                                    name="nickname"
-                                    ref={nickname}
-                                />
-                                <Label>인사말</Label>
-                                <Input
-                                    placeholder="인사말을 입력하세요."
-                                    name="introduce"
-                                    ref={introduce}
-                                />
-                                <Label>성별</Label>
-                                <div>
-                                    <span>
-                                        <input
-                                            name="gender"
-                                            type="radio"
-                                            value="남"
-                                            defaultChecked={inputStatus === "남"}
-                                            onClick={() => handleClickRadioButton("남")}
-                                            ref={gender}
-                                        ></input>
-                                        <label style={{ marginRight: "40px" }}>남</label>
-                                        <input
-                                            name="gender"
-                                            type="radio"
-                                            value="여"
-                                            defaultChecked={inputStatus === "여"}
-                                            onClick={() => handleClickRadioButton("여")}
-                                            ref={gender}
-                                        ></input>
-                                        여
-                                    </span>
-                                </div>
-                            </Form>
-                        </SecondContainer1>
-                        <SecondContainer1>
-                            <Form>
-                                <Label>비밀번호</Label>
-                                <Input
-                                    type="password"
-                                    placeholder="비밀번호를 입력하세요."
-                                    name="password"
-                                    ref={password}
-                                    maxLength={8}
-                                />
-                                <Label>비밀번호 확인</Label>
-                                <Input
-                                    type="password"
-                                    placeholder="비밀번호를 입력하세요."
-                                    name="passwordok"
-                                    ref={passwordok}
-                                    maxLength={8}
-                                />
-                                <Label>나이</Label>
-                                <Select defaultValue="1" ref={age} name="age">
-                                    {selectnum()}
-                                </Select>
-                                <Label>지역</Label>
-                                <Select defaultValue="해당없음" name="local" ref={region}>
-                                    <option value="해당없음">해당없음</option>
-                                    <option value="서울">서울</option>
-                                    <option value="경기도">경기도</option>
-                                    <option value="강원도">강원도</option>
-                                    <option value="충청도">충청도</option>
-                                    <option value="경상도">경상도</option>
-                                    <option value="전라도">전라도</option>
-                                </Select>
-                                {ValidationCheck ? (
-                                    <OKButton onClick={onClick} onMouseEnter={validationTrue}>
-                                        회원 가입하기
-                                    </OKButton>
-                                ) : (
-                                    <XButton onClick={onClickPrevent} onMouseEnter={validationTrue}>
-                                        회원 가입하기
-                                    </XButton>
-                                )}
-                            </Form>
-                        </SecondContainer1>
-                    </SecondContainer>
-                </div>
-            </Container>
+                                    <Label>이메일</Label>
+                                    <Input
+                                        type="email"
+                                        placeholder="이메일을 입력하세요."
+                                        name="email"
+                                        ref={email}
+                                    />
+                                    <Label>닉네임</Label>
+                                    <Input
+                                        type="id"
+                                        placeholder="닉네임을 입력하세요."
+                                        name="nickname"
+                                        ref={nickname}
+                                    />
+                                    <Label>인사말</Label>
+                                    <Input
+                                        placeholder="인사말을 입력하세요."
+                                        name="introduce"
+                                        ref={introduce}
+                                    />
+                                    <Label>성별</Label>
+                                    <div>
+                                        <span>
+                                            <input
+                                                name="gender"
+                                                type="radio"
+                                                value="남"
+                                                defaultChecked={inputStatus === "남"}
+                                                onClick={() => handleClickRadioButton("남")}
+                                                ref={gender}
+                                            ></input>
+                                            <label style={{ marginRight: "40px" }}>남</label>
+                                            <input
+                                                name="gender"
+                                                type="radio"
+                                                value="여"
+                                                defaultChecked={inputStatus === "여"}
+                                                onClick={() => handleClickRadioButton("여")}
+                                                ref={gender}
+                                            ></input>
+                                            여
+                                        </span>
+                                    </div>
+                                </Form>
+                            </SecondContainer1>
+                            <SecondContainer1>
+                                <Form>
+                                    <Label>비밀번호</Label>
+                                    <Input
+                                        type="password"
+                                        placeholder="비밀번호를 입력하세요."
+                                        name="password"
+                                        ref={password}
+                                        maxLength={8}
+                                    />
+                                    <Label>비밀번호 확인</Label>
+                                    <Input
+                                        type="password"
+                                        placeholder="비밀번호를 입력하세요."
+                                        name="passwordok"
+                                        ref={passwordok}
+                                        maxLength={8}
+                                    />
+                                    <Label>나이</Label>
+                                    <Select defaultValue="1" ref={age} name="age">
+                                        {selectnum()}
+                                    </Select>
+                                    <Label>지역</Label>
+                                    <Select defaultValue="해당없음" name="local" ref={region}>
+                                        <option value="해당없음">해당없음</option>
+                                        <option value="서울">서울</option>
+                                        <option value="경기도">경기도</option>
+                                        <option value="강원도">강원도</option>
+                                        <option value="충청도">충청도</option>
+                                        <option value="경상도">경상도</option>
+                                        <option value="전라도">전라도</option>
+                                    </Select>
+                                    {ValidationCheck ? (
+                                        <OKButton onClick={onClick} onMouseEnter={validationTrue}>
+                                            회원 가입하기
+                                        </OKButton>
+                                    ) : (
+                                        <XButton
+                                            onClick={onClickPrevent}
+                                            onMouseEnter={validationTrue}
+                                        >
+                                            회원 가입하기
+                                        </XButton>
+                                    )}
+                                </Form>
+                            </SecondContainer1>
+                        </SecondContainer>
+                    </div>
+                </Container>
+            </Main>
         </>
     );
 };

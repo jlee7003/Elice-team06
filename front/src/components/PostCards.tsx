@@ -1,5 +1,5 @@
 import { useState, useEffect, MouseEvent } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { constSelector, useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
 /*styles*/
 import {
@@ -13,8 +13,10 @@ import {
 } from "@/styles/common/requestCard-style";
 
 //real data interface
-import { PostLists, LikedLists } from "@/types/post";
+import { PostLists, LikedPostsLists } from "@/types/post";
 import { userState } from "@/recoil/user";
+//import Modal
+import AlertModal from "@/modal/AlertModal";
 //API import
 import API from "@/api/.";
 //error handling
@@ -24,45 +26,124 @@ import { ROUTES } from "@/routes/.";
  * currentPage: 현재 페이지 위치
  */
 
-const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) => {
+const PostCards = (prop: {
+    postLists: PostLists | null;
+    currentPage: number;
+    deleteMode: boolean;
+}) => {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
+    console.log("user?", user);
     const postlist = prop.postLists;
     const currentPageNum = prop.currentPage + 1;
+    //관리자 모드에서 삭제하기 기능?
+    //const deleteModeOn = prop.deleteMode;
+
+    //삭제 모달, 삭제
+    const [onModal, setOnModal] = useState(false);
+    const [deleteTrigger, setDeleteTrigger] = useState(false);
+
+    const [targetPost, setTargetPost] = useState("");
+
+    const [likesList, setLikesList] = useState(0);
     const [like, setLike] = useState(0);
-    const [userLiked, setUserLiked] = useState<LikedLists | null>(null);
+    //const [userLiked, setUserLiked] = useState<LikedPostsLists | null>(null);
+
+    //처음 데이터를 가져올 때에는 user가 like했다고 생각하지 않는다고 가정한다.
+    const [userLiked, setUserLiked] = useState(false);
+    //
+    const [isUserLike, setIsUserLike] = useState(false);
+    const [handlieLikeNum, sethandlieLikeNum] = useState(0);
 
     // useEffect(() => {
     //     const putLike = async(params);
     // }, []);
 
     //이미 투표했는지 체크
-    // useEffect(() => {
-    //     const getLikedData = async () => {
-    //         const result = await API.get(["board", "likePost"]);
-    //         //응답이 null 경우 체크()
-    //         if (result === null) {
-    //             navigate(ROUTES.ErrorPage.path);
-    //             return; //to alret
-    //         }
-    //         return result.data;
-    //     };
-    //     getLikedData().then((res) => {
-    //         //응답이 undefined 경우 체크(2)
-    //         if (res === undefined) {
-    //             navigate(ROUTES.ErrorPage.path);
-    //             return; //to alret
-    //         }
-    //         console.log("res", res);
-    //         //setUserLiked(res);
-    //     });
-    // });
+    useEffect(() => {
+        const getLikedData = async () => {
+            const result = await API.get(["board", "likePost"]);
+            //응답이 null 경우 체크()
+            if (result === null) {
+                navigate(ROUTES.ErrorPage.path);
+                return; //to alret
+            }
+            return result.data;
+        };
+        getLikedData().then((res: any) => {
+            //응답이 undefined 경우 체크(2)
+            if (res === undefined) {
+                navigate(ROUTES.ErrorPage.path);
+                return; //to alret
+            }
+            //console.log("res", res);
+            const likedPostslist = res.map((likedpost: any) => {
+                return likedpost.post_id;
+            });
+            //console.log("타입 likedlists", typeof likedPostslist);
+            //console.log("테스트", likedPostslist[0]);
+            setLikesList(likedPostslist);
 
-    const onClick = () => {
-        //클릭을하면 아이디 소유자가 추천을 했는지 확인을 해봐야 함
-        console.log("userLiked ", userLiked);
-        console.log("like ", like);
-        setLike(like + 1);
+            //const checking = likesList.includes(18);
+            //console.log(checking);
+        });
+    }, []);
+
+    //좋아요 관련
+
+    const puttingLike = async (param: string, data: any) => {
+        const result = await API.post<number>(["vote", param], data);
+        return result;
+    };
+
+    const deletingPost = async (param: string) => {
+        const result = await API.delete<number>(["board", param]);
+        return result;
+    };
+
+    const onClickDelete = (name: string) => {
+        console.log("여기왔니?");
+        //const { name } = e.target as HTMLButtonElement;
+        deletingPost(name);
+    };
+
+    //const triggerOn=onClickDelete();
+
+    console.log("handlieLikeNum", handlieLikeNum);
+
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+        if (user) {
+            //해당 게시글의 id(post_id 가져오기)
+            const { name } = e.target as HTMLButtonElement;
+            console.log("몇 번 게시글을 눌렀니?", name);
+            console.log("네임 타입?", typeof name);
+            puttingLike(name, "");
+
+            const isAlreadyLiked = likesList.includes(parseInt(name));
+            console.log("과거에 이미 추천했니? ", isAlreadyLiked);
+            console.log("현재 페이지에서 추천했었니?:", isUserLike);
+            //이미 추천했으면 아무것도 안 함
+            if (isAlreadyLiked) {
+                console.log("이미 추천했어요! NO추천!!");
+                console.log("과거에 이미 추천했니? ", isAlreadyLiked);
+                console.log("현재 페이지에서 추천했었니?:", isUserLike);
+                return;
+            }
+            //아직 추천을 안 했고.... 지금 추천상태인지 체크
+            //기존 데이터에 따르면 추천 안 했는데 현재 페이지에서 추천을 했는데 클릭한 거니까
+            //1) 추천상태를 false로 바꾸고 2. 더한 값을 빼줘야 함
+            if (isUserLike) {
+                console.log("현재 페이지에서 추천했는데 뺐어요!!");
+                setIsUserLike(false);
+                return sethandlieLikeNum(0);
+            }
+            //기존 데이터에서 추천도 안했고 현재 상태도 추천을 안했다 그러면 추천해야지
+            console.log("DB에도 없고 이 화면에서도 추천취소든/첨이든 암튼 추천해요!");
+            setIsUserLike(true);
+            sethandlieLikeNum(1);
+            return;
+        }
+        return;
     };
 
     return (
@@ -77,15 +158,48 @@ const PostCards = (prop: { postLists: PostLists | null; currentPage: number }) =
                                     <p>{post.description}</p>
                                 </Contents>
                                 <Box>
-                                    <button onClick={onClick}>{post._count.VotePost}</button>
-                                    <span>post.vote</span>
+                                    <button name={`${post.id}`} onClick={onClick}>
+                                        {post._count.VotePost + handlieLikeNum}
+                                    </button>
+                                    <button
+                                        name={`${post.id}`}
+                                        onClick={() => {
+                                            //console.log("클릭했니?/onModal", onModal);
+                                            if (user?.nickname === post.author) {
+                                                setOnModal(true);
+                                                //console.log("통과햇니?/onModal", onModal);
+                                                //console.log("deleteTrigger:  ", deleteTrigger);
+                                                if (deleteTrigger) {
+                                                    () => onClickDelete;
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        삭제
+                                        {onModal == true && (
+                                            <AlertModal
+                                                name={`${post.id}`}
+                                                setOnModal={setOnModal}
+                                                trigger={onClickDelete}
+                                            ></AlertModal>
+                                        )}
+                                    </button>
+                                    {/* {deleteModeOn ? (
+                                        <>
+                                            <span>
+                                                <input type="checkbox" name={`${post.id}`}></input>
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )} */}
                                 </Box>
                             </ArtContainer>
                             <DetailContainer>
                                 <Details>
                                     <li>
                                         <span>작성자</span>
-                                        {post.author}
+                                        <span>{post.author}</span>
                                     </li>
                                     <li>
                                         <i></i>

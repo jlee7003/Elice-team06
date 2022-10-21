@@ -6,19 +6,12 @@ interface Props {
     invalid: boolean;
 }
 
-export const Main = styled.main`
-    display: grid;
-    width: 100%;
+export const FindInfoWrap = styled.section`
     height: 100vh;
-    & > section > img {
-        margin-bottom: 100px;
-    }
-    & > section {
-        margin-top: 370px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const ResultWrap = styled.div`
