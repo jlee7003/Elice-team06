@@ -102,6 +102,10 @@ const Mypage = () => {
     };
 
     useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    useEffect(() => {
         API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
             return setMyChallengeList(res.data);
         });
@@ -182,6 +186,7 @@ const Mypage = () => {
                             내가 도전한 챌린지
                             <Link
                                 to="/challengelist/my"
+                                state={"authuser"}
                                 style={{ fontSize: "16px", color: "#a5a5a5", paddingLeft: "20px" }}
                             >
                                 더보기 &gt;
