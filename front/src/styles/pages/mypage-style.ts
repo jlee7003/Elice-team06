@@ -176,13 +176,33 @@ export const MyChallenges = styled.section`
     & > p {
         margin-bottom: 15px;
     }
-    & > div {
+    /* & > div {
         display: flex;
 
         width: 100%;
         margin-bottom: 100px;
 
         justify-content: space-between;
+    } */
+`;
+
+/*도전 박스*/
+export const CategoryContent = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    & > article {
+        margin-left: 20px;
+        &:first-child {
+            margin-left: 0px;
+        }
+        &:nth-child(4n + 0) {
+            margin-left: 0px;
+        }
+        &:nth-child(5) {
+            margin-left: 20px;
+        }
     }
 `;
 
