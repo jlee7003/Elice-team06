@@ -3,8 +3,6 @@ import ModalPortal from "./ModalPortal";
 import Draggable from "react-draggable";
 import { ModalContainer, ModalBody, FlexBox, Button } from "@/styles/modal-style";
 
-// ( prop: { setOnModal: any; trigger: any } ) [ ]
-
 type Props = {
     setOnModal: React.Dispatch<React.SetStateAction<boolean>>;
     trigger: any; //React.Dispatch<React.SetStateAction<boolean>>;
