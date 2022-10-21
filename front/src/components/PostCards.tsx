@@ -89,7 +89,7 @@ const PostCards = (prop: {
     const NO_EDIT_MODAL = 0;
     const [editModalOpen, setEditModalOpen] = useState(NO_EDIT_MODAL);
 
-    const [preData, setPredata] = useState<formData>({
+    const [fetchData, setFetchData] = useState<formData>({
         title: "",
         description: "",
     });
@@ -185,7 +185,7 @@ const PostCards = (prop: {
             formData.title = data.title;
             formData.description = data.description;
             //console.log("보내용~", formData);
-            setPredata(formData);
+            setFetchData(formData);
         });
 
         //editingPost(target.toString(), data);
@@ -324,7 +324,7 @@ const PostCards = (prop: {
                         modalOpen={editModalOpen}
                         trigger={onClickEdit}
                         closeModal={() => setEditModalOpen(0)}
-                        preData={preData}
+                        fetchData={fetchData}
                     ></BoardEditModal>
                 </>
             ) : (
