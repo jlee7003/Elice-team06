@@ -164,11 +164,13 @@ const UserInfo = () => {
                                     <Form>
                                         <Label>닉네임</Label>
                                         <Input
+                                            className="input-readonly"
                                             type="id"
                                             placeholder="닉네임을 입력하세요."
                                             name="nickname"
                                             ref={nickname}
                                             defaultValue={userInfo?.nickname}
+                                            readOnly
                                         />
 
                                         <Label>인사말</Label>
