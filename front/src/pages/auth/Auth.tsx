@@ -5,6 +5,7 @@ import { Logo } from "@/styles/common";
 import { FindInfoWrap, Form, Label, IDInput, SubmitButton } from "@/styles/pages/auth-style";
 import { Main } from "@/components/common/Main";
 import { ROUTES } from "@/routes";
+import sendToast from "@/lib/sendToast";
 
 const Auth = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -24,8 +25,9 @@ const Auth = () => {
             if (res.status !== 200) {
                 return;
             }
-            console.log(res);
-            // 유저 정보 변경하는 페이지로 이동
+
+            sendToast("인증에 성공했습니다.", "success");
+
             if (location.state.id == "Auth") {
                 navigate(ROUTES.UserInfo.path, {
                     state: { labelName: "아이디", result: res.data.id },

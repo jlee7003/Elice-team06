@@ -60,10 +60,37 @@ const Landing = () => {
     const [ani, setAni] = useState(true); //스크롤 속도용 스위치 State
     const [resizeHeight, setResizeHeight] = useState(window.innerHeight); //리사이징 화면 높이 값
     const [innerHeight, setInnerHeight] = useState(window.innerHeight); // 초기 랜더링 시 화면 높이 값
-    const [sealevelData, setSealevelData] = useState([]); //rechart data 01
-    const [temperatureData, setTemperatureData] = useState([]); //rechart data 01
-    const [emissionData, setEmissionData] = useState([]); //rechart data 01
-    const [challengerCount, setChallengerCount] = useState({});
+    const [sealevelData, setSealevelData] = useState<
+        | {
+              year?: number;
+              sea_level?: number;
+          }[]
+        | []
+    >([]); //rechart data 01
+    const [temperatureData, setTemperatureData] = useState<
+        | {
+              year?: number;
+              World?: number;
+              USA?: number;
+              EU?: number;
+              China?: number;
+          }[]
+        | []
+    >([]); //rechart data 01
+    const [emissionData, setEmissionData] = useState<
+        | {
+              year?: number;
+              World?: number;
+              USA?: number;
+              EU?: number;
+              China?: number;
+          }[]
+        | []
+    >([]); //rechart data 01
+    const [challengerCount, setChallengerCount] = useState<{
+        users?: number;
+        challenger?: number;
+    }>({});
 
     //-------useRef --------
     const section = useRef<HTMLDivElement>(null); //section
@@ -93,50 +120,36 @@ const Landing = () => {
         { icon: water, text: "국가별 온도" },
     ];
 
-    console.log(carbonArray[0].icon);
-    // console.log(assets("skull.png"));
-
     useEffect(() => {
-        // const getData: any = async () => {
-        //     const url = fetch(
-        //         "http://" + window.location.hostname + ":" + "3001" + "/data/sealevel"
-        //     );
-
-        //     const result = await url.then((res) => res.json());
-
-        //     setData01(result);
-        //     console.log(result);
-
-        //     return result;
-        // };
-        // getData();
-        API.get<{ data: number; sealevel: number }>(["data", "sealevel"]).then((res) => {
+        API.get<{ year: number; sea_level: number }[]>(["data", "sealevel"]).then((res) => {
             if (res === null) {
                 return;
             }
             setSealevelData(res.data);
-            console.log("sealevelData", res.data);
         });
 
-        API.get(["data", "temperture"]).then((res) => {
+        API.get<{ year: number; World: number; USA: number; EU: number; China: number }[]>([
+            "data",
+            "temperture",
+        ]).then((res) => {
             if (res === null) {
                 return;
             }
             setTemperatureData(res.data);
-            console.log("Temperatur", res.data);
         });
 
-        API.get(["data", "emission"]).then((res) => {
+        API.get<{ year: number; World: number; USA: number; EU: number; China: number }[]>([
+            "data",
+            "emission",
+        ]).then((res) => {
             if (res === null) {
                 return;
             }
 
             setEmissionData(res.data);
-            console.log("Emission", res.data);
         });
 
-        API.get(["user", "about"]).then((res) => {
-            console.log("user/about", res.data);
+        API.get<{ users: number; challenger: number }>(["user", "about"]).then((res) => {
             setChallengerCount(res.data);
         });
     }, []);
@@ -151,15 +164,6 @@ const Landing = () => {
             carbonListRefs.current[0].style.backgroundColor = "#fff";
             carbonListRefs.current[0].style.color = "#000";
         }
-
-        //-----👉디자인 수정용 잠시 설정해 놓은 것🐱‍🐉-----
-        // if (section.current) {
-        //     setInnerHeight((prev) => {
-        //         return (prev = resizeHeight);
-        //     });
-        //     section.current.style.top = `-${resizeHeight * 2}px`;
-        // }
-        //----------디자인 수정용----------
 
         /**
          * 윈도우 리사이즈 시, innerHeight 재설정 및 top 에 적용
@@ -422,7 +426,7 @@ const Landing = () => {
 
                 <Nav>
                     <Link to={ROUTES.Home.path}>챌린지</Link>
-                    <Link to={ROUTES.BoardPage.path}>커뮤니티</Link>
+                    <Link to={"/boardPage/pages/1"}>커뮤니티</Link>
                     {user === null ? (
                         <Link to={ROUTES.Login.path}>로그인</Link>
                     ) : (
