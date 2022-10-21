@@ -35,7 +35,6 @@ const PostCards = (prop: {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
 
-    //console.log("user?", user);
     const postlist = prop.postLists;
     const currentPageNum = prop.currentPage + 1;
     //관리자 모드에서 삭제하기 기능?
@@ -90,7 +89,6 @@ const PostCards = (prop: {
         return result;
     };
     const onClickDelete = (name: string) => {
-        console.log("여기왔니?");
         //const { name } = e.target as HTMLButtonElement;
         deletingPost(name);
     };
@@ -99,28 +97,21 @@ const PostCards = (prop: {
         if (user) {
             //해당 게시글의 id(post_id 가져오기)
             const { name } = e.target as HTMLButtonElement;
-            //console.log("몇 번 게시글을 눌렀니?", name);
-            //console.log("네임 타입?", typeof name);
+
             puttingLike(name, "");
             const isAlreadyLiked = likesList.includes(name);
-            //console.log("과거에 이미 추천했니? ", isAlreadyLiked);
-            //console.log("현재 페이지에서 추천했었니?:", isUserLike);
+
             //이미 추천했으면 아무것도 안 함
             if (isAlreadyLiked) {
-                //console.log("이미 추천했어요! NO추천!!");
-                //console.log("과거에 이미 추천했니? ", isAlreadyLiked);
-                //console.log("현재 페이지에서 추천했었니?:", isUserLike);
                 return;
             }
             //아직 추천을 안 했고 지금 추천상태인지 체크
             //기존 데이터에 따르면 추천 안 했는데 현재 페이지에서 추천을 했는데 클릭한 거니까 1) 추천상태를 false로 바꾸고 2. 더한 값을 빼줘야 함
             if (isUserLike) {
-                //console.log("현재 페이지에서 추천했는데 뺐어요!!");
                 setIsUserLike(false);
                 return sethandlieLikeNum(0);
             }
             //기존 데이터에서 추천도 안했고 현재 상태도 추천을 안했다 그러면 추천해야지
-            //console.log("DB에도 없고 이 화면에서도 추천취소든/첨이든 암튼 추천해요!");
             setIsUserLike(true);
             sethandlieLikeNum(1);
             return;
@@ -146,7 +137,6 @@ const PostCards = (prop: {
                                     <button
                                         name={`${post.id}`}
                                         onClick={() => {
-                                            //console.log("클릭했니?/onModal", onModal);
                                             if (user?.nickname === post.author) {
                                                 setOnModal(true);
                                                 if (deleteTrigger) {

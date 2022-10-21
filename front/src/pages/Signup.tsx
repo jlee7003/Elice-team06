@@ -37,8 +37,6 @@ const Signup = () => {
 
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
-        console.log(radioBtnName);
-        console.log(inputStatus);
     };
     function isvalidationtrue() {
         if (
@@ -119,7 +117,6 @@ const Signup = () => {
         const result: any = await signup(formData);
 
         if (result?.response?.status != undefined) {
-            console.log(result?.response?.data);
             setError({
                 isError: true,
                 message: result?.response?.data?.message,

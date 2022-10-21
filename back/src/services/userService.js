@@ -267,13 +267,12 @@ class userService {
     }
 
     static async comparePassword({ nickname, password }) {
-        console.log(nickname, password);
         const userData = await prisma.User.findUnique({
             where: {
                 nickname,
             },
         });
-        console.log(userData);
+
         const result = await bcrypt.compare(password, userData.password);
 
         if (!result) {

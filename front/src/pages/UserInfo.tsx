@@ -60,17 +60,11 @@ const UserInfo = () => {
                 profile_image: null,
                 region: res?.data?.region,
             });
-            console.log(res);
         });
     };
 
-    console.log(userInfo);
-    console.log(userInfo?.gender, ismale);
-
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
-        console.log(radioBtnName);
-        console.log(inputStatus);
     };
     function isvalidationtrue() {
         if (
@@ -135,11 +129,9 @@ const UserInfo = () => {
                 profile_image: "",
             },
         };
-        console.log(formData.updateData.gender);
         const result: any = await changeMyInfo(formData);
 
         if (result?.response?.status != undefined) {
-            console.log(result?.response?.data);
             setError({
                 isError: true,
                 message: result?.response?.data?.message,
@@ -156,7 +148,7 @@ const UserInfo = () => {
         }
         return num;
     }
-    console.log(userInfo?.gender);
+
     return (
         <>
             {userInfo !== null && (

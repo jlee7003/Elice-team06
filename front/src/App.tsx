@@ -66,9 +66,6 @@ const App = () => {
         }
     }, [onModal, bodyStyle]);
 
-    function onClickLogout() {
-        console.log("함수 실행 내용");
-    }
     return (
         <>
             <GlobalStyle mode={darkMode ?? "Light"} />
@@ -87,9 +84,7 @@ const App = () => {
             <Router>
                 {onModal == "login" && <Shadow />}
                 {error?.isError ? (
-                    <ErrorModal setOnModal={setOnModal} logout={onClickLogout}>
-                        {error?.message as string}
-                    </ErrorModal>
+                    <ErrorModal setOnModal={setOnModal}>{error?.message as string}</ErrorModal>
                 ) : (
                     ""
                 )}

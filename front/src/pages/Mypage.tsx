@@ -40,7 +40,6 @@ const Mypage = () => {
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
     const [myChallengeList, setMyChallengeList] = useRecoilState(MyChallengeList);
-    // console.log("user:", user);
 
     // useEffect(() => {
     //     //API로 정보 받아오기
@@ -59,7 +58,6 @@ const Mypage = () => {
     //             navigate(ROUTES.ErrorPage.path);
     //             return; //to alret
     //         }
-    //         console.log("useEffect(API) is running in boardPage");
     //         setPostList(res);
     //     });
     // }, []);
