@@ -58,10 +58,6 @@ export const ROUTES: routeWrap = {
         path: "/mypage",
         Component: Mypage,
     },
-    MyPosts: {
-        path: "/MyPosts",
-        Component: MyPosts,
-    },
     FindID: {
         path: "/auth/email",
         Component: FindID,
