@@ -1,19 +1,14 @@
 import styled from "styled-components";
 import cssUnit from "@/lib/cssUnit";
-import icons from "@/lib/icons";
-
-const settingIcon = icons("setting_icon.png");
-const challengIcon = icons("challenges_gray_icon.png");
-const userIcon = icons("user_icon.png");
+import settingIcon from "@/assets/icons/setting_icon.png";
+import challengIcon from "@/assets/icons/challenges_gray_icon.png";
+import userIcon from "@/assets/icons/user_icon.png";
 
 export const Container = styled.div`
-    /* display: grid;
-    place-items: center; */
     display: flex;
     flex-direction: row;
     position: relative;
 
-    //width: auto;
     width: ${cssUnit.unit.width};
     height: auto;
 

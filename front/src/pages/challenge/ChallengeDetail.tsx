@@ -5,9 +5,8 @@ import { Logo } from "@/styles/common";
 import { HomeBanners, Banner } from "@/styles/banner";
 import { Main } from "@/components/common/Main";
 import MainCard from "@/components/ChallengeDetailMainCard";
-// import SubCard from "@/components/ChallengeDetailSubCard";
-import assets from "@/lib/assets";
 import DarkMode from "@/recoil/darkMode";
+import challenge_detail_banner from "@/assets/challenge_detail_banner.png";
 
 const ChallengeDetail = () => {
     const [darkMode] = useRecoilState(DarkMode);
@@ -15,7 +14,7 @@ const ChallengeDetail = () => {
         <>
             <HomeBanners mode={darkMode ?? "Light"} height="190px">
                 <Banner
-                    bgImg={assets("challenge_detail_banner.png")}
+                    bgImg={challenge_detail_banner}
                     bgColor="linear-gradient(45deg,#61be92,#289ba7,#5f8560)"
                     bgPosition="center -35px"
                     bgSize="524px"
