@@ -56,6 +56,7 @@ challengeRoute.post(
         try {
             const { nickname } = req.nickname;
             const input = req.body;
+            console.log(nickname, input);
             input.proposer = nickname;
 
             const newChallenge = await challengeService.addChallenge(input);

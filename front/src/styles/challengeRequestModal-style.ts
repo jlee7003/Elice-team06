@@ -16,6 +16,13 @@ export const ModalContainer = styled.div`
 export const FlexBox = styled.div`
     display: flex;
 `;
+export const Select = styled.select`
+    width: 411px;
+    height: 62px;
+    border: 1px solid #d9d9d9;
+    margin-bottom: 30px;
+    padding: 10px;
+`;
 export const AllCenterBox = styled.div`
     display: flex;
     align-items: center;
