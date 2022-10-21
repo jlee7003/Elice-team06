@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import assets from "@/lib/assets";
 import logo from "@/assets/logo.png";
 import logo_white from "@/assets/logo_white.png";
 import loading from "@/assets/loading.png";

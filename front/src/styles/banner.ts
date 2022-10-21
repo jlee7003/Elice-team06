@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import assets from "@/lib/assets";
 import icons from "@/lib/icons";
 import banner_img from "@/assets/banner_img.png";
 import banner_cycle from "@/assets/banner_cycle.png";

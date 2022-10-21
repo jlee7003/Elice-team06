@@ -41,7 +41,6 @@ import {
     Legend,
     Bar,
 } from "recharts";
-import assets from "@/lib/assets";
 import urlCheck from "@/recoil/urlCheck";
 import { userState } from "@/recoil/user";
 import ModalState from "@/recoil/modalState";
