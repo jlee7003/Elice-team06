@@ -12,16 +12,15 @@ import {
     TopImage,
     SecondContainer,
     SecondContainer1,
+    Withdrawalbox,
     Select,
 } from "../styles/pages/userInfo-style";
-import { signup, myInfo } from "@/api/user";
+import { withdrawal } from "@/api/user";
 import { Logo } from "@/styles/common";
 import errorRecoil from "@/recoil/errorRecoil";
-import { Info } from "@/recoil/user";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { changePassword, changeMyInfo } from "../api/user";
-import { red } from "@mui/material/colors";
-const ChangePasswordPage = () => {
+import useLogout from "@/hooks/useLogout";
+const WithDrawalPage = () => {
     // const [userInfo, setUserInfo] = useRecoilState(userInfoData);
     const nickname = useRef<HTMLInputElement>(null);
     const introduce = useRef<HTMLInputElement>(null);
@@ -35,6 +34,7 @@ const ChangePasswordPage = () => {
     const [inputStatus, setInputStatus] = useState("");
     const setError = useSetRecoilState(errorRecoil);
     const navigate = useNavigate();
+    const setLogout = useLogout();
     // const changePassword = async () => {
     //     await changePassword(passwordData).then((res) => {
     //         if (res === null) {
@@ -51,22 +51,15 @@ const ChangePasswordPage = () => {
         console.log(inputStatus);
     };
     function isvalidationtrue() {
-        if (
-            password.current == null ||
-            new_password.current == null ||
-            password_hint.current == null
-        ) {
+        if (password.current == null) {
             return;
         }
-        if (
-            password.current?.value == "" ||
-            new_password.current?.value == "" ||
-            password_hint.current?.value == ""
-        ) {
+        if (password.current?.value != "회원탈퇴") {
             setValidationCheck(false);
             return;
+        } else {
+            setValidationCheck(true);
         }
-        setValidationCheck(true);
     }
     let formData = {
         password: "",
@@ -83,20 +76,12 @@ const ChangePasswordPage = () => {
     const onClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        if (
-            password.current == null ||
-            new_password.current == null ||
-            password_hint.current == null
-        ) {
+        if (password.current == null) {
             return;
         }
 
-        formData = {
-            password: password.current?.value,
-            new_password: new_password.current?.value,
-            password_hint: password_hint.current?.value,
-        };
-        const result: any = await changePassword(formData);
+        const result: any = await withdrawal();
+        setLogout();
         console.log(result);
         if (result?.response?.status != undefined) {
             console.log(result?.response?.data);
@@ -127,38 +112,31 @@ const ChangePasswordPage = () => {
                     <SecondContainer>
                         <SecondContainer1>
                             <Form>
-                                <Label>기존 비밀번호</Label>
-                                <Input
-                                    type="password"
-                                    placeholder="비밀번호를 입력하세요."
-                                    name="password"
-                                    ref={password}
-                                    maxLength={8}
-                                />
-                                <Label>새로운 비밀번호</Label>
-                                <Input
-                                    type="password"
-                                    placeholder="비밀번호를 입력하세요."
-                                    name="passwordok"
-                                    ref={new_password}
-                                    maxLength={8}
-                                />
-                                <Label>비밀번호 힌트</Label>
+                                <Withdrawalbox>
+                                    정말 회원 탈퇴 하시겠습니까?
+                                    <div>회원님의 한발자국이 탄小에게는 소중합니다.</div>
+                                    <div>
+                                        회원탈퇴를 원하시면{" "}
+                                        <span style={{ color: "red" }}>'회원탈퇴'</span>를
+                                        적어주세요
+                                    </div>
+                                </Withdrawalbox>
+                                <Label>탈퇴하기</Label>
                                 <Input
                                     type="text"
-                                    placeholder="비밀번호를 입력하세요."
-                                    name="passwordok"
-                                    ref={password_hint}
+                                    placeholder=""
+                                    name="password"
+                                    ref={password}
                                     maxLength={8}
                                 />
 
                                 {ValidationCheck ? (
                                     <OKButton onClick={onClick} onMouseEnter={validationTrue}>
-                                        회원 가입하기
+                                        탈퇴하기
                                     </OKButton>
                                 ) : (
                                     <XButton onClick={onClickPrevent} onMouseEnter={validationTrue}>
-                                        회원 가입하기
+                                        탈퇴하기
                                     </XButton>
                                 )}
                             </Form>
@@ -170,4 +148,4 @@ const ChangePasswordPage = () => {
     );
 };
 
-export default ChangePasswordPage;
+export default WithDrawalPage;

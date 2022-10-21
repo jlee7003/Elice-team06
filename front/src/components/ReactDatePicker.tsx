@@ -27,6 +27,7 @@ const ReactDatePicker = ({ setStart, setEnd }: any) => {
                     increaseMonth,
                 }) => {
                     const years = _.range(2022, getYear(new Date()) + 5, 1);
+                    // const years = range(1990, getYear(new Date()) + 1, 1);
                     const months = [
                         "01",
                         "02",
@@ -84,6 +85,7 @@ const ReactDatePicker = ({ setStart, setEnd }: any) => {
                 }}
             />
             <div style={{ margin: "0px 20px", display: "flex", alignItems: "center" }}>~</div>
+
             <DatePicker
                 selected={endDate}
                 onChange={(date: Date) => {
@@ -119,7 +121,6 @@ const ReactDatePicker = ({ setStart, setEnd }: any) => {
                             <button onClick={decreaseMonth}>◀️</button>
 
                             <div className="custom-react-datepicker__select-item">
-                                {/* 연도 선택 select box */}
                                 <select
                                     value={getYear(date)}
                                     onChange={({ target: { value } }) => changeYear(Number(value))}
@@ -133,7 +134,6 @@ const ReactDatePicker = ({ setStart, setEnd }: any) => {
                                 <span>년</span>
                             </div>
                             <div className="custom-react-datepicker__select-item">
-                                {/* 월 선택 select box */}
                                 <select
                                     value={months[getMonth(date)]}
                                     onChange={({ target: { value } }) =>

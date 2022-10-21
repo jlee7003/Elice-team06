@@ -1,5 +1,5 @@
 import { useRef, MouseEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import API from "@/api/.";
 import { Logo } from "@/styles/common";
 import { FindInfoWrap, Form, Label, IDInput, SubmitButton } from "@/styles/pages/auth-style";
@@ -8,7 +8,7 @@ import { ROUTES } from "@/routes";
 
 const Auth = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
-
+    const location = useLocation();
     const navigate = useNavigate();
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -19,16 +19,22 @@ const Auth = () => {
         }
 
         API.post<{ id: string }>(["user", "auth", "password"], {
-            email: passwordRef.current.value,
+            password: passwordRef.current.value,
         }).then((res: any) => {
             if (res.status !== 200) {
                 return;
             }
             console.log(res);
             // 유저 정보 변경하는 페이지로 이동
-            // navigate(ROUTES.FindResult.path, {
-            //     state: { labelName: "아이디", result: res.data.id },
-            // });
+            if (location.state.id == "Auth") {
+                navigate(ROUTES.UserInfo.path, {
+                    state: { labelName: "아이디", result: res.data.id },
+                });
+            } else {
+                navigate(ROUTES.ChangePasswordPage.path, {
+                    state: { labelName: "아이디", result: res.data.id },
+                });
+            }
         });
     };
 

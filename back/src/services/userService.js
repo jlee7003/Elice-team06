@@ -267,6 +267,7 @@ class userService {
     }
 
     static async comparePassword({ nickname, password }) {
+        console.log(nickname, password);
         const userData = await prisma.User.findUnique({
             where: {
                 nickname,

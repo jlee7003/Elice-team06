@@ -13,16 +13,14 @@ import {
     SecondContainer,
     SecondContainer1,
     Select,
-} from "../styles/pages/signup-style";
-import { signup, myInfo } from "@/api/user";
+} from "../styles/pages/userInfo-style";
+import { myInfo } from "@/api/user";
 import { Logo } from "@/styles/common";
 import errorRecoil from "@/recoil/errorRecoil";
 import { Info } from "@/recoil/user";
-import { useSetRecoilState, useRecoilState } from "recoil";
-import { changePassword, changeMyInfo } from "../api/user";
-import { red } from "@mui/material/colors";
+import { useSetRecoilState } from "recoil";
+import { changeMyInfo } from "../api/user";
 const UserInfo = () => {
-    // const [userInfo, setUserInfo] = useRecoilState(userInfoData);
     const [userInfo, setUserInfo] = useState<Info | null>(null);
     const nickname = useRef<HTMLInputElement>(null);
     const introduce = useRef<HTMLInputElement>(null);
@@ -68,15 +66,6 @@ const UserInfo = () => {
 
     console.log(userInfo);
     console.log(userInfo?.gender, ismale);
-    const changePassword = async () => {
-        // await changePassword(passwordData).then((res) => {
-        //     if (res === null) {
-        //         return;
-        //     }
-        //     setUserInfo(res.data);
-        //     console.log(res);
-        // });
-    };
 
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
@@ -239,26 +228,6 @@ const UserInfo = () => {
                                             <option value="경상도">경상도</option>
                                             <option value="전라도">전라도</option>
                                         </Select>
-                                    </Form>
-                                </SecondContainer1>
-                                <SecondContainer1>
-                                    <Form>
-                                        <Label>비밀번호</Label>
-                                        <Input
-                                            type="password"
-                                            placeholder="비밀번호를 입력하세요."
-                                            name="password"
-                                            ref={password}
-                                            maxLength={8}
-                                        />
-                                        <Label>비밀번호 확인</Label>
-                                        <Input
-                                            type="password"
-                                            placeholder="비밀번호를 입력하세요."
-                                            name="passwordok"
-                                            ref={passwordok}
-                                            maxLength={8}
-                                        />
 
                                         {ValidationCheck ? (
                                             <OKButton

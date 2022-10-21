@@ -17,6 +17,7 @@ import MyPosts from "@/pages/MyPosts";
 import Admin from "@/pages/Admin";
 import UserInfo from "@/pages/UserInfo";
 import ChangePasswordPage from "@/pages/ChangePasswordPage";
+import WithDrawalPage from "@/pages/WithDrawalPage";
 
 interface route {
     path: string;
@@ -95,6 +96,10 @@ export const ROUTES: routeWrap = {
     ChangePasswordPage: {
         path: "/mypage/ChangePasswordPage",
         Component: ChangePasswordPage,
+    },
+    WithDrawalPage: {
+        path: "/withdrawal",
+        Component: WithDrawalPage,
     },
     ErrorPage: {
         path: "*",
