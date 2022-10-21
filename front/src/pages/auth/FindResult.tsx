@@ -21,7 +21,7 @@ const FindResult = () => {
 
         sendToast("클립보드에 복사되었습니다.", "success");
 
-        navigator.clipboard.writeText(locationState.result);
+        window.navigator.clipboard.writeText(locationState.result);
     };
 
     return (
