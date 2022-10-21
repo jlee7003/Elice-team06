@@ -115,7 +115,7 @@ const ChallengeList = () => {
         if (Object.keys(cardList).length === 0) {
             return null;
         }
-        console.log("cardList: ", cardList);
+
         const cards = cardList[current].map((card, idx) => {
             return (
                 <ChallengeCard

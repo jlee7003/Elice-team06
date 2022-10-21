@@ -148,6 +148,7 @@ const UserInfo = () => {
         }
         return num;
     }
+
     return (
         <>
             {userInfo !== null && (

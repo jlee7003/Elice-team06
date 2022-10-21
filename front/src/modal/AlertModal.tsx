@@ -39,7 +39,6 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                                 }}
                                 className="close"
                                 onClick={() => {
-                                    console.log("window의 x창이야");
                                     setOnModal(false);
                                     // () => {
                                     //     setOnModal(false);
@@ -56,7 +55,6 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                             <Button
                                 className="close"
                                 onClick={() => {
-                                    console.log("모달에서 삭제해용");
                                     setOnModal(false);
                                     trigger(name);
                                     // () => {
@@ -73,7 +71,6 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                             <Button
                                 className="close"
                                 onClick={() => {
-                                    console.log("모달에서 취소해용");
                                     setOnModal(false);
                                     // () => {
                                     //     setOnModal(false);

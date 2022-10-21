@@ -2,14 +2,6 @@ import API from "./index";
 //import interface of comming data
 import { PostLists } from "@/types/post";
 
-//전체 게시글 목록을 불러오는 API
-//query가 필요한 get.
-export const AllPostList = async (params: string[]) => {
-    const queryString = params.join("&");
-    const result = await API.getQuery<PostLists>(["board/all", queryString]);
-    return result;
-};
-
 //내가 등록한 게시글만 불러오기
 export const MyPostList = async () => {
     const result = await API.get<PostLists>(["board", "myPost"]);

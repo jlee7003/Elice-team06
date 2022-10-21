@@ -13,8 +13,6 @@ userRoute.post(
         const userData = req.body;
         const newUser = await userService.addUser({ userData });
         if (newUser.message) {
-            console.log(newUser.message);
-
             return res.status(409).send(newUser);
         }
 
@@ -90,7 +88,7 @@ userRoute.put(
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
         const { updateData } = req.body;
-        console.log(nickname, updateData);
+
         const result = await userService.updateUser({
             nickname,
             updateData,
@@ -150,7 +148,7 @@ userRoute.put(
     asyncHandler(async (req, res) => {
         const { nickname } = req.nickname;
         const { password, new_password } = req.body;
-        console.log(password, new_password, nickname);
+
         const result = await userService.changePassword({
             nickname,
             password,

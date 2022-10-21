@@ -28,6 +28,7 @@ const useLogin = (redirectURL: string) => {
         const user: User = {
             nickname: data?.nickname,
             introduce: data?.introduce,
+            admin: data?.admin,
         };
 
         setUser(user);

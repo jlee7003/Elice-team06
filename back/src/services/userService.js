@@ -79,7 +79,7 @@ class userService {
             },
         });
         if (userData === null) {
-            const message = "존재하지 않는 유저입니다.";
+            const message = "아이디 또는 비밀번호를 확인해주세요.";
             return { result: false, message };
         }
         //유저 밴, 탈퇴 확인
@@ -90,7 +90,7 @@ class userService {
         //비밀번호 일치 확인
         const result = await bcrypt.compare(password, userData.password);
         if (!result) {
-            const message = "비밀번호가 틀렸습니다.";
+            const message = "아이디 또는 비밀번호를 확인해주세요.";
             return { result: false, message };
         }
         const introduce = userData.Profile.introduce;
@@ -147,12 +147,12 @@ class userService {
                 Profile: { select: { introduce: true } },
             },
         });
-        if (userData.role === "ADMIN"){
-            userData.admin = true
-        } else{
-            userData.admin = false
+        if (userData.role === "ADMIN") {
+            userData.admin = true;
+        } else {
+            userData.admin = false;
         }
-        delete userData.role
+        delete userData.role;
         await prisma.$disconnect();
         return userData;
     }
@@ -274,13 +274,12 @@ class userService {
     }
 
     static async comparePassword({ nickname, password }) {
-        console.log(nickname, password);
         const userData = await prisma.User.findUnique({
             where: {
                 nickname,
             },
         });
-        console.log(userData);
+
         const result = await bcrypt.compare(password, userData.password);
 
         if (!result) {

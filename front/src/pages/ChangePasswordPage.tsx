@@ -41,14 +41,11 @@ const ChangePasswordPage = () => {
     //             return;
     //         }
     //         setUserInfo(res.data);
-    //         console.log(res);
     //     });
     // };
 
     const handleClickRadioButton = (radioBtnName: string) => {
         setInputStatus(radioBtnName);
-        console.log(radioBtnName);
-        console.log(inputStatus);
     };
     function isvalidationtrue() {
         if (
@@ -97,9 +94,8 @@ const ChangePasswordPage = () => {
             password_hint: password_hint.current?.value,
         };
         const result: any = await changePassword(formData);
-        console.log(result);
+
         if (result?.response?.status != undefined) {
-            console.log(result?.response?.data);
             setError({
                 isError: true,
                 message: result?.response?.data?.message,

@@ -62,9 +62,8 @@ const ChallengeRequestModal: React.FC<Props> = ({ setOnModal, addfunction }: Pro
             due_date: endDate.toDateString(),
             level: level.current.value,
         };
-        console.log("formdata:", formData);
+
         await API.post<challengeResult>(["challenge"], formData);
-        console.log("요청완료");
     };
 
     return (

@@ -7,10 +7,9 @@ import { ModalContainer, ModalBody, FlexBox, Button } from "@/styles/modal-style
 type Props = {
     children: string;
     setOnModal: (state: string) => void;
-    logout: (state: void) => void;
 };
 const Draggable1: any = Draggable;
-const ErrorModal: React.FC<Props> = ({ setOnModal, logout, children }: Props) => {
+const ErrorModal: React.FC<Props> = ({ setOnModal, children }: Props) => {
     const [error, setError] = useRecoilState(errorRecoil);
     return (
         <ModalPortal>
