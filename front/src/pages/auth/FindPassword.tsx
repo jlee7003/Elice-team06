@@ -47,10 +47,8 @@ const FindID = () => {
             email: emailRef.current.value,
         }).then((res: any) => {
             if (res.status !== 200) {
-                console.log("hihihi");
                 return;
             }
-            console.log(res);
             navigate(ROUTES.FindResult.path, {
                 state: { labelName: "비밀번호", result: res.data.password },
             });
