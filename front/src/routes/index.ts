@@ -46,12 +46,8 @@ export const ROUTES: routeWrap = {
         path: "/signup",
         Component: Signup,
     },
-    Post: {
-        path: "/challenge/posts",
-        Component: Post,
-    },
     BoardPage: {
-        path: "/boardPage/pages/:id",
+        path: "/community/pages/:id",
         Component: BoardPage,
     },
     ChallengeDetail: {
@@ -61,10 +57,6 @@ export const ROUTES: routeWrap = {
     Mypage: {
         path: "/mypage",
         Component: Mypage,
-    },
-    MyPosts: {
-        path: "/MyPosts",
-        Component: MyPosts,
     },
     FindID: {
         path: "/auth/email",
