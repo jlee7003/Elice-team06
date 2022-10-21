@@ -125,7 +125,7 @@ const ChallengeList = () => {
                     // grade={true}
                     title={card.title!}
                     date={dateFormat(card.start_date!, card.due_date!)}
-                    // count={card._count.Challenger}
+                    count={card._count.Challenger}
                 />
             );
         });
