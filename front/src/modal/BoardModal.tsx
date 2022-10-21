@@ -16,7 +16,7 @@ import {
     XButton,
 } from "@/styles/challengeRequestModal-style";
 import * as _ from "lodash";
-import { writeboard } from "@/api/board";
+import { writeBoard } from "@/api/board";
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
@@ -61,7 +61,7 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
             alert("내용을 채워주세요");
             return;
         }
-        const result = await writeboard(formData);
+        const result = await writeBoard(formData);
     };
 
     return (

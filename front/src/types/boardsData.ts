@@ -1,9 +1,9 @@
-export interface WriteBoardData {
+export interface writeBoardData {
     title: string;
     description: string;
 }
 
-export type WriteBoardResult = {
+export type writeBoardResult = {
     id: number;
     title: string;
     description: string;
