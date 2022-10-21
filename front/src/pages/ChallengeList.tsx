@@ -9,6 +9,8 @@ import EasyPagination from "@/components/Easy-pagination";
 import { Category, CategoryTitle, CategoryContent } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
 
+import dateFormat from "@/lib/dateFormat";
+
 interface Pagination {
     start: number;
     end: number;
@@ -122,7 +124,7 @@ const ChallengeList = () => {
                     level={card.level as Level}
                     // grade={true}
                     title={card.title!}
-                    date={card.start_date!}
+                    date={dateFormat(card.start_date!, card.due_date!)}
                     // count={card._count.Challenger}
                 />
             );
