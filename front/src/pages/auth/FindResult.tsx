@@ -21,6 +21,7 @@ const copy = (text: string) => {
         textArea.select();
 
         document.execCommand("copy");
+        document.body.removeChild(textArea);
     }
 };
 
