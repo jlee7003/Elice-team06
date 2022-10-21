@@ -5,6 +5,12 @@ import { refresh } from "@/api/user";
 const token = selector({
     key: "token",
     get: async () => {
+        const refreshToken = sessionStorage.getItem("refresh");
+
+        if (refreshToken === null) {
+            return null;
+        }
+
         API.setAccessToken("refreshed");
         const result = await refresh();
 

@@ -1,4 +1,3 @@
-import assets from "@/lib/assets";
 import cssUnit from "@/lib/cssUnit";
 import styled from "styled-components";
 
@@ -115,15 +114,4 @@ export const DataLow = styled.span`
     }
 `;
 
-const bonobono = assets("bonobono.jpg");
-
-export const Background = styled.div`
-    /* display: grid;
-    place-items: center;
-
-    width: ${cssUnit.unit.width};
-    height: 800px;
-
-    background-image: url(${bonobono});
-    background-size: 100% 100%; */
-`;
+export const Background = styled.div``;

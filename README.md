@@ -39,16 +39,15 @@
 
 #### - 백엔드
 
-1. Numpy
+1. Javascript
 2. Pandas
 3. Matplotlib
-4. FastApi
-5. Scipy
-6. Node.js
-7. Express
-8. Uvicorn
-9. Bycrypt
-10. Dotenv
+4. Node.js
+5. Express
+6. Bycrypt
+7. Dotenv
+8. Prisma
+9. MySQL
 
 ## **`데이터세트`**
 
@@ -75,12 +74,12 @@
 
 > 참고문헌
 
-(1)[IPCC 기후변화 2014년 종합보고서](https://www.ipcc.ch/site/assets/uploads/2018/02/ar5-syr-spm_korean.pdf)
-(2)[CO2 emissions (metric tons per capita)(2020)](https://data.worldbank.org/indicator/EN.ATM.CO2E.PC)
-(3)[State of the climate](https://www.unep.org/explore-topics/climate-action/what-we-do/climate-action-note/state-of-climate.html?gclid=Cj0KCQjwkOqZBhDNARIsAACsbfKGX75a6dAMXx8RGR_COa5yDN_qWNqomftipFlrl2XP-CQW-aGvFtEaArtyEALw_wcB)
-(4)[온실가스(GHG)(환경부)](https://www.me.go.kr/home/web/dictionary/read.do?pagerOffset=0&maxPageItems=10&maxIndexPages=10&searchKey=&searchValue=&menuId=10448&orgCd=&condition.createDeptName=%EC%98%A8%EC%8B%A4%EA%B0%80%EC%8A%A4&boardMasterId=&dicSeq=896&decorator)
-(5)[Global Manmade Greenhouse Gas Emissions by Gas, 2015](https://www.c2es.org/content/international-emissions/)
-(6)[탄소중립 생활 실천 방안(한국 기후환경 네트워크)](https://www.kcen.kr/USR_main2016.jsp??=life/life02)
+(1)[IPCC 기후변화 2014년 종합보고서](https://www.ipcc.ch/site/assets/uploads/2018/02/ar5-syr-spm_korean.pdf)  
+(2)[CO2 emissions (metric tons per capita)(2020)](https://data.worldbank.org/indicator/EN.ATM.CO2E.PC)  
+(3)[State of the climate](https://www.unep.org/explore-topics/climate-action/what-we-do/climate-action-note/state-of-climate.html?gclid=Cj0KCQjwkOqZBhDNARIsAACsbfKGX75a6dAMXx8RGR_COa5yDN_qWNqomftipFlrl2XP-CQW-aGvFtEaArtyEALw_wcB)  
+(4)[온실가스(GHG)(환경부)](https://www.me.go.kr/home/web/dictionary/read.do?pagerOffset=0&maxPageItems=10&maxIndexPages=10&searchKey=&searchValue=&menuId=10448&orgCd=&condition.createDeptName=%EC%98%A8%EC%8B%A4%EA%B0%80%EC%8A%A4&boardMasterId=&dicSeq=896&decorator)  
+(5)[Global Manmade Greenhouse Gas Emissions by Gas, 2015](https://www.c2es.org/content/international-emissions/)  
+(6)[탄소중립 생활 실천 방안(한국 기후환경 네트워크)](https://www.kcen.kr/USR_main2016.jsp??=life/life02)  
 
 
 ## **`서비스 설명`**
@@ -94,17 +93,16 @@
     3.  아이디 / 비밀번호 찾기
     4.  유저 정보 변경
     5.  마이페이지
-    6.  탄소발자국 줄이기 챌린지를 만들고 참가할 수 있는 게시판
-    7.  댓글
-    8.  신고기능
+    6.  관리자 페이지
+    7.  탄소발자국 줄이기 챌린지를 만들고 참가할 수 있는 게시판
+    8.  댓글
     9.  참가기능
     10. 챌린지를 만들 수 있는 폼
 
 -   서브 기능
     1.  정렬
-    2.  검색
-    3.  메일로 유저 계정 찾기
-    4.  유저들이 원하는 챌린지를 신청할 수있는 게시판
+    2.  메일로 유저 계정 찾기
+    4.  유저 커뮤니티
 
 2. 웹 서비스의 사용자가 데이터 분석 시각화 자료를 통해 얻는 인사이트
     - 이산화탄소가 지구의 환경에 미치는 영향을 직관적으로 알 수 있게되고 작은 실천부터 해나가야됨을 인식시켜줍니다.
@@ -112,3 +110,5 @@
 ## **`스토리보드 & 시나리오`**
 
 -   와이어프레임을 작성하여 링크를 삽입합니다. (whimsical, figma 등)
+
+https://www.figma.com/file/gS2HyqococAlf8xAHn8zNO/hot_six?node-id=0%3A1

@@ -45,13 +45,14 @@ const Mypage = () => {
     const navigate = useNavigate();
     const [myChallengeList, setMyChallengeList] = useRecoilState(MyChallengeList);
 
-    const nickNameRef = useRef<HTMLParagraphElement>(null);
-    const nickNameInputRef = useRef<HTMLInputElement>(null);
-
-    const [clicked, setClicked] = useState(false);
-    const [userInfo, setUserInfo] = useState<{ nickname?: string; introduce?: string } | null>(
-        null
-    );
+    const [userInfo, setUserInfo] = useState<{
+        nickname?: string;
+        introduce?: string;
+        age?: string;
+        region?: string;
+        gender?: string;
+        profile_image?: string | null;
+    } | null>(null);
 
     // useEffect(() => {
     //     //API로 정보 받아오기
@@ -80,8 +81,12 @@ const Mypage = () => {
                 return;
             }
             setUserInfo({
-                nickname: res.data.nickname,
+                age: res.data.age,
+                gender: res.data.gender,
                 introduce: res.data.introduce,
+                nickname: res.data.nickname,
+                profile_image: null,
+                region: res.data.region,
             });
         });
     };
@@ -115,59 +120,17 @@ const Mypage = () => {
         });
     };
 
-    //input toggle
-    const onChangeUser = async () => {
-        if (clicked === false) {
-            if (nickNameInputRef.current) {
-                nickNameInputRef.current.style.display = "block";
-            }
-
-            if (nickNameRef.current) {
-                nickNameRef.current.style.display = "none";
-            }
-            setClicked(true);
-        } else if (clicked === true) {
-            if (nickNameInputRef.current) {
-                nickNameInputRef.current.style.display = "none";
-            }
-
-            if (nickNameRef.current) {
-                nickNameRef.current.style.display = "block";
-            }
-
-            const result = await changeMyInfo(userInfo);
-
-            setClicked(false);
-        }
-    };
-
-    const onChangeNickname = (e: any) => {
-        console.log(e.target.value);
-
-        setUserInfo({
-            nickname: e.target.value,
-        });
-    };
-
     return (
         <Main>
             <Container>
                 <SideBar>
                     <MySec>
-                        <span>
-                            <p ref={nickNameRef}>{user?.nickname}</p>
-                            <Input
-                                // type="id"
-                                placeholder="닉네임을 입력하세요."
-                                // name="nickname"
-                                style={{ display: "none" }}
-                                ref={nickNameInputRef}
-                                value={userInfo?.nickname}
-                                onChange={onChangeNickname}
-                            />
-                            <span onClick={onChangeUser}></span>
-                        </span>
-                        <span>{user?.introduce}</span>
+                        <div>
+                            <p>{userInfo?.nickname}</p>
+                        </div>
+                        <div>
+                            <p>{userInfo?.introduce}</p>
+                        </div>
                     </MySec>
                     <MenuContainer>
                         <Menu>

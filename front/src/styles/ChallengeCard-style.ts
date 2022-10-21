@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { Props } from "@/components/ChallengeCard";
 import cssUnit from "@/lib/cssUnit";
-import assets from "@/lib/assets";
 import icons from "@/lib/icons";
 import ChallengeCardBg_Img from "@/assets/challengeCard_bgImg.png";
 import calendarIcon from "@/assets/icons/calendar_icon.png";

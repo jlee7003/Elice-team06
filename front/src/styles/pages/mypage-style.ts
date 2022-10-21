@@ -39,7 +39,7 @@ export const MySec = styled.section`
         font-size: 20px;
     } */
 
-    & > span {
+    & > div {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -50,17 +50,17 @@ export const MySec = styled.section`
         color: ${cssUnit.color.darkergray};
     }
 
-    & > span > p {
+    & > div > p {
         width: 90%;
 
         font-size: ${cssUnit.fontSize.normal};
         color: ${cssUnit.color.black};
     }
 
-    & > span > span {
+    & > div > span {
         display: inline-block;
 
-        width: 10%;
+        width: 18%;
         height: 20px;
 
         background: url(${settingIcon}) center;
