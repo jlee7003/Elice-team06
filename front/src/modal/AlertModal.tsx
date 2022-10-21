@@ -3,20 +3,18 @@ import ModalPortal from "./ModalPortal";
 import Draggable from "react-draggable";
 import { ModalContainer, ModalBody, FlexBox, Button } from "@/styles/modal-style";
 
-// ( prop: { setOnModal: any; trigger: any } ) [ ]
-
 type Props = {
-    setOnModal: React.Dispatch<React.SetStateAction<boolean>>;
-    trigger: any; //React.Dispatch<React.SetStateAction<boolean>>;
-    name: string;
+    modalOpen: number;
+    closeModal: any;
+    trigger: any;
 };
 
-const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
+const AlertModal: React.FC<Props> = ({ modalOpen, closeModal, trigger }: Props) => {
     return (
         <ModalPortal>
             {/* <ModalContainer> */}
             <Draggable>
-                <ModalBody>
+                <ModalBody style={{ visibility: modalOpen !== 0 ? "visible" : "hidden" }}>
                     <div
                         style={{
                             height: "60%",
@@ -31,7 +29,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                                     color: "black",
                                 }}
                             >
-                                게시글 삭제
+                                {modalOpen}번째 게시글 삭제
                             </div>
                             <button
                                 style={{
@@ -39,11 +37,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                                 }}
                                 className="close"
                                 onClick={() => {
-                                    console.log("window의 x창이야");
-                                    setOnModal(false);
-                                    // () => {
-                                    //     setOnModal(false);
-                                    // };
+                                    closeModal();
                                 }}
                             >
                                 <i className="ri-close-line"></i>
@@ -54,17 +48,11 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                         </FlexBox>
                         <FlexBox style={{ height: "50%" }}>
                             <Button
+                                data-post-id={`${modalOpen}`}
                                 className="close"
                                 onClick={() => {
-                                    console.log("모달에서 삭제해용");
-                                    setOnModal(false);
-                                    trigger(name);
-                                    // () => {
-                                    //     setOnModal(false);
-                                    // };
-                                    // () => {
-                                    //     trigger(true);
-                                    // };
+                                    closeModal();
+                                    trigger(modalOpen);
                                 }}
                             >
                                 <i className="ri-checkbox-blank-circle-line"></i>
@@ -73,11 +61,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                             <Button
                                 className="close"
                                 onClick={() => {
-                                    console.log("모달에서 취소해용");
-                                    setOnModal(false);
-                                    // () => {
-                                    //     setOnModal(false);
-                                    // };
+                                    closeModal();
                                 }}
                             >
                                 <i className="ri-close-line"></i>

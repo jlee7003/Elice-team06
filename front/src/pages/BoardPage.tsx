@@ -77,6 +77,7 @@ const BoardPage = () => {
     //query를 만들어 useEffect 내부의 함수에서 사용한다.
     const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
     //console.log("Reqpage의 쿼리", query);
+
     useEffect(() => {
         //API로 정보 받아오기
         const getAllPosts = async (param: string) => {
@@ -94,8 +95,10 @@ const BoardPage = () => {
                 navigate(ROUTES.ErrorPage.path);
                 return; //to alret
             }
+            console.log("query:", query);
+            console.log("res내용물", res);
+            console.log("res의 타입", typeof res);
             //console.log("useEffect(API) is running in ReqPage");
-
             setPostList(res);
         });
     }, []);
@@ -106,6 +109,8 @@ const BoardPage = () => {
     };
 
     //console.log("postList 체크!!!!!!!!", postList);
+
+    //console.log("checking PostList in ReqPage", postList);
 
     //function for currnet page handling
     const settingCurrentPage = (num: number) => {
@@ -123,8 +128,6 @@ const BoardPage = () => {
         }
         setCurrentRange(num);
     };
-
-    //console.log("checking PostList in ReqPage", postList);
 
     return (
         <Container>
