@@ -16,6 +16,7 @@ import Auth from "@/pages/auth/Auth";
 import MyPosts from "@/pages/MyPosts";
 import Admin from "@/pages/Admin";
 import UserInfo from "@/pages/UserInfo";
+import ChangePasswordPage from "@/pages/ChangePasswordPage";
 
 interface route {
     path: string;
@@ -87,9 +88,13 @@ export const ROUTES: routeWrap = {
         path: "/admin",
         Component: Admin,
     },
-    Profile: {
+    UserInfo: {
         path: "/mypage/UserInfo",
         Component: UserInfo,
+    },
+    ChangePasswordPage: {
+        path: "/mypage/ChangePasswordPage",
+        Component: ChangePasswordPage,
     },
     ErrorPage: {
         path: "*",

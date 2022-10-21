@@ -131,8 +131,8 @@ const Signup = () => {
 
     function selectnum() {
         var num = [];
-        for (var i = 20; i < 99; i++) {
-            num.push(<option value={i}>{i}세</option>);
+        for (var i = 20; i <= 60; i += 10) {
+            num.push(<option value={i + "대"}>{i}대</option>);
         }
         return num;
     }

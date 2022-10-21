@@ -106,6 +106,13 @@ export const DataBox = styled.div`
 export const DataLow = styled.span`
     color: #000;
     font-size: ${cssUnit.fontSize.medium};
+    &:first-child {
+        padding-right: 10px;
+        color: #61be92;
+    }
+    & + span {
+        padding-left: 10px;
+    }
 `;
 
 const bonobono = assets("bonobono.jpg");

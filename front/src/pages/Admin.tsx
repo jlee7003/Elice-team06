@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, MouseEvent } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 import modalState from "@/recoil/modalState";
 
 import { ROUTES } from "@/routes";
@@ -34,7 +34,18 @@ const Admin = () => {
     const user = useRecoilValue(userState);
     const [onModal, setOnModal] = useRecoilState(modalState);
 
-    const [data, setData] = useState<{ year: number; sea_level: number }[] | null>(null);
+    //
+    const [data, setData] = useState<
+        | {
+              year?: number;
+              sea_level?: number;
+              World?: number;
+              USA?: number;
+              EU?: number;
+              China?: number;
+          }[]
+        | null
+    >(null);
     const [currentData, setCurrentData] = useState("sealevel");
 
     const navigate = useNavigate();
@@ -58,12 +69,35 @@ const Admin = () => {
         }
 
         return data.map((item, idx) => {
-            return (
-                <DataBox key={idx}>
-                    <DataLow>{item.year}</DataLow>
-                    <DataLow>{item.sea_level}</DataLow>
-                </DataBox>
-            );
+            switch (currentData) {
+                case "sealevel":
+                    return (
+                        <DataBox key={idx}>
+                            <DataLow>{item.year}</DataLow>
+                            <DataLow>sea level : {item.sea_level}</DataLow>
+                        </DataBox>
+                    );
+                case "emission":
+                    return (
+                        <DataBox key={idx}>
+                            <DataLow>{item.year}</DataLow>
+                            <DataLow> World : {item.World}</DataLow>
+                            <DataLow> USA : {item.USA}</DataLow>
+                            <DataLow> EU : {item.EU}</DataLow>
+                            <DataLow> China : {item.China}</DataLow>
+                        </DataBox>
+                    );
+                case "temperture":
+                    return (
+                        <DataBox key={idx}>
+                            <DataLow>{item.year}</DataLow>
+                            <DataLow> World : {item.World}</DataLow>
+                            <DataLow> USA : {item.USA}</DataLow>
+                            <DataLow> EU : {item.EU}</DataLow>
+                            <DataLow> China : {item.China}</DataLow>
+                        </DataBox>
+                    );
+            }
         });
     }, [data]);
 

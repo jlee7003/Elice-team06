@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 import useLogout from "@/hooks/useLogout";
 import {
     HeaderContainer,

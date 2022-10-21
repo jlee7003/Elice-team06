@@ -118,6 +118,8 @@ export const Box = styled.div`
         margin: auto;
 
         font-size: 13px;
+
+        cursor: pointer;
     }
 `;
 

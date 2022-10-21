@@ -1,6 +1,6 @@
 import { useResetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import userState from "@/recoil/user";
+import { userState } from "@/recoil/user";
 import { logout } from "@/api/user";
 import { ROUTES } from "@/routes";
 

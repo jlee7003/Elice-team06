@@ -12,6 +12,7 @@ import {
     Section,
     ButtonContianer,
     SkeletonContent,
+    CardsHolder,
 } from "@/styles/pages/reqpage-style";
 import { Main } from "@/components/common/Main";
 
@@ -44,6 +45,8 @@ const BoardPage = () => {
     //url, modal
     const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
     const [onModal, setOnModal] = useRecoilState(ModalState);
+
+    const [deleteMode, setDeleteMode] = useState(false);
 
     useEffect(() => {
         setCurrentUrl(window.location.href);
@@ -102,7 +105,7 @@ const BoardPage = () => {
         PageData: pageData,
     };
 
-    console.log("postList 체크!!!!!!!!", postList);
+    //console.log("postList 체크!!!!!!!!", postList);
 
     //function for currnet page handling
     const settingCurrentPage = (num: number) => {
@@ -143,7 +146,13 @@ const BoardPage = () => {
                         {postList ? (
                             <>
                                 <Section>
-                                    <PostCards postLists={postList} currentPage={currentPage - 1} />
+                                    <CardsHolder>
+                                        <PostCards
+                                            postLists={postList}
+                                            currentPage={currentPage - 1}
+                                            deleteMode={deleteMode}
+                                        />
+                                    </CardsHolder>
                                     <ButtonContianer>
                                         <button onClick={() => setOnModal("challenge")}>
                                             글쓰기
@@ -155,7 +164,12 @@ const BoardPage = () => {
                                             ></ChallengeRequestModal>
                                         )}
 
-                                        <button onClick={() => setOnModal("board")}>계시글</button>
+                                        <button onClick={() => setOnModal("board")}>
+                                            의견 남기기
+                                        </button>
+                                        {/* <button onClick={() => setDeleteMode((prev) => !prev)}>
+                                            삭제하기
+                                        </button> */}
                                         {onModal == "board" && (
                                             <BoardModal
                                                 setOnModal={setOnModal}
@@ -176,9 +190,9 @@ const BoardPage = () => {
                             <>
                                 {/* <SectionSkele />
                                 <NavSkele /> */}
-                                {[0, 1, 2, 3, 4].map(() => {
+                                {[0, 1, 2, 3, 4].map((i) => {
                                     return (
-                                        <SkeletonContent>
+                                        <SkeletonContent key={i}>
                                             <Skeleton variant="rounded" width={1265} height={190} />
                                         </SkeletonContent>
                                     );

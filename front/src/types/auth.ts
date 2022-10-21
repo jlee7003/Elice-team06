@@ -36,18 +36,18 @@ export interface RefreshResult {
 }
 
 export interface ChangePasswordData {
-    nickname: string;
     password: string;
-    id: string;
+    new_password: string;
+    password_hint: string;
 }
 
 export interface ChangeMyInfoData {
-    nickname: string;
     updateData: {
         age?: string;
         region?: string;
         gender?: string;
         profile_image?: string;
         introduce?: string;
+        nickname?: string;
     };
 }
