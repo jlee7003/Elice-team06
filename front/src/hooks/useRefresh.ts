@@ -7,12 +7,6 @@ const useRefresh = () => {
     const setUser = useSetRecoilState(userState);
 
     const reload = async () => {
-        const refreshToken = sessionStorage.getItem("refresh");
-
-        if (refreshToken === null) {
-            return;
-        }
-
         const data = getToken;
 
         if (data === null) {
