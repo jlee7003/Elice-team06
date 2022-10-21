@@ -20,6 +20,7 @@ import { Logo } from "@/styles/common";
 import errorRecoil from "@/recoil/errorRecoil";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import useLogout from "@/hooks/useLogout";
+import sendToast from "@/lib/sendToast";
 const WithDrawalPage = () => {
     // const [userInfo, setUserInfo] = useRecoilState(userInfoData);
     const nickname = useRef<HTMLInputElement>(null);
@@ -79,6 +80,7 @@ const WithDrawalPage = () => {
             return;
         }
         navigate(ROUTES.Home.path);
+        sendToast("회원탈퇴에 성공하셨습니다.", "success");
     };
 
     function selectnum() {

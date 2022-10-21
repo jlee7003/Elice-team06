@@ -3,20 +3,18 @@ import ModalPortal from "./ModalPortal";
 import Draggable from "react-draggable";
 import { ModalContainer, ModalBody, FlexBox, Button } from "@/styles/modal-style";
 
-// ( prop: { setOnModal: any; trigger: any } ) [ ]
-
 type Props = {
-    setOnModal: React.Dispatch<React.SetStateAction<boolean>>;
-    trigger: any; //React.Dispatch<React.SetStateAction<boolean>>;
-    name: string;
+    modalOpen: number;
+    closeModal: any;
+    trigger: any;
 };
-const Draggable1: any = Draggable;
-const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
+
+const AlertModal: React.FC<Props> = ({ modalOpen, closeModal, trigger }: Props) => {
     return (
         <ModalPortal>
             {/* <ModalContainer> */}
-            <Draggable1>
-                <ModalBody>
+            <Draggable>
+                <ModalBody style={{ visibility: modalOpen !== 0 ? "visible" : "hidden" }}>
                     <div
                         style={{
                             height: "60%",
@@ -31,7 +29,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                                     color: "black",
                                 }}
                             >
-                                게시글 삭제
+                                {modalOpen}번째 게시글 삭제
                             </div>
                             <button
                                 style={{
@@ -39,10 +37,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                                 }}
                                 className="close"
                                 onClick={() => {
-                                    setOnModal(false);
-                                    // () => {
-                                    //     setOnModal(false);
-                                    // };
+                                    closeModal();
                                 }}
                             >
                                 <i className="ri-close-line"></i>
@@ -53,16 +48,11 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                         </FlexBox>
                         <FlexBox style={{ height: "50%" }}>
                             <Button
+                                data-post-id={`${modalOpen}`}
                                 className="close"
                                 onClick={() => {
-                                    setOnModal(false);
-                                    trigger(name);
-                                    // () => {
-                                    //     setOnModal(false);
-                                    // };
-                                    // () => {
-                                    //     trigger(true);
-                                    // };
+                                    closeModal();
+                                    trigger(modalOpen);
                                 }}
                             >
                                 <i className="ri-checkbox-blank-circle-line"></i>
@@ -71,10 +61,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                             <Button
                                 className="close"
                                 onClick={() => {
-                                    setOnModal(false);
-                                    // () => {
-                                    //     setOnModal(false);
-                                    // };
+                                    closeModal();
                                 }}
                             >
                                 <i className="ri-close-line"></i>
@@ -82,7 +69,7 @@ const AlertModal: React.FC<Props> = ({ setOnModal, trigger, name }: Props) => {
                         </FlexBox>
                     </div>
                 </ModalBody>
-            </Draggable1>
+            </Draggable>
             {/* </ModalContainer> */}
         </ModalPortal>
     );

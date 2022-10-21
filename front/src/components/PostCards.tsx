@@ -1,6 +1,9 @@
 import { useState, useEffect, MouseEvent } from "react";
-import { constSelector, useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+
+import API from "@/api/.";
+
 /*styles*/
 import {
     ArtContainer,
@@ -10,18 +13,20 @@ import {
     Box,
     Time,
     DetailContainer,
+    DeleteButton,
+    LikeButton,
 } from "@/styles/common/requestCard-style";
 
-//real data interface
-import { PostLists, LikedPostsLists } from "@/types/post";
+//interface for data
+import { PostLists } from "@/types/post";
 import { userState } from "@/recoil/user";
+
 //import Modal
 import AlertModal from "@/modal/AlertModal";
-//API import
-import API from "@/api/.";
+
 //error handling
 import { ROUTES } from "@/routes/.";
-import { result } from "lodash";
+
 /**
  * postList: 각 페이지당 갖고 있는 포스트들 데이터 (부모에서 받음)
  * currentPage: 현재 페이지 위치
@@ -33,29 +38,34 @@ const PostCards = (prop: {
     deleteMode?: boolean;
 }) => {
     const navigate = useNavigate();
+    //user handling
     const user = useRecoilValue(userState);
-
-    const postlist = prop.postLists;
-    const currentPageNum = prop.currentPage + 1;
+    /**
+     * Like handling
+     * 가져온 데이터에 현재 상태(추천 on/off)를 더하여 조작
+     */
+    const [likesList, setLikesList] = useState(["0"]);
+    const [isUserLike, setIsUserLike] = useState(false);
+    const [handlieLikeNum, sethandlieLikeNum] = useState(0);
+    /**
+     * Delete handling
+     */
+    //modal handling
+    const NO_MODAL = 0;
+    const [modalOpen, setModalOpen] = useState(NO_MODAL);
     //관리자 모드에서 삭제하기 기능?
     //const deleteModeOn = prop.deleteMode;
 
-    //삭제 모달, 삭제
-    const [onModal, setOnModal] = useState(false);
-    const [deleteTrigger, setDeleteTrigger] = useState(false);
-    const [likesList, setLikesList] = useState(["0"]);
-    //const [userLiked, setUserLiked] = useState<LikedPostsLists | null>(null);
+    //get props *need refactoring
+    const postlist = prop.postLists;
+    const currentPageNum = prop.currentPage + 1;
 
-    //가져온 데이터에 현재 상태(추천여부)를 더하여 조작하는 방향
-    const [isUserLike, setIsUserLike] = useState(false);
-    const [handlieLikeNum, sethandlieLikeNum] = useState(0);
-
-    //이미 투표했는지 체크
+    /**Getting & Checking Data */
     useEffect(() => {
         if (user) {
             const getLikedData = async () => {
                 const result = await API.get(["board", "likePost"]);
-                //응답이 null 경우 체크()
+                //null checking(1)
                 if (result === null) {
                     navigate(ROUTES.ErrorPage.path);
                     return; //to alret
@@ -63,14 +73,16 @@ const PostCards = (prop: {
                 return result.data;
             };
             getLikedData().then((res: any) => {
-                //응답이 undefined 경우 체크(2)
+                //undefined checking(2)
                 if (res === undefined) {
                     navigate(ROUTES.ErrorPage.path);
                     return; //to alret
                 }
+                //getting post's id
                 const likedPostslist = res.map((likedpost: any) => {
                     return likedpost.post_id;
                 });
+                //converting num->string
                 const result = likedPostslist.map((i: number) => i.toString());
                 setLikesList(result);
             });
@@ -78,21 +90,30 @@ const PostCards = (prop: {
         return;
     }, []);
 
-    //좋아요 관련
+    /** API */
+    //LIKE
     const puttingLike = async (param: string, data: any) => {
         const result = await API.post<number>(["vote", param], data);
         return result;
     };
-    //삭제 관련
+    //DELETE
     const deletingPost = async (param: string) => {
         const result = await API.delete<number>(["board", param]);
         return result;
     };
-    const onClickDelete = (name: string) => {
-        //const { name } = e.target as HTMLButtonElement;
-        deletingPost(name);
-    };
 
+    /**OnClick handling
+     */
+    //DELETE
+    const onClickDelete = (target: number) => {
+        //console.log("target", target);
+        deletingPost(target.toString());
+        //const el = e.target as HTMLButtonElement;
+        //const v = el.getAttribute("data-post-id");
+        //console.log(v);
+        //deletingPost(name);
+    };
+    //LIKE
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         if (user) {
             //해당 게시글의 id(post_id 가져오기)
@@ -118,6 +139,19 @@ const PostCards = (prop: {
         }
         return;
     };
+    /**Delete action *
+     * /
+    /** Style */
+    //DATE formatting
+    const formatDate = (createdAt: string) => {
+        const dt = new Date(createdAt);
+        return `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()} ${
+            dt.getHours() < 12 ? "오전" : "오후"
+        } ${String(dt.getHours() % 12).padStart(2, "0")}:${String(dt.getMinutes()).padStart(
+            2,
+            "0"
+        )}`;
+    };
 
     return (
         <>
@@ -131,38 +165,19 @@ const PostCards = (prop: {
                                     <p>{post.description}</p>
                                 </Contents>
                                 <Box>
-                                    <button name={`${post.id}`} onClick={onClick}>
+                                    <LikeButton name={`${post.id}`} onClick={onClick}>
                                         {post._count.VotePost + handlieLikeNum}
-                                    </button>
-                                    <button
-                                        name={`${post.id}`}
-                                        onClick={() => {
-                                            if (user?.nickname === post.author) {
-                                                setOnModal(true);
-                                                if (deleteTrigger) {
-                                                    () => onClickDelete;
-                                                }
-                                            }
-                                        }}
-                                    >
-                                        삭제
-                                        {onModal == true && (
-                                            <AlertModal
-                                                name={`${post.id}`}
-                                                setOnModal={setOnModal}
-                                                trigger={onClickDelete}
-                                            ></AlertModal>
-                                        )}
-                                    </button>
+                                    </LikeButton>
+
                                     {/* {deleteModeOn ? (
-                                        <>
-                                            <span>
-                                                <input type="checkbox" name={`${post.id}`}></input>
-                                            </span>
-                                        </>
-                                    ) : (
-                                        <></>
-                                    )} */}
+                                    <>
+                                        <span>
+                                            <input type="checkbox" name={`${post.id}`}></input>
+                                        </span>
+                                    </>
+                                ) : (
+                                    <></>
+                                )} */}
                                 </Box>
                             </ArtContainer>
                             <DetailContainer>
@@ -172,18 +187,41 @@ const PostCards = (prop: {
                                         <span>{post.author}</span>
                                     </li>
                                     <li>
-                                        <i></i>
-                                        post.comments 개의 댓글
+                                        <Time>{formatDate(post.createdAt)}</Time>
                                     </li>
                                     <li>
-                                        <i></i>
-                                        {post.view} views
+                                        {user?.nickname === post.author ? (
+                                            <>
+                                                <DeleteButton
+                                                    name={`${post.id}`}
+                                                    onClick={() => {
+                                                        setModalOpen(post.id);
+                                                    }}
+                                                >
+                                                    삭제
+                                                </DeleteButton>
+                                            </>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </li>
+                                    {/* <li>
+                                    <i></i>
+                                    post.comments 개의 댓글
+                                </li>
+                                <li>
+                                    <i></i>
+                                    {post.view} views
+                                </li> */}
                                 </Details>
-                                <Time>{post.createdAt}</Time>
                             </DetailContainer>
                         </Article>
                     ))}
+                    <AlertModal
+                        modalOpen={modalOpen}
+                        trigger={onClickDelete}
+                        closeModal={() => setModalOpen(0)}
+                    ></AlertModal>
                 </>
             ) : (
                 <></>

@@ -96,7 +96,7 @@ export const Box = styled.div`
     color: #979797;
     font-size: 13px;
 
-    & > button {
+    /* & > button {
         width: 40px;
         height: 40px;
 
@@ -120,7 +120,7 @@ export const Box = styled.div`
         font-size: 13px;
 
         cursor: pointer;
-    }
+    } */
 `;
 
 export const Details = styled.ul`
@@ -143,7 +143,7 @@ export const Details = styled.ul`
         float: left;
         flex-direction: row;
 
-        margin: 0 5px 0 0;
+        margin: 0;
 
         font-size: 16px;
         vertical-align: baseline;
@@ -169,7 +169,7 @@ export const Details = styled.ul`
     & > li > span {
         display: inline-block;
 
-        height: 80%;
+        height: 100%;
         margin: 0 10px 0 0;
 
         color: black;
@@ -189,11 +189,59 @@ export const Time = styled.span`
     float: right;
     justify-content: flex-end;
 
-    width: 20%;
+    //width: 20%;
     height: 100%;
 
-    padding-top: 5px;
-    padding-right: 30px;
+    /* padding-top: 5px;
+    padding-right: 10px; */
 
+    font-size: 16px;
     vertical-align: middle;
+`;
+
+export const LikeButton = styled.button`
+    width: 40px;
+    height: 40px;
+
+    margin: auto;
+    padding: 2px;
+
+    border-radius: 50%;
+    color: white;
+    background-color: #61be92;
+
+    font-size: 14px;
+    writing-mode: horizontal-tb;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+`;
+
+export const DeleteButton = styled.button`
+    margin: 0;
+
+    //border: none;
+    //border-radius: 4px;
+
+    width: 40px;
+    height: 15px;
+
+    margin: auto;
+    padding: auto;
+
+    color: gray;
+    //background-color: gray;
+
+    /* font-size: 14px;
+        writing-mode: horizontal-tb;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600; */
+
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+
+    vertical-align: top;
 `;
