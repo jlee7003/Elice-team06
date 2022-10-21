@@ -154,11 +154,11 @@ const ChangePasswordPage = () => {
 
                                 {ValidationCheck ? (
                                     <OKButton onClick={onClick} onMouseEnter={validationTrue}>
-                                        회원 가입하기
+                                        변경하기
                                     </OKButton>
                                 ) : (
                                     <XButton onClick={onClickPrevent} onMouseEnter={validationTrue}>
-                                        회원 가입하기
+                                        변경하기
                                     </XButton>
                                 )}
                             </Form>

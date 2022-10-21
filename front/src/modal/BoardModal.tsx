@@ -63,9 +63,6 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
             return;
         }
         const result = await writeboard(formData);
-        console.log("formdata:", formData);
-        console.log(result);
-        console.log("요청완료");
     };
 
     return (

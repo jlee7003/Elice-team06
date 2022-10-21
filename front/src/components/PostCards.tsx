@@ -30,7 +30,7 @@ import { result } from "lodash";
 const PostCards = (prop: {
     postLists: PostLists | null;
     currentPage: number;
-    deleteMode: boolean;
+    deleteMode?: boolean;
 }) => {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
