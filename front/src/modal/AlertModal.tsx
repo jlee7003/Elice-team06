@@ -8,12 +8,12 @@ type Props = {
     closeModal: any;
     trigger: any;
 };
-const Draggable1: any = Draggable;
+const DragContainer: any = Draggable;
 const AlertModal: React.FC<Props> = ({ modalOpen, closeModal, trigger }: Props) => {
     return (
         <ModalPortal>
             {/* <ModalContainer> */}
-            <Draggable1>
+            <DragContainer>
                 <ModalBody style={{ visibility: modalOpen !== 0 ? "visible" : "hidden" }}>
                     <div
                         style={{
@@ -69,7 +69,7 @@ const AlertModal: React.FC<Props> = ({ modalOpen, closeModal, trigger }: Props) 
                         </FlexBox>
                     </div>
                 </ModalBody>
-            </Draggable1>
+            </DragContainer>
             {/* </ModalContainer> */}
         </ModalPortal>
     );
