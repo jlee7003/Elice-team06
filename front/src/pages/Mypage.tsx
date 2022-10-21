@@ -1,5 +1,5 @@
 import { Banner } from "@/styles/banner";
-import { MouseEvent } from "react";
+import { MouseEvent, useRef } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 //styles
@@ -17,6 +17,7 @@ import {
     ChallengeIcon,
     UserIcon,
     CategoryContent,
+    Input,
 } from "@/styles/pages/mypage-style";
 import { CategoryTitle } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
@@ -30,6 +31,9 @@ import { userState } from "@/recoil/user";
 //API import
 import API from "@/api/.";
 import post from "@/lib/dummyPosts";
+import { myInfo } from "@/api/user";
+import { changeMyInfo } from "../api/user";
+import { Info } from "@/recoil/user";
 //error handling
 import { ROUTES } from "@/routes/.";
 //현재 post는 전체 게시글 데이터를 받아오는 더미데이터로 향후 특정유저의 포스트만 모아놓는 더미데이터와 유저 더미데이터를 만들어서 사용할 예정
@@ -40,6 +44,14 @@ const Mypage = () => {
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
     const [myChallengeList, setMyChallengeList] = useRecoilState(MyChallengeList);
+
+    const nickNameRef = useRef<HTMLParagraphElement>(null);
+    const nickNameInputRef = useRef<HTMLInputElement>(null);
+
+    const [clicked, setClicked] = useState(false);
+    const [userInfo, setUserInfo] = useState<{ nickname?: string; introduce?: string } | null>(
+        null
+    );
 
     // useEffect(() => {
     //     //API로 정보 받아오기
@@ -62,11 +74,27 @@ const Mypage = () => {
     //     });
     // }, []);
 
+    const getUserInfo = async () => {
+        await myInfo().then((res) => {
+            if (res === null) {
+                return;
+            }
+            setUserInfo({
+                nickname: res.data.nickname,
+                introduce: res.data.introduce,
+            });
+        });
+    };
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+
     useEffect(() => {
         API.get(["challenge", "my?start=1&end=5&count=1"]).then((res: any) => {
             return setMyChallengeList(res.data);
         });
-    }, [myChallengeList]);
+    }, []);
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
         const { name } = e.target as HTMLButtonElement;
@@ -87,14 +115,57 @@ const Mypage = () => {
         });
     };
 
+    //input toggle
+    const onChangeUser = async () => {
+        if (clicked === false) {
+            if (nickNameInputRef.current) {
+                nickNameInputRef.current.style.display = "block";
+            }
+
+            if (nickNameRef.current) {
+                nickNameRef.current.style.display = "none";
+            }
+            setClicked(true);
+        } else if (clicked === true) {
+            if (nickNameInputRef.current) {
+                nickNameInputRef.current.style.display = "none";
+            }
+
+            if (nickNameRef.current) {
+                nickNameRef.current.style.display = "block";
+            }
+
+            const result = await changeMyInfo(userInfo);
+
+            setClicked(false);
+        }
+    };
+
+    const onChangeNickname = (e: any) => {
+        console.log(e.target.value);
+
+        setUserInfo({
+            nickname: e.target.value,
+        });
+    };
+
     return (
         <Main>
             <Container>
                 <SideBar>
                     <MySec>
                         <span>
-                            <p>{user?.nickname}</p>
-                            <span></span>
+                            <p ref={nickNameRef}>{user?.nickname}</p>
+                            <Input
+                                // type="id"
+                                placeholder="닉네임을 입력하세요."
+                                // name="nickname"
+                                style={{ display: "none" }}
+                                ref={nickNameInputRef}
+                                value={userInfo?.nickname}
+                                onChange={onChangeNickname}
+                            />
+                            <span onClick={onChangeUser}></span>
                         </span>
                         <span>{user?.introduce}</span>
                     </MySec>

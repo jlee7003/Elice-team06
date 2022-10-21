@@ -42,6 +42,7 @@ export const MySec = styled.section`
     & > span {
         display: flex;
         flex-direction: row;
+        align-items: center;
 
         margin: 10px;
 
@@ -167,6 +168,7 @@ export const ChallengeContainter = styled.main`
 export const MyChallenges = styled.section`
     display: flex;
     flex-direction: column;
+    padding-bottom: 80px;
 
     & > p {
         margin-bottom: 15px;
@@ -219,4 +221,13 @@ export const LikeChallenges = styled.section`
 export const BoardsContainer = styled.section`
     width: 100%;
     height: 100%;
+`;
+
+export const Input = styled.input`
+    display: block;
+    width: 100%;
+    height: 35px;
+    border: 1px solid #cbcbcb;
+    text-indent: 10px;
+    border-radius: 3px;
 `;
