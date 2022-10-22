@@ -1,8 +1,9 @@
 /*lib*/
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import urlCheck from "@/recoil/urlCheck";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userState } from "@/recoil/user";
 
 /*styles*/
 import {
@@ -58,6 +59,8 @@ const BoardPage = () => {
 
     const { id } = useParams();
     const [currentURL, setCurrentURL] = useState(id);
+
+    const user = useRecoilValue(userState);
 
     //"/reqpage/pages/:id",
     //현재 페이지 쿼리 받아오기
@@ -172,9 +175,11 @@ const BoardPage = () => {
                                                 addfunction={alert}
                                             ></ChallengeRequestModal>
                                         )} */}
-                                        <button onClick={() => setOnModal("board")}>
-                                            의견 남기기
-                                        </button>
+                                        {user && (
+                                            <button onClick={() => setOnModal("board")}>
+                                                의견 남기기
+                                            </button>
+                                        )}
                                         {/* <button onClick={() => setDeleteMode((prev) => !prev)}>
                                             삭제하기
                                         </button> */}
