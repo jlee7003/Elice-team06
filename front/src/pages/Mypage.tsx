@@ -34,7 +34,7 @@ import {
 import { CategoryTitle } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
 //components
-import ChallengeCard from "@/components/ChallengeCard";
+import ChallengeCard, { Level } from "@/components/ChallengeCard";
 import PostCards from "@/components/PostCards";
 //user's data
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -300,7 +300,7 @@ const Mypage = () => {
                                     <ChallengeCard
                                         key={idx}
                                         id={comment[0].id}
-                                        level="beginner"
+                                        level={comment[0].level as Level}
                                         //   grade={true}
                                         title={comment[0].title}
                                         date={dateFormat(
