@@ -135,7 +135,7 @@ const SignUpForm = () => {
 
     function selectnum() {
         var num = [];
-        for (var i = 20; i <= 60; i += 10) {
+        for (let i = 20; i <= 60; i += 10) {
             num.push(<option value={i + "대"}>{i}대</option>);
         }
         return num;

@@ -84,8 +84,8 @@ const WithDrawalPage = () => {
                                     정말 회원 탈퇴 하시겠습니까?
                                     <div>회원님의 한발자국이 탄小에게는 소중합니다.</div>
                                     <div>
-                                        회원탈퇴를 원하시면{" "}
-                                        <span style={{ color: "red" }}>'회원탈퇴'</span>를
+                                        회원탈퇴를 원하시면
+                                        <span style={{ color: "red" }}>{`'회원탈퇴'`}</span>를
                                         적어주세요
                                     </div>
                                 </Withdrawalbox>

@@ -1,3 +1,6 @@
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
 import {
     Main,
     Title,
@@ -8,7 +11,6 @@ import {
     TargetLabel,
     Graph,
     OKButton,
-    FlexBox,
     Input,
     CommentButton,
     CommentContainer,
@@ -18,16 +20,12 @@ import {
 import { addCommentResult, ChallengeJoinResult, ChallengeBoardModel } from "@/types/challengeTypes";
 import API from "@/api/index";
 import { ChallengeBoardWriter } from "@/recoil/ChallengeRecoil";
-import { useRef, useState, useEffect } from "react";
 import Pagination from "./pagination";
 import { ROUTES } from "@/routes";
 import { getComment } from "@/api/challenge";
 import { commentState } from "@/recoil/ChallengeRecoil";
-import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
-import ModalState from "@/recoil/modalState";
-import { useLocation, useNavigate } from "react-router-dom";
 import sendToast from "@/lib/sendToast";
 
 const ChallengeDetailMainCard = () => {
@@ -39,8 +37,6 @@ const ChallengeDetailMainCard = () => {
     const [counts, setCounts] = useState(0); // 데이터의 총 개수를 setCounts 에 저장해서 사용
 
     const [userData, setUserData] = useRecoilState(ChallengeBoardWriter);
-    const token = sessionStorage.getItem("refresh");
-    const setOnModal = useSetRecoilState(ModalState);
     const setError = useSetRecoilState(errorRecoil);
     const user = useRecoilValue(userState);
     const location = useLocation();
