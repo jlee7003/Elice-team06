@@ -9,6 +9,7 @@
         "preview": "vite preview",
         "lint": "node_modules/.bin/eslint"
     },
+    "license": "MIT",
     "dependencies": {
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",

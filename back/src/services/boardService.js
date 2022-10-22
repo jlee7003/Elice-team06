@@ -75,6 +75,17 @@ class boardService {
     static async getMyPost({ nickname }) {
         const postData = await prisma.Board.findMany({
             where: { author: nickname },
+            select: {
+                id: true,
+                author: true,
+                title: true,
+                description: true,
+                view: true,
+                createdAt: true,
+                updatedAt: true,
+                _count: { select: { VotePost: true } },
+            },
+            orderBy: [{ id: "desc" }],
         });
         await prisma.$disconnect();
         return postData;

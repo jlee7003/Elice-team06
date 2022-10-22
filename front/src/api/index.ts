@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 class API {
     // private instance: AxiosInstance;
-    public instance: AxiosInstance;
+    private instance: AxiosInstance;
 
     public constructor() {
         this.instance = axios.create({

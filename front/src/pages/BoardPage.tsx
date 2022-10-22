@@ -67,7 +67,7 @@ const BoardPage = () => {
             return; //to alret
         }
         if (parseInt(id) != 1) {
-            setCurrentPage(id);
+            setCurrentPage(parseInt(id));
             return;
         }
     });

@@ -17,12 +17,12 @@ import DarkMode from "@/recoil/darkMode";
 import { useNavigate } from "react-router-dom";
 import { userState } from "@/recoil/user";
 import sendToast from "@/lib/sendToast";
+
 export type Level = "beginner" | "intermediate" | "advanced" | "default";
 
 export interface Props {
     id?: number;
     level?: Level;
-    // grade?: true;
     title?: string;
     date?: string;
     count?: number;
@@ -32,6 +32,15 @@ export interface Props {
     mode?: string;
 }
 
+type LevelData = Record<Level, String>;
+
+const levelData: LevelData = {
+    default: "기본",
+    beginner: "초급",
+    intermediate: "중급",
+    advanced: "고급",
+};
+
 const ChallengeCard = (props: Props) => {
     const user = useRecoilValue(userState);
     const [darkMode] = useRecoilState(DarkMode);
@@ -40,7 +49,7 @@ const ChallengeCard = (props: Props) => {
 
     return (
         <Card>
-            <CardUpper level={props.level ?? "default"} />
+            <CardUpper level={props.level ?? "default"}>{props.level}</CardUpper>
             <CardLower>
                 <CardTitle mode={darkMode ?? "Light"}>{props.title}</CardTitle>
                 <CardInfo>
@@ -55,11 +64,9 @@ const ChallengeCard = (props: Props) => {
                         </p>
                     </ChallengeDetail>
                     <ChallengeGrade>
-                        {/* {props.grade && ( */}
                         <ChallengeGradeLabel level={props.level ?? "default"}>
-                            {props.level}
+                            {levelData[props.level]}
                         </ChallengeGradeLabel>
-                        {/* )} */}
                     </ChallengeGrade>
                 </CardInfo>
                 <ChallengeButtonBox>

@@ -3,6 +3,7 @@ import cssUnit from "@/lib/cssUnit";
 import settingIcon from "@/assets/icons/setting_icon.png";
 import challengIcon from "@/assets/icons/challenges_gray_icon.png";
 import userIcon from "@/assets/icons/user_icon.png";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
     display: flex;
@@ -106,6 +107,24 @@ export const Menu = styled.article`
 `;
 //menu buttons
 export const Buttons = styled.button`
+    display: block;
+    float: right;
+
+    width: 70%;
+    height: 30px;
+
+    padding: 2px 10px 2px;
+    margin: 3px 0 0 3px;
+
+    border: 1px solid ${cssUnit.color.gray};
+    background-color: ${cssUnit.color.white};
+
+    font-size: 12px;
+    color: ${cssUnit.color.darkergray};
+    text-align: right;
+`;
+
+export const LinkButtons = styled(Link)`
     display: block;
     float: right;
 

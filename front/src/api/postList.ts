@@ -1,5 +1,4 @@
 import API from "./index";
-//import interface of comming data
 import { PostLists } from "@/types/post";
 
 //내가 등록한 게시글만 불러오기
