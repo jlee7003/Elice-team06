@@ -9,21 +9,16 @@ import {
     PageBtn,
 } from "@/styles/pagination-style";
 
-const Pagination = ({
-    limit,
-    page,
-    setPage,
-    blockNum,
-    setBlockNum,
-    counts,
-}: {
+interface Props {
     limit: number;
     page: number;
     setPage: Function;
     blockNum: number;
     setBlockNum: Function;
     counts: number;
-}): JSX.Element => {
+}
+
+const Pagination = ({ limit, page, setPage, blockNum, setBlockNum, counts }: Props) => {
     const createArr = (n: number) => {
         const iArr: number[] = new Array(n);
         for (let i = 0; i < n; i++) iArr[i] = i + 1;

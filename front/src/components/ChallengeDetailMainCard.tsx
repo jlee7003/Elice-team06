@@ -1,3 +1,19 @@
+import { useRef, useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+
+import API from "@/api/index";
+import { addCommentResult, ChallengeJoinResult, ChallengeBoardModel } from "@/types/challengeTypes";
+import { ROUTES } from "@/routes";
+import { getComment } from "@/api/challenge";
+import { commentState } from "@/recoil/ChallengeRecoil";
+import Pagination from "./pagination";
+
+import { ChallengeBoardWriter } from "@/recoil/ChallengeRecoil";
+import { userState } from "@/recoil/user";
+import errorRecoil from "@/recoil/errorRecoil";
+import ModalState from "@/recoil/modalState";
+
 import {
     Main,
     Title,
@@ -15,19 +31,6 @@ import {
     NoComments,
     LastLabel,
 } from "@/styles/pages/challengedetail-style";
-import { addCommentResult, ChallengeJoinResult, ChallengeBoardModel } from "@/types/challengeTypes";
-import API from "@/api/index";
-import { ChallengeBoardWriter } from "@/recoil/ChallengeRecoil";
-import { useRef, useState, useEffect } from "react";
-import Pagination from "./pagination";
-import { ROUTES } from "@/routes";
-import { getComment } from "@/api/challenge";
-import { commentState } from "@/recoil/ChallengeRecoil";
-import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
-import { userState } from "@/recoil/user";
-import errorRecoil from "@/recoil/errorRecoil";
-import ModalState from "@/recoil/modalState";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const ChallengeDetailMainCard = () => {
     const [limit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
@@ -67,21 +70,19 @@ const ChallengeDetailMainCard = () => {
         });
     };
 
-    const getBoardData = async () => {
-        await await API.get<ChallengeBoardModel>(["challenge", challengeId.toString()]).then(
-            (res) => {
-                console.log(res);
-                if (res === null) {
-                    navigate(ROUTES.ErrorPage.path);
-                } else {
-                    setUserData(res.data);
-                }
+    const getBoardData = () => {
+        API.get<ChallengeBoardModel>(["challenge", challengeId.toString()]).then((res) => {
+            console.log(res);
+            if (res === null) {
+                navigate(ROUTES.ErrorPage.path);
+            } else {
+                setUserData(res.data);
             }
-        );
+        });
     };
 
-    async function addjoiner() {
-        await API.post<ChallengeJoinResult>(
+    function addjoiner() {
+        API.post<ChallengeJoinResult>(
             ["challenge", challengeId.toString(), "join"],
             challengeId
         ).then((result) => {
@@ -101,17 +102,21 @@ const ChallengeDetailMainCard = () => {
         if (commentsRef.current == null) {
             return;
         }
+
         if (commentsRef.current.value == "") {
             alert("댓글을 입력하세요");
             return;
         }
+
         addCommentData = {
             description: commentsRef.current?.value,
         };
+
         const result: any = await API.post<addCommentResult>(
             [`challenge/${challengeId.toString()}/comment`],
             addCommentData
         );
+
         if (result?.response?.status != undefined) {
             setError({
                 isError: true,
@@ -123,8 +128,11 @@ const ChallengeDetailMainCard = () => {
         setCounts((prev: number) => {
             return (prev = Object.keys(comments).length);
         });
+
         commentsRef.current.value = "";
+
         getComments();
+
         setPage(1);
     };
 
@@ -145,7 +153,6 @@ const ChallengeDetailMainCard = () => {
                             <SubTitle>
                                 😊 챌린지 기간
                                 <span>
-                                    {" "}
                                     {startDate}~{endDate}
                                 </span>
                             </SubTitle>

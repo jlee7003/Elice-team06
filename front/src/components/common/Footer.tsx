@@ -22,7 +22,7 @@ const Footer = () => {
             <FooterContainer>
                 <LogoContainer>
                     <LogoWhite />
-                    <TeamName>Team Hot6(2022)</TeamName>
+                    <TeamName>Team Hot6(2022) | All rights reserved</TeamName>
                 </LogoContainer>
                 <Gitlab>
                     <GoMarkGithub />
