@@ -1,3 +1,4 @@
+import React from "react";
 import cssUnit from "@/lib/cssUnit";
 import styled from "styled-components";
 
@@ -13,9 +14,12 @@ export const Main = styled.main`
     margin: auto;
 `;
 
-// export const MainContainer = styled.body`
-//     width: ${cssUnit.unit.width};
-//     height: 1600px;
-//     margin: 0 auto;
-//     padding-top: 300px;
-// `;
+// interface Props {
+//     children: React.ReactNode;
+// }
+
+// const Main = ({ children }: Props) => {
+//     return <MainStyle>{children}</MainStyle>;
+// };
+
+// export default Main;
