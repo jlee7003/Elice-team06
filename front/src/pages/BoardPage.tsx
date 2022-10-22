@@ -56,11 +56,13 @@ const BoardPage = () => {
     const [currentRange, setCurrentRange] = useState<number>(0);
     const [postList, setPostList] = useState<PostLists | null>(null);
 
+    const [limit, setLimit] = useState();
+
     const { id } = useParams();
     const [currentURL, setCurrentURL] = useState(id);
 
-    //"/reqpage/pages/:id",
-    //현재 페이지 쿼리 받아오기
+    const [trigger, setTrigger] = useState(1);
+
     useEffect(() => {
         if (id === undefined) {
             navigate(ROUTES.ErrorPage.path);
@@ -71,6 +73,7 @@ const BoardPage = () => {
             return;
         }
     });
+
     /**
      * start: 한 range의 시작점(숫자)
      * end: 한 range의 끝점(숫자)
@@ -106,17 +109,17 @@ const BoardPage = () => {
                 navigate(ROUTES.ErrorPage.path);
                 return; //to alret
             }
-
             setPostList(res);
         });
         //setPageReRander(false);
         //console.log("useEffect 실행됐나용?");
     }, []);
-    //묶어서 보내줄 객체 생성
-    const PostProps = {
-        PostList: postList,
-        PageData: pageData,
-    };
+
+    // //묶어서 보내줄 객체 생성
+    // const PostProps = {
+    //     PostList: postList,
+    //     PageData: pageData,
+    // };
 
     //function for currnet page handling
     const settingCurrentPage = (num: number) => {
@@ -124,6 +127,7 @@ const BoardPage = () => {
             navigate(ROUTES.ErrorPage.path);
             return; //to alret
         }
+        console.log("보드에서", currentPage);
         setCurrentPage(num);
     };
 
@@ -187,7 +191,7 @@ const BoardPage = () => {
                                     </ButtonContianer>
                                 </Section>
                                 <Paginations
-                                    value={PostProps}
+                                    postLists={postList}
                                     setCurrentPage={settingCurrentPage}
                                     setCurrentRange={settingCurrentRange}
                                     currentPageNumber={currentPage}

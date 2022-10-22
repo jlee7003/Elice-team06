@@ -313,8 +313,8 @@ const Mypage = () => {
                                 ))}
                         </CategoryContent>
                     </MyChallenges>
+                    <CategoryTitle>내가 등록한 게시글 목록</CategoryTitle>
                     <LikeChallenges>
-                        <CategoryTitle>내가 등록한 게시글 목록</CategoryTitle>
                         {myBoardPostList && (
                             <BoardsContainer>
                                 {myBoardPostList.map((post, idx) => {
