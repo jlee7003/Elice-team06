@@ -9,7 +9,7 @@ import {
 } from "@/styles/pages/home-style";
 import { Main } from "@/components/common/Main";
 import { HomeBanners, ControlBanner, Banner } from "@/styles/banner";
-import ChallengeCard from "@/components/ChallengeCard";
+import ChallengeCard, { Level } from "@/components/ChallengeCard";
 
 import { useRecoilState } from "recoil";
 import DarkMode from "@/recoil/darkMode";
@@ -210,7 +210,7 @@ const Home = () => {
                                       <ChallengeCard
                                           key={idx}
                                           id={comment[0].id}
-                                          level="beginner"
+                                          level={comment[0].level as Level}
                                           //   grade={true}
                                           title={comment[0].title}
                                           date={startDate + "~" + endDate}
