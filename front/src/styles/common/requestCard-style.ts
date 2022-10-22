@@ -125,12 +125,12 @@ export const Box = styled.div`
 
 export const Details = styled.ul`
     //detail informaitons
-    display: flex;
+    /* display: flex; */
     list-style: none;
     flex-direction: row;
     float: left;
 
-    width: 80%;
+    width: 100%;
     height: 80%;
     padding: 5px 0 0 5px;
 
@@ -147,6 +147,15 @@ export const Details = styled.ul`
 
         font-size: 16px;
         vertical-align: baseline;
+        float: left;
+
+        &:last-child {
+            float: right;
+            width: 100px;
+            height: 100%;
+            margin-right: 30px;
+            box-sizing: border-box;
+        }
     }
     & > li > img {
         width: 20px;

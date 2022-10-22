@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, PureComponent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/routes/.";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -80,6 +80,7 @@ const Landing = () => {
     const [temperatureData, setTemperatureData] = useState<
         | {
               year?: number;
+              Korea?: number;
               World?: number;
               USA?: number;
               EU?: number;
@@ -91,6 +92,7 @@ const Landing = () => {
         | {
               year?: number;
               World?: number;
+              Korea?: number;
               USA?: number;
               EU?: number;
               China?: number;
@@ -135,25 +137,56 @@ const Landing = () => {
             setSealevelData(res.data);
         });
 
-        API.get<{ year: number; World: number; USA: number; EU: number; China: number }[]>([
-            "data",
-            "temperture",
-        ]).then((res) => {
+        API.get<
+            { year: number; World: number; Korea: number; USA: number; EU: number; China: number }[]
+        >(["data", "temperture"]).then((res) => {
             if (res === null) {
                 return;
             }
             setTemperatureData(res.data);
         });
 
-        API.get<{ year: number; World: number; USA: number; EU: number; China: number }[]>([
-            "data",
-            "emission",
-        ]).then((res) => {
+        API.get<
+            { year: number; World: number; Korea: number; USA: number; EU: number; China: number }[]
+        >(["data", "emission"]).then((res) => {
             if (res === null) {
                 return;
             }
 
-            setEmissionData(res.data);
+            const emissionDataLog = res.data.map((item) => {
+                //값 중에 0 인 값도 있어서 Math.log() 를 해버리면 - infinity 를 출력 => 그래프 표시 안됨
+                if (item.World <= 0) {
+                    item.World = item.World;
+                } else {
+                    item.World = Math.log(item.World);
+                }
+                if (item.Korea <= 0) {
+                    item.Korea = item.Korea;
+                } else {
+                    item.Korea = Math.log(item.Korea);
+                }
+                if (item.USA <= 0) {
+                    item.USA = item.USA;
+                } else {
+                    item.USA = Math.log(item.USA);
+                }
+                if (item.EU <= 0) {
+                    item.EU = item.EU;
+                } else {
+                    item.EU = Math.log(item.EU);
+                }
+                if (item.China <= 0) {
+                    item.China = item.China;
+                } else {
+                    item.China = Math.log(item.China);
+                }
+
+                return item;
+            });
+
+            // console.log(res.data);
+
+            setEmissionData(emissionDataLog);
         });
 
         API.get<{ users: number; challenger: number }>(["user", "about"]).then((res) => {
@@ -424,16 +457,22 @@ const Landing = () => {
         navRefs.current[i].style.border = "1px solid #000";
     };
 
+    //logo 경로 추가
+    const navigate = useNavigate();
+    const onClickLogo = () => {
+        navigate(ROUTES.Home.path);
+    };
+
     return (
         <ContainerWrap>
             <Header>
-                <Logo>
+                <Logo onClick={onClickLogo}>
                     <LogoImg />
                 </Logo>
 
                 <Nav>
                     <Link to={ROUTES.Home.path}>챌린지</Link>
-                    <Link to={"/boardPage/pages/1"}>커뮤니티</Link>
+                    <Link to={"/community/pages/1"}>커뮤니티</Link>
                     {user === null ? (
                         <Link to={ROUTES.Login.path}>로그인</Link>
                     ) : (
@@ -519,6 +558,12 @@ const Landing = () => {
                                 />
                                 <Area
                                     type="monotone"
+                                    dataKey="Korea"
+                                    stroke="#000000"
+                                    fill="#000000"
+                                />
+                                <Area
+                                    type="monotone"
                                     dataKey="USA"
                                     stroke="#8034c7"
                                     fill="#8034c7"
@@ -593,6 +638,12 @@ const Landing = () => {
                                                 dataKey="World"
                                                 stroke="#34c759"
                                                 fill="#34c759"
+                                            />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="Korea"
+                                                stroke="#000000"
+                                                fill="#000000"
                                             />
                                             <Area
                                                 type="monotone"
@@ -675,6 +726,12 @@ const Landing = () => {
                                                 dataKey="World"
                                                 stroke="#34c759"
                                                 fill="#34c759"
+                                            />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="Korea"
+                                                stroke="#000000"
+                                                fill="#000000"
                                             />
                                             <Area
                                                 type="monotone"
@@ -804,7 +861,7 @@ const Landing = () => {
                             <p></p>
                             <Name>김영준</Name>
                         </a>
-                        <a>
+                        <a href="https://github.com/jpra2021">
                             <p></p>
                             <Name>이지원</Name>
                         </a>

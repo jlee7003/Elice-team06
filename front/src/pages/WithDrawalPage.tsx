@@ -1,4 +1,4 @@
-import { useState, useRef, MouseEvent, useEffect } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/routes";
 import {
@@ -13,33 +13,24 @@ import {
     SecondContainer,
     SecondContainer1,
     Withdrawalbox,
-    Select,
 } from "../styles/pages/userInfo-style";
 import { withdrawal } from "@/api/user";
 import { Logo } from "@/styles/common";
+import { userState } from "@/recoil/user";
 import errorRecoil from "@/recoil/errorRecoil";
-import { useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import useLogout from "@/hooks/useLogout";
 import sendToast from "@/lib/sendToast";
 const WithDrawalPage = () => {
-    // const [userInfo, setUserInfo] = useRecoilState(userInfoData);
-    const nickname = useRef<HTMLInputElement>(null);
-    const introduce = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
-    const new_password = useRef<HTMLInputElement>(null);
-    const password_hint = useRef<HTMLInputElement>(null);
-    const region = useRef<HTMLSelectElement>(null);
-    const age = useRef<HTMLSelectElement>(null);
-    const gender = useRef<HTMLInputElement>(null);
+    const user = useRecoilValue(userState);
     const [ValidationCheck, setValidationCheck] = useState(false);
-    const [inputStatus, setInputStatus] = useState("");
     const setError = useSetRecoilState(errorRecoil);
     const navigate = useNavigate();
     const setLogout = useLogout();
-
-    const handleClickRadioButton = (radioBtnName: string) => {
-        setInputStatus(radioBtnName);
-    };
+    if (user == null) {
+        navigate(ROUTES.ErrorPage.path);
+    }
     function isvalidationtrue() {
         if (password.current == null) {
             return;
@@ -51,11 +42,6 @@ const WithDrawalPage = () => {
             setValidationCheck(true);
         }
     }
-    let formData = {
-        password: "",
-        new_password: "",
-        password_hint: "",
-    };
     const validationTrue = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         isvalidationtrue();
@@ -83,13 +69,6 @@ const WithDrawalPage = () => {
         sendToast("회원탈퇴에 성공하셨습니다.", "success");
     };
 
-    function selectnum() {
-        var num = [];
-        for (var i = 20; i <= 60; i += 10) {
-            num.push(<option value={i + "대"}>{i}대</option>);
-        }
-        return num;
-    }
     return (
         <>
             <TopImage />

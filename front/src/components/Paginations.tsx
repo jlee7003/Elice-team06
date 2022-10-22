@@ -65,7 +65,7 @@ export const Paginations = (props: Props) => {
             return;
         }
         settingCurrentPage(parseInt(name));
-        navigate(`/boardPage/pages/${parseInt(name)}`);
+        navigate(`/community/pages/${parseInt(name)}`);
     };
     //교훈: button위에 span을 놓지 말자.
     return (

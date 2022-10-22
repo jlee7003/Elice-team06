@@ -7,7 +7,6 @@ import {
     LongInput,
     FlexBox,
     GrayButton,
-    GreenButton,
     Label,
     Input,
     NonFlexBox,
@@ -17,12 +16,12 @@ import {
     XButton,
 } from "@/styles/challengeRequestModal-style";
 import * as _ from "lodash";
-import { writeboard } from "@/api/board";
+import { writeBoard } from "@/api/board";
 type Props = {
     setOnModal: (state: string) => void;
     addfunction: (state: void) => void;
 };
-const Draggable1: any = Draggable;
+const DragContainer: any = Draggable;
 const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
     const title = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
@@ -62,13 +61,13 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
             alert("내용을 채워주세요");
             return;
         }
-        const result = await writeboard(formData);
+        const result = await writeBoard(formData);
     };
 
     return (
         <ModalPortal>
             <ModalContainer>
-                <Draggable1>
+                <DragContainer>
                     <ModalBody>
                         <div>
                             <TitleBOx>
@@ -108,17 +107,17 @@ const BoardModal: React.FC<Props> = ({ setOnModal, addfunction }: Props) => {
 
                                 {ValidationCheck ? (
                                     <OKButton onClick={buttonClick} onMouseEnter={validationTrue}>
-                                        챌린지 요청하기
+                                        등록하기
                                     </OKButton>
                                 ) : (
                                     <XButton onClick={onClickPrevent} onMouseEnter={validationTrue}>
-                                        챌린지 요청하기
+                                        등록하기
                                     </XButton>
                                 )}
                             </FlexBox>
                         </div>
                     </ModalBody>
-                </Draggable1>
+                </DragContainer>
             </ModalContainer>
         </ModalPortal>
     );

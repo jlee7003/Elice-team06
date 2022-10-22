@@ -55,8 +55,22 @@ const BoardPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [currentRange, setCurrentRange] = useState<number>(0);
     const [postList, setPostList] = useState<PostLists | null>(null);
-    const { id } = useParams();
 
+    const { id } = useParams();
+    const [currentURL, setCurrentURL] = useState(id);
+
+    //"/reqpage/pages/:id",
+    //현재 페이지 쿼리 받아오기
+    useEffect(() => {
+        if (id === undefined) {
+            navigate(ROUTES.ErrorPage.path);
+            return; //to alret
+        }
+        if (parseInt(id) != 1) {
+            setCurrentPage(parseInt(id));
+            return;
+        }
+    });
     /**
      * start: 한 range의 시작점(숫자)
      * end: 한 range의 끝점(숫자)
@@ -94,7 +108,6 @@ const BoardPage = () => {
             }
 
             setPostList(res);
-            console.log("데이터 불러왔나용?");
         });
         //setPageReRander(false);
         //console.log("useEffect 실행됐나용?");
