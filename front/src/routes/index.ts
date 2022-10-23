@@ -47,7 +47,7 @@ export const ROUTES: routeWrap = {
         Component: Signup,
     },
     BoardPage: {
-        path: "/community/pages/:id",
+        path: "/community/pages",
         Component: BoardPage,
     },
     ChallengeDetail: {

@@ -222,7 +222,7 @@ const PostCards = (prop: {
 
     return (
         <>
-            {postlist ? (
+            {postlist[currentPageNum] ? (
                 <>
                     {postlist[currentPageNum].map((post, idx) => (
                         <Article key={idx}>

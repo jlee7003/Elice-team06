@@ -11,21 +11,13 @@ import { PostProps } from "@/types/post";
  * setCurrentPage/Range: 현재 페이지와 range를 바꾸기 위한 함수를 받는 params
  * currentPageNumber/RangeNumber: 현재 페이지와 현재 range를 받는 parmas
  */
-type Props = {
-    postLists: any;
+export const Paginations = (props: {
+    value: PostProps;
     setCurrentPage: any;
     setCurrentRange: any;
     currentPageNumber: number;
     currentRangeNumber: number;
-};
-
-export const Paginations: React.FC<Props> = ({
-    postLists,
-    setCurrentPage,
-    setCurrentRange,
-    currentPageNumber,
-    currentRangeNumber,
-}: Props) => {
+}) => {
     const navigate = useNavigate();
 
     //null checking

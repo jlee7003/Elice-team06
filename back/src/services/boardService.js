@@ -60,6 +60,7 @@ class boardService {
             },
             orderBy: [{ id: "desc" }],
         });
+
         const result = pagination(allPosts, start, end, count);
         await prisma.$disconnect();
         return result;

@@ -10,6 +10,7 @@ boardRoute.get(
     "/all",
     asyncHandler(async (req, res) => {
         const { start, end, count } = req.query;
+
         const result = await boardService.getPosts({ start, end, count });
         res.status(200).send(result);
     })

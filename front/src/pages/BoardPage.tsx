@@ -1,8 +1,7 @@
 /*lib*/
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import urlCheck from "@/recoil/urlCheck";
 
 /*styles*/
 import {
@@ -20,11 +19,8 @@ import { HomeBanners, Banner } from "@/styles/banner";
 
 /*components*/
 import PostCards from "@/components/PostCards";
-//pagination
-import { Paginations } from "@/components/Paginations";
 //Modal
 import ModalState from "@/recoil/modalState";
-import ChallengeRequestModal from "@/modal/ChallengeRequestModal";
 import BoardModal from "@/modal/BoardModal";
 //data interface
 import { PostLists } from "@/types/post";
@@ -34,109 +30,129 @@ import API from "@/api/.";
 import { ROUTES } from "@/routes/.";
 import chat_img from "@/assets/chat_img.png";
 import DarkMode from "@/recoil/darkMode";
+import EasyPagination from "@/components/Easy-pagination";
 
 //skeleton
 import Skeleton from "@mui/material/Skeleton";
 
-const BoardPage = () => {
-    const [darkMode] = useRecoilState(DarkMode);
-    const navigate = useNavigate();
-    //url, modal
-    const [currentUrl, setCurrentUrl] = useRecoilState(urlCheck);
-    const [onModal, setOnModal] = useRecoilState(ModalState);
+const pageData = {
+    start: 1, // 시작 페이지
+    end: 5, // 마지막 페이지
+    postCount: 5, //한 페이지에 5개의 포스트를 보여줄 것
 
+    isEnd: false, // 제일 마지막 페이지인지 아닌지
+};
+
+// 서버와 통신하기 위한 비동기 함수 - 자주 사용되는 반복된 코드이므로 함수로 분리함
+const fetchingData = async () => {
+    const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.postCount}`;
+
+    const response = await API.get<PostLists>(["board", query]);
+
+    if (response === null) {
+        return null;
+    }
+
+    return response.data;
+};
+
+const BoardPage = () => {
+    const [current, setCurrent] = useState(pageData.start);
     const [deleteMode, setDeleteMode] = useState(false);
 
-    useEffect(() => {
-        setCurrentUrl(window.location.href);
-    }, [currentUrl]);
-
     //현재 패이지 정보와 데이터 핸들링용 useState
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [currentRange, setCurrentRange] = useState<number>(0);
     const [postList, setPostList] = useState<PostLists | null>(null);
 
-    const [limit, setLimit] = useState();
+    const navigate = useNavigate();
 
-    const { id } = useParams();
-    const [currentURL, setCurrentURL] = useState(id);
-
-    const [trigger, setTrigger] = useState(1);
-
-    useEffect(() => {
-        if (id === undefined) {
-            navigate(ROUTES.ErrorPage.path);
-            return; //to alret
-        }
-        if (parseInt(id) != 1) {
-            setCurrentPage(parseInt(id));
-            return;
-        }
-    });
-
-    /**
-     * start: 한 range의 시작점(숫자)
-     * end: 한 range의 끝점(숫자)
-     * count: 한 range에 몇개의 post를 셋팅할 것인가
-     */
-
-    //현재 페이지: currentPage
-    //현재 range: currentRange
-
-    const pageData = {
-        start: 5 * currentRange + 1, //1
-        range: 5,
-        count: 5, //한 페이지에 5개의 포스트를 보여줄 것
-        end: 5 * (currentRange + 1),
-    };
-    //query를 만들어 useEffect 내부의 함수에서 사용한다.
-    const query = `all?start=${pageData.start}&end=${pageData.end}&count=${pageData.count}`;
+    const [darkMode] = useRecoilState(DarkMode);
+    const [onModal, setOnModal] = useRecoilState(ModalState);
 
     useEffect(() => {
         //API로 정보 받아오기
-        const getAllPosts = async (param: string) => {
-            const result = await API.get<PostLists>(["board", param]);
-            //응답이 null 경우 체크()
-            if (result === null) {
+        fetchingData().then((data: any) => {
+            if (data === null) {
                 navigate(ROUTES.ErrorPage.path);
-                return; //to alret
+                return;
             }
-            return result.data;
-        }; //promise로 받는 것을 핸들링
-        getAllPosts(query).then((res) => {
-            //응답이 undefined 경우 체크(2)
-            if (res === undefined) {
-                navigate(ROUTES.ErrorPage.path);
-                return; //to alret
-            }
-            setPostList(res);
+            setPostList(data);
         });
-        //setPageReRander(false);
-        //console.log("useEffect 실행됐나용?");
     }, []);
 
-    // //묶어서 보내줄 객체 생성
-    // const PostProps = {
-    //     PostList: postList,
-    //     PageData: pageData,
-    // };
-
-    //function for currnet page handling
-    const settingCurrentPage = (num: number) => {
-        if (num === undefined) {
-            navigate(ROUTES.ErrorPage.path);
-            return; //to alret
-        }
-        console.log("보드에서", currentPage);
-        setCurrentPage(num);
-    };
-
-    const settingCurrentRange = (num: number) => {
-        if (num === undefined) {
-            navigate(ROUTES.ErrorPage.path);
+    const prevButton = () => {
+        // 만약에 1이면 맨 첫페이지이므로 전 페이지로 이동하지 않는다.
+        if (1 === current) {
             return;
         }
-        setCurrentRange(num);
+
+        // 맨마지막 페이지인지 아닌지 알려주는 pageData.isEnd 를 해제해준다.
+        if (pageData.isEnd) {
+            pageData.isEnd = false;
+        }
+
+        // 현재 페이지네이션의 시작보다 현재 페이지가 작을 경우 즉 6페이지에서 5페이지로 가는 등의 경우를 가정한다.
+        if (current - 1 < pageData.start) {
+            const range = pageData.end - pageData.start + 1;
+
+            pageData.start -= range;
+            pageData.end -= range;
+
+            fetchingData().then((data: any) => {
+                // 만약에 이전 페이지 데이터가 없는 경우에는 아무 일도 일어나지 않는다.
+                if (Object.keys(data).length === 0) {
+                    pageData.start += range;
+                    pageData.end += range;
+                } else {
+                    setPostList(data);
+
+                    setCurrent((prev) => prev - 1);
+                }
+            });
+        } else {
+            setCurrent((prev) => prev - 1);
+        }
+    };
+
+    const nextButton = () => {
+        // 맨마지막 페이지인경우에는 넥스트 버튼을 실행하지 않는다.
+        if (pageData.isEnd) {
+            return;
+        }
+
+        // 현재 페이지네이션의 끝보다 현재 페이지가 클 경우 즉 5페이지에서 6페이지로 가는 등의 경우를 가정한다.
+        if (current + 1 > pageData.end) {
+            const range = pageData.end - pageData.start + 1;
+
+            pageData.start += range;
+            pageData.end += range;
+
+            fetchingData().then((data: any) => {
+                // 만약에 다음 페이지 데이터가 없는 경우에는 아무 일도 일어나지 않는다.
+                if (Object.keys(data).length === 0) {
+                    pageData.start -= range;
+                    pageData.end -= range;
+
+                    pageData.isEnd = true;
+                    return;
+                } else {
+                    setPostList(data);
+
+                    setCurrent((prev) => prev + 1);
+                }
+            });
+        } else {
+            setCurrent((prev) => prev + 1);
+        }
+    };
+
+    const currentButton = (e: MouseEvent<HTMLButtonElement>) => {
+        const { name } = e.target as any;
+
+        if (Number(name) < pageData.end) {
+            pageData.isEnd = false;
+        }
+
+        setCurrent(Number(name));
     };
 
     return (
@@ -162,7 +178,7 @@ const BoardPage = () => {
                                     <CardsHolder>
                                         <PostCards
                                             postLists={postList}
-                                            currentPage={currentPage - 1}
+                                            currentPage={current - 1}
                                             deleteMode={deleteMode}
                                         />
                                     </CardsHolder>
@@ -190,12 +206,11 @@ const BoardPage = () => {
                                         )}
                                     </ButtonContianer>
                                 </Section>
-                                <Paginations
-                                    postLists={postList}
-                                    setCurrentPage={settingCurrentPage}
-                                    setCurrentRange={settingCurrentRange}
-                                    currentPageNumber={currentPage}
-                                    currentRangeNumber={currentRange}
+                                <EasyPagination
+                                    prevButton={prevButton}
+                                    nextButton={nextButton}
+                                    currentButton={currentButton}
+                                    pages={Object.keys(postList)}
                                 />
                             </>
                         ) : (
